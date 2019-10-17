@@ -6,7 +6,7 @@ import java.time.LocalDateTime;
 @Data
 public class StudyBoardDto {
     private String memId;
-    private String studyTItle;
+    private String studyTitle;
     private String studyCont;
     private String studyStartDate;
     private int studyNum;
