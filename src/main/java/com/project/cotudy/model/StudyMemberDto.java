@@ -2,7 +2,7 @@ package com.project.cotudy.model;
 import lombok.Data;
 
 @Data
-public class MemberDto {
+public class StudyMemberDto {
     private String memId;
     private String memPwd;
     private String memName;
