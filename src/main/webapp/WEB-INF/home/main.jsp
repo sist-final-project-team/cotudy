@@ -7,7 +7,7 @@
 <body>
 <jsp:include page="header.jsp"></jsp:include>
 
-<p>JSP페이지임다</p>
+<p>main JSP페이지임다</p>
 <jsp:include page="footer.jsp"></jsp:include>
 
 
