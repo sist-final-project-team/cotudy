@@ -1,5 +1,11 @@
-
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page session="false"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body>
   <!--/ Nav Start /-->
   <nav class="navbar navbar-default navbar-trans navbar-expand-lg fixed-top">
     <div class="container">
@@ -54,3 +60,5 @@
       </button>
     </div>
   </nav>
+  </body>
+</html>
