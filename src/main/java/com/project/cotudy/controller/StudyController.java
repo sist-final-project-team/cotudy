@@ -1,5 +1,7 @@
 package com.project.cotudy.controller;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -7,7 +9,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class StudyController {
 
     @RequestMapping("/")
-    public String main() {
+    public String main(HttpServletRequest request) {
+        String rtnPage = "index";
+        String ipAddress = request.getHeader("X-FORWARDED-FOR");
+        if (ipAddress == null) {
+            ipAddress = request.getRemoteAddr();
+        }
+
         return "/main";
     }
 
