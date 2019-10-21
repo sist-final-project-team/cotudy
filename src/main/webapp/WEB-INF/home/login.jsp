@@ -7,7 +7,9 @@
 <body>
 <jsp:include page="header.jsp"></jsp:include>
 
-<p>login 페이지</p>
+<p>login 페이지..</p>
+
+
 <jsp:include page="footer.jsp"></jsp:include>
 
 
