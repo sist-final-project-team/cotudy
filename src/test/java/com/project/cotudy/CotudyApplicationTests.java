@@ -11,7 +11,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 @SpringBootTest
 public class CotudyApplicationTests {
 
-    @Autowired
+	@Autowired 
     private SqlSessionTemplate sqlSession;
 
     @Test

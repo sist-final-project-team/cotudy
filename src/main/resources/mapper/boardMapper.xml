@@ -8,7 +8,7 @@
 				free_num,
 				free_title,
 				free_hit,
-				DATE_FORMAT(free_created_date, '%Y.%m.%d %H:%i:%s') AS created_datetime
+				DATE_FORMAT(free_created_date, '%Y.%m.%d %H:%i:%s') AS free_created_date
 			FROM
 				free_board
 			WHERE
@@ -19,7 +19,7 @@
 	
 	<insert id="insertFreeBoard" parameterType="com.project.cotudy.model.FreeBoardDto" useGeneratedKeys="true" keyProperty="freeNum">
 		<![CDATA[
-			INSERT INTO t_board
+			INSERT INTO free_board
 			(
 				free_title, 
 				free_cont, 
@@ -28,8 +28,8 @@
 			) 
 			VALUES 
 			(
-				#{free_title}, 
-				#{free_cont}, 
+				#{freeTitle}, 
+				#{freeCont}, 
 				NOW(), 
 				'admin'			
 			)
@@ -67,8 +67,8 @@
 	<update id="updateFreeBoard" parameterType="board.board.dto.BoardDto">
 		<![CDATA[
 			UPDATE free_board SET 
-				free_title = #{free_title},
-				free_cont = #{free_cont},
+				free_title = #{freeTitle},
+				free_cont = #{freeCont},
 				free_updated_date = Now(),
 				mem_id = 'admin'
 			WHERE 

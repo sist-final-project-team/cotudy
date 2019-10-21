@@ -5,6 +5,7 @@ import com.project.cotudy.model.FreeBoardDto;
 import com.project.cotudy.model.StudyBoardDto;
 import com.project.cotudy.model.StudyMemberDto;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
