@@ -8,18 +8,22 @@ import com.project.cotudy.model.StudyBoardReplyDto;
 import java.util.List;
 
 public interface BoardService {
-    List<FreeBoardDto> selectFreeBoardList();
-    List<StudyBoardDto> selectStudyBoardList();
-    FreeBoardDto selectFreeBoardCont(int freeNum);
-    List<FreeBoardReplyDto> selectFreeBoardReplyList(int freeNum);
-    void deleteFreeBoardReply(int freeReplyNum);
-    StudyBoardDto selectStudyBoardCont(int studyNum);
-    List<StudyBoardReplyDto> selectStudyBoardReplyList(int studyNum);
-    void deleteStudyBoardReply(int studyReplyNum);
-    void updateFreeBoardHitCount(int freeNum);
-    void updateFreeBoard(FreeBoardDto freeBoard);
-    void deleteFreeBoard(int freeNum);
-    void updateStudyBoard(StudyBoardDto studyBoard);
-    void deleteStudyBoard(int studyNum);
-    List<FreeBoardDto> searchFreeBoard(String searchKeyword);
+//    ==================freeboard게시판 관련
+    List<FreeBoardDto> selectFreeBoardList() throws Exception;
+    FreeBoardDto selectFreeBoardCont(int freeNum) throws Exception;
+    List<FreeBoardReplyDto> selectFreeBoardReplyList(int freeNum) throws Exception;
+   // void updateFreeBoardHitCount(int freeNum) throws Exception;
+    void updateFreeBoard(FreeBoardDto freeBoard) throws Exception;
+    void deleteFreeBoard(int freeNum) throws Exception;
+    List<FreeBoardDto> searchFreeBoard(String searchKeyword) throws Exception;
+    void insertFreeBoard(FreeBoardDto board) throws Exception;
+    
+//    ==================study게시판 관련
+    List<StudyBoardDto> selectStudyBoardList() throws Exception;
+    void deleteFreeBoardReply(int freeReplyNum) throws Exception;
+    StudyBoardDto selectStudyBoardCont(int studyNum) throws Exception;
+    List<StudyBoardReplyDto> selectStudyBoardReplyList(int studyNum) throws Exception;
+    void deleteStudyBoardReply(int studyReplyNum) throws Exception;
+    void updateStudyBoard(StudyBoardDto studyBoard) throws Exception;
+    void deleteStudyBoard(int studyNum) throws Exception;
 }

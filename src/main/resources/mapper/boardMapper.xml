@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.project.cotudy.mapper.BoardMapper">
+	<select id="selectFreeBoardList" resultType="com.project.cotudy.model.FreeBoardDto">
+		<![CDATA[
+			SELECT
+				free_num,
+				free_title,
+				free_hit,
+				DATE_FORMAT(free_created_date, '%Y.%m.%d %H:%i:%s') AS created_datetime
+			FROM
+				free_board
+			WHERE
+				free_deleted = 'N'
+			ORDER BY free_num DESC
+		]]>
+	</select>
+	
+	<insert id="insertFreeBoard" parameterType="com.project.cotudy.model.FreeBoardDto" useGeneratedKeys="true" keyProperty="freeNum">
+		<![CDATA[
+			INSERT INTO t_board
+			(
+				free_title, 
+				free_cont, 
+				free_created_date, 
+				mem_id
+			) 
+			VALUES 
+			(
+				#{free_title}, 
+				#{free_cont}, 
+				NOW(), 
+				'admin'			
+			)
+		]]>
+	</insert>
+	
+	<select id="selectFreeBoardCont" parameterType="int" resultType="com.project.cotudy.model.FreeBoardDto">
+		<![CDATA[
+			SELECT
+				free_num,
+				free_title,
+				free_cont,
+				free_hit,
+				DATE_FORMAT(free_created_date, '%Y.%m.%d %H:%i:%s') AS free_created_date,
+				mem_id
+			FROM
+				free_board
+			WHERE
+				free_num = #{freeNum}
+				AND deleted_yn = 'N'
+		]]>
+	</select>
+	
+	<update id="updateFreeBoardHitCount" parameterType="int">
+		<![CDATA[
+			UPDATE 
+				free_board 
+			SET 
+				free_hit = free_hit + 1 
+			WHERE 
+				free_num = #{freeNum}
+		]]>
+	</update>
+	
+	<update id="updateFreeBoard" parameterType="board.board.dto.BoardDto">
+		<![CDATA[
+			UPDATE free_board SET 
+				free_title = #{free_title},
+				free_cont = #{free_cont},
+				free_updated_date = Now(),
+				mem_id = 'admin'
+			WHERE 
+				free_num = #{freeNum}
+		]]>
+	</update>
+	
+	<update id="deleteFreeBoard" parameterType="int">
+		<![CDATA[
+			UPDATE free_board SET 
+				deleted_yn = 'Y',
+				free_updated_date = Now(),
+				mem_id = 'admin'
+			WHERE 
+				free_num = #{freeNum}
+		]]>
+	</update>
+</mapper>
