@@ -1,12 +1,20 @@
 package com.project.cotudy.controller;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
+import com.project.cotudy.service.MemberService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class StudyController {
+
+    @Autowired
+    private MemberService memberService;
 
     @RequestMapping("/")
     public String main(HttpServletRequest request) {
@@ -27,6 +35,16 @@ public class StudyController {
     @RequestMapping("/login")
     public String login() {
         return "/login";
+    }
+
+    @RequestMapping(method=RequestMethod.POST, value="/loginCheck")
+    public String loginCheck(HttpSession session, @RequestParam("id") String id, @RequestParam("pwd") String pwd) throws Exception {
+        if (memberService.loginCheck(id, pwd)) {
+            session.setAttribute("login", id);
+        } else {
+            return "redirect:/login";
+        }
+        return "/main";
     }
 
     @RequestMapping("/join")
