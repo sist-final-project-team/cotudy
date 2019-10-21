@@ -8,6 +8,12 @@
 <jsp:include page="header.jsp"></jsp:include>
 
 <p>login 페이지</p>
+<form method="post" action="loginCheck">
+    <input type="text" name="id"><br>
+    <input type="password" name="pwd">
+    <br>
+    <input type="submit" value="로그인">
+</form>
 <jsp:include page="footer.jsp"></jsp:include>
 
 
