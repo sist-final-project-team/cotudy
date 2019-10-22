@@ -12,7 +12,7 @@ public interface BoardService {
     List<FreeBoardDto> selectFreeBoardList() throws Exception;
     FreeBoardDto selectFreeBoardCont(int freeNum) throws Exception;
     List<FreeBoardReplyDto> selectFreeBoardReplyList(int freeNum) throws Exception;
-   // void updateFreeBoardHitCount(int freeNum) throws Exception;
+    void updateFreeBoardHitCount(int freeNum) throws Exception;
     void updateFreeBoard(FreeBoardDto freeBoard) throws Exception;
     void deleteFreeBoard(int freeNum) throws Exception;
     List<FreeBoardDto> searchFreeBoard(String searchKeyword) throws Exception;

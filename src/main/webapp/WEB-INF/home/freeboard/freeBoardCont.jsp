@@ -62,8 +62,8 @@
 			
 			<tr>
 				<td colspan="2" align="center">
-					<input type="button" value="수정" onclick="location.href='/freeEdit?no=${dto.getFreeNum()}'">
-					<input type="button" value="삭제" onclick="location.href='/freeDelete?no=${dto.getFreeNum()}'">
+					<input type="button" value="수정" onclick="location.href='/freeEditForm?freeNum=${dto.getFreeNum()}'">
+					<input type="button" value="삭제" onclick="location.href='/freeDelete?freeNum=${dto.getFreeNum()}'">
 					<input type="button" value="전체목록" onclick="location.href='/freeList'">
 				</td>
 			</tr>

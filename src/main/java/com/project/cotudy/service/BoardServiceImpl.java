@@ -14,90 +14,85 @@ import java.util.List;
 
 @Service
 public class BoardServiceImpl implements BoardService {
-	
+
 	@Autowired
 	private BoardMapper boardMapper;
-	
-    @Override
-    public List<FreeBoardDto> selectFreeBoardList() throws Exception {
-    	return boardMapper.selectFreeBoardList();
-    }
 
+	@Override
+	public List<FreeBoardDto> selectFreeBoardList() throws Exception {
+		return boardMapper.selectFreeBoardList();
+	}
 
-    @Override
-    public FreeBoardDto selectFreeBoardCont(int freeNum) throws Exception {
-		FreeBoardDto freeboard = boardMapper.selectFreeBoardCont(freeNum);	//글내용 가져오기
-		boardMapper.updateFreeBoardHitCount(freeNum);	//조회수 증가시키기
-		
+	@Override
+	public FreeBoardDto selectFreeBoardCont(int freeNum) throws Exception {
+		FreeBoardDto freeboard = boardMapper.selectFreeBoardCont(freeNum); // 글내용 가져오기
+
 		return freeboard;
-    }
+	}
+	
+	@Override public void updateFreeBoardHitCount(int freeNum) throws Exception {
+		boardMapper.updateFreeBoardHitCount(freeNum); // 조회수 증가시키기
+	}
 
-    @Override
-    public List<FreeBoardReplyDto> selectFreeBoardReplyList(int freeNum) throws Exception {
-        return null;
-    }
+	@Override
+	public List<FreeBoardReplyDto> selectFreeBoardReplyList(int freeNum) throws Exception {
+		return null;
+	}
 
-    @Override
-    public void deleteFreeBoardReply(int freeReplyNum) throws Exception {
+	@Override
+	public void deleteFreeBoardReply(int freeReplyNum) throws Exception {
 
-    }
+	}
 
 	@Override
 	public void insertFreeBoard(FreeBoardDto freeboard) throws Exception {
 		boardMapper.insertFreeBoard(freeboard);
 	}
 
-	/*
-	 * @Override public void updateFreeBoardHitCount(int freeNum) throws Exception {
-	 * 
-	 * }
-	 */
 
-    @Override
-    public void updateFreeBoard(FreeBoardDto freeBoard) throws Exception {
-    	boardMapper.updateFreeBoard(freeBoard);
-    }
+	@Override
+	public void updateFreeBoard(FreeBoardDto freeBoard) throws Exception {
+		boardMapper.updateFreeBoard(freeBoard);
+	}
 
-    @Override
-    public void deleteFreeBoard(int freeNum) throws Exception {
-    	boardMapper.deleteFreeBoard(freeNum);
-    }
+	@Override
+	public void deleteFreeBoard(int freeNum) throws Exception {
+		boardMapper.deleteFreeBoard(freeNum);
+	}
 
+	@Override
+	public List<FreeBoardDto> searchFreeBoard(String searchKeyword) throws Exception {
+		return null;
+	}
 
-
-    @Override
-    public List<FreeBoardDto> searchFreeBoard(String searchKeyword) throws Exception {
-        return null;
-    }
-
-	//============================study 게시판 관련
+	// ============================study 게시판 관련
 	@Override
 	public List<StudyBoardDto> selectStudyBoardList() throws Exception {
 		return null;
 	}
-	
-    @Override
-    public void updateStudyBoard(StudyBoardDto studyBoard) throws Exception {
 
-    }
+	@Override
+	public void updateStudyBoard(StudyBoardDto studyBoard) throws Exception {
 
-    @Override
-    public void deleteStudyBoard(int studyNum) throws Exception {
+	}
 
-    }
-    
-    @Override
-    public StudyBoardDto selectStudyBoardCont(int studyNum) throws Exception {
-        return null;
-    }
+	@Override
+	public void deleteStudyBoard(int studyNum) throws Exception {
 
-    @Override
-    public List<StudyBoardReplyDto> selectStudyBoardReplyList(int studyNum) throws Exception {
-        return null;
-    }
+	}
 
-    @Override
-    public void deleteStudyBoardReply(int studyReplyNum) throws Exception {
+	@Override
+	public StudyBoardDto selectStudyBoardCont(int studyNum) throws Exception {
+		return null;
+	}
 
-    }
+	@Override
+	public List<StudyBoardReplyDto> selectStudyBoardReplyList(int studyNum) throws Exception {
+		return null;
+	}
+
+	@Override
+	public void deleteStudyBoardReply(int studyReplyNum) throws Exception {
+
+	}
 }

@@ -14,33 +14,44 @@
 			<h3>BOARD 테이블 게시글 수정 폼</h3>
 		<hr width="50%" color="purple">
 		
-		<form method="post" action="<%= request.getContextPath() %>/board_edit_ok.do">
-			<c:set var="dto" value="${cont }"> </c:set>
+		<form method="post" action="/freeEdit">
+			<c:set var="dto" value="${freeboard }"> </c:set>
 			<c:if test="${!empty dto }">
-		<!-- 글번호랑 db에담겨있는pwd 히든으로넘기기. -->
-		<input type="hidden" value="${dto.getBoard_no() }" name="board_no">
-		<input type="hidden" value="${dto.getBoard_pwd() }" name="db_pwd">
+		<input type="hidden" value="${dto.getFreeNum() }" name="freeNum">
 		<table border="1" width="400" cellspacing="0">
 				<tr>
 					<th>글번호</th>
-					<td>${dto.getBoard_no() }</td>
+					<td>${dto.getFreeNum() }</td>
+				</tr>
+				<tr>
+					<th>주제</th>
+					<td>
+					<input name="freeSubject" value=${dto.getFreeSubject() } >
+					</td>
 				</tr>
 				<tr>
 					<th>작성자</th>
-					<td>${dto.getBoard_writer() }</td>
+					<td>${dto.getMemId() }</td>
 				</tr>
 				<tr>
 					<th>글제목</th>
-					<td><input name="board_title" value="${dto.getBoard_title() }"></td>
+					<td><input name="freeTitle" value=${dto.getFreeTitle() }>
+					</td>
 				</tr>
 				<tr>
 					<th>글내용</th>
-					<td><textarea rows="8" cols="30" name="board_cont">${dto.getBoard_cont()} </textarea></td>
+					<td><textarea rows="8" cols="30" name="freeCont">${dto.getFreeCont()} </textarea></td>
+				</tr>			
+				<tr>
+					<th>조회수</th>
+					<td>${dto.getFreeHit() }</td>
 				</tr>
 				<tr>
-					<th>비밀번호</th>
-					<td><input type="password" name="board_pwd" ></td>
+					<th>작성일</th>
+					<td>${dto.getFreeCreatedDate() }</td>
 				</tr>
+				
+				
 				<tr>
 					<td colspan="2" align="center">
 						<input type="submit" value="수정하기" >&nbsp;&nbsp;&nbsp;

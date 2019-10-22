@@ -75,7 +75,7 @@
 				free_title = #{freeTitle},
 				free_cont = #{freeCont},
 				free_updated_date = Now(),
-				mem_id = 'admin'
+				free_subject = #{freeSubject}
 			WHERE 
 				free_num = #{freeNum}
 		]]>
