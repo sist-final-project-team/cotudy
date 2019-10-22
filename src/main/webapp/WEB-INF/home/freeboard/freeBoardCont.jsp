@@ -7,6 +7,22 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script>
+function deleteconfirm()
+{
+	var freeNum = document.getElementById("freeNum").value;
+    msg = "정말로 삭제하시겠습니까?";
+    if (confirm(msg)!=0) {
+        location.href = "/freeDelete?freeNum=" + freeNum;
+         // Yes click
+        
+        
+    } else {
+        // no click
+}
+} // deleteconfirm
+
+</script>
 </head>
 <body>
 
@@ -19,6 +35,8 @@
 	
 			<c:set var="dto" value="${freeboard }"> </c:set>
 			<c:if test="${!empty dto }">
+				<input type="hidden" value="${dto.getFreeNum() }" id="freeNum">
+	
 				<tr>
 					<th>글번호</th>
 					<td>${dto.getFreeNum() }</td>
@@ -47,7 +65,7 @@
 					<th>작성일</th>
 					<td>${dto.getFreeCreatedDate() }</td>
 				</tr>
-
+				
 			</c:if>
 			
 			
@@ -63,7 +81,8 @@
 			<tr>
 				<td colspan="2" align="center">
 					<input type="button" value="수정" onclick="location.href='/freeEditForm?freeNum=${dto.getFreeNum()}'">
-					<input type="button" value="삭제" onclick="location.href='/freeDelete?freeNum=${dto.getFreeNum()}'">
+		 			<input type="button" value="삭제" onclick="deleteconfirm()"> 
+		 	
 					<input type="button" value="전체목록" onclick="location.href='/freeList'">
 				</td>
 			</tr>

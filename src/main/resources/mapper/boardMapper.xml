@@ -84,9 +84,8 @@
 	<update id="deleteFreeBoard" parameterType="int">
 		<![CDATA[
 			UPDATE free_board SET 
-				deleted_yn = 'Y',
-				free_updated_date = Now(),
-				mem_id = 'admin'
+				free_deleted = 'Y',
+				free_updated_date = Now()
 			WHERE 
 				free_num = #{freeNum}
 		]]>
