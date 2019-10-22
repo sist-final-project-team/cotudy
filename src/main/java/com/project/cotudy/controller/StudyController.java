@@ -68,9 +68,9 @@ public class StudyController {
 
 	@RequestMapping("/freeCont")
 	public ModelAndView freeBoardCont(@RequestParam int freeNum) throws Exception {
-		ModelAndView mv = new ModelAndView("/studyBoardCont");
-		FreeBoardDto board = boardService.selectFreeBoardCont(freeNum);
-		mv.addObject("board", board);
+		ModelAndView mv = new ModelAndView("/freeboard/freeBoardCont");
+		FreeBoardDto freeboard = boardService.selectFreeBoardCont(freeNum);
+		mv.addObject("freeboard", freeboard);
 
 		return mv;
 	}
@@ -79,29 +79,34 @@ public class StudyController {
 	public String freeBoardEdit(FreeBoardDto freeboard) throws Exception{
 		boardService.updateFreeBoard(freeboard);
 	
-		return "redirect:/freeBoardList";
+		return "redirect:/freeboard/freeBoardList";
 	}
 
 	@RequestMapping("/freeList")
 	public ModelAndView freeBoardList() throws Exception {
-		ModelAndView mv = new ModelAndView("/freeBoardList");
 
+		ModelAndView mv = new ModelAndView("/freeboard/freeBoardList");
 		List<FreeBoardDto> list = boardService.selectFreeBoardList();
 		mv.addObject("list", list);
 
 		return mv;
 	}
 
+	@RequestMapping("/freeWriteForm")
+	public String freeBoardWriteForm() throws Exception {
+		return "/freeboard/freeBoardWrite";
+	}
+	
 	@RequestMapping("/freeWrite")
 	public String freeBoardWrite(FreeBoardDto freeboard) throws Exception {
 		boardService.insertFreeBoard(freeboard);
-		return "redirect:/freeBoardList";
+		return "redirect:/freeList";
 	}
 	
 	@RequestMapping("/freeDelete")
 	public String freeBoardDelete(int freeNum) throws Exception{
 		boardService.deleteFreeBoard(freeNum);
-		return "redirect:/freeBoardList";
+		return "redirect:/freeboard/freeBoardList";
 	}
 
 	@RequestMapping("/studyCont")

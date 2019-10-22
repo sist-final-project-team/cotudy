@@ -30,7 +30,7 @@
             <a class="nav-link" href="/event">스터디 만들기</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="/freeboard/freeList">통합게시판</a>
+            <a class="nav-link" href="/freeList">통합게시판</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="/notice">공지사항</a>

@@ -26,8 +26,8 @@ public class BoardServiceImpl implements BoardService {
 
     @Override
     public FreeBoardDto selectFreeBoardCont(int freeNum) throws Exception {
-		FreeBoardDto freeboard = boardMapper.selectFreeBoardCont(freeNum);
-		boardMapper.updateFreeBoardHitCount(freeNum);
+		FreeBoardDto freeboard = boardMapper.selectFreeBoardCont(freeNum);	//글내용 가져오기
+		boardMapper.updateFreeBoardHitCount(freeNum);	//조회수 증가시키기
 		
 		return freeboard;
     }

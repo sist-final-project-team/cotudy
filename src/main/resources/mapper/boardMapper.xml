@@ -6,7 +6,9 @@
 		<![CDATA[
 			SELECT
 				free_num,
+				free_subject,
 				free_title,
+				mem_id,
 				free_hit,
 				DATE_FORMAT(free_created_date, '%Y.%m.%d %H:%i:%s') AS free_created_date
 			FROM
@@ -24,14 +26,16 @@
 				free_title, 
 				free_cont, 
 				free_created_date, 
-				mem_id
+				mem_id,
+				free_subject
 			) 
 			VALUES 
 			(
 				#{freeTitle}, 
 				#{freeCont}, 
 				NOW(), 
-				'admin'			
+				'admin',
+				'sub'			
 			)
 		]]>
 	</insert>
@@ -44,12 +48,13 @@
 				free_cont,
 				free_hit,
 				DATE_FORMAT(free_created_date, '%Y.%m.%d %H:%i:%s') AS free_created_date,
-				mem_id
+				mem_id,
+				free_subject
 			FROM
 				free_board
 			WHERE
 				free_num = #{freeNum}
-				AND deleted_yn = 'N'
+				AND free_deleted = 'N'
 		]]>
 	</select>
 	
@@ -64,7 +69,7 @@
 		]]>
 	</update>
 	
-	<update id="updateFreeBoard" parameterType="board.board.dto.BoardDto">
+	<update id="updateFreeBoard" parameterType="com.project.cotudy.model.FreeBoardDto">
 		<![CDATA[
 			UPDATE free_board SET 
 				free_title = #{freeTitle},
