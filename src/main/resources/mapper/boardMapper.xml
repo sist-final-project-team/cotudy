@@ -48,6 +48,7 @@
 				free_cont,
 				free_hit,
 				DATE_FORMAT(free_created_date, '%Y.%m.%d %H:%i:%s') AS free_created_date,
+				DATE_FORMAT(free_updated_date, '%Y.%m.%d %H:%i:%s') AS free_updated_date,
 				mem_id,
 				free_subject
 			FROM

@@ -65,6 +65,12 @@ function deleteconfirm()
 					<th>작성일</th>
 					<td>${dto.getFreeCreatedDate() }</td>
 				</tr>
+				<tr>
+					<th>최종수정일</th>
+					<td>
+						${dto.getFreeUpdatedDate() }
+					</td>
+				</tr>
 				
 			</c:if>
 			

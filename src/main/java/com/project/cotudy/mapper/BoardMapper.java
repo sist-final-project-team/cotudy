@@ -7,7 +7,6 @@ import com.project.cotudy.model.StudyBoardReplyDto;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
-
 @Mapper
 public interface BoardMapper {
 	//freeboard 게시판 관련

@@ -102,6 +102,9 @@ public class StudyController {
 
 		return mv;
 	}
+	
+
+	
 
 	@RequestMapping("/freeWriteForm")
 	public String freeBoardWriteForm() throws Exception {
