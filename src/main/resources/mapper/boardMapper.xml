@@ -35,7 +35,7 @@
 				#{freeCont}, 
 				NOW(), 
 				'admin',
-				'sub'			
+				#{freeSubject}			
 			)
 		]]>
 	</insert>

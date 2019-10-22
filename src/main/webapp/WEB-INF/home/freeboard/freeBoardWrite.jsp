@@ -21,7 +21,17 @@
 																					
 		<form method="post" action="/freeWrite" >
 			<table border="1" width="400" cellspacing="0">
-				
+				<tr>
+					<th>주제</th>
+					<td>
+						<select name="freeSubject">
+							<option value="미선택" selected>주제선택</option>
+							<option value="질문">질문</option>
+							<option value="사담">사담</option>
+							<option value="기타">기타</option>
+						</select>
+					</td>
+				</tr>
 				<tr>
 					<th>글제목</th>
 					<td> <input name="freeTitle"> </td>
