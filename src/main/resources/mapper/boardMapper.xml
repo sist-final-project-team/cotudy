@@ -19,6 +19,67 @@
 		]]>
 	</select>
 	
+	<!-- only말머리 검색 -->
+	<select id="selectFreeBoardSubSearchList" parameterType="com.project.cotudy.model.SearchDto" resultType="com.project.cotudy.model.FreeBoardDto">
+		<![CDATA[
+			SELECT
+				free_num,
+				free_subject,
+				free_title,
+				mem_id,
+				free_hit,
+				DATE_FORMAT(free_created_date, '%Y.%m.%d %H:%i:%s') AS free_created_date
+			FROM
+				free_board
+			WHERE
+				free_deleted = 'N' AND free_subject = #{freeSubject}
+			ORDER BY free_num DESC
+		]]>
+	</select>
+	
+	
+	<!-- only키워드 검색 -->
+	 <select id="selectFreeBoardKeySearchList" parameterType="com.project.cotudy.model.SearchDto" resultType="com.project.cotudy.model.FreeBoardDto">
+		<![CDATA[
+			SELECT
+				free_num,
+				free_subject,
+				free_title,
+				mem_id,
+				free_hit,
+				DATE_FORMAT(free_created_date, '%Y.%m.%d %H:%i:%s') AS free_created_date
+			FROM
+				free_board
+			WHERE
+				
+				free_deleted = 'N' 
+				AND ${searchType} like CONCAT('%',#{searchKeyword},'%')
+			ORDER BY free_num DESC
+		]]>
+	</select> 	
+
+	
+	<!-- 키워드 + 말머리 검색 -->
+	<select id="selectFreeBoardSubKeySearchList" parameterType="com.project.cotudy.model.SearchDto" resultType="com.project.cotudy.model.FreeBoardDto">
+		<![CDATA[
+			SELECT
+				free_num,
+				free_subject,
+				free_title,
+				mem_id,
+				free_hit,
+				DATE_FORMAT(free_created_date, '%Y.%m.%d %H:%i:%s') AS free_created_date
+			FROM
+				free_board
+			WHERE
+				free_deleted = 'N' 
+				AND ${searchType} like CONCAT('%',#{searchKeyword},'%')
+				AND free_subject = #{freeSubject} 
+			ORDER BY free_num DESC
+		]]>
+	</select>	
+	
+	
 	<insert id="insertFreeBoard" parameterType="com.project.cotudy.model.FreeBoardDto" useGeneratedKeys="true" keyProperty="freeNum">
 		<![CDATA[
 			INSERT INTO free_board

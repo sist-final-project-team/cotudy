@@ -20,21 +20,7 @@
 		<hr width="50%" color="purple">
 
 		<table border="1" width="800" cellspacing="0">
-			<form method="post" action="/freeSubjectSearch">
-			<tr>
-					<td colspan="6" align="left">
-						<select name="freeSubject">
-							<option value="주제 분류" selected>주제별 보기</option>
-							<option value="질문">전체보기</option>
-							<option value="질문">질문</option>
-							<option value="사담">사담</option>
-							<option value="기타">기타</option>
-						</select>
-							<input type="submit" value="검색">
-					</td>				
-			</tr>
-			</form>
-			
+
 			<tr>
 
 				<th>글번호</th>
@@ -78,12 +64,17 @@
 		</table>
 		<br>
 
-		<form method="post" action="/freeSearch">
+		<form method="post" action="/freeSearchList">
+			<select name="freeSubject">
+				<option value="전체보기" selected>전체보기</option>
+				<option value="질문">질문</option>
+				<option value="사담">사담</option>
+				<option value="기타">기타</option>
+			</select>
 			<select name="searchType">
-				<option value="title">제목</option>
-				<option value="content">내용</option>
-				<option value="title_cont">제목+내용</option>
-				<option value="writer">작성자</option>
+				<option value="free_title">제목</option>
+				<option value="free_cont">내용</option>
+				<option value="mem_id">작성자</option>
 			</select> 
 			<input type="text" name="searchKeyword"> 
 			<input type="submit" value="검색">

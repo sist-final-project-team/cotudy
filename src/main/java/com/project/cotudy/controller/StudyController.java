@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import com.project.cotudy.model.FreeBoardDto;
+import com.project.cotudy.model.SearchDto;
 
 @Controller
 public class StudyController {
@@ -92,7 +93,7 @@ public class StudyController {
 		return mv;
 	}	
 	
-
+	//게시글 목록 부르기
 	@RequestMapping("/freeList")
 	public ModelAndView freeBoardList() throws Exception {
 
@@ -103,26 +104,19 @@ public class StudyController {
 		return mv;
 	}
 	
-	@RequestMapping("/freeSearch")
-	public ModelAndView freeSearch(@RequestParam("searchType") String find_field, 
-											@RequestParam("searchKeyword") String find_name ) throws Exception {
-
-		ModelAndView mv = new ModelAndView("/freeboard/freeBoardList");
-		List<FreeBoardDto> list = boardService.selectFreeBoardList();
-		mv.addObject("list", list);
-
-		return mv;
-	}	
 	
-	@RequestMapping("/freeSubjectSearch")
-	public ModelAndView freeSubjectSearch() throws Exception {
-
-		ModelAndView mv = new ModelAndView("/freeboard/freeBoardList");
-		List<FreeBoardDto> list = boardService.selectFreeBoardList();
-		mv.addObject("list", list);
-
-		return mv;
-	}
+	
+	  @RequestMapping("/freeSearchList") public ModelAndView freeSearch(SearchDto searchdto) throws Exception {
+	  
+	  System.out.println("freeSearchList메소드");
+	  
+	  ModelAndView mv = new ModelAndView("/freeboard/freeBoardList");
+	  List<FreeBoardDto> list = boardService.selectFreeBoardSearchList(searchdto);
+	  mv.addObject("list", list);
+	  
+	  return mv; }
+	 
+	 
 	
 
 	@RequestMapping("/freeWriteForm")

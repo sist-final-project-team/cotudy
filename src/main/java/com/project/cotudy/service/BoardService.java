@@ -2,6 +2,7 @@ package com.project.cotudy.service;
 
 import com.project.cotudy.model.FreeBoardDto;
 import com.project.cotudy.model.FreeBoardReplyDto;
+import com.project.cotudy.model.SearchDto;
 import com.project.cotudy.model.StudyBoardDto;
 import com.project.cotudy.model.StudyBoardReplyDto;
 
@@ -10,6 +11,7 @@ import java.util.List;
 public interface BoardService {
 //    ==================freeboard게시판 관련
     List<FreeBoardDto> selectFreeBoardList() throws Exception;
+  List<FreeBoardDto> selectFreeBoardSearchList(SearchDto searchdto) throws Exception;
     FreeBoardDto selectFreeBoardCont(int freeNum) throws Exception;
     List<FreeBoardReplyDto> selectFreeBoardReplyList(int freeNum) throws Exception;
     void updateFreeBoardHitCount(int freeNum) throws Exception;

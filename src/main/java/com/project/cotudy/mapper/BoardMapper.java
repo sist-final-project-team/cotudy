@@ -2,15 +2,20 @@ package com.project.cotudy.mapper;
 
 import com.project.cotudy.model.FreeBoardDto;
 import com.project.cotudy.model.FreeBoardReplyDto;
+import com.project.cotudy.model.SearchDto;
 import com.project.cotudy.model.StudyBoardDto;
 import com.project.cotudy.model.StudyBoardReplyDto;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 @Mapper
 public interface BoardMapper {
 	//freeboard 게시판 관련
     List<FreeBoardDto> selectFreeBoardList() throws Exception;
+    List<FreeBoardDto> selectFreeBoardSubSearchList(SearchDto searchdto) throws Exception;
+    List<FreeBoardDto> selectFreeBoardKeySearchList(SearchDto searchdto) throws Exception;
+    List<FreeBoardDto> selectFreeBoardSubKeySearchList(SearchDto searchdto) throws Exception;
     FreeBoardDto selectFreeBoardCont(int freeNum) throws Exception;
     List<FreeBoardReplyDto> selectFreeBoardReplyList(int freeNum) throws Exception;
     void deleteFreeBoardReply(int freeReplyNum) throws Exception;

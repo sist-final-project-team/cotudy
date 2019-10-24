@@ -3,6 +3,7 @@ package com.project.cotudy.service;
 import com.project.cotudy.mapper.BoardMapper;
 import com.project.cotudy.model.FreeBoardDto;
 import com.project.cotudy.model.FreeBoardReplyDto;
+import com.project.cotudy.model.SearchDto;
 import com.project.cotudy.model.StudyBoardDto;
 import com.project.cotudy.model.StudyBoardReplyDto;
 
@@ -65,11 +66,54 @@ public class BoardServiceImpl implements BoardService {
 		return null;
 	}
 
+	
+	  @Override public List<FreeBoardDto> selectFreeBoardSearchList(SearchDto searchdto) throws Exception {
+	  System.out.println("freeSubject는???" + searchdto.getFreeSubject());
+	  System.out.println("searchType는???" + searchdto.getSearchType());
+	  System.out.println("searchKeyword는???" + searchdto.getSearchKeyword()); //1.
+	  //  키워드를 넣느냐 마느냐? 
+	  // 1-1 키워드 넣는 경우 
+	  // 1-1-1 only 키워드 
+	  // 1-1-2 키워드+말머리 
+	  // 
+	  // 1-2 키워드 안넣는 경우 
+	  // 1-2-1 말머리도 안고름(사실상 전체글보기) 
+	  // 1-2-2 only 말머리
+	  
+	  List<FreeBoardDto> list = null; 
+	  if(searchdto.getSearchKeyword() != ""){ //1-1.키워드 넣음
+		  System.out.println("1-1.키워드 넣음");
+		  if(searchdto.getFreeSubject().equals("전체보기")) { //1-1-1.only 키워드
+			  System.out.println("1-1-1.only 키워드"); 
+			  list = boardMapper.selectFreeBoardKeySearchList(searchdto); 
+		  }else { //1-1-2.말머리 + 키워드
+			  System.out.println("1-1-2.말머리 + 키워드"); 
+			  list = boardMapper.selectFreeBoardSubKeySearchList(searchdto); 
+	  		}
+		  
+	  }else {//1-2.키워드 x System.out.println("키워드x");
+		  if(searchdto.getFreeSubject().equals("전체보기")) { //1-2-1.말머리선택x ->전체글보기
+			  System.out.println("1-2-1.말머리선택x ->전체글보기"); 
+			  list = boardMapper.selectFreeBoardList(); }
+		  else { //1-2-2.only 말머리
+			  System.out.println("1-2-2.only 말머리");
+			  list = boardMapper.selectFreeBoardSubSearchList(searchdto); } } 
+	  for(int i=0; i<list.size(); i++) 
+	  {
+		  System.out.println(list.get(i).getFreeTitle());
+		  
+	  }
+	  return list; }
+	 
+	 
+	
 	// ============================study 게시판 관련
 	@Override
 	public List<StudyBoardDto> selectStudyBoardList() throws Exception {
 		return null;
 	}
+
+	
 
 	@Override
 	public void updateStudyBoard(StudyBoardDto studyBoard) throws Exception {
@@ -95,4 +139,5 @@ public class BoardServiceImpl implements BoardService {
 	public void deleteStudyBoardReply(int studyReplyNum) throws Exception {
 
 	}
+
 }
