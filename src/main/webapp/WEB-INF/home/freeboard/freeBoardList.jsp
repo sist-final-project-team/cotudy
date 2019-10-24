@@ -79,14 +79,14 @@
 		<br>
 
 		<form method="post" action="/freeSearch">
-			<select name="find_field">
+			<select name="searchType">
 				<option value="title">제목</option>
 				<option value="content">내용</option>
 				<option value="title_cont">제목+내용</option>
 				<option value="writer">작성자</option>
-			</select> <input type="text" name="find_name"> 
+			</select> 
+			<input type="text" name="searchKeyword"> 
 			<input type="submit" value="검색">
-
 		</form>
 
 	</div>

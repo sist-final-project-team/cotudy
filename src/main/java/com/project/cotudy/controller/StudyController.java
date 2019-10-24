@@ -103,7 +103,26 @@ public class StudyController {
 		return mv;
 	}
 	
+	@RequestMapping("/freeSearch")
+	public ModelAndView freeSearch(@RequestParam("searchType") String find_field, 
+											@RequestParam("searchKeyword") String find_name ) throws Exception {
 
+		ModelAndView mv = new ModelAndView("/freeboard/freeBoardList");
+		List<FreeBoardDto> list = boardService.selectFreeBoardList();
+		mv.addObject("list", list);
+
+		return mv;
+	}	
+	
+	@RequestMapping("/freeSubjectSearch")
+	public ModelAndView freeSubjectSearch() throws Exception {
+
+		ModelAndView mv = new ModelAndView("/freeboard/freeBoardList");
+		List<FreeBoardDto> list = boardService.selectFreeBoardList();
+		mv.addObject("list", list);
+
+		return mv;
+	}
 	
 
 	@RequestMapping("/freeWriteForm")
