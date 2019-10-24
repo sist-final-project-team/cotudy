@@ -57,14 +57,6 @@ public class StudyController {
 		return "/main";
 	}
 
-	/*
-	 * @RequestMapping("/logout") public String logout(HttpServletRequest request)
-	 * throws Exception{ request.getSession().removeAttribute("login");
-	 * 
-	 * return "/main";
-	 * 
-	 * }
-	 */
 	@RequestMapping("/logout") public String logout(HttpSession session) throws Exception{
 		
 		session.setAttribute("login", null);
