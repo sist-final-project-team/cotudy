@@ -45,7 +45,7 @@ public class StudyController {
 	public String login() {
 		return "/login";
 	}
-
+	
 	@RequestMapping(method = RequestMethod.POST, value = "/loginCheck")
 	public String loginCheck(HttpSession session, @RequestParam("id") String id, @RequestParam("pwd") String pwd)
 			throws Exception {
@@ -57,6 +57,22 @@ public class StudyController {
 		return "/main";
 	}
 
+	/*
+	 * @RequestMapping("/logout") public String logout(HttpServletRequest request)
+	 * throws Exception{ request.getSession().removeAttribute("login");
+	 * 
+	 * return "/main";
+	 * 
+	 * }
+	 */
+	@RequestMapping("/logout") public String logout(HttpSession session) throws Exception{
+		
+		session.setAttribute("login", null);
+		session.invalidate();
+		
+		return "/main";
+	}
+	
 	@RequestMapping("/join")
 	public String join() {
 		return "/join";

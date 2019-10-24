@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<%@ page session="false"%>
+<%@ page session="true"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -18,7 +18,12 @@
 		<hr width="50%" color="purple">
 		<h3>BOARD 게시판 전체 리스트</h3>
 		<hr width="50%" color="purple">
-
+	<% 
+	String memId = (String)session.getAttribute("login");
+	%>
+	
+			<c:set var="memId" value="<%=memId %>"></c:set>
+		<h4><%=memId%> 님 환영합니다.</h4>
 		<table border="1" width="800" cellspacing="0">
 
 			<tr>
@@ -30,7 +35,6 @@
 				<th>조회수</th>
 				<th>작성일자</th>
 			</tr>
-
 			<c:set var="list" value="${list }"></c:set>
 			<c:if test="${!empty list }">
 				<c:forEach items="${list }" var="dto">
@@ -55,12 +59,20 @@
 				</tr>
 			</c:if>
 
-
+			<c:if test="${!empty memId}">
 			<tr>
 				<td colspan="6" align="right">
 				<input type="button" value="글쓰기"
 					onclick="location.href='freeWriteForm'"></td>
 			</tr>
+			</c:if>
+			
+			<c:if test="${empty memId}">
+			<tr>
+				<td colspan="6" align="right">
+				<h5>로그인 후 글쓰기가 가능합니다.</h5>
+			</tr>
+			</c:if>
 		</table>
 		<br>
 

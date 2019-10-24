@@ -126,11 +126,11 @@
             <div class="title-box">
             
 	<% 
-	String loginid = (String)session.getAttribute("login");
+	String memId = (String)session.getAttribute("login");
 	%>
 
 
-              <h2 class="title-a"><%=loginid %>님 하이</h2>
+              <h2 class="title-a"><%=memId %>님 하이</h2>
             </div>
           </div>
         </div>

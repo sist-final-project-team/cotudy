@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    
+<%@ page session="true"%>    
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
@@ -25,7 +25,8 @@ function deleteconfirm()
 </script>
 </head>
 <body>
-
+	<% String memId = (String)session.getAttribute("login"); %>
+			<c:set var="memId" value="<%=memId %>"></c:set>
 	<div align="center">
 		<hr width="50%" color="purple">
 			<h3>BOARD 게시판 게시글 상세 내역</h3>
@@ -85,9 +86,12 @@ function deleteconfirm()
 			</c:if>
 			
 			<tr>
+				
 				<td colspan="2" align="center">
+			<c:if test="${!empty memId}">	
 					<input type="button" value="수정" onclick="location.href='/freeEditForm?freeNum=${dto.getFreeNum()}'">
 		 			<input type="button" value="삭제" onclick="deleteconfirm()"> 
+			</c:if>
 		 	
 					<input type="button" value="전체목록" onclick="location.href='/freeList'">
 				</td>

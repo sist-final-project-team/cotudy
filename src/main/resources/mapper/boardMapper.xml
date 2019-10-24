@@ -95,7 +95,7 @@
 				#{freeTitle}, 
 				#{freeCont}, 
 				NOW(), 
-				'admin',
+				#{memId},
 				#{freeSubject}			
 			)
 		]]>

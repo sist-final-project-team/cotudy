@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<%@ page session="false"%>
+<%@ page session="true"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -13,13 +13,16 @@
 
 
 <body>
+<% String memId = (String)session.getAttribute("login"); %>
+
 
 	<div align="center">
 		<hr width="50%" color="purple">
-			<h3>BOARD 테이블 글쓰기 폼</h3>
+			<h3><%=memId%>님 테이블 글쓰기 폼</h3>
 		<hr width="50%" color="purple">
 																					
 		<form method="post" action="/freeWrite" >
+		<input type="hidden" value="<%=memId %>" name="memId">
 			<table border="1" width="400" cellspacing="0">
 				<tr>
 					<th>주제</th>
@@ -33,7 +36,7 @@
 					</td>
 				</tr>
 				<tr>
-					<th>글제목</th>
+					<th>글제목 </th>
 					<td> <input name="freeTitle"> </td>
 				</tr>
 				<tr>
