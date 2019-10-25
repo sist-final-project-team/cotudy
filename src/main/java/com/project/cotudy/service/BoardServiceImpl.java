@@ -42,6 +42,16 @@ public class BoardServiceImpl implements BoardService {
 		return freeboard;
 	}
 	
+	@Override
+	public List<BoardFileDto> selectBoardFileDto(int freeNum) throws Exception {
+		List<BoardFileDto> fileDtolist = boardMapper.selectBoardFileDto(freeNum);//filedto list로 가져오기
+		
+		return fileDtolist;
+	}	
+	
+	
+	
+	
 	@Override public void updateFreeBoardHitCount(int freeNum) throws Exception {
 		boardMapper.updateFreeBoardHitCount(freeNum); // 조회수 증가시키기
 	}
@@ -61,6 +71,8 @@ public class BoardServiceImpl implements BoardService {
 		boardMapper.insertFreeBoard(freeboard);
 		//업로드된 파일을 서버에 저장하고 파일정보를 가져옴
 		List<BoardFileDto> list = fileUtils.parseFileInfo(freeboard.getFreeNum(), multireq);
+		System.out.println("list stored는1>??"+list.get(0).getStoredFilePath());
+		//System.out.println("list stored는2>??"+list.get(1).getStoredFilePath());
 		//파일정보를 맵에 저장
 		if(CollectionUtils.isEmpty(list) == false){
 			boardMapper.insertBoardFileList(list);
@@ -162,6 +174,8 @@ public class BoardServiceImpl implements BoardService {
 	public void deleteStudyBoardReply(int studyReplyNum) throws Exception {
 
 	}
+
+
 
 
 }

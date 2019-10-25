@@ -14,8 +14,9 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 public interface BoardService {
 //    ==================freeboard게시판 관련
     List<FreeBoardDto> selectFreeBoardList() throws Exception;
-  List<FreeBoardDto> selectFreeBoardSearchList(SearchDto searchdto) throws Exception;
+    List<FreeBoardDto> selectFreeBoardSearchList(SearchDto searchdto) throws Exception;
     FreeBoardDto selectFreeBoardCont(int freeNum) throws Exception;
+    List<BoardFileDto> selectBoardFileDto(int freeNum) throws Exception;
     List<FreeBoardReplyDto> selectFreeBoardReplyList(int freeNum) throws Exception;
     void updateFreeBoardHitCount(int freeNum) throws Exception;
     void updateFreeBoard(FreeBoardDto freeBoard) throws Exception;

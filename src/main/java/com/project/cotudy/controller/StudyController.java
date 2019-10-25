@@ -17,6 +17,7 @@ import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -87,8 +88,16 @@ public class StudyController {
 	public ModelAndView freeBoardCont(@RequestParam int freeNum) throws Exception {
 		ModelAndView mv = new ModelAndView("/freeboard/freeBoardCont");
 		boardService.updateFreeBoardHitCount(freeNum);	//조회수증가
-		FreeBoardDto freeboard = boardService.selectFreeBoardCont(freeNum);	//가져오기
+		FreeBoardDto freeboard = boardService.selectFreeBoardCont(freeNum);	//글내용가져오기
+		List<BoardFileDto> fileDtolist = boardService.selectBoardFileDto(freeNum);//첨부파일가져오기
+		 System.out.println("파일경로는~?"+fileDtolist.get(0).getStoredFilePath()); 
+		//
+				// filedto정보 가져오는 메소드 만들어서 가져온다음에
+				//file dto를 아래처럼 add한 다음
+				//cont 에서 받아서 dto.getstored해서 이름 가져와서
+				//img src로 뽑기
 		mv.addObject("freeboard", freeboard);
+		mv.addObject("fileDtolist", fileDtolist);
 
 		return mv;
 	}
@@ -165,8 +174,13 @@ public class StudyController {
 	
 	@RequestMapping("/freeWrite")
 	public String freeBoardWrite(FreeBoardDto freeboard, MultipartHttpServletRequest multireq) throws Exception {
+		List<MultipartFile> fileList =  multireq.getFiles("files"); //files:write에서 파일첨부의 files
+		System.out.println("fileList는1??"+fileList.get(0));
+		//org.springframework.web.multipart.commons.CommonsMultipartFile@49c3ccb4 찍힘
+		
 		boardService.insertFreeBoard(freeboard, multireq);
 	
+		
 		return "redirect:/freeList";
 	}
 	

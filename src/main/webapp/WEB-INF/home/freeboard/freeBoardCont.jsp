@@ -32,9 +32,10 @@ function deleteconfirm()
 			<h3>BOARD 게시판 게시글 상세 내역</h3>
 		<hr width="50%" color="purple">
 		
-		<table border="1" width="400" cellspacing="0">
+		<table border="1" width="800" cellspacing="0">
 	
 			<c:set var="dto" value="${freeboard }"> </c:set>
+			<c:set var="fileDtolist" value="${fileDtolist }"> </c:set>
 			<c:if test="${!empty dto }">
 				<input type="hidden" value="${dto.getFreeNum() }" id="freeNum">
 	
@@ -56,7 +57,14 @@ function deleteconfirm()
 				</tr>
 				<tr>
 					<th>글내용</th>
-					<td><textarea rows="8" cols="30" readonly>${dto.getFreeCont()} </textarea></td>
+                    <td>${dto.getFreeCont()}
+                    	<br>
+                    	 <img alt="" width="240" height="128"
+                           src="cotudy/${fileDtolist.get(0).getStoredFilePath() }"> 
+                           <br>
+                    	 ${fileDtolist.get(0).getStoredFilePath() }
+                    	 <!-- images/20191025/1117901493947400.jpg -->
+                    </td> 
 				</tr>			
 				<tr>
 					<th>조회수</th>

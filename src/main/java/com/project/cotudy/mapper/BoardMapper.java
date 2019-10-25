@@ -18,6 +18,7 @@ public interface BoardMapper {
     List<FreeBoardDto> selectFreeBoardKeySearchList(SearchDto searchdto) throws Exception;
     List<FreeBoardDto> selectFreeBoardSubKeySearchList(SearchDto searchdto) throws Exception;
     FreeBoardDto selectFreeBoardCont(int freeNum) throws Exception;
+    List<BoardFileDto> selectBoardFileDto(int freeNum) throws Exception;
     List<FreeBoardReplyDto> selectFreeBoardReplyList(int freeNum) throws Exception;
     void deleteFreeBoardReply(int freeReplyNum) throws Exception;
     void updateFreeBoardHitCount(int freeNum) throws Exception;

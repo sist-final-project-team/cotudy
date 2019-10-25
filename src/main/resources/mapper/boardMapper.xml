@@ -121,6 +121,18 @@
 		]]>
 	</select>
 	
+	<select id="selectBoardFileDto" parameterType="int" resultType="com.project.cotudy.model.BoardFileDto">
+		<![CDATA[
+			SELECT
+				*
+			FROM
+				t_file
+			WHERE
+				free_num = #{freeNum}
+		]]>
+	</select>	
+	
+	
 	<update id="updateFreeBoardHitCount" parameterType="int">
 		<![CDATA[
 			UPDATE 
