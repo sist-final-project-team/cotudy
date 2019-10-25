@@ -36,6 +36,7 @@ function deleteconfirm()
 	
 			<c:set var="dto" value="${freeboard }"> </c:set>
 			<c:set var="fileDtolist" value="${fileDtolist }"> </c:set>
+			<c:set var="filecount" value="${filecount }"> </c:set>
 			<c:if test="${!empty dto }">
 				<input type="hidden" value="${dto.getFreeNum() }" id="freeNum">
 	
@@ -59,11 +60,12 @@ function deleteconfirm()
 					<th>글내용</th>
                     <td>${dto.getFreeCont()}
                     	<br>
-                    	 <img alt="" width="240" height="128"
-                           src="cotudy/${fileDtolist.get(0).getStoredFilePath() }"> 
+                    	
+                    	<c:forEach var="i" begin="0" end="${filecount }">
+                    	 <img alt="" width="400" height="300"
+                           src="${fileDtolist.get(i).getStoredFilePath().substring(15) }"> 
                            <br>
-                    	 ${fileDtolist.get(0).getStoredFilePath() }
-                    	 <!-- images/20191025/1117901493947400.jpg -->
+                    	</c:forEach>
                     </td> 
 				</tr>			
 				<tr>

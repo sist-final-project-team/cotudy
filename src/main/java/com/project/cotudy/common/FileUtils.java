@@ -27,7 +27,7 @@ public class FileUtils {
 		//파일이 업로드 될 폴더 생성 ex)20191025
 		DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyyMMdd"); 
     	ZonedDateTime current = ZonedDateTime.now();
-    	String path = "images/"+current.format(format);
+    	String path = "src/main/webapp/resources/fileimages/"+current.format(format);
     	File file = new File(path);
 		if(file.exists() == false){
 			file.mkdirs();

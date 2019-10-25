@@ -90,15 +90,17 @@ public class StudyController {
 		boardService.updateFreeBoardHitCount(freeNum);	//조회수증가
 		FreeBoardDto freeboard = boardService.selectFreeBoardCont(freeNum);	//글내용가져오기
 		List<BoardFileDto> fileDtolist = boardService.selectBoardFileDto(freeNum);//첨부파일가져오기
-		 System.out.println("파일경로는~?"+fileDtolist.get(0).getStoredFilePath()); 
-		//
+		 System.out.println("파일경로는~?"+fileDtolist.get(0).getStoredFilePath());
+		 int filecount = fileDtolist.size() - 1;
+		 System.out.println("파일개수는??"+filecount);
+		
 				// filedto정보 가져오는 메소드 만들어서 가져온다음에
 				//file dto를 아래처럼 add한 다음
 				//cont 에서 받아서 dto.getstored해서 이름 가져와서
 				//img src로 뽑기
 		mv.addObject("freeboard", freeboard);
 		mv.addObject("fileDtolist", fileDtolist);
-
+		mv.addObject("filecount",filecount );
 		return mv;
 	}
 
