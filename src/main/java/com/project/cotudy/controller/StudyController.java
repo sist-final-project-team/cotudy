@@ -1,18 +1,26 @@
 package com.project.cotudy.controller;
 
+import java.io.File;
 import java.util.List;
+import org.apache.commons.io.FileUtils;
+import java.net.URLEncoder;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.project.cotudy.service.BoardService;
 import com.project.cotudy.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
+
+import com.project.cotudy.model.BoardFileDto;
 import com.project.cotudy.model.FreeBoardDto;
 import com.project.cotudy.model.SearchDto;
 
@@ -78,8 +86,8 @@ public class StudyController {
 	@RequestMapping("/freeCont")
 	public ModelAndView freeBoardCont(@RequestParam int freeNum) throws Exception {
 		ModelAndView mv = new ModelAndView("/freeboard/freeBoardCont");
-		boardService.updateFreeBoardHitCount(freeNum);
-		FreeBoardDto freeboard = boardService.selectFreeBoardCont(freeNum);
+		boardService.updateFreeBoardHitCount(freeNum);	//조회수증가
+		FreeBoardDto freeboard = boardService.selectFreeBoardCont(freeNum);	//가져오기
 		mv.addObject("freeboard", freeboard);
 
 		return mv;
@@ -124,7 +132,30 @@ public class StudyController {
 	  
 	  return mv; }
 	 
-	 
+		@RequestMapping("downloadBoardFile")
+		public void downloadBoardFile(@RequestParam int idx, @RequestParam int freeNum, HttpServletResponse response) throws Exception{
+			//선택된 파일의 정보를 DB에서 조회
+			BoardFileDto boardFile = boardService.selectBoardFileInformation(idx, freeNum);
+			if(ObjectUtils.isEmpty(boardFile) == false) {
+				String fileName = boardFile.getOriginalFileName();
+				
+				//위에서 조회된 파일을 읽어온 후 byte[]형태로 변환
+				byte[] files = FileUtils.readFileToByteArray(new File(boardFile.getStoredFilePath()));
+				
+				//response의 헤더에 컨텐츠 타입, 크기, 형태 등을 설정
+				response.setContentType("application/octet-stream");
+				response.setContentLength(files.length);
+				response.setHeader("Content-Disposition", "attachment; fileName=\"" + URLEncoder.encode(fileName,"UTF-8")+"\";");
+				response.setHeader("Content-Transfer-Encoding", "binary");
+				
+				//위의 files를 response에 작성
+				response.getOutputStream().write(files);
+				
+				//response 버퍼 정리 후 닫기
+				response.getOutputStream().flush();
+				response.getOutputStream().close();
+			}
+		}
 	
 
 	@RequestMapping("/freeWriteForm")
@@ -133,8 +164,9 @@ public class StudyController {
 	}
 	
 	@RequestMapping("/freeWrite")
-	public String freeBoardWrite(FreeBoardDto freeboard) throws Exception {
-		boardService.insertFreeBoard(freeboard);
+	public String freeBoardWrite(FreeBoardDto freeboard, MultipartHttpServletRequest multireq) throws Exception {
+		boardService.insertFreeBoard(freeboard, multireq);
+	
 		return "redirect:/freeList";
 	}
 	

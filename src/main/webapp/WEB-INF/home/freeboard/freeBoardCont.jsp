@@ -72,6 +72,17 @@ function deleteconfirm()
 						${dto.getFreeUpdatedDate() }
 					</td>
 				</tr>
+				<tr>
+					<th>첨부파일</th>
+						<td>
+					<c:forEach items="${dto.fileList}" var="list"> 
+							<a href="/downloadBoardFile?freeNum=${list.freeNum}&idx=${list.idx}" >
+								${list.originalFileName } (${ list.fileSize }kb)
+							</a>
+							<br>
+					</c:forEach>
+						</td>
+				</tr>
 				
 			</c:if>
 			

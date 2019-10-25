@@ -18,10 +18,7 @@
 		<hr width="50%" color="purple">
 		<h3>BOARD 게시판 전체 리스트</h3>
 		<hr width="50%" color="purple">
-	<% 
-	String memId = (String)session.getAttribute("login");
-	%>
-	
+	<% String memId = (String)session.getAttribute("login"); %>
 			<c:set var="memId" value="<%=memId %>"></c:set>
 		<h4><%=memId%> 님 환영합니다.</h4>
 		<table border="1" width="800" cellspacing="0">

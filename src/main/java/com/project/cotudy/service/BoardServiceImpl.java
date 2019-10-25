@@ -1,21 +1,31 @@
 package com.project.cotudy.service;
 
+import com.project.cotudy.common.FileUtils;
 import com.project.cotudy.mapper.BoardMapper;
+import com.project.cotudy.model.BoardFileDto;
 import com.project.cotudy.model.FreeBoardDto;
 import com.project.cotudy.model.FreeBoardReplyDto;
 import com.project.cotudy.model.SearchDto;
 import com.project.cotudy.model.StudyBoardDto;
 import com.project.cotudy.model.StudyBoardReplyDto;
+import org.springframework.util.CollectionUtils;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
+import org.springframework.util.ObjectUtils;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import java.util.Iterator;
 import java.util.List;
 
 @Service
 public class BoardServiceImpl implements BoardService {
 
+	@Autowired
+	private FileUtils fileUtils;
+	
 	@Autowired
 	private BoardMapper boardMapper;
 
@@ -27,7 +37,8 @@ public class BoardServiceImpl implements BoardService {
 	@Override
 	public FreeBoardDto selectFreeBoardCont(int freeNum) throws Exception {
 		FreeBoardDto freeboard = boardMapper.selectFreeBoardCont(freeNum); // 글내용 가져오기
-
+		List<BoardFileDto> fileList = boardMapper.selectBoardFileList(freeNum);
+		freeboard.setFileList(fileList);
 		return freeboard;
 	}
 	
@@ -46,8 +57,15 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	@Override
-	public void insertFreeBoard(FreeBoardDto freeboard) throws Exception {
+	public void insertFreeBoard(FreeBoardDto freeboard, MultipartHttpServletRequest multireq) throws Exception {
 		boardMapper.insertFreeBoard(freeboard);
+		//업로드된 파일을 서버에 저장하고 파일정보를 가져옴
+		List<BoardFileDto> list = fileUtils.parseFileInfo(freeboard.getFreeNum(), multireq);
+		//파일정보를 맵에 저장
+		if(CollectionUtils.isEmpty(list) == false){
+			boardMapper.insertBoardFileList(list);
+		}
+		
 	}
 
 
@@ -105,6 +123,11 @@ public class BoardServiceImpl implements BoardService {
 	  }
 	  return list; }
 	 
+	  @Override
+	  public BoardFileDto selectBoardFileInformation(int idx, int freeNum) throws Exception {
+		  
+		  return boardMapper.selectBoardFileInformation(idx,freeNum);
+	  }
 	 
 	
 	// ============================study 게시판 관련
@@ -139,5 +162,6 @@ public class BoardServiceImpl implements BoardService {
 	public void deleteStudyBoardReply(int studyReplyNum) throws Exception {
 
 	}
+
 
 }

@@ -21,7 +21,7 @@
 			<h3><%=memId%>님 테이블 글쓰기 폼</h3>
 		<hr width="50%" color="purple">
 																					
-		<form method="post" action="/freeWrite" >
+		<form method="post" action="/freeWrite" enctype="multipart/form-data">
 		<input type="hidden" value="<%=memId %>" name="memId">
 			<table border="1" width="400" cellspacing="0">
 				<tr>
@@ -42,7 +42,11 @@
 				<tr>
 					<th>글내용</th>
 					<td> <textarea rows="8" cols="30" name="freeCont" ></textarea> </td>
-				</tr>				
+				</tr>		
+				<tr>
+					<th>파일첨부</th>
+					<td> <input type="file" id="files" name="files" multiple="multiple"> </td>
+				</tr>											
 				<tr>
 					<td colspan="2" align="center">
 						<input type="submit" value="글쓰기">&nbsp;&nbsp;&nbsp;

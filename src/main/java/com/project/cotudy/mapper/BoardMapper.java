@@ -1,5 +1,6 @@
 package com.project.cotudy.mapper;
 
+import com.project.cotudy.model.BoardFileDto;
 import com.project.cotudy.model.FreeBoardDto;
 import com.project.cotudy.model.FreeBoardReplyDto;
 import com.project.cotudy.model.SearchDto;
@@ -24,6 +25,11 @@ public interface BoardMapper {
     void deleteFreeBoard(int freeNum) throws Exception;
     void insertFreeBoard(FreeBoardDto freeBoard) throws Exception;
     List<FreeBoardDto> searchFreeBoard(String searchKeyword) throws Exception;
+    void insertBoardFileList(List<BoardFileDto> list) throws Exception;
+    List<BoardFileDto> selectBoardFileList(int freeNum) throws Exception;
+    //dto가아니라 map을써서 param으로 데려옴
+    BoardFileDto selectBoardFileInformation(@Param("idx") int idx, @Param("freeNum") int freeNum) throws Exception;
+    
     // study 게시판 관련
     List<StudyBoardDto> selectStudyBoardList() throws Exception;
     StudyBoardDto selectStudyBoardCont(int studyNum) throws Exception;

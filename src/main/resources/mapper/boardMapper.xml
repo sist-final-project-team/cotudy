@@ -80,7 +80,8 @@
 	</select>	
 	
 	
-	<insert id="insertFreeBoard" parameterType="com.project.cotudy.model.FreeBoardDto" useGeneratedKeys="true" keyProperty="freeNum">
+	<insert id="insertFreeBoard" parameterType="com.project.cotudy.model.FreeBoardDto" 
+											useGeneratedKeys="true" keyProperty="freeNum">
 		<![CDATA[
 			INSERT INTO free_board
 			(
@@ -152,4 +153,64 @@
 				free_num = #{freeNum}
 		]]>
 	</update>
+	
+	
+	<!-- 파일업로드관련 -->
+	
+	<insert id="insertBoardFileList" parameterType="com.project.cotudy.model.BoardFileDto">
+		<![CDATA[
+			INSERT INTO t_file
+			(
+				free_num,
+				original_file_name,
+				stored_file_path,
+				file_size,
+				creator_id,
+				created_datetime
+			)
+			VALUES
+		]]>
+		<foreach collection="list" item="item" separator=",">
+			(
+				#{item.freeNum},
+				#{item.originalFileName},
+				#{item.storedFilePath},
+				#{item.fileSize},
+				'admin',
+				NOW()
+			)
+		</foreach>
+	</insert>	
+	
+	<select id="selectBoardFileList" parameterType="int" resultType="com.project.cotudy.model.BoardFileDto">
+		<![CDATA[
+			SELECT
+				idx,
+				free_num,
+				original_file_name,
+				FORMAT(ROUND(file_size / 1024), 0) AS file_size
+			FROM
+				t_file
+			WHERE
+				free_num = #{freeNum}
+				AND deleted_yn = 'N'
+		]]>
+	</select>	
+	
+	<select id="selectBoardFileInformation" parameterType="map" resultType="com.project.cotudy.model.BoardFileDto">
+		<![CDATA[
+			SELECT
+				original_file_name,
+				stored_file_path,
+				file_size
+			FROM
+				t_file
+			WHERE
+				idx = #{idx}
+				AND free_num = #{freeNum}
+				AND deleted_yn = 'N'
+		]]>
+	</select>	
+	
+	
 </mapper>
