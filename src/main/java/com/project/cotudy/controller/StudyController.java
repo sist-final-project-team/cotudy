@@ -63,41 +63,28 @@ public class StudyController {
 
 	
 	
-	@RequestMapping(method = RequestMethod.POST, value = "/loginCheck")
-	public String loginCheck(HttpSession session, @RequestParam("id") String id, @RequestParam("pwd") String pwd)
-			throws Exception {
-		if (memberService.loginCheck(id, pwd)) {
-			session.setAttribute("login", id);
-		} else {
-			return "redirect:/login";
-		}
-		return "/main";
-	}
-
-	@RequestMapping("/logout") public String logout(HttpSession session) throws Exception{
-		
-		session.setAttribute("login", null);
-		session.invalidate();
-		
-		return "/main";
-	}
-	
-
+	/*
+	 * @RequestMapping(method = RequestMethod.POST, value = "/loginCheck") public
+	 * String loginCheck(HttpSession session, @RequestParam("id") String
+	 * id, @RequestParam("pwd") String pwd) throws Exception { if
+	 * (memberService.loginCheck(id, pwd)) { session.setAttribute("login", id); }
+	 * else { return "redirect:/login"; } return "/main"; }
+	 */
 	@RequestMapping("/notice")
 	public String notice() {
 		return "/notice";
 	}
 
 	@RequestMapping("/freeCont")
-	public ModelAndView freeBoardCont(@RequestParam int freeNum) throws Exception {
+	public ModelAndView freeBoardCont(@RequestParam("freeNum") int freeNum) throws Exception {
 		ModelAndView mv = new ModelAndView("/freeboard/freeBoardCont");
 		List<FreeBoardReplyDto> replyDto = boardService.selectFreeBoardReplyList(freeNum);   
 		boardService.updateFreeBoardHitCount(freeNum);	//조회수증가
 		FreeBoardDto freeboard = boardService.selectFreeBoardCont(freeNum);	//글내용가져오기
 		List<BoardFileDto> fileDtolist = boardService.selectBoardFileDto(freeNum);//첨부파일가져오기
-		 System.out.println("파일경로는~?"+fileDtolist.get(0).getStoredFilePath());
+		// System.out.println("파일경로는~?"+fileDtolist.get(0).getStoredFilePath());
 		 int filecount = fileDtolist.size() - 1;
-		 System.out.println("파일개수는??"+filecount);
+		 //System.out.println("파일개수는??"+filecount);
 		 for(int i=0; i<freeboard.getFileList().size(); i++) {
 			 freeboard.getFileList().get(i).setFileSize((int)(freeboard.getFileList().get(i).getFileSize()/1024));
 		 }
@@ -116,7 +103,7 @@ public class StudyController {
 	@RequestMapping("/freeEdit")
 	public String freeBoardEdit(FreeBoardDto freeBoard) throws Exception{
 		boardService.updateFreeBoard(freeBoard);
-		 return "redirect:/freeCont?no="+freeBoard.getFreeNum();
+		 return "redirect:/freeCont?freeNum="+freeBoard.getFreeNum();
 	}
 
 	
@@ -139,7 +126,9 @@ public class StudyController {
 
 		return mv;
 	}
-
+	
+	
+	
 	  @RequestMapping("/freeSearchList") public ModelAndView freeSearch(SearchDto searchdto) throws Exception {
 	  
 	  System.out.println("freeSearchList메소드");
@@ -158,6 +147,7 @@ public class StudyController {
 				String fileName = boardFile.getOriginalFileName();
 				
 				//위에서 조회된 파일을 읽어온 후 byte[]형태로 변환
+				
 				byte[] files = FileUtils.readFileToByteArray(new File(boardFile.getStoredFilePath()));
 				
 				//response의 헤더에 컨텐츠 타입, 크기, 형태 등을 설정
@@ -183,7 +173,7 @@ public class StudyController {
 	@RequestMapping("/freeWrite")
 	public String freeBoardWrite(FreeBoardDto freeboard, MultipartHttpServletRequest multireq) throws Exception {
 		List<MultipartFile> fileList =  multireq.getFiles("files"); //files:write에서 파일첨부의 files
-		System.out.println("fileList는1??"+fileList.get(0));
+		//System.out.println("fileList는1??"+fileList.get(0));
 		//org.springframework.web.multipart.commons.CommonsMultipartFile@49c3ccb4 찍힘
 		
 		boardService.insertFreeBoard(freeboard, multireq);
@@ -303,13 +293,13 @@ public class StudyController {
     /* 자유게시판 댓글 관련*/
     @RequestMapping("/freeReplyWrite")
     public void freeReplyWrite(FreeBoardReplyDto dto,HttpServletResponse response) throws Exception {
-        boardService.updateFreeBoardReply(dto);
+      //  boardService.updateFreeBoardReply(dto);
         boardService.writeFreeBoardReply(dto);
         response.setContentType("text/html; charset=UTF-8");
         PrintWriter out = response.getWriter();
         out.println("<script>");
         out.println("alert('댓글이 등록되었습니다.')");
-        out.println("location.href='/freeCont?no="+dto.getFreeNum()+"'");
+        out.println("location.href='/freeCont?freeNum="+dto.getFreeNum()+"'");
         out.println("</script>");
     }
 

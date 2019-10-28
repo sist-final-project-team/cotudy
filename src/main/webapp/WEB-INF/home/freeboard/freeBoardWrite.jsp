@@ -4,11 +4,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%request.getAttribute("memId"); %>
 
 <head>
   <meta charset="utf-8">
   <title>EstateAgency Bootstrap Template</title>
-<% String memId = (String)session.getAttribute("login"); %>
+
 </head>
 
 
@@ -18,11 +19,11 @@
 <jsp:include page="../header.jsp"></jsp:include>
 	<div class ="container2" align="center">
 		<hr width="50%" color="purple">
-			<h3><%=memId%>님 테이블 글쓰기 폼</h3>
+			<h3>테이블 글쓰기 폼</h3>
 		<hr width="50%" color="purple">
 																					
 		<form method="post" action="/freeWrite" enctype="multipart/form-data">
-		<input type="hidden" value="<%=memId %>" name="memId">
+		<input type="hidden" value="<%=(String)session.getAttribute("memId") %>" name="memId">
 			<table border="1" width="600" cellspacing="0">
 				<tr>
 					<th>주제</th>

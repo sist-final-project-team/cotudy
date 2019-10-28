@@ -25,14 +25,15 @@ function deleteconfirm()
 </script>
 </head>
 <body>
-	<% String memId = (String)session.getAttribute("login"); %>
+<jsp:include page="../header.jsp"></jsp:include>
+	<% String memId = (String)session.getAttribute("memId"); %>
 			<c:set var="memId" value="<%=memId %>"></c:set>
-	<div align="center">
+	<div align="center" class="container2">
 		<hr width="50%" color="purple">
 			<h3>BOARD 게시판 게시글 상세 내역</h3>
 		<hr width="50%" color="purple">
 		
-		<table border="1" width="800" cellspacing="0">
+		<table class="board_list">
 	
 			<c:set var="dto" value="${freeboard }"> </c:set>
 			<c:set var="fileDtolist" value="${fileDtolist }"> </c:set>
@@ -60,12 +61,13 @@ function deleteconfirm()
 					<th>글내용</th>
                     <td>${dto.getFreeCont()}
                     	<br>
-                    	
+                    	<c:if test="${ filecount >= 0}">
                     	<c:forEach var="i" begin="0" end="${filecount }">
                     	 <img alt="" width="400" height="300"
                            src="${fileDtolist.get(i).getStoredFilePath().substring(15) }"> 
                            <br>
                     	</c:forEach>
+                    	</c:if>
                     </td> 
 				</tr>			
 				<tr>
@@ -73,19 +75,21 @@ function deleteconfirm()
 					<td>${dto.getFreeHit() }</td>
 				</tr>
 				<tr>
+					<c:if test="${!empty dto.getFreeUpdatedDate()}">
+					<th>작성일/수정일</th>
+					<td>${dto.getFreeCreatedDate() }/${dto.getFreeUpdatedDate() }</td>
+					</c:if>
+					<c:if test="${empty dto.getFreeUpdatedDate()}">
 					<th>작성일</th>
 					<td>${dto.getFreeCreatedDate() }</td>
+					</c:if>
 				</tr>
-				<tr>
-					<th>최종수정일</th>
-					<td>
-						${dto.getFreeUpdatedDate() }
-					</td>
-				</tr>
+
 				<tr>
 					<th>첨부파일</th>
 						<td>
 					<c:forEach items="${dto.fileList}" var="list"> 
+					
 							<a href="/downloadBoardFile?freeNum=${list.freeNum}&idx=${list.idx}" >
 								${list.originalFileName } (${ (list.fileSize) }kb)
 							</a>
@@ -107,8 +111,8 @@ function deleteconfirm()
 			</c:if>
 			
 			<tr>
-				
 				<td colspan="2" align="center">
+				
 				 <c:if test="${sessionScope.memId eq dto.getMemId()}">
                     <input type="button" value="수정" onclick="location.href='/freeForm?freeNum=${dto.getFreeNum()}'">
 		 			<input type="button" value="삭제" onclick="deleteconfirm()"> 

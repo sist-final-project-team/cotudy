@@ -31,8 +31,8 @@
             <tr>
                 <th>글 번호</th><th>주제</th><th>글 제목</th><th>작성자</th><th>작성일자</th><th>조회수</th>
             </tr>
-            <c:set var="list" value="${List}"/>
-            <c:if test="${!empty list}">
+            <c:set var="list" value="${list}"/>
+            <c:if test="${!empty list}">	
                 <c:forEach items="${list}" var="freeboardDto">
                     <tr>
                         <td>${freeboardDto.getFreeNum()}</td>

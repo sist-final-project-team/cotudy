@@ -53,7 +53,7 @@ public class BoardServiceImpl implements BoardService {
 
 	@Override
 	public List<FreeBoardReplyDto> selectFreeBoardReplyList(int freeNum) throws Exception {
-		return null;
+		return boardMapper.selectFreeBoardReplyList(freeNum);
 	}
 
 	@Override
@@ -66,7 +66,6 @@ public class BoardServiceImpl implements BoardService {
 		boardMapper.insertFreeBoard(freeboard);
 		//업로드된 파일을 서버에 저장하고 파일정보를 가져옴
 		List<BoardFileDto> list = fileUtils.parseFileInfo(freeboard.getFreeNum(), multireq);
-		System.out.println("list stored는1>??"+list.get(0).getStoredFilePath());
 		//System.out.println("list stored는2>??"+list.get(1).getStoredFilePath());
 		//파일정보를 맵에 저장
 		if(CollectionUtils.isEmpty(list) == false){
@@ -166,8 +165,8 @@ public class BoardServiceImpl implements BoardService {
         boardMapper.writeFreeReplyBoard(freeReplyBoard);
     }
 
-    @Override
-    public void updateFreeBoardReply(FreeBoardReplyDto freeReplyBoard) throws Exception {
-        boardMapper.updateFreeReplyBoard(freeReplyBoard);
-    }
+	/*
+	 * @Override public void updateFreeBoardReply(FreeBoardReplyDto freeReplyBoard)
+	 * throws Exception { boardMapper.updateFreeReplyBoard(freeReplyBoard); }
+	 */
 }

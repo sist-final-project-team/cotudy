@@ -37,5 +37,5 @@ public interface BoardService {
     void updateFreeBoard(FreeBoardDto freeBoard) throws Exception;
     void deleteFreeBoard(int freeNum) throws Exception;
     void writeFreeBoardReply(FreeBoardReplyDto freeReplyBoard) throws Exception;
-    void updateFreeBoardReply(FreeBoardReplyDto freeReplyBoard) throws Exception;
+  //  void updateFreeBoardReply(FreeBoardReplyDto freeReplyBoard) throws Exception;
 }
