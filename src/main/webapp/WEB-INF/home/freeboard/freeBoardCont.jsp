@@ -123,6 +123,30 @@ function deleteconfirm()
 			</tr>
 			
 		</table>
+		
+    <table class="board_reply">
+
+        <tr>
+            	<th colspan="3">댓글 목록</th>
+        </tr>
+        <c:set var="list" value="${replyDto}"/>
+        <c:if test="${!empty list}">
+                           <tr>
+                   <th>번호</th>
+                   <th>내용</th>
+                   <th>작성자</th>
+               </tr>
+            <c:forEach items="${list}" var="reply">
+               <tr>
+                   <td>${reply.getFreeReplyNum()}</td>
+                   <td>${reply.getReplyCont()}</td>
+                   <td>${reply.getMemId()}</td>
+               </tr>
+            </c:forEach>
+        </c:if>
+    </table>
+
+		
 		 <form method="post" action="<%=request.getContextPath()%>/freeReplyWrite">
     <table class="board_reply">
         <% if ((String)session.getAttribute("memId")==null){ %>
@@ -140,18 +164,7 @@ function deleteconfirm()
     </table>
     </form>
 
-    <table class="board_reply">
-        <c:set var="list" value="${replyDto}"/>
-        <c:if test="${!empty list}">
-            <c:forEach items="${list}" var="reply">
-               <tr>
-                   <td>${reply.getFreeReplyNum()}</td>
-                   <td>${reply.getReplyCont()}</td>
-                   <td>${reply.getMemId()}</td>
-               </tr>
-            </c:forEach>
-        </c:if>
-    </table>
+
 	
 	</div>
 	
