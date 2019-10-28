@@ -8995,6 +8995,7 @@ a.text-dark:hover, a.text-dark:focus {
   }
   .container {
     min-width: 992px !important;
+
   }
   .navbar {
     display: none;
@@ -9028,3 +9029,6 @@ a.text-dark:hover, a.text-dark:focus {
   }
 }
 /*# sourceMappingURL=bootstrap.css.map */
+.container .line{
+  margin-top: 200px;
+}

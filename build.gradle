@@ -34,8 +34,8 @@ dependencies {
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     compile('org.apache.tomcat.embed:tomcat-embed-jasper')
     compile('javax.servlet:jstl:1.2')
-
-
-
+    compile("org.springframework.boot:spring-boot-starter-mail")
+    compile "org.springframework:spring-context-support"
+    compile "com.sun.mail:javax.mail"
 
 }

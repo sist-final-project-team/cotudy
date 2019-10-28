@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.project.cotudy.mapper.BoardMapper">
+    <select id="selectFreeBoardList" resultType="com.project.cotudy.model.FreeBoardDto">
+        select * from free_board where free_deleted = "N";
+    </select>
+    <insert id="writeFreeBoard" parameterType="com.project.cotudy.model.FreeBoardDto">
+           insert into free_board values (NULL,#{memId},#{freeTitle},#{freeCont},now(),default ,default,default ,#{freeSubject});
+    </insert>
+    <select id="selectFreeBoardCont" parameterType="int" resultType="com.project.cotudy.model.FreeBoardDto">
+        select * from free_board where free_num = #{freeNum};
+    </select>
+    <update id="updateFreeBoardHitCount" parameterType="int">
+        update free_board set free_hit = free_hit + 1 where free_num = #{freeNum};
+    </update>
+    <update id="updateFreeBoard" parameterType="com.project.cotudy.model.FreeBoardDto">
+        update free_board set free_title = #{freeTitle} , free_cont = #{freeCont}, free_updated_date = now() where free_num = #{freeNum};
+    </update>
+    <delete id="deleteFreeBoard" parameterType="int">
+        update free_board set free_deleted = "Y" where free_num = #{freeNum};
+    </delete>
+    <insert id="writeFreeReplyBoard" parameterType="com.project.cotudy.model.FreeBoardReplyDto">
+           insert into free_board_reply (free_num,reply_cont,mem_id ) values (#{freeNum},#{replyCont},#{memId});
+    </insert>
+    <update id="updateFreeReplyBoard" parameterType="int">
+        update free_board_reply set reply_step = reply_step + 1 where free_num = #{freeNum} and reply_step >0;
+    </update>
+    <select id="selectFreeBoardReplyList" parameterType="int" resultType="com.project.cotudy.model.FreeBoardReplyDto">
+        select * from free_board_reply where free_num = #{freeNum};
+    </select>
+</mapper>

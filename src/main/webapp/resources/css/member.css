@@ -1,0 +1,162 @@
+@CHARSET "UTF-8";
+/* member.css UI 작성 */
+#pwd_wrap{  /* 전체 영역 디자인 */
+    width : 250px; height : 250px;
+    margin-left : auto; margin-right : auto;
+    margin-top : 25px; /* 상단 여백 지정 */
+    border : 1px solid red;
+    /* css3에 추가된 기능들 */
+    line-height : 30px;  /* 간격 지정 */
+    border-radius : 20px;
+    box-shadow : 10px 10px 50px red;  /* 박스 그림자 지정 */
+}
+#pwd_wrap .pwd_title{ /* 타이틀 부분 디자인 */
+    margin : 30px 0 0 80px;
+    width : 100px;
+    background : skyblue;
+    border-radius : 15px;
+    text-align : center;   /* 글자 정렬 가운데 */
+    font-size : 20px;
+}
+#pwd_t{ /* 테이블 영역 디자인 */
+    margin : 30px 0 0 20px;
+}
+#pwd_t th{
+    background : pink;
+    border-radius : 15px;
+}
+#pwd_menu{ /* 버튼 영역 디자인 */
+    margin : 20px 0 0 80px;
+}
+
+/* member_login.jsp 디자인 */
+#login_wrap{
+    width:350px; height:200px;
+    margin-top : 100px;
+    margin-left:auto; margin-right:auto;
+    border:1px solid blue;
+    /* css3 추가된 내용 */
+    border-radius : 15px;  /* 모서리가 둥근 사각형 */
+    box-shadow:10px 10px 10px skyblue; /* 그림자 지정 */
+}
+#login_wrap .login_title{  /* 제목 디자인 */
+    margin : 20px 0 0 110px; /* 바깥쪽 여백 */
+    width : 120px;
+    font-size : 20px;
+    text-align : center;
+    background : pink;
+    border-radius : 15px;
+    padding : 3px;
+}
+#login_t2{ /* 테이블 디자인 */
+    margin : 20px 0 0 60px;
+}
+#login_t2 th{ /* th태그 디자인 */
+    background : pink;
+    border-radius : 15px;
+}
+#login_menu{ /* 버튼 디자인 */
+    margin : 20px 0 0 40px;
+}
+.login_box{
+    border:1px solid skyblue;
+    border-radius:10px;
+    padding:3px;
+    width : 120px;
+}
+/* 회원가입 ui 작성 */
+#join_wrap{
+    width:550px; height:auto;
+    margin-left:auto; margin-right:auto;
+    margin-top:50px;
+    border : 1px solid blue;
+    line-height : 30px;     /* 줄 간격 */
+    border-radius : 25px;
+    box-shadow : 15px 15px 50px skyblue;
+}
+#join_wrap .join_title{ /* 제목 디자인 */
+    margin : 30px 0 0 200px;
+    width : 120px;
+    background : skyblue;
+    borer : 1px solid blue;
+    border-radius : 20px;
+    font-size : 20px;
+    text-align : center;
+}
+#join_t{ /* 테이블 영역 */
+    margin : 30px 0 0 25px;
+}
+#join_t th{ /* th 태그 */
+    background : pink;
+    border-radius : 15px;
+}
+#join_t td{
+    size: 14px;
+}
+#join_menu{ /* 버튼 영역 */
+    margin : 30px 0 0 200px;
+}
+/* 비번찾기 결과 UI */
+#pwd_wrap .pwd_title2{  /* 타이틀 부분 */
+    margin:50px 0 0 58px;
+    width : 140px;
+    background : pink;
+    border-radius : 15px;
+    padding : 3px;
+    font-size : 20px;
+    text-align : center;
+}
+#pwd_t2{
+    margin:25px 0 0 55px;
+}
+#pwd_t2 th{
+    background-color : skyblue;
+    border-radius : 20px;
+}
+/* 회원 탈퇴 UI */
+#del_wrap{
+    width : 400px; height : 350px;
+    margin-left : auto; margin-right : auto;
+    margin-top : 100px; /* 상단 여백 지정 */
+    border : 1px solid red;
+    border-radius : 20px;
+    box-shadow : 10px 10px 50px red;  /* 박스 그림자 지정 */
+    line-height : 30px;  /* 간격 지정 */
+}
+#del_wrap .del_title{ /* 타이틀 부분 디자인 */
+    margin : 20px 0 0 150px;
+    width : 100px;
+    padding : 3px;
+    background : skyblue;
+    border-radius : 15px;
+    text-align : center;
+    font-size : 18px;
+}
+#del_t{
+    margin : 20px 0 0 40px;
+}
+#del_t th{
+    background : pink;
+    border-radius : 15px;
+}
+#del_menu{ margin : 20px 0 0 150px;}
+
+/* 회원 로그인 결과 UI */
+#index_wrap{
+    width : 300px; height : 200px;
+    margin-left : auto; margin-right : auto;
+    margin-top : 50px; /* 상단 여백 지정 */
+    padding : 10px;
+    border : 1px solid skyblue;
+    border-radius : 20px;
+    box-shadow : 10px 10px 150px blue;  /* 박스 그림자 지정 */
+    line-height : 30px;  /* 간격 지정 */
+}
+
+
+
+
+
+
+
+
