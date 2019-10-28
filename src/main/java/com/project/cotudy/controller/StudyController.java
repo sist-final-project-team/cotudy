@@ -1,158 +1,199 @@
 package com.project.cotudy.controller;
 
+import java.io.File;
+import java.util.List;
+import org.apache.commons.io.FileUtils;
+import java.net.URLEncoder;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.project.cotudy.model.FreeBoardDto;
-import com.project.cotudy.model.FreeBoardReplyDto;
-import com.project.cotudy.model.StudyMemberDto;
 import com.project.cotudy.service.BoardService;
-import com.project.cotudy.service.Email;
-import com.project.cotudy.service.EmailSender;
 import com.project.cotudy.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.util.ObjectUtils;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
-
+import com.project.cotudy.model.BoardFileDto;
+import com.project.cotudy.model.FreeBoardDto;
+import com.project.cotudy.model.SearchDto;
+import com.project.cotudy.model.FreeBoardReplyDto;
+import com.project.cotudy.model.StudyMemberDto;
+import com.project.cotudy.service.Email;
+import com.project.cotudy.service.EmailSender;
+import org.springframework.web.bind.annotation.*;
 import java.io.PrintWriter;
-import java.util.List;
 
 @Controller
 public class StudyController {
 
-    @Autowired
-    private BoardService boardService;
-    @Autowired
-    private MemberService memberService;
+	@Autowired
+	private MemberService memberService;
+
+	@Autowired
+	private BoardService boardService;
+	
     @Autowired
     private EmailSender emailSender;
+    
     @Autowired
     private Email email;
 
-    @RequestMapping("/")
-    public String main(HttpServletRequest request) {
-        String rtnPage = "index";
-        String ipAddress = request.getHeader("X-FORWARDED-FOR");
-        if (ipAddress == null) {
-            ipAddress = request.getRemoteAddr();
-        }
-        return "/main";
-    }
+	@RequestMapping("/")
+	public String main(HttpServletRequest request) {
+		String rtnPage = "index";
+		String ipAddress = request.getHeader("X-FORWARDED-FOR");
+		if (ipAddress == null) {
+			ipAddress = request.getRemoteAddr();
+		}
 
-    @RequestMapping("/event")
-    public String event() {
-        return "/event";
-    }
+		return "/main";
+	}
 
-    @RequestMapping("/notice")
-    public String notice() {
-        return "/notice";
-    }
+	@RequestMapping("/event")
+	public String event() {
+		return "/event";
+	}
 
-    /* 자유 게시판 관련 */
-    @RequestMapping("/freeList")
-    public ModelAndView freeBoardList() throws Exception {
-        ModelAndView mv = new ModelAndView("/freeboard/freeBoardList");
-        List<FreeBoardDto> list = boardService.selectFreeBoardList();
-        mv.addObject("List",list);
-        return mv;
-    }
-    @RequestMapping("/freeCont")
-    public ModelAndView freeBoardCont(@RequestParam("no") int freeNum) throws Exception {
-        boardService.updateFreeBoardHitCount(freeNum);
-        ModelAndView mv = new ModelAndView("/freeboard/freeBoardCont");
-        FreeBoardDto dto = boardService.selectFreeBoardCont(freeNum);
-        List<FreeBoardReplyDto> replyDto = boardService.selectFreeBoardReplyList(freeNum);
-        mv.addObject("freeBoardCont",dto);
-        mv.addObject("replyDto",replyDto);
-        return mv;
-    }
-    @RequestMapping("/freeEdit")
-    public ModelAndView freeBoardEdit(@RequestParam("no") int freeNum) throws Exception {
-        ModelAndView mv = new ModelAndView("/freeboard/freeBoardEdit");
-        FreeBoardDto dto = boardService.selectFreeBoardCont(freeNum);
-        mv.addObject("freeBoardCont",dto);
-        return mv;
-    }
-    @RequestMapping("/freeEditOk")
-    public String  freeBoardEditOk(FreeBoardDto freeDto,HttpServletResponse response) throws Exception {
-        boardService.updateFreeBoard(freeDto);
-        return "redirect:/freeCont?no="+freeDto.getFreeNum();
-    }
-    @RequestMapping("/freeWrite")
-    public String freeBoardWrite() {
-        return "/freeboard/freeBoardWrite";
-    }
-    @RequestMapping(method = RequestMethod.POST, value = "/freeWriteOk")
-    public String writeOk(FreeBoardDto dto) throws Exception {
-        boardService.writeFreeBoard(dto);
-        return "redirect:/freeList";
-    }
-    @RequestMapping("/freeDelete")
-    public void deleteOk(@RequestParam("no") int freeNum,HttpServletResponse response) throws Exception {
-        boardService.deleteFreeBoard(freeNum);
-        response.setContentType("text/html; charset=UTF-8");
-        PrintWriter out = response.getWriter();
-        out.println("<script>");
-        out.println("alert('삭제가 완료되었습니다.')");
-        out.println("location.href='/freeList'");
-        out.println("</script>");
-    }
-    /* 자유게시판 댓글 관련*/
-    @RequestMapping("/freeReplyWrite")
-    public void freeReplyWrite(FreeBoardReplyDto dto,HttpServletResponse response) throws Exception {
-        boardService.updateFreeBoardReply(dto);
-        boardService.writeFreeBoardReply(dto);
-        response.setContentType("text/html; charset=UTF-8");
-        PrintWriter out = response.getWriter();
-        out.println("<script>");
-        out.println("alert('댓글이 등록되었습니다.')");
-        out.println("location.href='/freeCont?no="+dto.getFreeNum()+"'");
-        out.println("</script>");
-    }
+	
+	
+	/*
+	 * @RequestMapping(method = RequestMethod.POST, value = "/loginCheck") public
+	 * String loginCheck(HttpSession session, @RequestParam("id") String
+	 * id, @RequestParam("pwd") String pwd) throws Exception { if
+	 * (memberService.loginCheck(id, pwd)) { session.setAttribute("login", id); }
+	 * else { return "redirect:/login"; } return "/main"; }
+	 */
+	@RequestMapping("/notice")
+	public String notice() {
+		return "/notice";
+	}
 
-    /* 스터디 게시판 관련 */
+	@RequestMapping("/freeCont")
+	public ModelAndView freeBoardCont(@RequestParam("freeNum") int freeNum) throws Exception {
+		ModelAndView mv = new ModelAndView("/freeboard/freeBoardCont");
+		List<FreeBoardReplyDto> replyDto = boardService.selectFreeBoardReplyList(freeNum);   
+		boardService.updateFreeBoardHitCount(freeNum);	//조회수증가
+		FreeBoardDto freeboard = boardService.selectFreeBoardCont(freeNum);	//글내용가져오기
+		List<BoardFileDto> fileDtolist = boardService.selectBoardFileDto(freeNum);//첨부파일가져오기
+		// System.out.println("파일경로는~?"+fileDtolist.get(0).getStoredFilePath());
+		 int filecount = fileDtolist.size() - 1;
+		 //System.out.println("파일개수는??"+filecount);
+		 for(int i=0; i<freeboard.getFileList().size(); i++) {
+			 freeboard.getFileList().get(i).setFileSize((int)(freeboard.getFileList().get(i).getFileSize()/1024));
+		 }
+		
+				// filedto정보 가져오는 메소드 만들어서 가져온다음에
+				//file dto를 아래처럼 add한 다음
+				//cont 에서 받아서 dto.getstored해서 이름 가져와서
+				//img src로 뽑기
+		mv.addObject("replyDto",replyDto);
+		mv.addObject("freeboard", freeboard);
+		mv.addObject("fileDtolist", fileDtolist);
+		mv.addObject("filecount",filecount );
+		return mv;
+	}
 
-    @RequestMapping("/studyCont")
-    public String studyBoardCont() {
-        return "/studyBoardCont";
-    }
+	@RequestMapping("/freeEdit")
+	public String freeBoardEdit(FreeBoardDto freeBoard) throws Exception{
+		boardService.updateFreeBoard(freeBoard);
+		 return "redirect:/freeCont?freeNum="+freeBoard.getFreeNum();
+	}
 
-    @RequestMapping("/studyCreate")
-    public String studyBoardCreate() {
-        return "/studyBoardCreate";
-    }
+	
+	@RequestMapping("/freeEditForm")
+	public ModelAndView freeBoardEditForm(@RequestParam("freeNum") int freeNum) throws Exception{
+		ModelAndView mv = new ModelAndView("/freeboard/freeBoardEdit");
+		FreeBoardDto freeboard = boardService.selectFreeBoardCont(freeNum);
+		mv.addObject("freeboard", freeboard);
 
+		return mv;
+	}	
+	
+	//게시글 목록 부르기
+	@RequestMapping("/freeList")
+	public ModelAndView freeBoardList() throws Exception {
 
+		ModelAndView mv = new ModelAndView("/freeboard/freeBoardList");
+		List<FreeBoardDto> list = boardService.selectFreeBoardList();
+		mv.addObject("list", list);
 
-    @RequestMapping("/bookMark")
-    public String memBookMark() {
-        return "/memBookMark";
-    }
+		return mv;
+	}
+	
+	
+	
+	  @RequestMapping("/freeSearchList") public ModelAndView freeSearch(SearchDto searchdto) throws Exception {
+	  
+	  System.out.println("freeSearchList메소드");
+	  
+	  ModelAndView mv = new ModelAndView("/freeboard/freeBoardList");
+	  List<FreeBoardDto> list = boardService.selectFreeBoardSearchList(searchdto);
+	  mv.addObject("list", list);
+	  
+	  return mv; }
+	 
+		@RequestMapping("downloadBoardFile")
+		public void downloadBoardFile(@RequestParam int idx, @RequestParam int freeNum, HttpServletResponse response) throws Exception{
+			//선택된 파일의 정보를 DB에서 조회
+			BoardFileDto boardFile = boardService.selectBoardFileInformation(idx, freeNum);
+			if(ObjectUtils.isEmpty(boardFile) == false) {
+				String fileName = boardFile.getOriginalFileName();
+				
+				//위에서 조회된 파일을 읽어온 후 byte[]형태로 변환
+				
+				byte[] files = FileUtils.readFileToByteArray(new File(boardFile.getStoredFilePath()));
+				
+				//response의 헤더에 컨텐츠 타입, 크기, 형태 등을 설정
+				response.setContentType("application/octet-stream");
+				response.setContentLength(files.length);
+				response.setHeader("Content-Disposition", "attachment; fileName=\"" + URLEncoder.encode(fileName,"UTF-8")+"\";");
+				response.setHeader("Content-Transfer-Encoding", "binary");
+				
+				//위의 files를 response에 작성
+				response.getOutputStream().write(files);
+				
+				//response 버퍼 정리 후 닫기
+				response.getOutputStream().flush();
+				response.getOutputStream().close();
+			}
+		}
 
-    @RequestMapping("/infoEdit")
-    public String memInfoEdit() {
-        return "/memInfoEdit";
-    }
+	@RequestMapping("/freeWriteForm")
+	public String freeBoardWriteForm() throws Exception {
+		return "/freeboard/freeBoardWrite";
+	}
+	
+	@RequestMapping("/freeWrite")
+	public String freeBoardWrite(FreeBoardDto freeboard, MultipartHttpServletRequest multireq) throws Exception {
+		List<MultipartFile> fileList =  multireq.getFiles("files"); //files:write에서 파일첨부의 files
+		//System.out.println("fileList는1??"+fileList.get(0));
+		//org.springframework.web.multipart.commons.CommonsMultipartFile@49c3ccb4 찍힘
+		
+		boardService.insertFreeBoard(freeboard, multireq);
+	
+		
+		return "redirect:/freeList";
+	}
+	
+	@RequestMapping(method = RequestMethod.POST, value = "/freeDelete")
+	public void freeBoardDelete(@RequestParam("freeNum") int freeNum,HttpServletResponse response) throws Exception{
+		boardService.deleteFreeBoard(freeNum);
+		 response.setContentType("text/html; charset=UTF-8");
+	        PrintWriter out = response.getWriter();
+	        out.println("<script>");
+	        out.println("alert('삭제가 완료되었습니다.')");
+	        out.println("location.href='/freeList'");
+	        out.println("</script>");
+	}
 
-    @RequestMapping("/myWrite")
-    public String memMyWrite() {
-        return "/memMyWrite";
-    }
-
-    @RequestMapping("/out")
-    public String memOut() {
-        return "/memOut";
-    }
-
-    @RequestMapping("/myPage")
-    public String memPage() {
-        return "/memPage";
-    }
-
-    /* 로그인 및 회원가입 관련 */
+	 /* 로그인 및 회원가입 관련 */
     @RequestMapping("findid_ok")
     public void findId_ok(@RequestParam("memName") String memName,@RequestParam("memEmail") String memEmail,HttpServletResponse response) throws Exception {
         response.setContentType("text/html; charset= UTF-8");
@@ -248,4 +289,55 @@ public class StudyController {
             out.println("</script>");
         }
     }
+
+    /* 자유게시판 댓글 관련*/
+    @RequestMapping("/freeReplyWrite")
+    public void freeReplyWrite(FreeBoardReplyDto dto,HttpServletResponse response) throws Exception {
+      //  boardService.updateFreeBoardReply(dto);
+        boardService.writeFreeBoardReply(dto);
+        response.setContentType("text/html; charset=UTF-8");
+        PrintWriter out = response.getWriter();
+        out.println("<script>");
+        out.println("alert('댓글이 등록되었습니다.')");
+        out.println("location.href='/freeCont?freeNum="+dto.getFreeNum()+"'");
+        out.println("</script>");
+    }
+
+    /* 스터디 게시판 관련 */
+    @RequestMapping("/studyCont")
+	public String studyBoardCont() {
+		return "/studyBoardCont";
+	}
+
+	@RequestMapping("/studyCreate")
+	public String studyBoardCreate() {
+		return "/studyBoardCreate";
+	}
+	/* 마이페이지 관련 */
+
+	@RequestMapping("/bookMark")
+	public String memBookMark() {
+		return "/memBookMark";
+	}
+
+	@RequestMapping("/infoEdit")
+	public String memInfoEdit() {
+		return "/memInfoEdit";
+	}
+
+	@RequestMapping("/myWrite")
+	public String memMyWrite() {
+		return "/memMyWrite";
+	}
+
+	@RequestMapping("/out")
+	public String memOut() {
+		return "/memOut";
+	}
+
+	@RequestMapping("/myPage")
+	public String memPage() {
+		return "/memPage";
+	}
+   
 }

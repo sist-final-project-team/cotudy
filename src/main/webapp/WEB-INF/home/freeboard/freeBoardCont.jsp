@@ -1,58 +1,129 @@
-<%@ page session="true" %>
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ page session="true"%>    
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>코터디-자유게시판-상세페이지</title>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script>
+function deleteconfirm()
+{
+	var freeNum = document.getElementById("freeNum").value;
+    msg = "정말로 삭제하시겠습니까?";
+    if (confirm(msg)!=0) {
+        location.href = "/freeDelete?freeNum=" + freeNum;
+         // Yes click
+        
+        
+    } else {
+        // no click
+}
+} // deleteconfirm
+
+</script>
 </head>
 <body>
 <jsp:include page="../header.jsp"></jsp:include>
-<div class="container2">
-    <hr width="50%" color="violet">
-    <h3>자유 게시판 상세내용</h3>
-    <hr width="50%" color="violet">
-    <table class="board_list">
-        <c:set value="${freeBoardCont}" var="dto"/>
-        <c:if test="${!empty dto}">
-            <tr>
-                <th>글 번호</th>
-                <td>${dto.getFreeNum()}</td>
-                <th>글 제목</th>
-                <td>${dto.getFreeTitle()}</td>
-                <th>작성자</th>
-                <td>${dto.getMemId()}</td>
-            </tr>
-            <tr>
-                <th colspan="2">글 내용</th>
-                <td colspan="4"><textarea rows="14" cols="50" style="resize: none; " readonly>${dto.getFreeCont()}</textarea></td>
-            </tr>
-            <tr>
-                <th colspan="1">작성일자/수정일자</th>
-                <td colspan="3">${dto.getFreeCreatedDate() }/${dto.getFreeUpdatedDate() }</td>
-                <th colspan="1">조회수</th>
-                <td colspan="1">${dto.getFreeHit()}</td>
-            </tr>
-        </c:if>
-        <c:if test="${empty dto }">
-            <tr>
-                <td colspan="2" align="center">
-                    <h3>게시물이 존재하지 않습니다.</h3>
-                </td>
-            </tr>
-        </c:if>
-        <tr>
-            <td colspan="6" align="center">
-                <c:if test="${sessionScope.memId eq dto.getMemId()}">
-                    <input type="button" value="수정" onclick="location.href='/freeEdit?no=${dto.getFreeNum()}'">
-                    <input type="button" value="삭제" onclick="location.href='/freeDelete?no=${dto.getFreeNum()}'">
+	<% String memId = (String)session.getAttribute("memId"); %>
+			<c:set var="memId" value="<%=memId %>"></c:set>
+	<div align="center" class="container2">
+		<hr width="50%" color="purple">
+			<h3>BOARD 게시판 게시글 상세 내역</h3>
+		<hr width="50%" color="purple">
+		
+		<table class="board_list">
+	
+			<c:set var="dto" value="${freeboard }"> </c:set>
+			<c:set var="fileDtolist" value="${fileDtolist }"> </c:set>
+			<c:set var="filecount" value="${filecount }"> </c:set>
+			<c:if test="${!empty dto }">
+				<input type="hidden" value="${dto.getFreeNum() }" id="freeNum">
+	
+				<tr>
+					<th>글번호</th>
+					<td>${dto.getFreeNum() }</td>
+				</tr>
+				<tr>
+					<th>주제</th>
+					<td>${dto.getFreeSubject()}</td>
+				</tr>
+				<tr>
+					<th>작성자</th>
+					<td>${dto.getMemId() }</td>
+				</tr>
+				<tr>
+					<th>글제목</th>
+					<td>${dto.getFreeTitle() }</td>
+				</tr>
+				<tr>
+					<th>글내용</th>
+                    <td>${dto.getFreeCont()}
+                    	<br>
+                    	<c:if test="${ filecount >= 0}">
+                    	<c:forEach var="i" begin="0" end="${filecount }">
+                    	 <img alt="" width="400" height="300"
+                           src="${fileDtolist.get(i).getStoredFilePath().substring(15) }"> 
+                           <br>
+                    	</c:forEach>
+                    	</c:if>
+                    </td> 
+				</tr>			
+				<tr>
+					<th>조회수</th>
+					<td>${dto.getFreeHit() }</td>
+				</tr>
+				<tr>
+					<c:if test="${!empty dto.getFreeUpdatedDate()}">
+					<th>작성일/수정일</th>
+					<td>${dto.getFreeCreatedDate() }/${dto.getFreeUpdatedDate() }</td>
+					</c:if>
+					<c:if test="${empty dto.getFreeUpdatedDate()}">
+					<th>작성일</th>
+					<td>${dto.getFreeCreatedDate() }</td>
+					</c:if>
+				</tr>
+
+				<tr>
+					<th>첨부파일</th>
+						<td>
+					<c:forEach items="${dto.fileList}" var="list"> 
+					
+							<a href="/downloadBoardFile?freeNum=${list.freeNum}&idx=${list.idx}" >
+								${list.originalFileName } (${ (list.fileSize) }kb)
+							</a>
+							<br>
+					</c:forEach>
+						</td>
+				</tr>
+				
+			</c:if>
+			
+			
+			
+			<c:if test="${empty dto}">
+				<tr>
+					<td colspan="2" align="center">
+						<h3>검색된 레코드가 없습니다.</h3>
+					</td>
+				</tr>
+			</c:if>
+			
+			<tr>
+				<td colspan="2" align="center">
+				
+				 <c:if test="${sessionScope.memId eq dto.getMemId()}">
+                    <input type="button" value="수정" onclick="location.href='/freeForm?freeNum=${dto.getFreeNum()}'">
+		 			<input type="button" value="삭제" onclick="deleteconfirm()"> 
                 </c:if>
-                <input type="button" value="목록" onclick="location.href='/freeList'">
-            </td>
-        </tr>
-    </table>
-    <form method="post" action="<%=request.getContextPath()%>/freeReplyWrite">
+		 	
+					<input type="button" value="전체목록" onclick="location.href='/freeList'">
+				</td>
+			</tr>
+			
+		</table>
+		 <form method="post" action="<%=request.getContextPath()%>/freeReplyWrite">
     <table class="board_reply">
         <% if ((String)session.getAttribute("memId")==null){ %>
         <tr>
@@ -81,7 +152,9 @@
             </c:forEach>
         </c:if>
     </table>
-</div>
-
+	
+	</div>
+	
 </body>
 </html>
+
