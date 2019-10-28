@@ -52,6 +52,7 @@ public class StudyController {
     }
 
     /* 자유 게시판 관련 */
+    // 자유게시판 글 목록 보여주기
     @RequestMapping("/freeList")
     public ModelAndView freeBoardList() throws Exception {
         ModelAndView mv = new ModelAndView("/freeboard/freeBoardList");
@@ -59,6 +60,7 @@ public class StudyController {
         mv.addObject("List",list);
         return mv;
     }
+    // 자유게시판 상세 내용 보여주기
     @RequestMapping("/freeCont")
     public ModelAndView freeBoardCont(@RequestParam("no") int freeNum) throws Exception {
         boardService.updateFreeBoardHitCount(freeNum);
@@ -69,6 +71,7 @@ public class StudyController {
         mv.addObject("replyDto",replyDto);
         return mv;
     }
+    // 자유게시판 글 수정 폼
     @RequestMapping("/freeEdit")
     public ModelAndView freeBoardEdit(@RequestParam("no") int freeNum) throws Exception {
         ModelAndView mv = new ModelAndView("/freeboard/freeBoardEdit");
@@ -76,11 +79,13 @@ public class StudyController {
         mv.addObject("freeBoardCont",dto);
         return mv;
     }
+    // 자유게시판 글 수정 완료
     @RequestMapping("/freeEditOk")
     public String  freeBoardEditOk(FreeBoardDto freeDto,HttpServletResponse response) throws Exception {
         boardService.updateFreeBoard(freeDto);
         return "redirect:/freeCont?no="+freeDto.getFreeNum();
     }
+    // 자유게시판 글 작성
     @RequestMapping("/freeWrite")
     public String freeBoardWrite() {
         return "/freeboard/freeBoardWrite";
@@ -90,6 +95,7 @@ public class StudyController {
         boardService.writeFreeBoard(dto);
         return "redirect:/freeList";
     }
+    // 자유게시판 글 삭제
     @RequestMapping("/freeDelete")
     public void deleteOk(@RequestParam("no") int freeNum,HttpServletResponse response) throws Exception {
         boardService.deleteFreeBoard(freeNum);
@@ -124,8 +130,6 @@ public class StudyController {
     public String studyBoardCreate() {
         return "/studyBoardCreate";
     }
-
-
 
     @RequestMapping("/bookMark")
     public String memBookMark() {
@@ -169,7 +173,6 @@ public class StudyController {
             out.println("self.close()");
             out.println("</script>");
         }
-
     }
     @RequestMapping("findid")
     public String findId(){return "/findid";}
@@ -183,7 +186,6 @@ public class StudyController {
         String e_mail = memEmail;
         String pwd = memberService.findPwd(memId,memName,memEmail);
         if(pwd!=null){
-
             email.setContent("비밀번호는 "+pwd+" 입니다.");
             email.setReceiver(e_mail);
             email.setSubject(id+"님 비밀번호 찾기 메일입니다.");
@@ -248,4 +250,5 @@ public class StudyController {
             out.println("</script>");
         }
     }
+
 }

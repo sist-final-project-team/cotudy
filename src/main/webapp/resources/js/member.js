@@ -35,5 +35,10 @@ function mem_check() {
         $("#memName").val("").focus();
         return false;
     }
+    if($("idcheck").text()!="사용가능한 아이디입니다."){
+        alert("중복 확인을 하셔야 합니다.");
+        $("#idcheck_btn").focus();
+        return false;
+    }
 
 }

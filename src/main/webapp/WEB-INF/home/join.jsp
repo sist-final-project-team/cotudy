@@ -8,10 +8,13 @@
 
 
     <%-- 회원 가입에 있어서 데이터를 검증하는 외부 자바스크립트 파일 링크 --%>
-    <script type="text/javascript" src="/resources/js/member.js"></script>
+    <script type="text/javascript" src="/resources/js/member.js">
+
+    </script>
     <script type="text/javascript">
         // 현재 웹문서가 브라우저로 로딩 될 때 문서의 본문을 읽고 현재의 제이쿼리 호출
         $(function () {
+
             // 회원가입 폼 중에서 아이디 중복 체크라는 버튼을 클릭했을떄
             $("#idcheck_btn").mouseover(function () {
                 $("#idcheck").hide();
@@ -43,7 +46,7 @@
                     success: function (res) {
                         console.log(res);
                         if (res === 1) {  // 아이디가 존재하는 경우(중복)
-                            var warningTxt = '<span style="color: red; "/> 중복된 아이디입니다.</font>';
+                            var warningTxt = '<span style="color: red; "/>중복된 아이디입니다.</font>';
                             $("#idcheck").text('');
                             $("#idcheck").show();
                             $("#idcheck").append(warningTxt);
