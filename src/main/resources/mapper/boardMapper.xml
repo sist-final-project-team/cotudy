@@ -200,7 +200,7 @@
 				idx,
 				free_num,
 				original_file_name,
-				FORMAT(ROUND(file_size / 1024), 0) AS file_size
+				file_size
 			FROM
 				t_file
 			WHERE

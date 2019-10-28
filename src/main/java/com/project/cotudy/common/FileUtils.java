@@ -67,6 +67,7 @@ public class FileUtils {
 					BoardFileDto boardFile = new BoardFileDto();
 					boardFile.setFreeNum(freeNum);
 					boardFile.setFileSize(multipartFile.getSize());
+					System.out.println("multipartFile.getSize()는????"+multipartFile.getSize());
 					boardFile.setOriginalFileName(multipartFile.getOriginalFilename());
 					boardFile.setStoredFilePath(path + "/" + newFileName);
 					fileList.add(boardFile);

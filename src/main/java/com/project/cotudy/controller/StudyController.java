@@ -93,6 +93,9 @@ public class StudyController {
 		 System.out.println("파일경로는~?"+fileDtolist.get(0).getStoredFilePath());
 		 int filecount = fileDtolist.size() - 1;
 		 System.out.println("파일개수는??"+filecount);
+		 for(int i=0; i<freeboard.getFileList().size(); i++) {
+			 freeboard.getFileList().get(i).setFileSize((int)(freeboard.getFileList().get(i).getFileSize()/1024));
+		 }
 		
 				// filedto정보 가져오는 메소드 만들어서 가져온다음에
 				//file dto를 아래처럼 add한 다음

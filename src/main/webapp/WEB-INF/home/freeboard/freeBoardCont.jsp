@@ -87,7 +87,7 @@ function deleteconfirm()
 						<td>
 					<c:forEach items="${dto.fileList}" var="list"> 
 							<a href="/downloadBoardFile?freeNum=${list.freeNum}&idx=${list.idx}" >
-								${list.originalFileName } (${ list.fileSize }kb)
+								${list.originalFileName } (${ (list.fileSize) }kb)
 							</a>
 							<br>
 					</c:forEach>
