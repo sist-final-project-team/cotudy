@@ -8,15 +8,15 @@
 <head>
   <meta charset="utf-8">
   <title>EstateAgency Bootstrap Template</title>
-
+<% String memId = (String)session.getAttribute("login"); %>
 </head>
 
 
 <body>
-<% String memId = (String)session.getAttribute("login"); %>
 
 
-	<div align="center">
+<jsp:include page="../header.jsp"></jsp:include>
+	<div class ="container2" align="center">
 		<hr width="50%" color="purple">
 			<h3><%=memId%>님 테이블 글쓰기 폼</h3>
 		<hr width="50%" color="purple">
@@ -41,7 +41,7 @@
 				</tr>
 				<tr>
 					<th>글내용</th>
-					<td> <textarea rows="8" cols="30" name="freeCont" ></textarea> </td>
+					<td> <textarea rows="8" cols="30" name="freeCont" style="resize: none"></textarea> </td>
 				</tr>		
 				<tr>
 					<th>파일첨부</th>
@@ -60,4 +60,7 @@
 		</form>
 	</div>
 </body>
-</html>
+
+<body>
+
+

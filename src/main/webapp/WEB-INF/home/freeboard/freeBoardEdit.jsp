@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page session="true"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
@@ -9,7 +8,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-
+	<jsp:include page="../header.jsp"></jsp:include>
 	<div align="center">
 		<hr width="50%" color="purple">
 			<h3>BOARD 테이블 게시글 수정 폼</h3>
@@ -52,13 +51,15 @@
 					<td>${dto.getFreeCreatedDate() }</td>
 				</tr>
 				
-				
 				<tr>
-					<td colspan="2" align="center">
-						<input type="submit" value="수정하기" >&nbsp;&nbsp;&nbsp;
-						<input type="reset" value="다시작성" >
-					</td>
-				</tr>
+            <td colspan="6" align="center">
+                <c:if test="${sessionScope.memId eq dto.getMemId()}">
+                    <input type="submit" value="수정하기">&nbsp;&nbsp;&nbsp;
+                    <input type="reset" value="취소">
+                </c:if>
+                <input type="button" value="목록" onclick="location.href='/freeList'">
+            </td>
+        </tr>
 				</table>
 			</c:if>
 		</form>
@@ -66,3 +67,4 @@
 
 </body>
 </html>
+

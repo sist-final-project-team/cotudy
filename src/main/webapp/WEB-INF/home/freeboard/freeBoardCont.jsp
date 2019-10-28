@@ -109,18 +109,48 @@ function deleteconfirm()
 			<tr>
 				
 				<td colspan="2" align="center">
-			<c:if test="${!empty memId}">	
-					<input type="button" value="수정" onclick="location.href='/freeEditForm?freeNum=${dto.getFreeNum()}'">
+				 <c:if test="${sessionScope.memId eq dto.getMemId()}">
+                    <input type="button" value="수정" onclick="location.href='/freeForm?freeNum=${dto.getFreeNum()}'">
 		 			<input type="button" value="삭제" onclick="deleteconfirm()"> 
-			</c:if>
+                </c:if>
 		 	
 					<input type="button" value="전체목록" onclick="location.href='/freeList'">
 				</td>
 			</tr>
 			
 		</table>
+		 <form method="post" action="<%=request.getContextPath()%>/freeReplyWrite">
+    <table class="board_reply">
+        <% if ((String)session.getAttribute("memId")==null){ %>
+        <tr>
+            <td><textarea cols="70" rows="5" style="resize: none" readonly>로그인 후 작성이 가능합니다.</textarea></td>
+        </tr>
+        <%} else{ %>
+       <tr>
+           <input type="hidden" name="memId" value="${sessionScope.memId}">
+           <input type="hidden" name="freeNum" value="${dto.getFreeNum()}">
+           <td><textarea cols="70" rows="5" style="resize: none" name="replyCont"></textarea></td>
+           <td><input type="submit" value="댓글달기"></td>
+       </tr>
+        <% } %>
+    </table>
+    </form>
+
+    <table class="board_reply">
+        <c:set var="list" value="${replyDto}"/>
+        <c:if test="${!empty list}">
+            <c:forEach items="${list}" var="reply">
+               <tr>
+                   <td>${reply.getFreeReplyNum()}</td>
+                   <td>${reply.getReplyCont()}</td>
+                   <td>${reply.getMemId()}</td>
+               </tr>
+            </c:forEach>
+        </c:if>
+    </table>
 	
 	</div>
 	
 </body>
 </html>
+

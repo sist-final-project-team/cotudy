@@ -1,121 +1,101 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ page session="true"%>
+<%@ page session="false"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <head>
   <meta charset="utf-8">
-  <title>EstateAgency Bootstrap Template</title>
+  <title>코터디</title>
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
   <meta content="" name="keywords">
   <meta content="" name="description">
 
-  <!-- Favicons -->
-  <link href="../resources/../resources/img/favicon.png" rel="icon">
-  <link href="../resources/../resources/img/apple-touch-icon.png" rel="apple-touch-icon">
 
-  <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" rel="stylesheet">
 
-  <!-- Bootstrap CSS File -->
-  <link href="../resources/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-
-  <!-- Libraries CSS Files -->
-  <link href="../resources/lib/font-awesome/css/font-awesome.min.css" rel="stylesheet">
-  <link href="../resources/lib/animate/animate.min.css" rel="stylesheet">
-  <link href="../resources/lib/ionicons/css/ionicons.min.css" rel="stylesheet">
-  <link href="../resources/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
-
-  <!-- Main Stylesheet File -->
-  <link href="../resources/css/style.css" rel="stylesheet">
-
-  <!-- =======================================================
-    Theme Name: EstateAgency
-    Theme URL: https://bootstrapmade.com/real-estate-agency-bootstrap-template/
-    Author: BootstrapMade.com
-    License: https://bootstrapmade.com/license/
-  ======================================================= -->
 </head>
 
 <body>
 
+ <div class="click-closed"></div>
+
+
 <jsp:include page="header.jsp"></jsp:include>
 
-  <!--/ Carousel Star /-->
-  <div class="intro intro-carousel">
-    <div id="carousel" class="owl-carousel owl-theme">
-      <div class="carousel-item-a intro-item bg-image" style="background-image: url(../resources/../resources/img/slide-1.jpg)">
-        <div class="overlay overlay-a"></div>
-        <div class="intro-content display-table">
-          <div class="table-cell">
-            <div class="container">
-              <div class="row">
-                <div class="col-lg-8">
-                  <div class="intro-body">
-                    <p class="intro-title-top">Doral, Florida
-                      <br> 78345</p>
-                    <h1 class="intro-title mb-4">
-                      <span class="color-b">204 </span> Mount
-                      <br> Olive Road Two</h1>
-                    <p class="intro-subtitle intro-price">
-                      <a href="#"><span class="price-a">rent | $ 12.000</span></a>
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="carousel-item-a intro-item bg-image" style="background-image: url(../resources/img/slide-2.jpg)">
-        <div class="overlay overlay-a"></div>
-        <div class="intro-content display-table">
-          <div class="table-cell">
-            <div class="container">
-              <div class="row">
-                <div class="col-lg-8">
-                  <div class="intro-body">
-                    <p class="intro-title-top">Doral, Florida
-                      <br> 78345</p>
-                    <h1 class="intro-title mb-4">
-                      <span class="color-b">204 </span> Rino
-                      <br> Venda Road Five</h1>
-                    <p class="intro-subtitle intro-price">
-                      <a href="#"><span class="price-a">rent | $ 12.000</span></a>
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="carousel-item-a intro-item bg-image" style="background-image: url(../resources/img/slide-3.jpg)">
-        <div class="overlay overlay-a"></div>
-        <div class="intro-content display-table">
-          <div class="table-cell">
-            <div class="container">
-              <div class="row">
-                <div class="col-lg-8">
-                  <div class="intro-body">
-                    <p class="intro-title-top">Doral, Florida
-                      <br> 78345</p>
-                    <h1 class="intro-title mb-4">
-                      <span class="color-b">204 </span> Alira
-                      <br> Roan Road One</h1>
-                    <p class="intro-subtitle intro-price">
-                      <a href="#"><span class="price-a">rent | $ 12.000</span></a>
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <!--/ Carousel end /-->
+<%--  <!--/ Carousel Star /-->--%>
+<%--  <div class="intro intro-carousel">--%>
+<%--    <div id="carousel" class="owl-carousel owl-theme">--%>
+<%--      <div class="carousel-item-a intro-item bg-image" style="background-image: url(../resources/../resources/img/slide-1.jpg)">--%>
+<%--        <div class="overlay overlay-a"></div>--%>
+<%--        <div class="intro-content display-table">--%>
+<%--          <div class="table-cell">--%>
+<%--            <div class="container">--%>
+<%--              <div class="row">--%>
+<%--                <div class="col-lg-8">--%>
+<%--                  <div class="intro-body">--%>
+<%--                    <p class="intro-title-top">Doral, Florida--%>
+<%--                      <br> 78345</p>--%>
+<%--                    <h1 class="intro-title mb-4">--%>
+<%--                      <span class="color-b">204 </span> Mount--%>
+<%--                      <br> Olive Road Two</h1>--%>
+<%--                    <p class="intro-subtitle intro-price">--%>
+<%--                      <a href="#"><span class="price-a">rent | $ 12.000</span></a>--%>
+<%--                    </p>--%>
+<%--                  </div>--%>
+<%--                </div>--%>
+<%--              </div>--%>
+<%--            </div>--%>
+<%--          </div>--%>
+<%--        </div>--%>
+<%--      </div>--%>
+<%--      <div class="carousel-item-a intro-item bg-image" style="background-image: url(../resources/img/slide-2.jpg)">--%>
+<%--        <div class="overlay overlay-a"></div>--%>
+<%--        <div class="intro-content display-table">--%>
+<%--          <div class="table-cell">--%>
+<%--            <div class="container">--%>
+<%--              <div class="row">--%>
+<%--                <div class="col-lg-8">--%>
+<%--                  <div class="intro-body">--%>
+<%--                    <p class="intro-title-top">Doral, Florida--%>
+<%--                      <br> 78345</p>--%>
+<%--                    <h1 class="intro-title mb-4">--%>
+<%--                      <span class="color-b">204 </span> Rino--%>
+<%--                      <br> Venda Road Five</h1>--%>
+<%--                    <p class="intro-subtitle intro-price">--%>
+<%--                      <a href="#"><span class="price-a">rent | $ 12.000</span></a>--%>
+<%--                    </p>--%>
+<%--                  </div>--%>
+<%--                </div>--%>
+<%--              </div>--%>
+<%--            </div>--%>
+<%--          </div>--%>
+<%--        </div>--%>
+<%--      </div>--%>
+<%--      <div class="carousel-item-a intro-item bg-image" style="background-image: url(../resources/img/slide-3.jpg)">--%>
+<%--        <div class="overlay overlay-a"></div>--%>
+<%--        <div class="intro-content display-table">--%>
+<%--          <div class="table-cell">--%>
+<%--            <div class="container">--%>
+<%--              <div class="row">--%>
+<%--                <div class="col-lg-8">--%>
+<%--                  <div class="intro-body">--%>
+<%--                    <p class="intro-title-top">Doral, Florida--%>
+<%--                      <br> 78345</p>--%>
+<%--                    <h1 class="intro-title mb-4">--%>
+<%--                      <span class="color-b">204 </span> Alira--%>
+<%--                      <br> Roan Road One</h1>--%>
+<%--                    <p class="intro-subtitle intro-price">--%>
+<%--                      <a href="#"><span class="price-a">rent | $ 12.000</span></a>--%>
+<%--                    </p>--%>
+<%--                  </div>--%>
+<%--                </div>--%>
+<%--              </div>--%>
+<%--            </div>--%>
+<%--          </div>--%>
+<%--        </div>--%>
+<%--      </div>--%>
+<%--    </div>--%>
+<%--  </div>--%>
+<%--  <!--/ Carousel end /-->--%>
 
   <!--/ Services Star /-->
   <section class="section-services section-t8">
@@ -124,13 +104,7 @@
         <div class="col-md-12">
           <div class="title-wrap d-flex justify-content-between">
             <div class="title-box">
-            
-	<% 
-	String memId = (String)session.getAttribute("login");
-	%>
-
-
-              <h2 class="title-a"><%=memId %>님 하이</h2>
+              <h2 class="title-a">Our Services</h2>
             </div>
           </div>
         </div>
@@ -811,97 +785,8 @@
   </section>
   <!--/ Testimonials End /-->
 
-  <!--/ section footer Start /-->
-  <section class="section-footer">
-    <div class="container">
-      <div class="row">
-        <div class="col-sm-12 col-md-4">
-          <div class="widget-a">
-            <div class="w-header-a">
-              <h3 class="w-title-a text-brand">여기부분 쓸거면 푸터에 합치고 안쓸거면 지워버리기(section-footer부분)</h3>
-            </div>
-            <div class="w-body-a">
-              <p class="w-text-a color-text-a">
-                Enim minim veniam quis nostrud exercitation ullamco laboris nisi ut aliquip exea commodo consequat duis
-                sed aute irure.
-              </p>
-            </div>
-            <div class="w-footer-a">
-              <ul class="list-unstyled">
-                <li class="color-a">
-                  <span class="color-text-a">Phone .</span> contact@example.com</li>
-                <li class="color-a">
-                  <span class="color-text-a">Email .</span> +54 356 945234</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-        <div class="col-sm-12 col-md-4 section-md-t3">
-          <div class="widget-a">
-            <div class="w-header-a">
-              <h3 class="w-title-a text-brand">The Company</h3>
-            </div>
-            <div class="w-body-a">
-              <div class="w-body-a">
-                <ul class="list-unstyled">
-                  <li class="item-list-a">
-                    <i class="fa fa-angle-right"></i> <a href="#">Site Map</a>
-                  </li>
-                  <li class="item-list-a">
-                    <i class="fa fa-angle-right"></i> <a href="#">Legal</a>
-                  </li>
-                  <li class="item-list-a">
-                    <i class="fa fa-angle-right"></i> <a href="#">Agent Admin</a>
-                  </li>
-                  <li class="item-list-a">
-                    <i class="fa fa-angle-right"></i> <a href="#">Careers</a>
-                  </li>
-                  <li class="item-list-a">
-                    <i class="fa fa-angle-right"></i> <a href="#">Affiliate</a>
-                  </li>
-                  <li class="item-list-a">
-                    <i class="fa fa-angle-right"></i> <a href="#">Privacy Policy</a>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-sm-12 col-md-4 section-md-t3">
-          <div class="widget-a">
-            <div class="w-header-a">
-              <h3 class="w-title-a text-brand">International sites</h3>
-            </div>
-            <div class="w-body-a">
-              <ul class="list-unstyled">
-                <li class="item-list-a">
-                  <i class="fa fa-angle-right"></i> <a href="#">Venezuela</a>
-                </li>
-                <li class="item-list-a">
-                  <i class="fa fa-angle-right"></i> <a href="#">China</a>
-                </li>
-                <li class="item-list-a">
-                  <i class="fa fa-angle-right"></i> <a href="#">Hong Kong</a>
-                </li>
-                <li class="item-list-a">
-                  <i class="fa fa-angle-right"></i> <a href="#">Argentina</a>
-                </li>
-                <li class="item-list-a">
-                  <i class="fa fa-angle-right"></i> <a href="#">Singapore</a>
-                </li>
-                <li class="item-list-a">
-                  <i class="fa fa-angle-right"></i> <a href="#">Philippines</a>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-    <!--/ section footer end /-->
-
-<jsp:include page="footer.jsp"></jsp:include>
+  <!--/ footer Star /-->
+ <jsp:include page="footer.jsp"></jsp:include>
 
   <a href="#" class="back-to-top"><i class="fa fa-chevron-up"></i></a>
   <div id="preloader"></div>

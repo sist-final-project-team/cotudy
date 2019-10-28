@@ -1,79 +1,58 @@
+
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
-
-<%@ page session="true"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
+<html>
 <head>
-<meta charset="utf-8">
-<title>EstateAgency Bootstrap Template</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>코터디-자유게시판</title>
+    <script type="text/javascript">
+        function writeOk() {
+            var id = "<%=(String)session.getAttribute("memId")%>";
+            console.log(id);
+            if(id.length>4){
+                location.href="/freeWriteForm";
+            }else{
+                alert("로그인 후 이용 가능합니다.");
+                window.open("/login", "로그인 화면", "top=300, left=300, width=500, height=600, status=no, menubar=no, toolbar=no, resizable=no");
+                location.href="/freeList"
+            }
+        }
+    </script>
 
 </head>
-
 <body>
-
-
-	<div align="center">
-		<hr width="50%" color="purple">
-		<h3>BOARD 게시판 전체 리스트</h3>
-		<hr width="50%" color="purple">
-	<% String memId = (String)session.getAttribute("login"); %>
-			<c:set var="memId" value="<%=memId %>"></c:set>
-		<h4><%=memId%> 님 환영합니다.</h4>
-		<table border="1" width="800" cellspacing="0">
-
-			<tr>
-
-				<th>글번호</th>
-				<th>주제</th>
-				<th>글제목</th>
-				<th>작성자</th>
-				<th>조회수</th>
-				<th>작성일자</th>
-			</tr>
-			<c:set var="list" value="${list }"></c:set>
-			<c:if test="${!empty list }">
-				<c:forEach items="${list }" var="dto">
-					<tr>
-						<td>${dto.getFreeNum() }</td>
-						<td>${dto.getFreeSubject() }</td>
-						<td><a href="freeCont?freeNum=${dto.getFreeNum()}">
-								${dto.getFreeTitle() }</a></td>
-						<td>${dto.getMemId() }</td>
-						<td>${dto.getFreeHit() }</td>
-						<td>${dto.getFreeCreatedDate().substring(0,16) }</td>
-					</tr>
-				</c:forEach>
-			</c:if>
-
-
-			<c:if test="${empty list }">
-				<tr>
-					<td colspan="6" align="center">
-						<h3>검색된 레코드가 없습니다.</h3>
-					</td>
-				</tr>
-			</c:if>
-
-			<c:if test="${!empty memId}">
-			<tr>
-				<td colspan="6" align="right">
-				<input type="button" value="글쓰기"
-					onclick="location.href='freeWriteForm'"></td>
-			</tr>
-			</c:if>
-			
-			<c:if test="${empty memId}">
-			<tr>
-				<td colspan="6" align="right">
-				<h5>로그인 후 글쓰기가 가능합니다.</h5>
-			</tr>
-			</c:if>
-		</table>
-		<br>
-
-		<form method="post" action="/freeSearchList">
+<jsp:include page="../header.jsp"></jsp:include>
+<div class="container2">
+    <hr width="50%" color="blue">
+        <h3>자유 게시판 목록</h3>
+    <hr width="50%" color="blue">
+        <table class="board_list">
+            <tr>
+                <th>글 번호</th><th>주제</th><th>글 제목</th><th>작성자</th><th>작성일자</th><th>조회수</th>
+            </tr>
+            <c:set var="list" value="${List}"/>
+            <c:if test="${!empty list}">
+                <c:forEach items="${list}" var="freeboardDto">
+                    <tr>
+                        <td>${freeboardDto.getFreeNum()}</td>
+                        <td>${freeboardDto.getFreeSubject()}</td>
+                        <td><a href="/freeCont?freeNum=${freeboardDto.getFreeNum()}"> ${freeboardDto.getFreeTitle()}</a></td>
+                        <td>${freeboardDto.getMemId()}</td>
+                        <td>${freeboardDto.getFreeCreatedDate()}</td>
+                        <td>${freeboardDto.getFreeHit()}</td>
+                    </tr>
+                </c:forEach>
+            </c:if>
+            <c:if test="${empty list}">
+                <tr>
+                    <td colspan="6" align="center">
+                        <h3>게시글이 없습니다.</h3>
+                    </td>
+                </tr>
+            </c:if>
+        </table>
+        <form method="post" action="/freeSearchList">
 			<select name="freeSubject">
 				<option value="전체보기" selected>전체보기</option>
 				<option value="질문">질문</option>
@@ -87,8 +66,11 @@
 			</select> 
 			<input type="text" name="searchKeyword"> 
 			<input type="submit" value="검색">
+			<input type="button" value="글 작성" onclick="writeOk()">
 		</form>
+        
 
-	</div>
+</div>
+
 </body>
 </html>

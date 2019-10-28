@@ -9,19 +9,14 @@ import com.project.cotudy.model.SearchDto;
 import com.project.cotudy.model.StudyBoardDto;
 import com.project.cotudy.model.StudyBoardReplyDto;
 import org.springframework.util.CollectionUtils;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
-import org.springframework.util.ObjectUtils;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
-
-import java.util.Iterator;
 import java.util.List;
 
 @Service
 public class BoardServiceImpl implements BoardService {
+
 
 	@Autowired
 	private FileUtils fileUtils;
@@ -144,39 +139,35 @@ public class BoardServiceImpl implements BoardService {
 	 
 	
 	// ============================study 게시판 관련
-	@Override
-	public List<StudyBoardDto> selectStudyBoardList() throws Exception {
-		return null;
-	}
+    @Override
+    public List<StudyBoardDto> selectStudyBoardList() {
+        return null;
+    }
+    @Override
+    public StudyBoardDto selectStudyBoardCont(int studyNum) {
+        return null;
+    }
+    @Override
+    public List<StudyBoardReplyDto> selectStudyBoardReplyList(int studyNum) {
+        return null;
+    }
+    @Override
+    public void deleteStudyBoardReply(int studyReplyNum) { }
+    @Override
+    public void updateStudyBoard(StudyBoardDto studyBoard) { }
+    @Override
+    public void deleteStudyBoard(int studyNum) { }
+ 
+   
+   
 
-	
+    @Override
+    public void writeFreeBoardReply(FreeBoardReplyDto freeReplyBoard) throws Exception {
+        boardMapper.writeFreeReplyBoard(freeReplyBoard);
+    }
 
-	@Override
-	public void updateStudyBoard(StudyBoardDto studyBoard) throws Exception {
-
-	}
-
-	@Override
-	public void deleteStudyBoard(int studyNum) throws Exception {
-
-	}
-
-	@Override
-	public StudyBoardDto selectStudyBoardCont(int studyNum) throws Exception {
-		return null;
-	}
-
-	@Override
-	public List<StudyBoardReplyDto> selectStudyBoardReplyList(int studyNum) throws Exception {
-		return null;
-	}
-
-	@Override
-	public void deleteStudyBoardReply(int studyReplyNum) throws Exception {
-
-	}
-
-
-
-
+    @Override
+    public void updateFreeBoardReply(FreeBoardReplyDto freeReplyBoard) throws Exception {
+        boardMapper.updateFreeReplyBoard(freeReplyBoard);
+    }
 }
