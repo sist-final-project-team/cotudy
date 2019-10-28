@@ -126,7 +126,7 @@
 			SELECT
 				*
 			FROM
-				t_file
+				freeboard_file
 			WHERE
 				free_num = #{freeNum}
 		]]>
@@ -171,13 +171,12 @@
 	
 	<insert id="insertBoardFileList" parameterType="com.project.cotudy.model.BoardFileDto">
 		<![CDATA[
-			INSERT INTO t_file
+			INSERT INTO freeboard_file
 			(
 				free_num,
 				original_file_name,
 				stored_file_path,
 				file_size,
-				creator_id,
 				created_datetime
 			)
 			VALUES
@@ -188,7 +187,6 @@
 				#{item.originalFileName},
 				#{item.storedFilePath},
 				#{item.fileSize},
-				'admin',
 				NOW()
 			)
 		</foreach>
@@ -202,7 +200,7 @@
 				original_file_name,
 				file_size
 			FROM
-				t_file
+				freeboard_file
 			WHERE
 				free_num = #{freeNum}
 				AND deleted_yn = 'N'
@@ -216,7 +214,7 @@
 				stored_file_path,
 				file_size
 			FROM
-				t_file
+				freeboard_file
 			WHERE
 				idx = #{idx}
 				AND free_num = #{freeNum}
@@ -226,13 +224,17 @@
 
 	<update id="deleteFreeBoardfile" parameterType="int">
 		<![CDATA[
-			UPDATE t_file SET 
+			UPDATE freeboard_file SET 
 				deleted_yn = 'Y',
 				updated_datetime = Now()
 			WHERE 
 				free_num = #{freeNum}
 		]]>
 	</update>	
+	
+	
+	
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
     <insert id="writeFreeReplyBoard" parameterType="com.project.cotudy.model.FreeBoardReplyDto">
            insert into free_board_reply (free_num,reply_cont,mem_id,reply_step,reply_indent) values (#{freeNum},#{replyCont},#{memId}, default, 1);
     </insert>
