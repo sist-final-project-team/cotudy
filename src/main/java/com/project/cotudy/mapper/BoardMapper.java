@@ -21,9 +21,10 @@ public interface BoardMapper {
     List<BoardFileDto> selectBoardFileDto(int freeNum) throws Exception;
     List<FreeBoardReplyDto> selectFreeBoardReplyList(int freeNum) throws Exception;
     void deleteFreeBoardReply(int freeReplyNum) throws Exception;
+    void deleteFreeBoard(int freeNum) throws Exception;
+    void deleteFreeBoardfile(int freeNum) throws Exception;
     void updateFreeBoardHitCount(int freeNum) throws Exception;
     void updateFreeBoard(FreeBoardDto freeBoard) throws Exception;
-    void deleteFreeBoard(int freeNum) throws Exception;
     void insertFreeBoard(FreeBoardDto freeBoard) throws Exception;
     List<FreeBoardDto> searchFreeBoard(String searchKeyword) throws Exception;
     void insertBoardFileList(List<BoardFileDto> list) throws Exception;

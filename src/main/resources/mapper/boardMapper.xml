@@ -165,7 +165,7 @@
 				free_num = #{freeNum}
 		]]>
 	</update>
-	
+		
 	
 	<!-- 파일업로드관련 -->
 	
@@ -223,6 +223,15 @@
 				AND deleted_yn = 'N'
 		]]>
 	</select>	
-	
+
+	<update id="deleteFreeBoardfile" parameterType="int">
+		<![CDATA[
+			UPDATE t_file SET 
+				deleted_yn = 'Y',
+				updated_datetime = Now()
+			WHERE 
+				free_num = #{freeNum}
+		]]>
+	</update>	
 	
 </mapper>

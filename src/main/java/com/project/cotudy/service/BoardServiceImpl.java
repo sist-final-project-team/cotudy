@@ -89,6 +89,7 @@ public class BoardServiceImpl implements BoardService {
 	@Override
 	public void deleteFreeBoard(int freeNum) throws Exception {
 		boardMapper.deleteFreeBoard(freeNum);
+		boardMapper.deleteFreeBoardfile(freeNum);
 	}
 
 	@Override

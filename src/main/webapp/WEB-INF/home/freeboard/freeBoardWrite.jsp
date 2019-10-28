@@ -23,7 +23,7 @@
 																					
 		<form method="post" action="/freeWrite" enctype="multipart/form-data">
 		<input type="hidden" value="<%=memId %>" name="memId">
-			<table border="1" width="400" cellspacing="0">
+			<table border="1" width="600" cellspacing="0">
 				<tr>
 					<th>주제</th>
 					<td>
@@ -46,6 +46,9 @@
 				<tr>
 					<th>파일첨부</th>
 					<td> <input type="file" id="files" name="files" multiple="multiple"> </td>
+				</tr>	
+				<tr>
+					<td colspan="2" style="color:red" align="center">※파일은 10MB 이하의 jpg, png, gif 파일만 업로드 가능합니다.</td>
 				</tr>											
 				<tr>
 					<td colspan="2" align="center">
