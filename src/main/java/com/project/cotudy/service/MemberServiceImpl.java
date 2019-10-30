@@ -1,6 +1,8 @@
 package com.project.cotudy.service;
 
+import com.project.cotudy.mapper.BoardMapper;
 import com.project.cotudy.mapper.MemberMapper;
+import com.project.cotudy.model.BoardFileDto;
 import com.project.cotudy.model.FreeBoardDto;
 import com.project.cotudy.model.StudyBoardDto;
 import com.project.cotudy.model.StudyMemberDto;
@@ -80,4 +82,10 @@ public class MemberServiceImpl implements MemberService {
     public String findPwd(String memId, String memName, String memEmail) throws Exception {
         return memberMapper.findPwd(memId,memName,memEmail);
     }
+
+	@Override
+	public StudyMemberDto selectMyInfo(String memId) throws Exception {
+		StudyMemberDto meminfodto = memberMapper.selectMyInfo(memId);	//회원정보 가져오기
+		return meminfodto;
+	}
 }

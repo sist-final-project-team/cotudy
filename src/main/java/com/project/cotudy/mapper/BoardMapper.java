@@ -6,6 +6,8 @@ import com.project.cotudy.model.FreeBoardReplyDto;
 import com.project.cotudy.model.SearchDto;
 import com.project.cotudy.model.StudyBoardDto;
 import com.project.cotudy.model.StudyBoardReplyDto;
+import com.project.cotudy.model.StudyMemberDto;
+
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -41,6 +43,9 @@ public interface BoardMapper {
     void deleteStudyBoard(int studyNum) throws Exception;
     void writeFreeReplyBoard(FreeBoardReplyDto freeReplyBoard) throws Exception;
 //    void updateFreeReplyBoard(FreeBoardReplyDto freeReplyBoard) throws Exception;
+    
+	
+	
 }
 
 
