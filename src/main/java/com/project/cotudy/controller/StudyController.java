@@ -83,8 +83,8 @@ public class StudyController {
 		FreeBoardDto freeboard = boardService.selectFreeBoardCont(freeNum);	//글내용가져오기
 		List<BoardFileDto> fileDtolist = boardService.selectBoardFileDto(freeNum);//첨부파일가져오기
 		// System.out.println("파일경로는~?"+fileDtolist.get(0).getStoredFilePath());
-		 int filecount = fileDtolist.size() - 1;
-		 //System.out.println("파일개수는??"+filecount);
+		 int filecount = fileDtolist.size() -1;
+		 System.out.println("파일개수는??"+filecount);
 		 for(int i=0; i<freeboard.getFileList().size(); i++) {
 			 freeboard.getFileList().get(i).setFileSize((int)(freeboard.getFileList().get(i).getFileSize()/1024));
 		 }
@@ -101,16 +101,20 @@ public class StudyController {
 	}
 
 	@RequestMapping("/freeEdit")
-	public String freeBoardEdit(FreeBoardDto freeBoard) throws Exception{
-		boardService.updateFreeBoard(freeBoard);
-		 return "redirect:/freeCont?freeNum="+freeBoard.getFreeNum();
+	public String freeBoardEdit(FreeBoardDto freeBoard, MultipartHttpServletRequest multireq) throws Exception{
+		List<MultipartFile> fileList =  multireq.getFiles("files"); //files:write에서 파일첨부의 files
+		boardService.updateFreeBoard(freeBoard, multireq);
+		
+		 return "redirect:/freeCont?freeNum="+freeBoard.getFreeNum();			
+		
 	}
 
 	
 	@RequestMapping("/freeEditForm")
 	public ModelAndView freeBoardEditForm(@RequestParam("freeNum") int freeNum) throws Exception{
 		ModelAndView mv = new ModelAndView("/freeboard/freeBoardEdit");
-		FreeBoardDto freeboard = boardService.selectFreeBoardCont(freeNum);
+		FreeBoardDto freeboard = boardService.selectFreeBoardCont(freeNum);	//글내용 가져오기
+		
 		mv.addObject("freeboard", freeboard);
 
 		return mv;
@@ -256,6 +260,7 @@ public class StudyController {
         memberService.register(memberDto);
         return "/main";
     }
+    
     @ModelAttribute("memId")
     public String member(HttpServletRequest request){       // session에 저장된 memId호출해서 넘길거임.
         return (String) request.getSession().getAttribute("memId");
@@ -317,27 +322,34 @@ public class StudyController {
 
 	@RequestMapping("/bookMark")
 	public String memBookMark() {
-		return "/memBookMark";
+		return "/mypage/memBookMark";
 	}
 
 	@RequestMapping("/infoEdit")
 	public String memInfoEdit() {
-		return "/memInfoEdit";
+		return "/mypage/memInfoEdit";
 	}
 
 	@RequestMapping("/myWrite")
 	public String memMyWrite() {
-		return "/memMyWrite";
+		return "/mypage/memMyWrite";
 	}
 
 	@RequestMapping("/out")
 	public String memOut() {
-		return "/memOut";
+		return "/mypage/memOut";
 	}
-
+	
 	@RequestMapping("/myPage")
-	public String memPage() {
-		return "/memPage";
+	public ModelAndView memPage(HttpServletRequest request) throws Exception {
+		ModelAndView mv = new ModelAndView("/mypage/memPage");
+		String memId = (String) request.getSession().getAttribute("memId");
+		System.out.println("아이디는?????"+memId);
+		StudyMemberDto meminfodto = memberService.selectMyInfo(memId); //회원정보 가져오기
+		mv.addObject("meminfodto", meminfodto);
+		
+		return mv;
 	}
+	
    
 }

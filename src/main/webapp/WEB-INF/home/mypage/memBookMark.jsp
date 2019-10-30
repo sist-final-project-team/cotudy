@@ -5,13 +5,13 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>탈퇴</title>
+<title>코터디-북마크</title>
 </head>
 
 <body>
 	<jsp:include page="../header.jsp"></jsp:include>
 	<br><br><br><br><br><br><br>
-<h2>탈퇴 페이지입니다</h2>
+<h2>북마크 페이지입니다</h2>
 
 </body>
 </html>

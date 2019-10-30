@@ -156,6 +156,8 @@
 		]]>
 	</update>
 	
+	
+	
 	<update id="deleteFreeBoard" parameterType="int">
 		<![CDATA[
 			UPDATE free_board SET 
@@ -190,7 +192,7 @@
 				NOW()
 			)
 		</foreach>
-	</insert>	
+	</insert>		
 	
 	<select id="selectBoardFileList" parameterType="int" resultType="com.project.cotudy.model.BoardFileDto">
 		<![CDATA[

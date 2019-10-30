@@ -23,7 +23,7 @@
 </head>
 <body>
 <jsp:include page="../header.jsp"></jsp:include>
-<div class="container2">
+<div class="container2">	<!--container2 : 탑마진 내려놓음 -->
     <hr width="50%" color="blue">
         <h3>자유 게시판 목록</h3>
     <hr width="50%" color="blue">

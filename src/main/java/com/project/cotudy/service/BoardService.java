@@ -34,7 +34,7 @@ public interface BoardService {
   
     List<FreeBoardReplyDto> selectFreeBoardReplyList(int freeNum) throws Exception;
     void updateFreeBoardHitCount(int freeNum) throws Exception;
-    void updateFreeBoard(FreeBoardDto freeBoard) throws Exception;
+    void updateFreeBoard(FreeBoardDto freeBoard, MultipartHttpServletRequest multireq) throws Exception;
     void deleteFreeBoard(int freeNum) throws Exception;
     void writeFreeBoardReply(FreeBoardReplyDto freeReplyBoard) throws Exception;
   //  void updateFreeBoardReply(FreeBoardReplyDto freeReplyBoard) throws Exception;

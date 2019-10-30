@@ -114,7 +114,7 @@ function deleteconfirm()
 				<td colspan="2" align="center">
 				
 				 <c:if test="${sessionScope.memId eq dto.getMemId()}">
-                    <input type="button" value="수정" onclick="location.href='/freeForm?freeNum=${dto.getFreeNum()}'">
+                    <input type="button" value="수정" onclick="location.href='/freeEditForm?freeNum=${dto.getFreeNum()}'">
 		 			<input type="button" value="삭제" onclick="deleteconfirm()"> 
                 </c:if>
 		 	

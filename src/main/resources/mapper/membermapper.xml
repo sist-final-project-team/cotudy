@@ -21,4 +21,8 @@
     <select id="findPwd" parameterType="String" resultType="String">
         select mem_pwd from study_member where mem_name=#{memName} and mem_email = #{memEmail} and mem_id=#{memId};
     </select>
+    
+    <select id="selectMyInfo" parameterType="String" resultType="com.project.cotudy.model.StudyMemberDto">
+    	select * from study_member where mem_id=#{memId}
+    </select>
 </mapper>
