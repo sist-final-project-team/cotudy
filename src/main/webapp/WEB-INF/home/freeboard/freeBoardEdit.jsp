@@ -58,7 +58,7 @@
 					<th>파일첨부</th>
 					<td> <input type="file" id="files" name="files" multiple="multiple" >
 						<c:forEach items="${dto.fileList}" var="list"> 
-							${ list.getOriginalFileName()} <input type="button" value="X" >
+							${ list.getOriginalFileName()} <input type="button" value="X" onclick = "deleteFile(${ list.getIdx()}, nic_email.value)">
 							<br>
 					</c:forEach>
 					</td>
