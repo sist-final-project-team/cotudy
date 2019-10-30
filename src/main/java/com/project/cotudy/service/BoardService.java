@@ -6,6 +6,8 @@ import com.project.cotudy.model.FreeBoardReplyDto;
 import com.project.cotudy.model.SearchDto;
 import com.project.cotudy.model.StudyBoardDto;
 import com.project.cotudy.model.StudyBoardReplyDto;
+import com.project.cotudy.model.StudyMemberDto;
+
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -38,4 +40,5 @@ public interface BoardService {
     void deleteFreeBoard(int freeNum) throws Exception;
     void writeFreeBoardReply(FreeBoardReplyDto freeReplyBoard) throws Exception;
   //  void updateFreeBoardReply(FreeBoardReplyDto freeReplyBoard) throws Exception;
+    
 }

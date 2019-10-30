@@ -1,6 +1,7 @@
 package com.project.cotudy.controller;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 import org.apache.commons.io.FileUtils;
 import java.net.URLEncoder;
@@ -186,7 +187,7 @@ public class StudyController {
 		return "redirect:/freeList";
 	}
 	
-	@RequestMapping(method = RequestMethod.POST, value = "/freeDelete")
+	@RequestMapping(method = RequestMethod.GET, value = "/freeDelete")
 	public void freeBoardDelete(@RequestParam("freeNum") int freeNum,HttpServletResponse response) throws Exception{
 		boardService.deleteFreeBoard(freeNum);
 		 response.setContentType("text/html; charset=UTF-8");
@@ -325,10 +326,54 @@ public class StudyController {
 		return "/mypage/memBookMark";
 	}
 
-	@RequestMapping("/infoEdit")
-	public String memInfoEdit() {
-		return "/mypage/memInfoEdit";
+	@RequestMapping("/infoEditForm")
+	public ModelAndView memInfoEditForm(HttpServletRequest request) throws Exception {
+		ModelAndView mv = new ModelAndView("/mypage/memInfoEditForm");
+		String memId = (String) request.getSession().getAttribute("memId");
+		StudyMemberDto meminfodto = memberService.selectMyInfo(memId); //회원정보 가져오기
+		mv.addObject("meminfodto", meminfodto);
+		
+		return mv;
 	}
+	
+	 @RequestMapping("/infoEdit") public String memInfoEdit(StudyMemberDto memberDto) throws Exception{
+		 memberService.updateMember(memberDto);
+		 return "redirect:/myPage";
+	  
+	  }	
+	
+	@RequestMapping("/pwdEditForm")
+	public ModelAndView mempwdEditForm() throws Exception {
+		ModelAndView mv = new ModelAndView("/mypage/mempwdEditForm");
+		return mv;
+	}
+	
+	 @RequestMapping("/pwdEdit") public void mempwdEdit(HttpServletRequest request, HttpServletResponse response,
+			 					@RequestParam("nowpwd") String nowpwd, @RequestParam("editpwd") String editpwd ) throws Exception{
+		 String memId = (String) request.getSession().getAttribute("memId");
+		 StudyMemberDto meminfodto = memberService.selectMyInfo(memId);
+		 response.setContentType("text/html; charset=UTF-8");
+		 PrintWriter out = response.getWriter();
+
+		 if(meminfodto.getMemPwd().equals(nowpwd)) { //비밀번호 제대로 입력
+			 
+			 //System.out.println("아이디 비밀번호는?????"+memId+editpwd);
+			 memberService.updateMemberpwd(memId, editpwd );	
+		        out.println("<script>");
+		        out.println("alert('비밀번호 변경이 완료되었습니다.')");
+		        out.println("location.href='/myPage'");
+		        out.println("</script>");
+		 }else { //비번 틀림
+		        out.println("<script>");
+		        out.println("alert('비밀번호를 잘못 입력하셨습니다.')");
+		        out.println("history.back()");
+		        out.println("</script>");
+		 }
+	  
+	  }
+	
+
+	 
 
 	@RequestMapping("/myWrite")
 	public String memMyWrite() {
@@ -344,7 +389,7 @@ public class StudyController {
 	public ModelAndView memPage(HttpServletRequest request) throws Exception {
 		ModelAndView mv = new ModelAndView("/mypage/memPage");
 		String memId = (String) request.getSession().getAttribute("memId");
-		System.out.println("아이디는?????"+memId);
+		//System.out.println("아이디는?????"+memId);
 		StudyMemberDto meminfodto = memberService.selectMyInfo(memId); //회원정보 가져오기
 		mv.addObject("meminfodto", meminfodto);
 		

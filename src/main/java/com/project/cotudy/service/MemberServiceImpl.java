@@ -6,6 +6,8 @@ import com.project.cotudy.model.BoardFileDto;
 import com.project.cotudy.model.FreeBoardDto;
 import com.project.cotudy.model.StudyBoardDto;
 import com.project.cotudy.model.StudyMemberDto;
+
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -46,9 +48,14 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
-    public void updateMember(StudyMemberDto memberDto) {
-
+    public void updateMember(StudyMemberDto memberDto) throws Exception {
+    	memberMapper.updateMember(memberDto);
     }
+    
+	@Override
+	public void updateMemberpwd(String memId, String editpwd) throws Exception {	//비밀번호 변경
+		memberMapper.updateMemberpwd(memId, editpwd);
+	}    
 
     @Override
     public void deleteMember(String memId) {
@@ -88,4 +95,5 @@ public class MemberServiceImpl implements MemberService {
 		StudyMemberDto meminfodto = memberMapper.selectMyInfo(memId);	//회원정보 가져오기
 		return meminfodto;
 	}
+
 }

@@ -10,7 +10,7 @@
         function writeOk() {
             var id = "<%=(String)session.getAttribute("memId")%>";
             console.log(id);
-            if(id.length>4){
+            if(id.length>=4){
                 location.href="/freeWriteForm";
             }else{
                 alert("로그인 후 이용 가능합니다.");
