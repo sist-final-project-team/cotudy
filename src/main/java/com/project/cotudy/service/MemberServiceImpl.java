@@ -88,4 +88,11 @@ public class MemberServiceImpl implements MemberService {
 		StudyMemberDto meminfodto = memberMapper.selectMyInfo(memId);	//회원정보 가져오기
 		return meminfodto;
 	}
+    @Override
+    public List<FreeBoardDto> selectMyFreeBoardList(String memId) throws Exception {
+        System.out.println(memId);
+        System.out.println(memId);
+        System.out.println(memId);
+        return memberMapper.selectMyFreeBoardList(memId);
+    }
 }

@@ -20,5 +20,6 @@ public interface MemberService {
     String findId(String memName,String memEmail) throws Exception;
     String findPwd(String memId,String memName,String memEmail) throws Exception;
     StudyMemberDto selectMyInfo(String memId) throws Exception;
+    List<FreeBoardDto> selectMyFreeBoardList(String memId) throws Exception;
 }
 

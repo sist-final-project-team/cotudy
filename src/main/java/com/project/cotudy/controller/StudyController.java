@@ -63,7 +63,8 @@ public class StudyController {
 
         return "/main";
     }
-///////.
+
+    ///////.
     @RequestMapping("/event")
     public ModelAndView event() throws IOException {
         ModelAndView mv = new ModelAndView("/event");
@@ -72,7 +73,7 @@ public class StudyController {
         Element elem = doc;
         Element elem2 = doc.select("tbody").first();
         System.out.println(elem);
-        mv.addObject("doc",elem);
+        mv.addObject("doc", elem);
 //        mv.addObject("doc2",elem2);
         return mv;
     }
@@ -94,41 +95,41 @@ public class StudyController {
     public ModelAndView freeBoardCont(@RequestParam("freeNum") int freeNum) throws Exception {
         ModelAndView mv = new ModelAndView("/freeboard/freeBoardCont");
         List<FreeBoardReplyDto> replyDto = boardService.selectFreeBoardReplyList(freeNum);
-        boardService.updateFreeBoardHitCount(freeNum);	//조회수증가
-        FreeBoardDto freeboard = boardService.selectFreeBoardCont(freeNum);	//글내용가져오기
+        boardService.updateFreeBoardHitCount(freeNum);    //조회수증가
+        FreeBoardDto freeboard = boardService.selectFreeBoardCont(freeNum);    //글내용가져오기
         List<BoardFileDto> fileDtolist = boardService.selectBoardFileDto(freeNum);//첨부파일가져오기
         // System.out.println("파일경로는~?"+fileDtolist.get(0).getStoredFilePath());
-        int filecount = fileDtolist.size() -1;
-        System.out.println("파일개수는??"+filecount);
-        for(int i=0; i<freeboard.getFileList().size(); i++) {
-            freeboard.getFileList().get(i).setFileSize((int)(freeboard.getFileList().get(i).getFileSize()/1024));
+        int filecount = fileDtolist.size() - 1;
+        System.out.println("파일개수는??" + filecount);
+        for (int i = 0; i < freeboard.getFileList().size(); i++) {
+            freeboard.getFileList().get(i).setFileSize((int) (freeboard.getFileList().get(i).getFileSize() / 1024));
         }
 
         // filedto정보 가져오는 메소드 만들어서 가져온다음에
         //file dto를 아래처럼 add한 다음
         //cont 에서 받아서 dto.getstored해서 이름 가져와서
         //img src로 뽑기
-        mv.addObject("replyDto",replyDto);
+        mv.addObject("replyDto", replyDto);
         mv.addObject("freeboard", freeboard);
         mv.addObject("fileDtolist", fileDtolist);
-        mv.addObject("filecount",filecount );
+        mv.addObject("filecount", filecount);
         return mv;
     }
 
     @RequestMapping("/freeEdit")
-    public String freeBoardEdit(FreeBoardDto freeBoard, MultipartHttpServletRequest multireq) throws Exception{
-        List<MultipartFile> fileList =  multireq.getFiles("files"); //files:write에서 파일첨부의 files
+    public String freeBoardEdit(FreeBoardDto freeBoard, MultipartHttpServletRequest multireq) throws Exception {
+        List<MultipartFile> fileList = multireq.getFiles("files"); //files:write에서 파일첨부의 files
         boardService.updateFreeBoard(freeBoard, multireq);
 
-        return "redirect:/freeCont?freeNum="+freeBoard.getFreeNum();
+        return "redirect:/freeCont?freeNum=" + freeBoard.getFreeNum();
 
     }
 
 
     @RequestMapping("/freeEditForm")
-    public ModelAndView freeBoardEditForm(@RequestParam("freeNum") int freeNum) throws Exception{
+    public ModelAndView freeBoardEditForm(@RequestParam("freeNum") int freeNum) throws Exception {
         ModelAndView mv = new ModelAndView("/freeboard/freeBoardEdit");
-        FreeBoardDto freeboard = boardService.selectFreeBoardCont(freeNum);	//글내용 가져오기
+        FreeBoardDto freeboard = boardService.selectFreeBoardCont(freeNum);    //글내용 가져오기
 
         mv.addObject("freeboard", freeboard);
 
@@ -147,7 +148,8 @@ public class StudyController {
     }
 
 
-    @RequestMapping("/freeSearchList") public ModelAndView freeSearch(SearchDto searchdto) throws Exception {
+    @RequestMapping("/freeSearchList")
+    public ModelAndView freeSearch(SearchDto searchdto) throws Exception {
 
         System.out.println("freeSearchList메소드");
 
@@ -155,13 +157,14 @@ public class StudyController {
         List<FreeBoardDto> list = boardService.selectFreeBoardSearchList(searchdto);
         mv.addObject("list", list);
 
-        return mv; }
+        return mv;
+    }
 
     @RequestMapping("downloadBoardFile")
-    public void downloadBoardFile(@RequestParam int idx, @RequestParam int freeNum, HttpServletResponse response) throws Exception{
+    public void downloadBoardFile(@RequestParam int idx, @RequestParam int freeNum, HttpServletResponse response) throws Exception {
         //선택된 파일의 정보를 DB에서 조회
         BoardFileDto boardFile = boardService.selectBoardFileInformation(idx, freeNum);
-        if(ObjectUtils.isEmpty(boardFile) == false) {
+        if (ObjectUtils.isEmpty(boardFile) == false) {
             String fileName = boardFile.getOriginalFileName();
 
             //위에서 조회된 파일을 읽어온 후 byte[]형태로 변환
@@ -171,7 +174,7 @@ public class StudyController {
             //response의 헤더에 컨텐츠 타입, 크기, 형태 등을 설정
             response.setContentType("application/octet-stream");
             response.setContentLength(files.length);
-            response.setHeader("Content-Disposition", "attachment; fileName=\"" + URLEncoder.encode(fileName,"UTF-8")+"\";");
+            response.setHeader("Content-Disposition", "attachment; fileName=\"" + URLEncoder.encode(fileName, "UTF-8") + "\";");
             response.setHeader("Content-Transfer-Encoding", "binary");
 
             //위의 files를 response에 작성
@@ -190,7 +193,7 @@ public class StudyController {
 
     @RequestMapping("/freeWrite")
     public String freeBoardWrite(FreeBoardDto freeboard, MultipartHttpServletRequest multireq) throws Exception {
-        List<MultipartFile> fileList =  multireq.getFiles("files"); //files:write에서 파일첨부의 files
+        List<MultipartFile> fileList = multireq.getFiles("files"); //files:write에서 파일첨부의 files
         //System.out.println("fileList는1??"+fileList.get(0));
         //org.springframework.web.multipart.commons.CommonsMultipartFile@49c3ccb4 찍힘
 
@@ -200,8 +203,8 @@ public class StudyController {
         return "redirect:/freeList";
     }
 
-    @RequestMapping(method = RequestMethod.POST, value = "/freeDelete")
-    public void freeBoardDelete(@RequestParam("freeNum") int freeNum,HttpServletResponse response) throws Exception{
+    @RequestMapping(method = RequestMethod.GET, value = "/freeDelete")
+    public void freeBoardDelete(@RequestParam("freeNum") int freeNum, HttpServletResponse response) throws Exception {
         boardService.deleteFreeBoard(freeNum);
         response.setContentType("text/html; charset=UTF-8");
         PrintWriter out = response.getWriter();
@@ -337,46 +340,53 @@ public class StudyController {
 
     /* 스터디 게시판 관련 */
     @RequestMapping("/studyCont")
-	public String studyBoardCont() {
-		return "/studyBoardCont";
-	}
+    public String studyBoardCont() {
+        return "/studyBoardCont";
+    }
 
-	@RequestMapping("/studyCreate")
-	public String studyBoardCreate() {
-		return "/studyBoardCreate";
-	}
-	/* 마이페이지 관련 */
+    @RequestMapping("/studyCreate")
+    public String studyBoardCreate() {
+        return "/studyBoardCreate";
+    }
+    /* 마이페이지 관련 */
 
-	@RequestMapping("/bookMark")
-	public String memBookMark() {
-		return "/mypage/memBookMark";
-	}
+    @RequestMapping("/bookMark")
+    public String memBookMark() {
+        return "/mypage/memBookMark";
+    }
 
-	@RequestMapping("/infoEdit")
-	public String memInfoEdit() {
-		return "/mypage/memInfoEdit";
-	}
+    @RequestMapping("/infoEdit")
+    public String memInfoEdit() {
+        return "/mypage/memInfoEdit";
+    }
 
-	@RequestMapping("/myWrite")
-	public String memMyWrite() {
-		return "/mypage/memMyWrite";
-	}
+    @RequestMapping("/myWrite")
+    public ModelAndView memMyWrite(HttpSession session) throws Exception {
 
-	@RequestMapping("/out")
-	public String memOut() {
-		return "/mypage/memOut";
-	}
-	
-	@RequestMapping("/myPage")
-	public ModelAndView memPage(HttpServletRequest request) throws Exception {
-		ModelAndView mv = new ModelAndView("/mypage/memPage");
-		String memId = (String) request.getSession().getAttribute("memId");
-		System.out.println("아이디는?????"+memId);
-		StudyMemberDto meminfodto = memberService.selectMyInfo(memId); //회원정보 가져오기
-		mv.addObject("meminfodto", meminfodto);
-		
-		return mv;
-	}
-	
+        ModelAndView mv = new ModelAndView("/mypage/memMyWrite");
+        String memId = (String)session.getAttribute("memId");
+        System.out.println("내게시글보기 아이디 "+memId);
+        List<FreeBoardDto> list = memberService.selectMyFreeBoardList(memId);
+        mv.addObject("list", list);
+        return mv;
+
+    }
+
+    @RequestMapping("/out")
+    public String memOut() {
+        return "/mypage/memOut";
+    }
+
+    @RequestMapping("/myPage")
+    public ModelAndView memPage(HttpServletRequest request) throws Exception {
+        ModelAndView mv = new ModelAndView("/mypage/memPage");
+        String memId = (String) request.getSession().getAttribute("memId");
+        System.out.println("아이디는?????" + memId);
+        StudyMemberDto meminfodto = memberService.selectMyInfo(memId); //회원정보 가져오기
+        mv.addObject("meminfodto", meminfodto);
+
+        return mv;
+    }
+
 
 }

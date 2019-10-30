@@ -25,4 +25,8 @@
     <select id="selectMyInfo" parameterType="String" resultType="com.project.cotudy.model.StudyMemberDto">
     	select * from study_member where mem_id=#{memId}
     </select>
+    
+    <select id="selectMyFreeBoardList" parameterType="String" resultType="com.project.cotudy.model.FreeBoardDto">
+        select * from free_board where mem_id=#{memId} AND  free_deleted='N'
+    </select>
 </mapper>
