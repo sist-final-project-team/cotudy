@@ -76,7 +76,7 @@
             <table id="join_t">
                 <tr>
                     <th>아이디</th>
-                    <td><input name="memId" id="memId" value="한글 및 특수문자 제외">
+                    <td><input name="memId" id="memId" placeholder="한글 및 특수문자 제외">
                         <input type="button" value="중복체크" id="idcheck_btn">
                         <br>
                         <%-- 경고문이 출력되는 위치 --%>
@@ -97,11 +97,11 @@
                 </tr>
                 <tr>
                     <th>이메일</th>
-                    <td><input name="memEmail" id="memEmail"></td>
+                    <td><input name="memEmail" placeholder="exam@cotudy.com" id="memEmail"></td>
                 </tr>
                 <tr>
                     <th>거주지</th>
-                    <td><input name="memArea" id="memArea"></td>
+                    <td><input name="memArea" placeholder="○○시○○구" id="memArea"></td>
                 </tr>
                 <tr>
                     <td colspan="2" align="center">
