@@ -151,7 +151,6 @@ public class StudyController {
         int endBlock = (((page-1) / block)*block)+block;
         totalRecord =  boardService.getListCount();
 
-
         //   List<FreeBoardDto> list = boardService.selectFreeBoardList(page,rowsize);
         List<FreeBoardDto> list = boardService.selectFreeBoardList(page,rowsize);
         allPage = (int)Math.ceil(totalRecord / (double)rowsize);
@@ -296,6 +295,7 @@ public class StudyController {
             out.println("self.close()");
             out.println("</script>");
         }
+
     }
 
     @RequestMapping("findid")

@@ -10,7 +10,6 @@
         function writeOk() {
             var id = "<%=(String)session.getAttribute("memId")%>";
             console.log(id);
-
             if(id.length>=4){ // = 붙여야 함 -최다빈-
                 location.href="/freeWriteForm";
             }else{
