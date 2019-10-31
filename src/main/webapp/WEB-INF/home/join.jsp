@@ -17,7 +17,7 @@
         $(function () {
             // 회원가입 폼 중에서 아이디 중복 체크라는 버튼을 클릭했을떄
             $("#idcheck_btn").mousedown(function () {
-                $("#idcheck").hide();
+                $("#idcheck").hide(); 
                 var userId = $("#memId").val();
                 console.log(userId);
                 // 입력 길이 체크
@@ -57,12 +57,13 @@
                             return false;
                         } else {   // 아이디가 중복이 되지 않는 경우
                             console.log($("#memId").val());
-                            if(engnum.test($("#memId").val())){ //정규식에 알파벳이랑숫자넣고. 통ㄱ과함
+                            if(engnum.test($("#memId").val())){ //아이디 제대로(알파벳,숫자로만) 입력했을 경우
 
                           	  var warningTxt = '<span style="color: blue; ">사용 가능한 아이디입니다.</span>';
                            		 $("#idcheck").text('');
                            		 $("#idcheck").show();
                            		 $("#idcheck").append(warningTxt);
+                           		memId.readOnly = true;
                             }
                             else{
                           	  var warningTxt = '<span style="color: red; ">아이디는 알파벳과 숫자만 입력 가능합니다.</span>';  
@@ -103,7 +104,7 @@
                 </tr>
                 <tr>
                     <th>비밀번호</th>
-                    <td><input type="password" name="memPwd" id="memPwd"></td>
+                    <td><input type="password" name="memPwd" id="memPwd" placeholder="4~20자 사이"></td>
                 </tr>
                 <tr>
                     <th>비밀번호확인</th>
@@ -115,7 +116,7 @@
                 </tr>
                 <tr>
                     <th>이메일</th>
-                    <td><input name="memEmail" placeholder="exam@cotudy.com" id="memEmail"></td>
+                    <td><input type="email" name="memEmail" placeholder="exam@cotudy.com" id="memEmail"></td>
                 </tr>
                 <tr>
                     <th>거주지</th>
@@ -124,7 +125,7 @@
                 <tr>
                     <td colspan="2" align="center">
                         <input type="submit" value="가입하기">
-                        <input type="reset" value="취소">
+                        <input type="reset" value="다시작성">
                         <input type="button" value="돌아가기" onclick="location.href='/'">
                     </td>
                 </tr>
