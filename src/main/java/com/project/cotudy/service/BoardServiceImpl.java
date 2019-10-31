@@ -83,7 +83,7 @@ public class BoardServiceImpl implements BoardService {
 		//파일정보를 맵에 저장
 		if(CollectionUtils.isEmpty(list) == false){	//새로올린파일이있다면
 			boardMapper.insertBoardFileList(list);
-		}else {
+		}else {//없다면..?
 			
 		}
 	}

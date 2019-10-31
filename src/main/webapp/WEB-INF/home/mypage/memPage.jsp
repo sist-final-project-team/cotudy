@@ -28,35 +28,16 @@
   				이메일 : ${meminfodto.getMemEmail()}<br>
   				거주지 : ${meminfodto.getMemArea()}
   			</li>
-		</ul><br><br><br>
+		</ul><br><br>
 		
-			<button type="button"  class="btn btn-success btn-lg btn-block" onclick="location.href='/myWrite'">내가 쓴 글</button><br><br>
-			<button type="button"  class="btn btn-success btn-lg btn-block" onclick="location.href='/bookMark'">북마크</button><br><br>
-			<button type="button"  class="btn btn-success btn-lg btn-block" onclick="location.href='/infoEdit'">회원정보 수정</button><br><br>
-			<button type="button"  class="btn btn-success btn-lg btn-block" onclick="location.href='/out'">회원 탈퇴</button><br><br>
+			<button type="button"  class="btn btn-success btn-lg btn-block" onclick="location.href='/myWrite'">내가 쓴 글</button><br>
+			<button type="button"  class="btn btn-success btn-lg btn-block" onclick="location.href='/bookMark'">북마크</button><br>
+			<button type="button"  class="btn btn-success btn-lg btn-block" onclick="location.href='/infoEditForm'">회원정보 수정</button><br>
+			<button type="button"  class="btn btn-success btn-lg btn-block" onclick="location.href='/pwdEditForm'">비밀번호 변경</button><br>
+			<button type="button"  class="btn btn-success btn-lg btn-block" onclick="location.href='/out'">회원 탈퇴</button><br>
 		
 		</div>
 	</div>
-<%-- 
-<div class="col-md-4">
-          <div class="card-box-d">
-            <div class="card-img-d">
-              <img src="../resources/img/agent-4.jpg" alt="" class="img-d img-fluid">
-            </div>
-            <div class="card-overlay card-overlay-hover">
-              <div class="card-header-d">
-                <div class="card-title-d align-self-center">
-                  <div class="title-d">
-                  	<div align="center"><br>
-                      <h2 class="link-two">ID : <%=memId %> </h2>
-                      <h4 class="link-two">이름 : ${meminfodto.getMemName()} </h4>
-                      <h4 class="link-two">이메일 : ${meminfodto.getMemEmail()} </h4>
-                      <h4 class="link-two">지역 : ${meminfodto.getMemArea()} </h4>
-                  	</div>
-                  </div>
-                </div>
-              </div>
-             </div></div></div>
- --%>
+
 </body>
 </html>

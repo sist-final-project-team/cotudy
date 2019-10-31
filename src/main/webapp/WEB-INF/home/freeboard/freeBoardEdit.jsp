@@ -1,3 +1,5 @@
+<%@page import="java.util.List"%>
+<%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page session="true"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -56,12 +58,33 @@
 				</tr>
 				<tr>
 					<th>파일첨부</th>
+					
+					
+					
 					<td> <input type="file" id="files" name="files" multiple="multiple" >
+ 						<%  
+							List<Integer> delList = new ArrayList<Integer>();
+							delList = null;
+							
+						%> 
 						<c:forEach items="${dto.fileList}" var="list"> 
-							${ list.getOriginalFileName()} <input type="button" value="X" onclick = "deleteFile(${ list.getIdx()}, nic_email.value)">
+							${ list.getOriginalFileName()} 
+							<input type="button" value="X" onclick = "delList.add(${ list.getIdx()} );" name="${ list.getIdx()} " >
+							<%--  <% System.out.println(delList.get(0)); %> --%>
+							
+		<!-- List<Integer> delList = new ArrayList<Integer>();
+		delList.add(4);
+		delList.add(433);
+		delList.add(12);
+		System.out.println(delList.get(0));
+		System.out.println(delList.get(1));
+		System.out.println(delList.get(2)); -->
 							<br>
 					</c:forEach>
-					</td>
+					</td> 
+					
+					
+					
 				</tr>	
 				<tr>
             <td colspan="6" align="center">

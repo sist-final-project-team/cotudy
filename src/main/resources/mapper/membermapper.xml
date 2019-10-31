@@ -15,7 +15,7 @@
             select * from study_member where mem_id = #{memId}
 
     </select>
-    <select id="findId" parameterType="String" resultType="String">
+    <select id="findId" parameterType="map" resultType="String">
         select mem_id from study_member where mem_name=#{memName} and mem_email = #{memEmail};
     </select>
     <select id="findPwd" parameterType="String" resultType="String">
@@ -29,4 +29,24 @@
     <select id="selectMyFreeBoardList" parameterType="String" resultType="com.project.cotudy.model.FreeBoardDto">
         select * from free_board where mem_id=#{memId} AND  free_deleted='N'
     </select>
+
+    <update id="updateMember" parameterType="com.project.cotudy.model.StudyMemberDto">
+		<![CDATA[
+			UPDATE study_member SET 
+				mem_name = #{memName},
+				mem_email = #{memEmail},
+				mem_area = #{memArea}
+			WHERE 
+				mem_id = #{memId}
+		]]>
+	</update>
+	
+    <update id="updateMemberpwd" parameterType="map">
+		<![CDATA[
+			UPDATE study_member SET 
+				mem_pwd = #{editpwd}
+			WHERE 
+				mem_id = #{memId}
+		]]>
+	</update>
 </mapper>
