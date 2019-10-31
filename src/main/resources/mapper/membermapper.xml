@@ -49,4 +49,10 @@
 				mem_id = #{memId}
 		]]>
 	</update>
+    <update id="deleteMember" parameterType="String">
+        UPDATE study_member SET
+        mem_status = 'X'
+        WHERE
+        mem_id=#{memId}
+    </update>
 </mapper>

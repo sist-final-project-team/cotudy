@@ -491,10 +491,11 @@ public class StudyController {
     }
 
     @RequestMapping("/memOutOk")
-    public String memOutOk(HttpSession session) {
+    public String memOutOk(HttpSession session) throws Exception {
         String memId = (String)session.getAttribute("memId");
-
-        //쿼리 날리고 ~~~~~
+        memberService.deleteMember(memId);
+        //세션 해제 하고 메인으로 넘겨야함
+        session.invalidate();
         return "/main";
     }
 }

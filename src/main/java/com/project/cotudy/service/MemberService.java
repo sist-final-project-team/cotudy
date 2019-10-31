@@ -15,7 +15,7 @@ public interface MemberService {
     List<StudyBoardDto> selectMyStudyList(String memId);    // 내가 만든 스터디 보기
     void updateMember(StudyMemberDto memberDto) throws Exception;    //회원 정보 수정
     void updateMemberpwd(String memId, String editpwd) throws Exception;//비밀번호 변경
-    void deleteMember(String memId);    //회원 탈퇴
+    void deleteMember(String memId) throws Exception;    //회원 탈퇴
     void bookmark(String memId, int studyNum);  //북마크 등록
     int checkMemberId(String memId) throws Exception;
     String findId(String memName,String memEmail) throws Exception;
