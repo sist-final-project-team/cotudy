@@ -365,7 +365,6 @@ public class StudyController {
 
         ModelAndView mv = new ModelAndView("/mypage/memMyWrite");
         String memId = (String)session.getAttribute("memId");
-        System.out.println("내게시글보기 아이디 "+memId);
         List<FreeBoardDto> list = memberService.selectMyFreeBoardList(memId);
         mv.addObject("list", list);
         return mv;
@@ -388,5 +387,13 @@ public class StudyController {
         return mv;
     }
 
+
+    @RequestMapping("/memOutOk")
+    public String memOutOk(HttpSession session) {
+        String memId = (String)session.getAttribute("memId");
+
+        //쿼리 날리고 ~~~~~
+        return "/main";
+    }
 
 }
