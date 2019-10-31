@@ -172,8 +172,8 @@ public class BoardServiceImpl implements BoardService {
 	
 	// ============================study 게시판 관련
     @Override
-    public List<StudyBoardDto> selectStudyBoardList() {
-        return null;
+    public List<StudyBoardDto> selectStudyBoardList() throws Exception {
+        return boardMapper.selectStudyBoardList();
     }
     @Override
     public StudyBoardDto selectStudyBoardCont(int studyNum) {

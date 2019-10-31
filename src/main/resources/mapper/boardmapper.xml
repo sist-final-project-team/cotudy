@@ -240,4 +240,16 @@ where
     <select id="selectFreeBoardReplyList" parameterType="int" resultType="com.project.cotudy.model.FreeBoardReplyDto">
         select * from free_board_reply where free_num = #{freeNum};
     </select>
+
+	<!-- 스터디 찾기 -->
+	<select id="selectStudyBoardList" resultType="com.project.cotudy.model.StudyBoardDto">
+		<![CDATA[
+			SELECT
+				*
+			FROM
+				study_board
+			WHERE
+				study_status = 'N'
+		]]>
+	</select>
 </mapper>
