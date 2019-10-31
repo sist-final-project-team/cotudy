@@ -85,8 +85,16 @@ public class BoardServiceImpl implements BoardService {
 
 
 	@Override
-	public void updateFreeBoard(FreeBoardDto freeBoard) throws Exception {
-		boardMapper.updateFreeBoard(freeBoard);
+	public void updateFreeBoard(FreeBoardDto freeboard, MultipartHttpServletRequest multireq) throws Exception {
+		boardMapper.updateFreeBoard(freeboard); //수정내용 업데이트
+		
+		List<BoardFileDto> list = fileUtils.parseFileInfo(freeboard.getFreeNum(), multireq);
+		//파일정보를 맵에 저장
+		if(CollectionUtils.isEmpty(list) == false){	//새로올린파일이있다면
+			boardMapper.insertBoardFileList(list);
+		}else {//없다면..?
+			
+		}
 	}
 
 	@Override
