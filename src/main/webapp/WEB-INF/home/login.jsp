@@ -3,28 +3,30 @@
 <html>
 <head>
     <title>코터디</title>
+    <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
     <script type="text/javascript">
         function goJoin() {
             window.opener.top.location.href="/join";
             self.close();
         }
-        function check() {
-            if($.trim($("#id").val()==="")){
-                alert("아이디를 입력하세요.");
-                $("#id").focus();
-                return false;
-            }
-            if($.trim($("#pwd").val()==="")){
-                alert("아이디를 입력하세요.");
-                $("#pwd").focus();
-                return false;
-            }
+        function check123() {
+                if($.trim($("#id").val())===""){
+                    alert("아이디를 입력하세요.");
+                    $("#id").focus();
+                    return false;
+                }
+                if($.trim($("#pwd").val())===""){
+                    alert("비밀번호를 입력하세요.");
+                    $("#pwd").focus();
+                    return false;
+                }
         }
         function pwd_find() {
-            window.open("/findPwd", "비밀번호 찾기", "top=300, left=300, width=500, height=600, status=no, menubar=no, toolbar=no, resizable=no");
+            window.open("/findPwd", "비밀번호 찾기", "top=300, left=300, width=800, height=900, status=no, menubar=no, toolbar=no, resizable=no");
+            self.close();
         }
         function id_find() {
-            window.open("/findid", "아이디 찾기", "top=300, left=300, width=500, height=600, status=no, menubar=no, toolbar=no, resizable=no");
+            window.open("/findid", "아이디 찾기", "top=300, left=300, width=800, height=900, status=no, menubar=no, toolbar=no, resizable=no");
             self.close();
         }
     </script>
@@ -34,7 +36,7 @@
     <hr width="50%" color="orange">
     <h3>회원 로그인 화면</h3>
     <hr width="50%" color="orange">
-    <form method="post" action="<%=request.getContextPath()%>/login_ok" onsubmit="return check()">
+    <form method="post" action="<%=request.getContextPath()%>/login_ok" onsubmit="return check123()">
         <table border="1" width="300" cellspacing="0">
             <tr>
                 <th>아이디</th>
@@ -48,8 +50,13 @@
                 <td colspan="2" align="center">
                     <input type="submit" value="로그인">&nbsp;
                     <input type="button" value="회원가입" onclick="goJoin()" >
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2" align="center">
                     <input type="button" value="아이디찾기" onclick="id_find()">
                     <input type="button" value="비밀번호찾기" onclick="pwd_find()">
+                </td>
             </tr>
         </table>
     </form>

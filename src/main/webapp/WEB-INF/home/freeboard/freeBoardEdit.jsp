@@ -35,7 +35,7 @@
 				</tr>
 				<tr>
 					<th>글제목</th>
-					<td><input name="freeTitle" value=${dto.getFreeTitle() }>
+					<td><input name="freeTitle" value=""${dto.getFreeTitle() }">
 					</td>
 				</tr>
 				<tr>

@@ -14,13 +14,15 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 public interface BoardService {
 //    ==================freeboard게시판 관련
-	List<FreeBoardDto> selectFreeBoardList() throws Exception;
+	List<FreeBoardDto> selectFreeBoardList(int page, int rowsize) throws Exception;
 	FreeBoardDto selectFreeBoardCont(int freeNum) throws Exception;
-    List<FreeBoardDto> selectFreeBoardSearchList(SearchDto searchdto) throws Exception;
+    List<FreeBoardDto> selectFreeBoardSearchList(SearchDto searchdto,int page,int rowsize) throws Exception;
     List<BoardFileDto> selectBoardFileDto(int freeNum) throws Exception;
     List<FreeBoardDto> searchFreeBoard(String searchKeyword) throws Exception;
     void insertFreeBoard(FreeBoardDto board,MultipartHttpServletRequest multireq) throws Exception;
     BoardFileDto selectBoardFileInformation(int idx, int freeNum) throws Exception;
+    int getListCount() throws Exception;
+    int getSearchListCount(SearchDto searchDto) throws Exception;
     
 //    ==================study게시판 관련
     List<StudyBoardDto> selectStudyBoardList() throws Exception;

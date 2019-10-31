@@ -1,4 +1,5 @@
 function mem_check() {
+    var id = $("#memId").val();
     if($.trim($("#memId").val())===""){
         alert("회원아이디를 입력하세요!");
         $("#memId").val("").focus();
@@ -30,9 +31,20 @@ function mem_check() {
         alert("이메일을 입력하세요!");
         $("#memEmail").val("").focus();
         return false;
-    }if($.trim($("#memName").val())===""){
+    }
+    if($.trim($("#memName").val())===""){
         alert("이름을 입력하세요!");
         $("#memName").val("").focus();
+        return false;
+    }
+    if($("#idcheck").val()!=="사용가능한 아이디입니다."){
+        alert("중복아이디 확인하세요");
+        $("#idcheck_btn").focus();
+        return false;
+    }
+    if(($("#memEmail").val().substring(($("#memEmail").size()-3),($("#memEmail").size()))!=="net") &&( $("#memEmail").val().substring(($("#memEmail").size()-3),($("#memEmail").size()))!=="com")){
+        alert("이메일 형식이 잘못되었습니다.");
+        $("#memEmail").val("").focus();
         return false;
     }
 

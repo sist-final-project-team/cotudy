@@ -4,12 +4,9 @@
 <head>
     <title>코터디</title>
     <script type="text/javascript">
-        function goJoin() {
-            window.opener.top.location.href="/join";
-            self.close();
-        }
         function pwd_find() {
-            window.open("/login", "비밀번호 찾기", "top=300, left=300, width=500, height=600, status=no, menubar=no, toolbar=no, resizable=no");
+            window.open("/findPwd", "비밀번호 찾기", "top=300, left=300, width=800, height=900, status=no, menubar=no, toolbar=no, resizable=no");
+            window.close();
         }
     </script>
 </head>
@@ -31,7 +28,6 @@
             <tr>
                 <td colspan="2" align="center">
                     <input type="submit" value="아이디찾기">&nbsp;
-                    <input type="button" value="회원가입" onclick="goJoin()" >
                     <input type="button" value="비밀번호찾기" onclick="pwd_find()">
             </tr>
         </table>

@@ -25,9 +25,13 @@ public class MemberServiceImpl implements MemberService {
     @Override
     public boolean loginCheck(String memId, String memPwd) throws Exception {
         StudyMemberDto member = memberMapper.loginCheck(memId);
-        if(member.getMemId().equals(memId)){
-            if(member.getMemPwd().equals(memPwd)){
-                return true;
+        if(member == null) {
+           return false;
+        }else{
+            if (member.getMemId().equals(memId)) {
+                if (member.getMemPwd().equals(memPwd)) {
+                    return true;
+                }
             }
         }
         return false;
