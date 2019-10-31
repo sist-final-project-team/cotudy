@@ -96,7 +96,7 @@ public class StudyController {
         List<BoardFileDto> fileDtolist = boardService.selectBoardFileDto(freeNum);//첨부파일가져오기
         // System.out.println("파일경로는~?"+fileDtolist.get(0).getStoredFilePath());
         int filecount = fileDtolist.size() -1;
-        System.out.println("파일개수는??"+filecount);
+        System.out.println("파일개수 -1은 ??"+filecount);
         for(int i=0; i<freeboard.getFileList().size(); i++) {
             freeboard.getFileList().get(i).setFileSize((int)(freeboard.getFileList().get(i).getFileSize()/1024));
         }
