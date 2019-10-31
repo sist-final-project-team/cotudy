@@ -4,12 +4,8 @@
 <head>
     <title>코터디</title>
     <script type="text/javascript">
-        function goJoin() {
-            window.opener.top.location.href="/join";
-            self.close();
-        }
         function goMain() {
-            window.opener.top.location.href="/";
+
             self.close();
         }
 
@@ -37,7 +33,6 @@
             <tr>
                 <td colspan="2" align="center">
                     <input type="submit" value="비밀번호찾기">&nbsp;
-                    <input type="button" value="회원가입" onclick="goJoin()" >
                     <input type="button" value="취소" onclick="goMain()">
             </tr>
         </table>

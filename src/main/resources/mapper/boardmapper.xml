@@ -2,30 +2,239 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.project.cotudy.mapper.BoardMapper">
-    <select id="selectFreeBoardList" resultType="com.project.cotudy.model.FreeBoardDto">
-        select * from free_board where free_deleted = "N";
-    </select>
-    <insert id="writeFreeBoard" parameterType="com.project.cotudy.model.FreeBoardDto">
-           insert into free_board values (NULL,#{memId},#{freeTitle},#{freeCont},now(),default ,default,default ,#{freeSubject});
-    </insert>
-    <select id="selectFreeBoardCont" parameterType="int" resultType="com.project.cotudy.model.FreeBoardDto">
-        select * from free_board where free_num = #{freeNum};
-    </select>
-    <update id="updateFreeBoardHitCount" parameterType="int">
-        update free_board set free_hit = free_hit + 1 where free_num = #{freeNum};
-    </update>
-    <update id="updateFreeBoard" parameterType="com.project.cotudy.model.FreeBoardDto">
-        update free_board set free_title = #{freeTitle} , free_cont = #{freeCont}, free_updated_date = now() where free_num = #{freeNum};
-    </update>
-    <delete id="deleteFreeBoard" parameterType="int">
-        update free_board set free_deleted = "Y" where free_num = #{freeNum};
-    </delete>
+	<select id="selectFreeBoardList" parameterType="int" resultType="com.project.cotudy.model.FreeBoardDto">
+		<![CDATA[
+			select	a.* from (select p.*, @rownum := @rownum+1 as rownum from (select * from free_board where free_deleted = 'N' order by free_num desc) p) a where
+				(@rownum:=0)=0 and free_deleted = 'N' and rownum between #{startNo} and #{endNo}
+		]]>
+	</select>
+
+	<select id="getListCount" resultType="int">
+		<![CDATA[
+			select count(*) from free_board where free_deleted = 'N'
+			]]>
+	</select>
+	<select id="getSearchkeyListCount" parameterType="com.project.cotudy.model.SearchDto" resultType="int">
+		<![CDATA[
+			select count(*) from free_board where free_deleted = 'N' and ${searchType} like CONCAT('%',#{searchKeyword},'%')
+			]]>
+	</select>
+	<select id="getSearchsubListCount" parameterType="com.project.cotudy.model.SearchDto" resultType="int">
+		<![CDATA[
+			select count(*) from free_board where free_deleted = 'N' and free_subject = #{freeSubject}
+			]]>
+	</select>
+	<select id="getSearchsubkeyListCount" parameterType="com.project.cotudy.model.SearchDto" resultType="int">
+		<![CDATA[
+			select count(*) from free_board where free_deleted = 'N' and ${searchType} like CONCAT('%',#{searchKeyword},'%') and free_subject = #{freeSubject}
+			]]>
+	</select>
+	
+	<!-- only말머리 검색 -->
+	<select id="selectFreeBoardSubSearchList" parameterType="com.project.cotudy.model.SearchDto" resultType="com.project.cotudy.model.FreeBoardDto">
+		<![CDATA[
+			SELECT
+				a.*
+			FROM
+		(select p.*, @rownum := @rownum+1 as rownum from (select * from free_board where free_deleted = 'N' AND free_subject = #{searchdto.freeSubject} order by free_num desc ) p) a
+		 where
+				(@rownum:=0)=0 and free_deleted = 'N' and rownum between #{startNo} and #{endNo}
+
+		]]>
+	</select>
+	
+	
+	<!-- only키워드 검색 -->
+	 <select id="selectFreeBoardKeySearchList" parameterType="com.project.cotudy.model.SearchDto" resultType="com.project.cotudy.model.FreeBoardDto">
+		<![CDATA[
+			SELECT
+				a.*
+			FROM
+(select p.*, @rownum := @rownum+1 as rownum from (select * from free_board where free_deleted = 'N' AND ${searchdto.searchType} like CONCAT('%',#{searchdto.searchKeyword},'%') order by free_num desc) p) a
+where
+				(@rownum:=0)=0 and free_deleted = 'N' and rownum between #{startNo} and #{endNo}
+
+
+		]]>
+	</select> 	
+
+	
+	<!-- 키워드 + 말머리 검색 -->
+	<select id="selectFreeBoardSubKeySearchList" parameterType="com.project.cotudy.model.SearchDto" resultType="com.project.cotudy.model.FreeBoardDto">
+		<![CDATA[
+			SELECT
+			a.*
+			FROM
+
+				(select p.*, @rownum := @rownum+1 as rownum from (select * from free_board where free_deleted = 'N' AND ${searchdto.searchType} like CONCAT('%',#{searchdto.searchKeyword},'%')
+				AND free_subject = #{searchdto.freeSubject} order by free_num desc) p) a where
+				(@rownum:=0)=0 and free_deleted = 'N' and rownum between #{startNo} and #{endNo}
+
+		]]>
+	</select>	
+	
+	
+	<insert id="insertFreeBoard" parameterType="com.project.cotudy.model.FreeBoardDto" 
+											useGeneratedKeys="true" keyProperty="freeNum">
+		<![CDATA[
+			INSERT INTO free_board
+			(
+				free_title, 
+				free_cont, 
+				free_created_date, 
+				mem_id,
+				free_subject
+			) 
+			VALUES 
+			(
+				#{freeTitle}, 
+				#{freeCont}, 
+				NOW(), 
+				#{memId},
+				#{freeSubject}			
+			)
+		]]>
+	</insert>
+	
+	<select id="selectFreeBoardCont" parameterType="int" resultType="com.project.cotudy.model.FreeBoardDto">
+		<![CDATA[
+			SELECT
+				free_num,
+				free_title,
+				free_cont,
+				free_hit,
+				DATE_FORMAT(free_created_date, '%Y.%m.%d %H:%i:%s') AS free_created_date,
+				DATE_FORMAT(free_updated_date, '%Y.%m.%d %H:%i:%s') AS free_updated_date,
+				mem_id,
+				free_subject
+			FROM
+				free_board
+			WHERE
+				free_num = #{freeNum}
+				AND free_deleted = 'N'
+		]]>
+	</select>
+	
+	<select id="selectBoardFileDto" parameterType="int" resultType="com.project.cotudy.model.BoardFileDto">
+		<![CDATA[
+			SELECT
+				*
+			FROM
+				freeboard_file
+			WHERE
+				free_num = #{freeNum}
+		]]>
+	</select>	
+	
+	
+	<update id="updateFreeBoardHitCount" parameterType="int">
+		<![CDATA[
+			UPDATE 
+				free_board 
+			SET 
+				free_hit = free_hit + 1 
+			WHERE 
+				free_num = #{freeNum}
+		]]>
+	</update>
+	
+	<update id="updateFreeBoard" parameterType="com.project.cotudy.model.FreeBoardDto">
+		<![CDATA[
+			UPDATE free_board SET 
+				free_title = #{freeTitle},
+				free_cont = #{freeCont},
+				free_updated_date = Now(),
+				free_subject = #{freeSubject}
+			WHERE 
+				free_num = #{freeNum}
+		]]>
+	</update>
+	
+	<update id="deleteFreeBoard" parameterType="int">
+		<![CDATA[
+			UPDATE free_board SET 
+				free_deleted = 'Y',
+				free_updated_date = Now()
+			WHERE 
+				free_num = #{freeNum}
+		]]>
+	</update>
+		
+	
+	<!-- 파일업로드관련 -->
+	
+	<insert id="insertBoardFileList" parameterType="com.project.cotudy.model.BoardFileDto">
+		<![CDATA[
+			INSERT INTO freeboard_file
+			(
+				free_num,
+				original_file_name,
+				stored_file_path,
+				file_size,
+				created_datetime
+			)
+			VALUES
+		]]>
+		<foreach collection="list" item="item" separator=",">
+			(
+				#{item.freeNum},
+				#{item.originalFileName},
+				#{item.storedFilePath},
+				#{item.fileSize},
+				NOW()
+			)
+		</foreach>
+	</insert>	
+	
+	<select id="selectBoardFileList" parameterType="int" resultType="com.project.cotudy.model.BoardFileDto">
+		<![CDATA[
+			SELECT
+				idx,
+				free_num,
+				original_file_name,
+				file_size
+			FROM
+				freeboard_file
+			WHERE
+				free_num = #{freeNum}
+				AND deleted_yn = 'N'
+		]]>
+	</select>	
+	
+	<select id="selectBoardFileInformation" parameterType="map" resultType="com.project.cotudy.model.BoardFileDto">
+		<![CDATA[
+			SELECT
+				original_file_name,
+				stored_file_path,
+				file_size
+			FROM
+				freeboard_file
+			WHERE
+				idx = #{idx}
+				AND free_num = #{freeNum}
+				AND deleted_yn = 'N'
+		]]>
+	</select>	
+
+	<update id="deleteFreeBoardfile" parameterType="int">
+		<![CDATA[
+			UPDATE freeboard_file SET 
+				deleted_yn = 'Y',
+				updated_datetime = Now()
+			WHERE 
+				free_num = #{freeNum}
+		]]>
+	</update>	
+	
+	
+	
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
     <insert id="writeFreeReplyBoard" parameterType="com.project.cotudy.model.FreeBoardReplyDto">
-           insert into free_board_reply (free_num,reply_cont,mem_id ) values (#{freeNum},#{replyCont},#{memId});
+           insert into free_board_reply (free_num,reply_cont,mem_id,reply_step,reply_indent) values (#{freeNum},#{replyCont},#{memId}, default, 1);
     </insert>
-    <update id="updateFreeReplyBoard" parameterType="int">
+<!--     <update id="updateFreeReplyBoard" parameterType="int">	대댓글. 수정해야됨
         update free_board_reply set reply_step = reply_step + 1 where free_num = #{freeNum} and reply_step >0;
-    </update>
+    </update> -->
     <select id="selectFreeBoardReplyList" parameterType="int" resultType="com.project.cotudy.model.FreeBoardReplyDto">
         select * from free_board_reply where free_num = #{freeNum};
     </select>

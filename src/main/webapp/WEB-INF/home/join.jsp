@@ -16,7 +16,7 @@
         $(function () {
 
             // 회원가입 폼 중에서 아이디 중복 체크라는 버튼을 클릭했을떄
-            $("#idcheck_btn").mouseover(function () {
+            $("#idcheck_btn").mousedown(function () {
                 $("#idcheck").hide();
                 var userId = $("#memId").val();
                 console.log(userId);
@@ -57,6 +57,7 @@
                             $("#idcheck").text('');
                             $("#idcheck").show();
                             $("#idcheck").append(warningTxt);
+
                         }
                     },
                     error: function () { // 비동기 통신이 실패한 경우
@@ -78,7 +79,7 @@
             <table id="join_t">
                 <tr>
                     <th>아이디</th>
-                    <td><input name="memId" id="memId">
+                    <td><input name="memId" id="memId" value="한글 및 특수문자 제외">
                         <input type="button" value="중복체크" id="idcheck_btn">
                         <br>
                         <%-- 경고문이 출력되는 위치 --%>

@@ -3,6 +3,7 @@ package com.project.cotudy.model;
 import lombok.Data;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Data
 public class FreeBoardDto {
@@ -15,4 +16,6 @@ public class FreeBoardDto {
     private int freeHit;
     private String freeDeleted;
     private String freeSubject;
+	private List<BoardFileDto> fileList;	
+	//	int idx; int freeNum; String originalFileName; String storedFilePath; long fileSize;
 }
