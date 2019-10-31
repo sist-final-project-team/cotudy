@@ -1,9 +1,13 @@
 package com.project.cotudy.service;
 
+import com.project.cotudy.mapper.BoardMapper;
 import com.project.cotudy.mapper.MemberMapper;
+import com.project.cotudy.model.BoardFileDto;
 import com.project.cotudy.model.FreeBoardDto;
 import com.project.cotudy.model.StudyBoardDto;
 import com.project.cotudy.model.StudyMemberDto;
+
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -48,9 +52,14 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
-    public void updateMember(StudyMemberDto memberDto) {
-
+    public void updateMember(StudyMemberDto memberDto) throws Exception {
+    	memberMapper.updateMember(memberDto);
     }
+    
+	@Override
+	public void updateMemberpwd(String memId, String editpwd) throws Exception {	//비밀번호 변경
+		memberMapper.updateMemberpwd(memId, editpwd);
+	}    
 
     @Override
     public void deleteMember(String memId) {
@@ -83,5 +92,18 @@ public class MemberServiceImpl implements MemberService {
     @Override
     public String findPwd(String memId, String memName, String memEmail) throws Exception {
         return memberMapper.findPwd(memId,memName,memEmail);
+    }
+
+	@Override
+	public StudyMemberDto selectMyInfo(String memId) throws Exception {
+		StudyMemberDto meminfodto = memberMapper.selectMyInfo(memId);	//회원정보 가져오기
+		return meminfodto;
+	}
+    @Override
+    public List<FreeBoardDto> selectMyFreeBoardList(String memId) throws Exception {
+        System.out.println(memId);
+        System.out.println(memId);
+        System.out.println(memId);
+        return memberMapper.selectMyFreeBoardList(memId);
     }
 }

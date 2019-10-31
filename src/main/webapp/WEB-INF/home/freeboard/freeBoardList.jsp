@@ -10,7 +10,8 @@
         function writeOk() {
             var id = "<%=(String)session.getAttribute("memId")%>";
             console.log(id);
-            if(id.length>=4){
+
+            if(id.length>=4){ // = 붙여야 함 -최다빈-
                 location.href="/freeWriteForm";
             }else{
                 alert("로그인 후 이용 가능합니다.");
@@ -23,7 +24,7 @@
 </head>
 <body>
 <jsp:include page="../header.jsp"></jsp:include>
-<div class="container2">
+<div class="container2">	<!--container2 : 탑마진 내려놓음 -->
     <hr width="50%" color="blue">
         <h3>자유 게시판 목록</h3>
     <hr width="50%" color="blue">

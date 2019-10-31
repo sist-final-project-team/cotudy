@@ -13,11 +13,14 @@ public interface MemberService {
     boolean loginCheck(String memId, String memPwd) throws Exception;   //로그인 체크
     List<FreeBoardDto> selectMyPostList(String memId);      // 내가 쓴 자유게시판 글 보기
     List<StudyBoardDto> selectMyStudyList(String memId);    // 내가 만든 스터디 보기
-    void updateMember(StudyMemberDto memberDto);    //회원 정보 수정
+    void updateMember(StudyMemberDto memberDto) throws Exception;    //회원 정보 수정
+    void updateMemberpwd(String memId, String editpwd) throws Exception;//비밀번호 변경
     void deleteMember(String memId);    //회원 탈퇴
     void bookmark(String memId, int studyNum);  //북마크 등록
     int checkMemberId(String memId) throws Exception;
     String findId(String memName,String memEmail) throws Exception;
     String findPwd(String memId,String memName,String memEmail) throws Exception;
+    StudyMemberDto selectMyInfo(String memId) throws Exception;
+    List<FreeBoardDto> selectMyFreeBoardList(String memId) throws Exception;
 }
 
