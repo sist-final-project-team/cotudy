@@ -9,13 +9,14 @@
     <script type="text/javascript">
         function writeOk() {
             var id = "<%=(String)session.getAttribute("memId")%>";
-            console.log(id);
-            if(id.length>=4){ // = 붙여야 함 -최다빈-
-                location.href="/freeWriteForm";
-            }else{
+            console.log(id.valueOf());
+            if(id.valueOf()=='null'){ // = 붙여야 함 -최다빈- , null이면 못쓰게 하도록 수정 - 최다빈-
                 alert("로그인 후 이용 가능합니다.");
                 window.open("/login", "로그인 화면", "top=300, left=300, width=500, height=600, status=no, menubar=no, toolbar=no, resizable=no");
-                location.href="/freeList"
+                location.href="/freeList";
+            }else{
+
+                location.href="/freeWriteForm";
             }
         }
     </script>
