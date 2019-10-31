@@ -136,7 +136,7 @@ public class StudyController {
     @RequestMapping("/freeList")
     public ModelAndView freeBoardList(HttpServletRequest request) throws Exception {
         int rowsize = 10;
-        int block = 5;
+        int block = 4;
         int totalRecord = 0;
         int allPage = 0;
         int page = 0;
@@ -178,26 +178,26 @@ public class StudyController {
 
     @RequestMapping("/freeSearchList")
     public ModelAndView freeSearch(SearchDto searchdto,HttpServletRequest request) throws Exception {
-        int rowsize = 10;
-        int block = 5;
-        int totalRecord = 0;
-        int allPage = 0;
-        int page = 0;
+        int rowsize = 10; //한번에 보여주는 글 갯수
+        int block = 4; // 보여주는 페이지수 [1][2][3]
+        int totalRecord = 0; // 총 글갯수
+        int allPage = 0; // 총 페이지
+        int page = 0; // 현재 페이지
         if(request.getParameter("page")!=null){
             page = Integer.parseInt(request.getParameter("page"));
         }else{
             page = 1;
         }
-        int startNo = (page * rowsize)- (rowsize-1);
-        int endNo = (page * rowsize);
+        int startNo = (page * rowsize)- (rowsize-1); //한페이지의첫글
+        int endNo = (page * rowsize); //한페이지의 끝 끝
         int startBlock = (((page-1) / block)*block)+1; // 2
         int endBlock = (((page-1) / block)*block)+block; // 6
-        System.out.println("page==>" + page);
-        System.out.println("block==>" + block);
-        System.out.println("endBlock==>" + endBlock);
-        System.out.println("freeSubject=>"+searchdto.getFreeSubject());
-        System.out.println("getSearchKeyword=>"+searchdto.getSearchKeyword());
-        System.out.println("getSearchType=>"+searchdto.getSearchType());
+//        System.out.println("page==>" + page);
+//        System.out.println("block==>" + block);
+//        System.out.println("endBlock==>" + endBlock);
+//        System.out.println("freeSubject=>"+searchdto.getFreeSubject());
+//        System.out.println("getSearchKeyword=>"+searchdto.getSearchKeyword());
+//        System.out.println("getSearchType=>"+searchdto.getSearchType());
         totalRecord =  boardService.getSearchListCount(searchdto); // '사담 검색' => 16
         allPage = (int)Math.ceil(totalRecord / (double)rowsize); // 2
         if(endBlock > allPage) {
@@ -207,6 +207,9 @@ public class StudyController {
         System.out.println("카운트먼저 실행");
         ModelAndView mv = new ModelAndView("/freeboard/freeBoardSearchList");
         List<FreeBoardDto> list = boardService.selectFreeBoardSearchList(searchdto,page,rowsize);
+//        if(list.size()==0){
+//            list = boardService.selectFreeBoardSearchList(searchdto,page,rowsize);
+//        }
         mv.addObject("page1", page);
         mv.addObject("rowsize1", rowsize);
         mv.addObject("block1", block);

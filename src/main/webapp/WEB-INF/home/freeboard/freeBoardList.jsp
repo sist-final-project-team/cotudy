@@ -52,30 +52,40 @@
                     </td>
                 </tr>
             </c:if>
-            <tr>
-                <td colspan="6" align="center">
+
+        </table>
+    <tr>
+        <td colspan="6" align="center">
+            <nav aria-label="Page navigation example">
+                <ul class="pagination justify-content-center">
                     <c:if test="${page > block}">
-                        [<a href="/freeList?page=1">◀◀</a>]
-                        [<a href="/freeList?page=${startBlock-1 }">◀</a>]
+                        <li class="page-item"><a class="page-link" href="/freeList?page=${startBlock-1 }">Previous</a></li>
+                        <%--                        [<a href="/freeList?page=1">◀◀</a>]--%>
+                        <%--                        [<a href="/freeList?page=${startBlock-1 }">◀</a>]--%>
                     </c:if>
                     <c:forEach begin="${startBlock }" end="${endBlock }" var="i">
                         <c:if test="${i==page }">
-                            <b>[${i}]</b>
+                            <%--                            <b>[${i}]</b>--%>
+                            <li class="page-item active"><a class="page-link" href="/freeList?page=${i}" tabindex="-1">${i}<span class="sr-only">(current)</span></a></li>
                         </c:if>
                         <c:if test="${!(i==page) }">
-                            [<a href="/freeList?page=${i}">${i}</a>]
+                            <%--                            [<a href="/freeList?page=${i}">${i}</a>]--%>
+                            <li class="page-item"><a class="page-link" href="/freeList?page=${i}">${i}</a></li>
                         </c:if>
                     </c:forEach>
                     <c:if test="${endBlock <allPage }">
-                        [<a href="/freeList?page=${endBlock+1 }">▶</a>]
-                        [<a href="/freeList?page=${allPage }">▶▶</a>]
+                        <%--                        [<a href="/freeList?page=${endBlock+1 }">▶</a>]--%>
+                        <%--                        [<a href="/freeList?page=${allPage }">▶▶</a>]--%>
+                        <li class="page-item"><a class="page-link" href="/freeList?page=${endBlock+1 }">Next</a></li>
                     </c:if>
-                </td>
-            </tr>
-        </table>
-        <form method="post" action="/freeSearchList">
-            <input type="hidden" name="page" value="${page}">
-			<select name="freeSubject">
+                </ul>
+            </nav>
+        </td>
+    </tr>
+    <div align="center">
+        <form method="get" action="/freeSearchList">
+            <%--<input type="hidden" name="page" value="${page}">--%>
+			<select name="freeSubject"  >
 				<option value="전체보기" selected>전체보기</option>
 				<option value="질문">질문</option>
 				<option value="사담">사담</option>
@@ -87,11 +97,11 @@
 				<option value="mem_id">작성자</option>
 			</select> 
 			<input type="text" name="searchKeyword"> 
-			<input type="submit" value="검색">
-                <input align="right" type="button" value="글 작성" onclick="writeOk()">
+			<input type="submit" value="검색" class="btn btn-outline-secondary">
+                <input align="right" type="button" value="글 작성" onclick="writeOk()"class="btn btn-success">
 
 		</form>
-        
+    </div>
 
 </div>
 
