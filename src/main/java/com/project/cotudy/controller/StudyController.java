@@ -109,6 +109,7 @@ public class StudyController {
         mv.addObject("freeboard", freeboard);
         mv.addObject("fileDtolist", fileDtolist);
         mv.addObject("filecount",filecount );
+        mv.addObject("freeNum",freeboard.getFreeNum());
         return mv;
     }
 
@@ -500,5 +501,15 @@ public class StudyController {
         //세션 해제 하고 메인으로 넘겨야함
         session.invalidate();
         return "/main";
+    }
+    // 서지훈 추가사항 대댓글 달기
+    @RequestMapping("/reReply")
+    public void addRereply(FreeBoardReplyDto replyDto,HttpServletResponse response) throws Exception {
+        boardService.writeFreeBoardRereply(replyDto);
+        response.setContentType("text/html; charset=UTF-8");
+        PrintWriter out = response.getWriter();
+        out.println("<script>");
+        out.println("location.href='/freeCont?freeNum=" + replyDto.getFreeNum() + "'");
+        out.println("</script>");
     }
 }
