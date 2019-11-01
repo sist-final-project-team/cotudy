@@ -5,7 +5,7 @@ import lombok.Data;
 @Data
 public class SearchDto {
 	
-	private String freeSubject;
-	private String searchType;
-	private String searchKeyword;
+	private String freeSubject;	//전체보기 기타 사담 질문
+	private String searchType; //freeTitle freeCont memId
+	private String searchKeyword; // 키워드
 }

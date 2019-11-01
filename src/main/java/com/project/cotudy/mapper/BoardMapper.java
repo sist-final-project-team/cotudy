@@ -13,13 +13,14 @@ import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.Map;
 @Mapper
 public interface BoardMapper {
 	//freeboard 게시판 관련
-    List<FreeBoardDto> selectFreeBoardList(int startNo,int endNo) throws Exception;
-    List<FreeBoardDto> selectFreeBoardSubSearchList(SearchDto searchdto,int startNo,int endNo) throws Exception;
-    List<FreeBoardDto> selectFreeBoardKeySearchList(SearchDto searchdto,int startNo,int endNo) throws Exception;
-    List<FreeBoardDto> selectFreeBoardSubKeySearchList(SearchDto searchdto,int startNo,int endNo) throws Exception;
+    List<FreeBoardDto> selectFreeBoardList(@Param("startNo") int startNo,@Param("endNo") int endNo) throws Exception;
+    List<FreeBoardDto> selectFreeBoardSubSearchList(@Param("searchdto") SearchDto searchdto,@Param("startNo")int startNo,@Param("endNo")int endNo) throws Exception;
+    List<FreeBoardDto> selectFreeBoardKeySearchList(@Param("searchdto") SearchDto searchdto,@Param("startNo")int startNo,@Param("endNo")int endNo) throws Exception;
+    List<FreeBoardDto> selectFreeBoardSubKeySearchList(@Param("searchdto") SearchDto searchdto,@Param("startNo")int startNo,@Param("endNo")int endNo) throws Exception;
     FreeBoardDto selectFreeBoardCont(int freeNum) throws Exception;
     List<BoardFileDto> selectBoardFileDto(int freeNum) throws Exception;
     List<FreeBoardReplyDto> selectFreeBoardReplyList(int freeNum) throws Exception;

@@ -60,7 +60,7 @@ public class StudyController {
         return "/main";
     }
 
-    ///////
+    ///////.
     @RequestMapping("/event")
     public ModelAndView event() throws IOException {
         ModelAndView mv = new ModelAndView("/event");
@@ -87,8 +87,6 @@ public class StudyController {
         return "/notice";
     }
 
-
-
     @RequestMapping("/freeCont")
     public ModelAndView freeBoardCont(@RequestParam("freeNum") int freeNum) throws Exception {
         ModelAndView mv = new ModelAndView("/freeboard/freeBoardCont");
@@ -98,7 +96,7 @@ public class StudyController {
         List<BoardFileDto> fileDtolist = boardService.selectBoardFileDto(freeNum);//첨부파일가져오기
         // System.out.println("파일경로는~?"+fileDtolist.get(0).getStoredFilePath());
         int filecount = fileDtolist.size() -1;
-        System.out.println("파일개수는??"+filecount);
+        System.out.println("파일개수 -1은 ??"+filecount);
         for(int i=0; i<freeboard.getFileList().size(); i++) {
             freeboard.getFileList().get(i).setFileSize((int)(freeboard.getFileList().get(i).getFileSize()/1024));
         }
@@ -111,7 +109,6 @@ public class StudyController {
         mv.addObject("freeboard", freeboard);
         mv.addObject("fileDtolist", fileDtolist);
         mv.addObject("filecount",filecount );
-        mv.addObject("freeNum",freeboard.getFreeNum());
         return mv;
     }
 
@@ -139,7 +136,7 @@ public class StudyController {
     @RequestMapping("/freeList")
     public ModelAndView freeBoardList(HttpServletRequest request) throws Exception {
         int rowsize = 10;
-        int block = 5;
+        int block = 4;
         int totalRecord = 0;
         int allPage = 0;
         int page = 0;
@@ -181,26 +178,26 @@ public class StudyController {
 
     @RequestMapping("/freeSearchList")
     public ModelAndView freeSearch(SearchDto searchdto,HttpServletRequest request) throws Exception {
-        int rowsize = 10;
-        int block = 5;
-        int totalRecord = 0;
-        int allPage = 0;
-        int page = 0;
+        int rowsize = 10; //한번에 보여주는 글 갯수
+        int block = 4; // 보여주는 페이지수 [1][2][3]
+        int totalRecord = 0; // 총 글갯수
+        int allPage = 0; // 총 페이지
+        int page = 0; // 현재 페이지
         if(request.getParameter("page")!=null){
             page = Integer.parseInt(request.getParameter("page"));
         }else{
             page = 1;
         }
-        int startNo = (page * rowsize)- (rowsize-1);
-        int endNo = (page * rowsize);
+        int startNo = (page * rowsize)- (rowsize-1); //한페이지의첫글
+        int endNo = (page * rowsize); //한페이지의 끝 끝
         int startBlock = (((page-1) / block)*block)+1; // 2
         int endBlock = (((page-1) / block)*block)+block; // 6
-        System.out.println("page==>" + page);
-        System.out.println("block==>" + block);
-        System.out.println("endBlock==>" + endBlock);
-        System.out.println("freeSubject=>"+searchdto.getFreeSubject());
-        System.out.println("getSearchKeyword=>"+searchdto.getSearchKeyword());
-        System.out.println("getSearchType=>"+searchdto.getSearchType());
+//        System.out.println("page==>" + page);
+//        System.out.println("block==>" + block);
+//        System.out.println("endBlock==>" + endBlock);
+//        System.out.println("freeSubject=>"+searchdto.getFreeSubject());
+//        System.out.println("getSearchKeyword=>"+searchdto.getSearchKeyword());
+//        System.out.println("getSearchType=>"+searchdto.getSearchType());
         totalRecord =  boardService.getSearchListCount(searchdto); // '사담 검색' => 16
         allPage = (int)Math.ceil(totalRecord / (double)rowsize); // 2
         if(endBlock > allPage) {
@@ -210,6 +207,9 @@ public class StudyController {
         System.out.println("카운트먼저 실행");
         ModelAndView mv = new ModelAndView("/freeboard/freeBoardSearchList");
         List<FreeBoardDto> list = boardService.selectFreeBoardSearchList(searchdto,page,rowsize);
+//        if(list.size()==0){
+//            list = boardService.selectFreeBoardSearchList(searchdto,page,rowsize);
+//        }
         mv.addObject("page1", page);
         mv.addObject("rowsize1", rowsize);
         mv.addObject("block1", block);
@@ -394,7 +394,6 @@ public class StudyController {
     @RequestMapping("/freeReplyWrite")
     public void freeReplyWrite(FreeBoardReplyDto dto, HttpServletResponse response) throws Exception {
         //  boardService.updateFreeBoardReply(dto);
-        System.out.println("게시물번호 = ? " + dto.getFreeNum());
         boardService.writeFreeBoardReply(dto);
         response.setContentType("text/html; charset=UTF-8");
         PrintWriter out = response.getWriter();
@@ -495,20 +494,11 @@ public class StudyController {
     }
 
     @RequestMapping("/memOutOk")
-    public String memOutOk(HttpSession session) {
+    public String memOutOk(HttpSession session) throws Exception {
         String memId = (String)session.getAttribute("memId");
-        //쿼리 날리고 ~~~~~
+        memberService.deleteMember(memId);
+        //세션 해제 하고 메인으로 넘겨야함
+        session.invalidate();
         return "/main";
-    }
-
-    // 서지훈 추가사항 대댓글 달기
-    @RequestMapping("/reReply")
-    public void addRereply(FreeBoardReplyDto replyDto,HttpServletResponse response) throws Exception {
-        boardService.writeFreeBoardRereply(replyDto);
-        response.setContentType("text/html; charset=UTF-8");
-        PrintWriter out = response.getWriter();
-        out.println("<script>");
-        out.println("location.href='/freeCont?freeNum=" + replyDto.getFreeNum() + "'");
-        out.println("</script>");
     }
 }

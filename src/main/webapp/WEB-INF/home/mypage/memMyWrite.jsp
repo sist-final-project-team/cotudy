@@ -16,6 +16,7 @@
 	<h2>자유게시판</h2>
     <table border="1">
         <tr>
+            <th>글번호</th>
             <th>주제</th>
             <th>제목</th>
 			<th>아이디</th>
@@ -25,7 +26,7 @@
 		<c:if test="${!empty list}">
 			<c:forEach items="${list}" var="freeboardDto">
 				<tr>
-<%--					<td>${freeboardDto.getFreeNum()}</td>--%>
+					<td>${freeboardDto.getFreeNum()}</td>
 					<td>${freeboardDto.getFreeSubject()}</td>
 					<td><a href="/freeCont?freeNum=${freeboardDto.getFreeNum()}"> ${freeboardDto.getFreeTitle()}</a></td>
 					<td>${freeboardDto.getMemId()}</td>
