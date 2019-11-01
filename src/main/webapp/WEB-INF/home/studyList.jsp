@@ -9,31 +9,10 @@
     <meta content="" name="keywords">
     <meta content="" name="description">
 
-    <!-- Favicons -->
-    <link href="../resources/../resources/img/favicon.png" rel="icon">
-    <link href="../resources/../resources/img/apple-touch-icon.png" rel="apple-touch-icon">
-
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" rel="stylesheet">
-
-    <!-- Bootstrap CSS File -->
-    <link href="../resources/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- Libraries CSS Files -->
-    <link href="../resources/lib/font-awesome/css/font-awesome.min.css" rel="stylesheet">
-    <link href="../resources/lib/animate/animate.min.css" rel="stylesheet">
-    <link href="../resources/lib/ionicons/css/ionicons.min.css" rel="stylesheet">
-    <link href="../resources/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
-
-    <!-- Main Stylesheet File -->
-    <link href="../resources/css/style.css" rel="stylesheet">
 </head>
 <body>
 <jsp:include page="header.jsp"></jsp:include>
 
-<%
-    List<StudyBoardDto> studyList = (List<StudyBoardDto>) request.getAttribute("studyList");
-%>
 <div class="container" style="padding-top: 120px;">
     검색 : <input type="text" id="filter"><button type="button" class="btn btn-secondary" onclick="search()"></button>
 </div>
@@ -48,12 +27,15 @@
                             <h5 class="card-title">${studyBoard.getStudyTitle()}</h5>
                             <p class="card-text">장소 : ${studyBoard.getStudyArea()}<br>키워드
                                 : ${studyBoard.getStudyKeyword1()}</p>
-                            <a href="/studyCont?no=${studyBoard.getStudyNum()}" class="btn btn-primary">자세히 보기</a>
+                            <a href="/studyCont?studyNum=${studyBoard.getStudyNum()}" class="btn btn-primary">자세히 보기</a>
                         </div>
                     </div>
                 </div>
         </c:forEach>
         </div>
+    </c:if>
+    <c:if test="${empty studyList}">
+        <p>데이터가 없습니다.</p>
     </c:if>
 </div>
 <jsp:include page="footer.jsp"></jsp:include>

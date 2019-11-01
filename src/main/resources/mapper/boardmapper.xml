@@ -252,4 +252,16 @@ where
 				study_status = 'N'
 		]]>
 	</select>
+
+	<!-- 스터디 상세보기 -->
+	<select id="selectStudyBoardCont" parameterType="int" resultType="com.project.cotudy.model.StudyBoardDto">
+		<![CDATA[
+			SELECT
+				*
+			FROM
+				study_board
+			WHERE
+				study_status = 'N' AND study_num = #{studyNum}
+		]]>
+	</select>
 </mapper>

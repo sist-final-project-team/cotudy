@@ -402,13 +402,18 @@ public class StudyController {
     public ModelAndView studyBoardList() throws Exception {
         ModelAndView mv = new ModelAndView("/studyList");
         List<StudyBoardDto> studyBoardList = boardService.selectStudyBoardList();
-        mv.addObject(studyBoardList);
+        mv.addObject("studyList", studyBoardList);
+
         return mv;
     }
 
     @RequestMapping("/studyCont")
-    public String studyBoardCont() {
-        return "/studyBoardCont";
+    public ModelAndView studyBoardCont(@RequestParam("studyNum") int studyNum) throws Exception {
+        ModelAndView mv = new ModelAndView("/studyCont");
+        StudyBoardDto studyBoard = boardService.selectStudyBoardCont(studyNum);
+        mv.addObject("studyCont", studyBoard);
+
+        return mv;
     }
 
     @RequestMapping("/studyCreate")
