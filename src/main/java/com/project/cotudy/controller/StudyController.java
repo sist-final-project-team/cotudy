@@ -422,8 +422,19 @@ public class StudyController {
 
     @RequestMapping("/studyCreate")
     public String studyBoardCreate() {
-        return "/studyBoardCreate";
+        return "/study/studyBoardCreate";
     }
+    
+    @RequestMapping("/studyCreateOk")
+    public String studyBoardCreateOk(StudyBoardDto studyboarddto, MultipartHttpServletRequest multireq) throws Exception{
+    	List<MultipartFile> fileList =  multireq.getFiles("files");
+    	boardService.updateStudyBoard(studyboarddto, multireq);
+    	
+        return "redirect:/studyList";
+    }    
+    
+    
+    
     /* 마이페이지 관련 */
 
     @RequestMapping("/bookMark")

@@ -190,10 +190,13 @@ public class BoardServiceImpl implements BoardService {
     @Override
     public void deleteStudyBoardReply(int studyReplyNum) { }
     @Override
-    public void updateStudyBoard(StudyBoardDto studyBoard) { }
-    @Override
     public void deleteStudyBoard(int studyNum) { }
  
+    @Override
+    public void updateStudyBoard(StudyBoardDto studyBoard, MultipartHttpServletRequest multireq) throws Exception {
+    	// TODO Auto-generated method stub
+    	
+    }
    
    
 
@@ -211,4 +214,5 @@ public class BoardServiceImpl implements BoardService {
 	public void writeFreeBoardRereply(FreeBoardReplyDto replyDto) throws Exception {
 		boardMapper.writeFreeBoardRereply(replyDto);
 	}
+
 }

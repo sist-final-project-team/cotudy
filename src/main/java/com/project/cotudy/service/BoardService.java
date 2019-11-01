@@ -33,7 +33,7 @@ public interface BoardService {
     StudyBoardDto selectStudyBoardCont(int studyNum) throws Exception;
     List<StudyBoardReplyDto> selectStudyBoardReplyList(int studyNum) throws Exception;
     void deleteStudyBoardReply(int studyReplyNum) throws Exception;
-    void updateStudyBoard(StudyBoardDto studyBoard) throws Exception;
+    void updateStudyBoard(StudyBoardDto studyBoard, MultipartHttpServletRequest multireq) throws Exception;
     void deleteStudyBoard(int studyNum) throws Exception;
 //    ===================추가된 부분
   
