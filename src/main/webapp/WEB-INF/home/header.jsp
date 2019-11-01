@@ -63,7 +63,7 @@
             <a class="nav-link" href="/event">EVENT</a>
           </li>
           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-          
+
           <li class="nav-item">
               <% if ((String)session.getAttribute("memId")==null){ %>
             <a class="nav-link" href="javascript:void(0);" onclick="login();">Login</a>

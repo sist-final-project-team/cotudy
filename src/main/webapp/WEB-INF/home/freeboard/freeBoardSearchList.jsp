@@ -78,7 +78,7 @@
                     <c:forEach begin="${startBlock1 }" end="${endBlock1 }" var="i">
                         <c:if test="${i==page1 }">
                             <%--                            <b>[${i}]</b>--%>
-                            <li class="page-item active"><a class="page-link" href="/freeList?page=${i}">${i}<span
+                            <li class="page-item disabled"><a class="page-link" href="/freeList?page=${i}">${i}<span
                                     class="sr-only">(current)</span></a></li>
                         </c:if>
                         <c:if test="${!(i==page1) }">

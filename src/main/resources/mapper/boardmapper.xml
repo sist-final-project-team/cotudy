@@ -244,4 +244,17 @@ where
 	<insert id="writeFreeBoardRereply" parameterType="com.project.cotudy.model.FreeBoardReplyDto">
 		insert into free_board_reply (free_num,reply_cont,mem_id,reply_step,reply_indent,reply_created_date) values (#{freeNum},#{replyCont},#{memId}, #{freeReplyNum}, (#{replyIndent}+1),now());
 	</insert>
+
+	<!-- 스터디 전체 목록 -->
+	<select id="selectStudyBoardList" resultType="com.project.cotudy.model.StudyBoardDto">
+       <![CDATA[
+           select * from study_board where study_status='N'
+       ]]>
+   </select>
+	<!-- 스터디 세부 내용 -->
+	<select id="selectStudyBoardCont" parameterType="int" resultType="com.project.cotudy.model.StudyBoardDto">
+       <![CDATA[
+           select * from study_board where study_status='N' and study_num=#{studyNum}
+       ]]>
+    </select>
 </mapper>
