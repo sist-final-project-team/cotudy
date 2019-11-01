@@ -27,7 +27,7 @@
     </select>
     
     <select id="selectMyFreeBoardList" parameterType="String" resultType="com.project.cotudy.model.FreeBoardDto">
-        select * from free_board where mem_id=#{memId} AND  free_deleted='N'
+        select * from free_board where mem_id=#{memId} AND  free_deleted='N' order by free_num desc
     </select>
 
     <update id="updateMember" parameterType="com.project.cotudy.model.StudyMemberDto">

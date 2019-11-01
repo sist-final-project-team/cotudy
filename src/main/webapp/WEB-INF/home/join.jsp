@@ -11,10 +11,13 @@
     <script type="text/javascript" src="/resources/js/member.js"></script>
     <script type="text/javascript">
         // 현재 웹문서가 브라우저로 로딩 될 때 문서의 본문을 읽고 현재의 제이쿼리 호출
+       
+            var engnum = /^[a-zA-Z0-9]+$/;
+           
         $(function () {
             // 회원가입 폼 중에서 아이디 중복 체크라는 버튼을 클릭했을떄
             $("#idcheck_btn").mousedown(function () {
-                $("#idcheck").hide();
+                $("#idcheck").hide(); 
                 var userId = $("#memId").val();
                 console.log(userId);
                 // 입력 길이 체크
@@ -26,6 +29,7 @@
                     $("#memId").val('').focus();
                     return false;
                 };
+                
                 if ($.trim($("#memId").val()).length > 16) {
                     var warningTxt = '<span style="color: red; ">아이디는 16자 이하이어야 합니다.</span>';
                     $("#idcheck").text('');
@@ -34,6 +38,7 @@
                     $("#memId").val('').focus();
                     return false;
                 };
+                
                 // 아이디 중복 여부 확인
                 $.ajax({
                     type: "post", // 데이터 전송 방식
@@ -43,18 +48,32 @@
                     success: function (res) {
                         console.log(res);
                         if (res === 1) {  // 아이디가 존재하는 경우(중복)
-                            var warningTxt = '<span style="color: red; "/> 중복된 아이디입니다.</font>';
+                        
+		                    var warningTxt = '<span style="color: red; ">중복된 아이디입니다.</span>';
                             $("#idcheck").text('');
                             $("#idcheck").show();
                             $("#idcheck").append(warningTxt);
                             $("#memId").val('').focus();
                             return false;
                         } else {   // 아이디가 중복이 되지 않는 경우
-                            var warningTxt = '<span style="color: blue;"/>사용가능한 아이디입니다.</font>';
-                            $("#idcheck").text('');
-                            $("#idcheck").show();
-                            $("#idcheck").append(warningTxt);
+                            console.log($("#memId").val());
+                            if(engnum.test($("#memId").val())){ //아이디 제대로(알파벳,숫자로만) 입력했을 경우
 
+                          	  var warningTxt = '<span style="color: blue; ">사용 가능한 아이디입니다.</span>';
+                           		 $("#idcheck").text('');
+                           		 $("#idcheck").show();
+                           		 $("#idcheck").append(warningTxt);
+                           		memId.readOnly = true;
+                            }
+                            else{
+                          	  var warningTxt = '<span style="color: red; ">아이디는 알파벳과 숫자만 입력 가능합니다.</span>';  
+                         		$("#idcheck").text('');
+                          		$("#idcheck").show();
+                         		$("#idcheck").append(warningTxt);
+                        	    $("#memId").val('').focus();
+                            return false;                                                
+                            }
+							
                         }
                     },
                     error: function () { // 비동기 통신이 실패한 경우
@@ -76,7 +95,7 @@
             <table id="join_t">
                 <tr>
                     <th>아이디</th>
-                    <td><input name="memId" id="memId" value="한글 및 특수문자 제외">
+                    <td><input type="text" name="memId" id="memId" placeholder="알파벳, 숫자만 사용 가능">
                         <input type="button" value="중복체크" id="idcheck_btn">
                         <br>
                         <%-- 경고문이 출력되는 위치 --%>
@@ -85,7 +104,7 @@
                 </tr>
                 <tr>
                     <th>비밀번호</th>
-                    <td><input type="password" name="memPwd" id="memPwd"></td>
+                    <td><input type="password" name="memPwd" id="memPwd" placeholder="4~20자 사이"></td>
                 </tr>
                 <tr>
                     <th>비밀번호확인</th>
@@ -97,16 +116,16 @@
                 </tr>
                 <tr>
                     <th>이메일</th>
-                    <td><input name="memEmail" id="memEmail"></td>
+                    <td><input type="email" name="memEmail" placeholder="exam@cotudy.com" id="memEmail"></td>
                 </tr>
                 <tr>
                     <th>거주지</th>
-                    <td><input name="memArea" id="memArea"></td>
+                    <td><input name="memArea" placeholder="○○시○○구" id="memArea"></td>
                 </tr>
                 <tr>
                     <td colspan="2" align="center">
                         <input type="submit" value="가입하기">
-                        <input type="reset" value="취소">
+                        <input type="reset" value="다시작성">
                         <input type="button" value="돌아가기" onclick="location.href='/'">
                     </td>
                 </tr>
