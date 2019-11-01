@@ -22,6 +22,23 @@ function mem_check() {
         $("#memPwd").focus();
         return false;
     }
+    
+    if($.trim($("#memPwd").val()).length <4){
+        alert("비밀번호는 4자 이상 입력해 주세요!.");
+        $("#memPwd").val("");
+        $("#memPwd1").val("");
+        $("#memPwd").focus();
+        return false;
+    }    
+    
+    if($.trim($("#memPwd").val()).length >20){
+        alert("비밀번호는 20자 이하로 입력해 주세요!.");
+        $("#memPwd").val("");
+        $("#memPwd1").val("");
+        $("#memPwd").focus();
+        return false;
+    }   
+    
     if($.trim($("#memArea").val())===""){
         alert("거주지를 입력하세요!");
         $("#memArea").val("").focus();
@@ -37,15 +54,20 @@ function mem_check() {
         $("#memName").val("").focus();
         return false;
     }
-    if($("#idcheck").val()!=="사용가능한 아이디입니다."){
+
+    if($.trim($("#memName").val()).length > 10){
+        alert("이름은 10자 이하로 입력해주세요!");
+        $("#memName").val("").focus();
+        return false;
+    }
+    
+    if($("#idcheck").val()!=="<span style='color: blue; '>사용 가능한 아이디입니다.</span>"){
+    	alert($("#idcheck".val()))
         alert("중복아이디 확인하세요");
         $("#idcheck_btn").focus();
         return false;
     }
-    if(($("#memEmail").val().substring(($("#memEmail").size()-3),($("#memEmail").size()))!=="net") &&( $("#memEmail").val().substring(($("#memEmail").size()-3),($("#memEmail").size()))!=="com")){
-        alert("이메일 형식이 잘못되었습니다.");
-        $("#memEmail").val("").focus();
-        return false;
-    }
+
+    
 
 }

@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.project.cotudy.mapper.BoardMapper">
-	<select id="selectFreeBoardList" parameterType="int" resultType="com.project.cotudy.model.FreeBoardDto">
+	<select id="selectFreeBoardList" parameterType="map" resultType="com.project.cotudy.model.FreeBoardDto">
 		<![CDATA[
 			select	a.* from (select p.*, @rownum := @rownum+1 as rownum from (select * from free_board where free_deleted = 'N' order by free_num desc) p) a where
 				(@rownum:=0)=0 and free_deleted = 'N' and rownum between #{startNo} and #{endNo}
@@ -31,7 +31,7 @@
 	</select>
 	
 	<!-- only말머리 검색 -->
-	<select id="selectFreeBoardSubSearchList" parameterType="com.project.cotudy.model.SearchDto" resultType="com.project.cotudy.model.FreeBoardDto">
+	<select id="selectFreeBoardSubSearchList" parameterType="map" resultType="com.project.cotudy.model.FreeBoardDto">
 		<![CDATA[
 			SELECT
 				a.*
@@ -60,7 +60,7 @@ where
 
 	
 	<!-- 키워드 + 말머리 검색 -->
-	<select id="selectFreeBoardSubKeySearchList" parameterType="com.project.cotudy.model.SearchDto" resultType="com.project.cotudy.model.FreeBoardDto">
+	<select id="selectFreeBoardSubKeySearchList" parameterType="map" resultType="com.project.cotudy.model.FreeBoardDto">
 		<![CDATA[
 			SELECT
 			a.*
@@ -232,36 +232,16 @@ where
 	
 	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
     <insert id="writeFreeReplyBoard" parameterType="com.project.cotudy.model.FreeBoardReplyDto">
-           insert into free_board_reply (free_num,reply_cont,mem_id,reply_step,reply_indent) values (#{freeNum},#{replyCont},#{memId}, default, 1);
+
+           insert into free_board_reply (free_num,reply_cont,mem_id,reply_step,reply_indent,reply_created_date) values (#{freeNum},#{replyCont},#{memId}, default, 1,now());
     </insert>
 <!--     <update id="updateFreeReplyBoard" parameterType="int">	대댓글. 수정해야됨
         update free_board_reply set reply_step = reply_step + 1 where free_num = #{freeNum} and reply_step >0;
     </update> -->
     <select id="selectFreeBoardReplyList" parameterType="int" resultType="com.project.cotudy.model.FreeBoardReplyDto">
-        select * from free_board_reply where free_num = #{freeNum};
+        select * from free_board_reply where free_num = #{freeNum} order by if(isnull(reply_step),free_reply_num,reply_step),reply_indent ;
     </select>
-
-	<!-- 스터디 찾기 -->
-	<select id="selectStudyBoardList" resultType="com.project.cotudy.model.StudyBoardDto">
-		<![CDATA[
-			SELECT
-				*
-			FROM
-				study_board
-			WHERE
-				study_status = 'N'
-		]]>
-	</select>
-
-	<!-- 스터디 상세보기 -->
-	<select id="selectStudyBoardCont" parameterType="int" resultType="com.project.cotudy.model.StudyBoardDto">
-		<![CDATA[
-			SELECT
-				*
-			FROM
-				study_board
-			WHERE
-				study_status = 'N' AND study_num = #{studyNum}
-		]]>
-	</select>
+	<insert id="writeFreeBoardRereply" parameterType="com.project.cotudy.model.FreeBoardReplyDto">
+		insert into free_board_reply (free_num,reply_cont,mem_id,reply_step,reply_indent,reply_created_date) values (#{freeNum},#{replyCont},#{memId}, #{freeReplyNum}, (#{replyIndent}+1),now());
+	</insert>
 </mapper>

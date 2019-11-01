@@ -12,7 +12,10 @@ import org.springframework.util.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
+
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class BoardServiceImpl implements BoardService {
@@ -114,6 +117,7 @@ public class BoardServiceImpl implements BoardService {
           int startNo = ((page-1)*rowsize)+1;
           int endNo = (page * rowsize);
 	  List<FreeBoardDto> list = null;
+	  
 	  if(searchdto.getSearchKeyword() != null){ //1-1.키워드 넣음
 		  System.out.println("1-1.키워드 넣음");
 		  if(searchdto.getFreeSubject()!=null) {
@@ -202,4 +206,9 @@ public class BoardServiceImpl implements BoardService {
 	 * @Override public void updateFreeBoardReply(FreeBoardReplyDto freeReplyBoard)
 	 * throws Exception { boardMapper.updateFreeReplyBoard(freeReplyBoard); }
 	 */
+
+	@Override
+	public void writeFreeBoardRereply(FreeBoardReplyDto replyDto) throws Exception {
+		boardMapper.writeFreeBoardRereply(replyDto);
+	}
 }
