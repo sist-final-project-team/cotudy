@@ -25,6 +25,7 @@ public interface BoardService {
     BoardFileDto selectBoardFileInformation(int idx, int freeNum) throws Exception;
     int getListCount() throws Exception;
     int getSearchListCount(SearchDto searchDto) throws Exception;
+    void writeFreeBoardRereply(FreeBoardReplyDto replyDto) throws Exception;
     
 //    ==================study게시판 관련
     List<StudyBoardDto> selectStudyBoardList() throws Exception;

@@ -9,4 +9,5 @@ public class FreeBoardReplyDto {
     private String memId;
     private int replyStep;
     private int replyIndent;
+    private String replyCreatedDate;
 }

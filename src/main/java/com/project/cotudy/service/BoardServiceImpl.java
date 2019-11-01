@@ -202,4 +202,9 @@ public class BoardServiceImpl implements BoardService {
 	 * @Override public void updateFreeBoardReply(FreeBoardReplyDto freeReplyBoard)
 	 * throws Exception { boardMapper.updateFreeReplyBoard(freeReplyBoard); }
 	 */
+
+	@Override
+	public void writeFreeBoardRereply(FreeBoardReplyDto replyDto) throws Exception {
+		boardMapper.writeFreeBoardRereply(replyDto);
+	}
 }

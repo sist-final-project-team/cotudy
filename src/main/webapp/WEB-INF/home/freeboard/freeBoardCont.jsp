@@ -2,25 +2,33 @@
     pageEncoding="UTF-8"%>
 <%@ page session="true"%>    
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script>
-function deleteconfirm()
-{
-	var freeNum = document.getElementById("freeNum").value;
-    msg = "정말로 삭제하시겠습니까?";
-    if (confirm(msg)!=0) {
-        location.href = "/freeDelete?freeNum=" + freeNum;
-         // Yes click
-        
-        
-    } else {
-        // no click
-}
-} // deleteconfirm
+	function deleteconfirm()
+	{
+		var freeNum = document.getElementById("freeNum").value;
+		msg = "정말로 삭제하시겠습니까?";
+		if (confirm(msg)!=0) {
+			location.href = "/freeDelete?freeNum=" + freeNum;
+			 // Yes click
+		} else {
+			// no click
+	}
+	} // deleteconfirm
+	function show(i) {
+		var watch = "reply"+i;
+		if(document.getElementById(watch).style.display==="none"){
+			document.getElementById(watch).style.display="";
+		}else{
+			document.getElementById(watch).style.display="none";
+		}
+	}
+
 
 </script>
 </head>
@@ -125,28 +133,56 @@ function deleteconfirm()
 		</table>
 		
     <table class="board_reply">
-
         <tr>
             	<th colspan="3">댓글 목록</th>
         </tr>
         <c:set var="list" value="${replyDto}"/>
+		<c:set var="index" value="0"/>
         <c:if test="${!empty list}">
-                           <tr>
-                   <th>번호</th>
-                   <th>내용</th>
-                   <th>작성자</th>
-               </tr>
+			 <tr>
+				 <th>작성자</th>
+				 <th>내용</th>
+				 <th>작성일자</th>
+			 </tr>
             <c:forEach items="${list}" var="reply">
+				<c:set var="index" value="${index+1}"/>
+				<c:set var="step" value="${reply.getReplyStep()}"/>
                <tr>
-                   <td>${reply.getFreeReplyNum()}</td>
-                   <td>${reply.getReplyCont()}</td>
-                   <td>${reply.getMemId()}</td>
-               </tr>
+				   <td>${reply.getMemId()}</td>
+				   <c:if test="${step != 0}">
+				   <td>☞${reply.getReplyCont()}</td>
+				   </c:if>
+				   <c:if test="${step == 0}">
+					   <td><a href = "#" onclick="show(${index})">${reply.getReplyCont()}</a></td>
+				   </c:if>
+				   <td>${reply.getReplyCreatedDate()}
+					   <c:if test="${sessionScope.memId eq reply.getMemId()}">
+						   <input type="button" value="수정" onclick="location.href='/freeEditForm?freeNum=${dto.getFreeNum()}'">
+						   <input type="button" value="삭제" onclick="deleteconfirm()">
+					   </c:if>
+				   </td>
+
+				</tr>
+				<form method="post"  action="<%=request.getContextPath()%>/reReply">
+					<% if ((String)session.getAttribute("memId")==null){ %>
+					<tr id = "reply${index}" style="display:none">
+						<td colspan="2"><textarea cols="70" rows="5" style="resize: none" readonly>로그인 후 작성이 가능합니다.</textarea></td>
+					</tr>
+					<%} else{ %>
+					<tr id = "reply${index}" style="display:none">
+						<td colspan="2"><textarea cols="70" rows="5" style="resize: none" name="replyCont"></textarea></td>
+						<td><input type="submit" value="댓글달기"></td>
+					</tr>
+					<% } %>
+						<input type="hidden" name="memId" value="${sessionScope.memId}">
+						<input type="hidden" name="freeNum" value="${reply.getFreeNum()}">
+						<input type="hidden" name="freeReplyNum" value="${reply.getFreeReplyNum()}">
+						<input type="hidden" name="replyStep" value="${reply.getReplyStep()}">
+						<input type="hidden" name="replyIndent" value="${reply.getReplyIndent()}">
+				</form>
             </c:forEach>
         </c:if>
     </table>
-
-		
 		 <form method="post" action="<%=request.getContextPath()%>/freeReplyWrite">
     <table class="board_reply">
         <% if ((String)session.getAttribute("memId")==null){ %>
@@ -155,8 +191,9 @@ function deleteconfirm()
         </tr>
         <%} else{ %>
        <tr>
-           <input type="hidden" name="memId" value="${sessionScope.memId}">
-           <input type="hidden" name="freeNum" value="${dto.getFreeNum()}">
+		   <c:set var="freeNum" value="${freeNum}"/>
+		   <input type="hidden" name="memId" value="${sessionScope.memId}">
+		   <input type="hidden" name="freeNum" value="${freeNum}">
            <td><textarea cols="70" rows="5" style="resize: none" name="replyCont"></textarea></td>
            <td><input type="submit" value="댓글달기"></td>
        </tr>

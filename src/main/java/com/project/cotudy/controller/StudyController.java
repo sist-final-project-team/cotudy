@@ -60,7 +60,7 @@ public class StudyController {
         return "/main";
     }
 
-    ///////.
+    ///////
     @RequestMapping("/event")
     public ModelAndView event() throws IOException {
         ModelAndView mv = new ModelAndView("/event");
@@ -87,6 +87,8 @@ public class StudyController {
         return "/notice";
     }
 
+
+
     @RequestMapping("/freeCont")
     public ModelAndView freeBoardCont(@RequestParam("freeNum") int freeNum) throws Exception {
         ModelAndView mv = new ModelAndView("/freeboard/freeBoardCont");
@@ -109,6 +111,7 @@ public class StudyController {
         mv.addObject("freeboard", freeboard);
         mv.addObject("fileDtolist", fileDtolist);
         mv.addObject("filecount",filecount );
+        mv.addObject("freeNum",freeboard.getFreeNum());
         return mv;
     }
 
@@ -391,6 +394,7 @@ public class StudyController {
     @RequestMapping("/freeReplyWrite")
     public void freeReplyWrite(FreeBoardReplyDto dto, HttpServletResponse response) throws Exception {
         //  boardService.updateFreeBoardReply(dto);
+        System.out.println("게시물번호 = ? " + dto.getFreeNum());
         boardService.writeFreeBoardReply(dto);
         response.setContentType("text/html; charset=UTF-8");
         PrintWriter out = response.getWriter();
@@ -493,8 +497,18 @@ public class StudyController {
     @RequestMapping("/memOutOk")
     public String memOutOk(HttpSession session) {
         String memId = (String)session.getAttribute("memId");
-
         //쿼리 날리고 ~~~~~
         return "/main";
+    }
+
+    // 서지훈 추가사항 대댓글 달기
+    @RequestMapping("/reReply")
+    public void addRereply(FreeBoardReplyDto replyDto,HttpServletResponse response) throws Exception {
+        boardService.writeFreeBoardRereply(replyDto);
+        response.setContentType("text/html; charset=UTF-8");
+        PrintWriter out = response.getWriter();
+        out.println("<script>");
+        out.println("location.href='/freeCont?freeNum=" + replyDto.getFreeNum() + "'");
+        out.println("</script>");
     }
 }

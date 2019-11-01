@@ -38,7 +38,7 @@ public interface BoardMapper {
     int getSearchsubListCount(SearchDto searchDto) throws Exception;
     //dto가아니라 map을써서 param으로 데려옴
     BoardFileDto selectBoardFileInformation(@Param("idx") int idx, @Param("freeNum") int freeNum) throws Exception;
-    
+    void writeFreeBoardRereply(FreeBoardReplyDto replyDto) throws Exception;
     // study 게시판 관련
     List<StudyBoardDto> selectStudyBoardList() throws Exception;
     StudyBoardDto selectStudyBoardCont(int studyNum) throws Exception;
