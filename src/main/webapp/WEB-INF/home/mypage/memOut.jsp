@@ -28,20 +28,19 @@
         또한, 네이버 아이디를 사용해 다른 서비스에 로그인 할 수 없게 됩니다.<br>
 
         안내 사항을 모두 확인하였으며, 이에 </p>
-	<form action="/memOutOk" method="post" onsubmit="return memOutCheck()">
-    <input type="checkbox" id="memOutCheck1" name="memOutCheck1" value="ok">동의합니다.
-    <input type="submit" value="탈퇴하기">
-	</form>
+    <form action="/memOutOk" method="post" onsubmit="return memOutCheck()">
+        <input type="checkbox" id="memOutCheck1" name="memOutCheck1" value="ok">동의합니다.
+        <input type="submit" value="탈퇴하기">
+    </form>
 
 </div>
 <script>
     function memOutCheck() {
-    	var chk = memOutCheck1.checked;
+        var chk = memOutCheck1.checked;
         if (!chk) {
             alert("동의합니다에 체크 해주세요");
             return false;
         }
-
     }
 </script>
 </body>
