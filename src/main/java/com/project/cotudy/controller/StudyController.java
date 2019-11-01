@@ -4,6 +4,8 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+import com.project.cotudy.model.*;
 import org.apache.commons.io.FileUtils;
 import java.net.URLEncoder;
 import javax.servlet.http.HttpServletRequest;
@@ -24,11 +26,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
-import com.project.cotudy.model.BoardFileDto;
-import com.project.cotudy.model.FreeBoardDto;
-import com.project.cotudy.model.SearchDto;
-import com.project.cotudy.model.FreeBoardReplyDto;
-import com.project.cotudy.model.StudyMemberDto;
 import com.project.cotudy.service.Email;
 import com.project.cotudy.service.EmailSender;
 import org.springframework.web.bind.annotation.*;
@@ -405,9 +402,22 @@ public class StudyController {
     }
 
     /* 스터디 게시판 관련 */
+    @RequestMapping("/studyList")
+    public ModelAndView studyBoardList() throws Exception {
+        ModelAndView mv = new ModelAndView("/studyList");
+        List<StudyBoardDto> studyBoardList = boardService.selectStudyBoardList();
+        mv.addObject("studyList", studyBoardList);
+
+        return mv;
+    }
+
     @RequestMapping("/studyCont")
-    public String studyBoardCont() {
-        return "/studyBoardCont";
+    public ModelAndView studyBoardCont(@RequestParam("studyNum") int studyNum) throws Exception {
+        ModelAndView mv = new ModelAndView("/studyCont");
+        StudyBoardDto studyBoard = boardService.selectStudyBoardCont(studyNum);
+        mv.addObject("studyCont", studyBoard);
+
+        return mv;
     }
 
     @RequestMapping("/studyCreate")
