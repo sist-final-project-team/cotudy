@@ -152,7 +152,7 @@
 				   <td>☞${reply.getReplyCont()}</td>
 				   </c:if>
 				   <c:if test="${step == 0}">
-					   <td><a href="" onclick="show(${index})">${reply.getReplyCont()}</a></td>
+					   <td><a href = "#none" onclick="show(${index})">${reply.getReplyCont()}</a></td>
 				   </c:if>
 				   <td>${reply.getReplyCreatedDate()}
 					   <c:if test="${sessionScope.memId eq reply.getMemId()}">
