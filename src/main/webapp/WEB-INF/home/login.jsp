@@ -76,8 +76,19 @@
             <a href="/findid" class="pull-left">아이디 찾기</a>
         </div>
     </form>
-    <p class="text-center"><a href="/join">회원가입</a></p>
+    <p class="text-center"><a href="javascript:void(0);" onclick="join();">회원가입</a></p>
+
 </div>
+<script type="text/javascript">
+    function join() {
+        self.close();   //자기자신창을 닫습니다.
+        var popupX = (window.screen.width / 2) - (500 / 2);
+        // 만들 팝업창 좌우 크기의 1/2 만큼 보정값으로 빼주었음
+        var popupY= (window.screen.height / 2) - (900 / 2);
+        // 만들 팝업창 상하 크기의 1/2 만큼 보정값으로 빼주었음
+        window.open("/join", "회원가입 화면", 'top='+popupY+', left='+ popupX + ', width=500, height=800, status=no, menubar=no, toolbar=no, resizable=no');
+    }
+</script>
 </body>
 </html>
 
