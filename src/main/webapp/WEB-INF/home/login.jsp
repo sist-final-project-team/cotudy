@@ -36,6 +36,7 @@
     <hr width="50%" color="orange">
     <h3>회원 로그인 화면</h3>
     <hr width="50%" color="orange">
+    
     <form method="post" action="<%=request.getContextPath()%>/login_ok" onsubmit="return check123()">
         <table border="1" width="300" cellspacing="0">
             <tr>
@@ -60,6 +61,9 @@
             </tr>
         </table>
     </form>
+           <a href="https://kauth.kakao.com/oauth/authorize?client_id=466c43b6799bd576421ad9edd9c3944c&redirect_uri=http://localhost:9000/callback&response_type=code">
+            <img src="images/kakao_account_login_btn_medium_narrow.png">
+        </a>
 </div>
 </body>
 </html>

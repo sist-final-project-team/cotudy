@@ -3,6 +3,7 @@ package com.project.cotudy.controller;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import com.project.cotudy.model.*;
@@ -28,12 +29,17 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 import com.project.cotudy.service.Email;
 import com.project.cotudy.service.EmailSender;
+import com.project.cotudy.service.KakaoAPI;
+
 import org.springframework.web.bind.annotation.*;
 import java.io.PrintWriter;
 
 @Controller
 public class StudyController {
 
+    @Autowired
+    private KakaoAPI kakao;
+    
     @Autowired
     private MemberService memberService;
 
@@ -71,7 +77,24 @@ public class StudyController {
         return mv;
     }
 
-
+    //카카오로그인 테스트
+    @RequestMapping("/callback")
+    public ModelAndView callback(@RequestParam("code") String code, HttpSession session) throws IOException {
+    	ModelAndView mv = new ModelAndView("/callback");
+    	System.out.println("code는???" + code);
+        String access_Token = kakao.getAccessToken(code);
+        System.out.println("controller access_token는???" + access_Token);    	
+        HashMap<String, Object> userInfo = kakao.getUserInfo(access_Token);
+        System.out.println("login Controller : " + userInfo);
+        
+        //    클라이언트의 이메일이 존재할 때 세션에 해당 이메일과 토큰 등록
+        if (userInfo.get("email") != null) {
+            session.setAttribute("userId", userInfo.get("email"));
+            session.setAttribute("access_Token", access_Token);
+        }
+        return mv;
+    }
+    
     /*
      * @RequestMapping(method = RequestMethod.POST, value = "/loginCheck") public
      * String loginCheck(HttpSession session, @RequestParam("id") String
