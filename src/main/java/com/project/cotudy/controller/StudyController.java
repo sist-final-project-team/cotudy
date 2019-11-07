@@ -85,12 +85,13 @@ public class StudyController {
         String access_Token = kakao.getAccessToken(code);
         System.out.println("controller access_token는???" + access_Token);    	
         HashMap<String, Object> userInfo = kakao.getUserInfo(access_Token);
+        System.out.println(userInfo.get("nickname"));
         System.out.println("login Controller : " + userInfo);
         
         //    클라이언트의 이메일이 존재할 때 세션에 해당 이메일과 토큰 등록
         if (userInfo.get("email") != null) {
-            session.setAttribute("userId", userInfo.get("email"));
-            session.setAttribute("access_Token", access_Token);
+            session.setAttribute("userId", userInfo.get("id"));
+            session.setAttribute("access_Token", access_Token);//로그아웃시 사용
         }
         return mv;
     }
