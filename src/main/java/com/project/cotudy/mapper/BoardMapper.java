@@ -53,8 +53,7 @@ public interface BoardMapper {
     // 서지훈 댓글 삭제 추가
     void deleteFreeBoardReply(int freeReplyNum) throws Exception;
     void deleteFreeBoardRereply(int freeReplyNum) throws Exception;
-    // 파일 삭제 관련
-	
+    void insertStudyBoard(StudyBoardDto studyBoard) throws Exception;
 }
 
 

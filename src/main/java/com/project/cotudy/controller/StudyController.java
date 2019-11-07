@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-
 import com.project.cotudy.model.*;
 import org.apache.commons.io.FileUtils;
 import java.net.URLEncoder;
@@ -263,12 +262,7 @@ public class StudyController {
     @RequestMapping("/freeWrite")
     public String freeBoardWrite(FreeBoardDto freeboard, MultipartHttpServletRequest multireq) throws Exception {
         List<MultipartFile> fileList =  multireq.getFiles("files"); //files:write에서 파일첨부의 files
-        //System.out.println("fileList는1??"+fileList.get(0));
-        //org.springframework.web.multipart.commons.CommonsMultipartFile@49c3ccb4 찍힘
-
         boardService.insertFreeBoard(freeboard, multireq);
-
-
         return "redirect:/freeList";
     }
 
@@ -427,14 +421,21 @@ public class StudyController {
 
     @RequestMapping("/studyCreate")
     public String studyBoardCreate() {
-        return "/studyBoardCreate";
+
+        return "/study/studyBoardCreate";
     }
+
+    @RequestMapping("/studyCreateOk")
+    public String studyCreateOk(StudyBoardDto studyBoard) throws Exception {
+    boardService.insertStudyBoard(studyBoard);
+
+        return "redirect:/studyList";
+    }
+
     /* 마이페이지 관련 */
 
-    @RequestMapping("/bookMark")
-    public String memBookMark() {
-        return "/mypage/memBookMark";
-    }
+
+
 
 
 

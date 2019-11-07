@@ -14,13 +14,23 @@
 <jsp:include page="header.jsp"></jsp:include>
 
 <div class="container" style="padding-top: 120px;">
-    검색 : <input type="text" id="filter"><button type="button" class="btn btn-secondary" onclick="search()"></button>
+
 </div>
 <div class="container">
     <c:set var="studyBoard" value="${studyCont}"></c:set>
     <c:if test="${!empty studyBoard}">
-        <div>
-            제목 : ${studyBoard.getStudyTitle()}<br>
+        <div align="center">
+            <table border="1">
+                <tr>
+
+                    <td><h1>${studyBoard.getStudyTitle()}</h1></td>
+
+                </tr>
+                <tr>
+                   <td> <textarea  readonly  rows="28" cols="100" name="freeCont" style="resize: none">${studyBoard.getStudyCont()}</textarea></td>
+                </tr>
+            </table>
+
             내용 : ${studyBoard.getStudyCont()}<br>
             지역 : ${studyBoard.getStudyArea()}<br>
         </div>
