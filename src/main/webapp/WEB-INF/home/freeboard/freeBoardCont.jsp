@@ -2,13 +2,15 @@
     pageEncoding="UTF-8"%>
 <%@ page session="true"%>    
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+	<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
 <script>
+
 	function deleteconfirm()
 	{
 		var freeNum = document.getElementById("freeNum").value;
@@ -22,10 +24,42 @@
 	} // deleteconfirm
 	function show(i) {
 		var watch = "reply"+i;
+		var show = "modify"+i;
 		if(document.getElementById(watch).style.display==="none"){
 			document.getElementById(watch).style.display="";
+			if(document.getElementById(show).style.display===""){
+				document.getElementById(show).style.display="none";
+			}
 		}else{
 			document.getElementById(watch).style.display="none";
+		}
+	}
+	function modify(i) {
+		var watch = "modify"+i;
+		var show = "reply"+i;
+		if(document.getElementById(watch).style.display==="none"){
+			document.getElementById(watch).style.display="";
+			if(document.getElementById(show).style.display===""){
+				document.getElementById(show).style.display="none";
+			}
+		}else{
+			document.getElementById(watch).style.display="none";
+
+		}
+	}
+	function replyDeleteconfirm(i) {
+        var watch = "freeReplyNum"+i;
+        var watch2 = "replyStep"+i;
+		var freeReplyNum = document.getElementById(watch).value;
+		var freeNum = document.getElementById("freeNum").value;
+		var replyStep = document.getElementById(watch2
+		).value;
+		msg = "정말로 삭제하시겠습니까?";
+		if (confirm(msg)!=0) {
+			location.href = "/freeReplyDelete?freeReplyNum=" + freeReplyNum+"&replyStep="+replyStep+"&freeNum="+freeNum;
+			// Yes click
+		} else {
+			// no click
 		}
 	}
 
@@ -71,8 +105,9 @@
                     	<br>
                     	<c:if test="${ filecount >= 0}">
                     	<c:forEach var="i" begin="0" end="${filecount }">
+							<c:set var="status" value="${status+1}"/>
                     	 <img alt="" width="400" height="300"
-                           src="${fileDtolist.get(i).getStoredFilePath().substring(15) }"> 
+                           src="${fileDtolist.get(i).getStoredFilePath().substring(15) }">
                            <br>
                     	</c:forEach>
                     	</c:if>
@@ -95,15 +130,16 @@
 
 				<tr>
 					<th>첨부파일</th>
-						<td>
-					<c:forEach items="${dto.fileList}" var="list"> 
-					
-							<a href="/downloadBoardFile?freeNum=${list.freeNum}&idx=${list.idx}" >
+					<td>
+					<c:forEach items="${dto.fileList}" var="list">
+						<c:set var="status" value="${status+1}"/>
+							<a href="/downloadBoardFile?freeNum=${list.freeNum}&idx=${list.idx}">
 								${list.originalFileName } (${ (list.fileSize) }kb)
 							</a>
 							<br>
+
 					</c:forEach>
-						</td>
+							</td>
 				</tr>
 				
 			</c:if>
@@ -156,11 +192,10 @@
 				   </c:if>
 				   <td>${reply.getReplyCreatedDate()}
 					   <c:if test="${sessionScope.memId eq reply.getMemId()}">
-						   <input type="button" value="수정" onclick="location.href='/freeEditForm?freeNum=${dto.getFreeNum()}'">
-						   <input type="button" value="삭제" onclick="deleteconfirm()">
+						   <input type="button" value="수정" onclick="modify(${index})">
+						   <input type="button" value="삭제" onclick="replyDeleteconfirm(${index})">
 					   </c:if>
 				   </td>
-
 				</tr>
 				<form method="post"  action="<%=request.getContextPath()%>/reReply">
 					<% if ((String)session.getAttribute("memId")==null){ %>
@@ -176,8 +211,16 @@
 						<input type="hidden" name="memId" value="${sessionScope.memId}">
 						<input type="hidden" name="freeNum" value="${reply.getFreeNum()}">
 						<input type="hidden" name="freeReplyNum" value="${reply.getFreeReplyNum()}">
-						<input type="hidden" name="replyStep" value="${reply.getReplyStep()}">
+						<input type="hidden" name="replyStep" id="replyStep${index}" value="${reply.getReplyStep()}">
 						<input type="hidden" name="replyIndent" value="${reply.getReplyIndent()}">
+				</form>
+				<form method="post" action="<%=request.getContextPath()%>/freeReplyModify">
+					<tr id = "modify${index}" style="display:none">
+						<td colspan="2"><textarea cols="70" rows="5" style="resize: none" name="replyCont">${reply.getReplyCont()}</textarea></td>
+						<input type="hidden" name="freeReplyNum" id="freeReplyNum${index}" value="${reply.getFreeReplyNum()}">
+						<input type="hidden" name="freeNum" value="${reply.getFreeNum()}">
+						<td><input type="submit" value="수정하기"></td>
+					</tr>
 				</form>
             </c:forEach>
         </c:if>

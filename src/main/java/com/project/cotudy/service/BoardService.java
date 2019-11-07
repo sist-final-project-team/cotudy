@@ -26,6 +26,8 @@ public interface BoardService {
     int getListCount() throws Exception;
     int getSearchListCount(SearchDto searchDto) throws Exception;
     void writeFreeBoardRereply(FreeBoardReplyDto replyDto) throws Exception;
+    void modifyFreeBoardReply(FreeBoardReplyDto replyDto) throws Exception;
+    void deleteFreeBoardfile(int idx) throws Exception;
     
 //    ==================study게시판 관련
     List<StudyBoardDto> selectStudyBoardList() throws Exception;
@@ -41,6 +43,7 @@ public interface BoardService {
     void updateFreeBoardHitCount(int freeNum) throws Exception;
     void updateFreeBoard(FreeBoardDto freeBoard, MultipartHttpServletRequest multireq) throws Exception;
     void deleteFreeBoard(int freeNum) throws Exception;
+    void deleteFreeBoardRereply(int freeReplyNum) throws Exception;
     void writeFreeBoardReply(FreeBoardReplyDto freeReplyBoard) throws Exception;
   //  void updateFreeBoardReply(FreeBoardReplyDto freeReplyBoard) throws Exception;
     

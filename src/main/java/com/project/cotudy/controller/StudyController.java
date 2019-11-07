@@ -111,10 +111,15 @@ public class StudyController {
     }
 
     @RequestMapping("/freeEdit")
-    public String freeBoardEdit(FreeBoardDto freeBoard, MultipartHttpServletRequest multireq) throws Exception{
+    public String freeBoardEdit(FreeBoardDto freeBoard, MultipartHttpServletRequest multireq,@RequestParam("put") List<String> put,@RequestParam("fileList1") List<String> file) throws Exception{
         List<MultipartFile> fileList =  multireq.getFiles("files"); //files:write에서 파일첨부의 files
         boardService.updateFreeBoard(freeBoard, multireq);
-
+        for(int i=0; i<put.size(); i++){
+            if(!put.get(i).equals("")){
+                int idx = Integer.parseInt(file.get(i));
+                boardService.deleteFreeBoardfile(idx);
+            }
+        }
         return "redirect:/freeCont?freeNum="+freeBoard.getFreeNum();
 
     }
@@ -520,6 +525,28 @@ public class StudyController {
         PrintWriter out = response.getWriter();
         out.println("<script>");
         out.println("location.href='/freeCont?freeNum=" + replyDto.getFreeNum() + "'");
+        out.println("</script>");
+    }
+    // 서지훈 추가사항 댓글 수정
+    @RequestMapping("/freeReplyModify")
+    public void modifyReply(FreeBoardReplyDto replyDto,HttpServletResponse response) throws Exception {
+        boardService.modifyFreeBoardReply(replyDto);
+        response.setContentType("text/html; charset=UTF-8");
+        PrintWriter out = response.getWriter();
+        out.println("<script>");
+        out.println("location.href='/freeCont?freeNum=" + replyDto.getFreeNum() + "'");
+        out.println("</script>");
+    }
+    @RequestMapping("/freeReplyDelete")
+    public void freeReplyDelete(@RequestParam("freeReplyNum") int freeReplyNum,@RequestParam("replyStep") int replyStep,HttpServletResponse response,@RequestParam("freeNum") int freeNum) throws Exception{
+        boardService.deleteFreeBoardReply(freeReplyNum);
+        if(replyStep == 0){
+            boardService.deleteFreeBoardRereply(freeReplyNum);
+        }
+        response.setContentType("text/html; charset=UTF-8");
+        PrintWriter out = response.getWriter();
+        out.println("<script>");
+        out.println("location.href='/freeCont?freeNum=" + freeNum + "'");
         out.println("</script>");
     }
 }

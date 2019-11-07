@@ -122,7 +122,7 @@ where
 			FROM
 				freeboard_file
 			WHERE
-				free_num = #{freeNum}
+				free_num = #{freeNum} and deleted_yn = 'N'
 		]]>
 	</select>	
 	
@@ -218,30 +218,41 @@ where
 		]]>
 	</select>	
 
-	<update id="deleteFreeBoardfile" parameterType="int">
+	<delete id="deleteFreeBoardfile" parameterType="int">
 		<![CDATA[
-			UPDATE freeboard_file SET 
-				deleted_yn = 'Y',
-				updated_datetime = Now()
-			WHERE 
-				free_num = #{freeNum}
+			delete * from freeboard_file where idx = #{idx}
 		]]>
-	</update>	
-	
-	
-	
-	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-    <insert id="writeFreeReplyBoard" parameterType="com.project.cotudy.model.FreeBoardReplyDto">
+	</delete>
 
+    <insert id="writeFreeReplyBoard" parameterType="com.project.cotudy.model.FreeBoardReplyDto">
            insert into free_board_reply (free_num,reply_cont,mem_id,reply_step,reply_indent,reply_created_date) values (#{freeNum},#{replyCont},#{memId}, default, 1,now());
     </insert>
-<!--     <update id="updateFreeReplyBoard" parameterType="int">	대댓글. 수정해야됨
-        update free_board_reply set reply_step = reply_step + 1 where free_num = #{freeNum} and reply_step >0;
-    </update> -->
+
     <select id="selectFreeBoardReplyList" parameterType="int" resultType="com.project.cotudy.model.FreeBoardReplyDto">
         select * from free_board_reply where free_num = #{freeNum} order by if(isnull(reply_step),free_reply_num,reply_step),reply_indent ;
     </select>
 	<insert id="writeFreeBoardRereply" parameterType="com.project.cotudy.model.FreeBoardReplyDto">
 		insert into free_board_reply (free_num,reply_cont,mem_id,reply_step,reply_indent,reply_created_date) values (#{freeNum},#{replyCont},#{memId}, #{freeReplyNum}, (#{replyIndent}+1),now());
 	</insert>
+        <!-- 스터디 전체 목록 -->
+<select id="selectStudyBoardList" resultType="com.project.cotudy.model.StudyBoardDto">
+<![CDATA[
+           select * from study_board where study_status='N'
+       ]]>
+   </select>
+        <!-- 스터디 세부 내용 -->
+<select id="selectStudyBoardCont" parameterType="int" resultType="com.project.cotudy.model.StudyBoardDto">
+<![CDATA[
+           select * from study_board where study_status='N' and study_num=#{studyNum}
+       ]]>
+    </select>
+	<update id="modifyFreeBoardReply" parameterType="com.project.cotudy.model.FreeBoardReplyDto">
+		update free_board_reply set reply_cont = #{replyCont},reply_created_date = Now() where free_reply_num = #{freeReplyNum}
+	</update>
+	<delete id="deleteFreeBoardReply" parameterType="int">
+		delete from free_board_reply where free_reply_num = #{freeReplyNum}
+	</delete>
+	<delete id="deleteFreeBoardRereply" parameterType="int">
+		delete from free_board_reply where reply_step = #{freeReplyNum}
+	</delete>
 </mapper>

@@ -20,7 +20,6 @@ public class MemberServiceImpl implements MemberService {
    @Autowired
    private MemberMapper memberMapper;
 
-
     @Override
     public void register(StudyMemberDto MemberDto) throws Exception {
         memberMapper.register(MemberDto);

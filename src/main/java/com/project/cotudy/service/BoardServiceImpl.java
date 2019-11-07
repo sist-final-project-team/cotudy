@@ -70,7 +70,7 @@ public class BoardServiceImpl implements BoardService {
 
 	@Override
 	public void deleteFreeBoardReply(int freeReplyNum) throws Exception {
-
+		boardMapper.deleteFreeBoardReply(freeReplyNum);
 	}
 
 	@Override
@@ -210,5 +210,20 @@ public class BoardServiceImpl implements BoardService {
 	@Override
 	public void writeFreeBoardRereply(FreeBoardReplyDto replyDto) throws Exception {
 		boardMapper.writeFreeBoardRereply(replyDto);
+	}
+
+	@Override
+	public void modifyFreeBoardReply(FreeBoardReplyDto replyDto) throws Exception {
+		boardMapper.modifyFreeBoardReply(replyDto);
+	}
+
+	@Override
+	public void deleteFreeBoardRereply(int freeReplyNum) throws Exception {
+		boardMapper.deleteFreeBoardRereply(freeReplyNum);
+	}
+
+	@Override
+	public void deleteFreeBoardfile(int idx) throws Exception {
+		boardMapper.deleteFreeBoardfile(idx);
 	}
 }
