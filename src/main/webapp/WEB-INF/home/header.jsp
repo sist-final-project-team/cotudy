@@ -53,10 +53,10 @@
       <div class="navbar-collapse collapse justify-content-center" id="navbarDefault">
         <ul class="navbar-nav">
           <li class="nav-item">
-            <a class="nav-link" href="/event">스터디 찾기</a>
+            <a class="nav-link" href="/studyList">스터디 찾기</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="/event">스터디 만들기</a>
+            <a class="nav-link" href="studyCreate">스터디 만들기</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="/freeList">통합게시판</a>

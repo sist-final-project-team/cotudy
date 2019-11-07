@@ -35,6 +35,7 @@ public interface BoardService {
     void deleteStudyBoardReply(int studyReplyNum) throws Exception;
     void updateStudyBoard(StudyBoardDto studyBoard) throws Exception;
     void deleteStudyBoard(int studyNum) throws Exception;
+    void insertStudyBoard(StudyBoardDto studyBoard) throws Exception;
 //    ===================추가된 부분
   
     List<FreeBoardReplyDto> selectFreeBoardReplyList(int freeNum) throws Exception;

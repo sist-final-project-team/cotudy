@@ -211,4 +211,9 @@ public class BoardServiceImpl implements BoardService {
 	public void writeFreeBoardRereply(FreeBoardReplyDto replyDto) throws Exception {
 		boardMapper.writeFreeBoardRereply(replyDto);
 	}
+
+	@Override
+	public void insertStudyBoard(StudyBoardDto studyBoard) throws Exception {
+		boardMapper.insertStudyBoard(studyBoard);
+	}
 }

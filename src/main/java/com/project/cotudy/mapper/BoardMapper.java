@@ -49,6 +49,8 @@ public interface BoardMapper {
     void deleteStudyBoard(int studyNum) throws Exception;
     void writeFreeReplyBoard(FreeBoardReplyDto freeReplyBoard) throws Exception;
 //    void updateFreeReplyBoard(FreeBoardReplyDto freeReplyBoard) throws Exception;
+
+     void insertStudyBoard(StudyBoardDto studyBoard) throws Exception;
     
 	
 	
