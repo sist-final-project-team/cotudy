@@ -420,25 +420,33 @@ public class StudyController {
     }
 
     @RequestMapping("/studyCreate")
-    public String studyBoardCreate() {
-
+    public void studyBoardCreate(HttpSession session,  HttpServletResponse response) throws Exception {
+        response.setContentType("text/html; charset=UTF-8");
+        PrintWriter out = response.getWriter();
+       if(session.getAttribute("memId")==null) {
+           out.println("<script>");
+           out.println("alert('로그인이 필요합니다')");
+           out.println("window.open('/login', '로그인 화면', 'top=300, left=300, width=500, height=600, status=no, menubar=no, toolbar=no, resizable=no')");
+           out.println("location.href='/'");
+           out.println("</script>");
+       }else{
+           out.println("<script>");
+           out.println("location.href='/studyCreateForm'");
+           out.println("</script>");
+       }
+    }
+    @RequestMapping("/studyCreateForm")
+    public String studyCreateForm(){
         return "/study/studyBoardCreate";
     }
 
     @RequestMapping("/studyCreateOk")
     public String studyCreateOk(StudyBoardDto studyBoard) throws Exception {
     boardService.insertStudyBoard(studyBoard);
-
         return "redirect:/studyList";
     }
 
     /* 마이페이지 관련 */
-
-
-
-
-
-
     @RequestMapping("/myWrite")
     public ModelAndView memMyWrite(HttpSession session) throws Exception {
 

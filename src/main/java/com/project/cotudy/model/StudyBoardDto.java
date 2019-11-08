@@ -12,9 +12,7 @@ public class StudyBoardDto {
     private int studyNum;
     private String studyEndDate;
     private String studyArea;
-    private String studyKeyword1;
-    private String studyKeyword2;
-    private String studyKeyword3;
+    private String studyKeyword;
     private String studyStatus;
 
 }
