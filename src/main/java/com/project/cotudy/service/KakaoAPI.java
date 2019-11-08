@@ -37,7 +37,7 @@ public class KakaoAPI {
             StringBuilder sb = new StringBuilder();
             sb.append("grant_type=authorization_code");
             sb.append("&client_id=466c43b6799bd576421ad9edd9c3944c");
-            sb.append("&redirect_uri=http://localhost:9000/callback");
+            sb.append("&redirect_uri=http://localhost:9000/main");
             sb.append("&code=" + authorize_code);
             bw.write(sb.toString());
             bw.flush();
@@ -76,6 +76,7 @@ public class KakaoAPI {
         return access_Token;
     }//end of getAccessToken
     
+    //회원정보 얻기
     public HashMap<String, Object> getUserInfo (String access_Token) {
         
         //    요청하는 클라이언트마다 가진 정보가 다를 수 있기에 HashMap타입으로 선언
@@ -113,7 +114,6 @@ public class KakaoAPI {
             String nickname = properties.getAsJsonObject().get("nickname").getAsString();
             String email = kakao_account.getAsJsonObject().get("email").getAsString();
             
-            System.out.println(id);
             userInfo.put("nickname", nickname);
             userInfo.put("email", email);
             userInfo.put("id", id);
@@ -126,6 +126,34 @@ public class KakaoAPI {
         return userInfo;
     }//end of getUserInfo
     
+    //로그아웃
+    //https://kapi.kakao.com/v1/user/logout 경로를 통해 헤더에 Authorization : "Bearer {access_Token}" 을 포함하여 요청하면 로그아웃을 수행한 클라이언트의 아이디를 반환
+    public void kakaoLogout(String access_Token) {
+        String reqURL = "https://kapi.kakao.com/v1/user/logout";
+        try {
+            URL url = new URL(reqURL);
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            conn.setRequestMethod("POST");
+            conn.setRequestProperty("Authorization", "Bearer " + access_Token);
+            
+            int responseCode = conn.getResponseCode();
+            System.out.println("responseCode : " + responseCode);
+            
+            BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+            
+            String result = "";
+            String line = "";
+            
+            while ((line = br.readLine()) != null) {
+                result += line;
+            }
+            System.out.println(result);
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+    }//end of kakaoLogout
+
     
 }
 

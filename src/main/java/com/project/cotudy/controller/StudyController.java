@@ -76,25 +76,6 @@ public class StudyController {
 //        mv.addObject("doc2",elem2);
         return mv;
     }
-
-    //카카오로그인 테스트
-    @RequestMapping("/callback")
-    public ModelAndView callback(@RequestParam("code") String code, HttpSession session) throws IOException {
-    	ModelAndView mv = new ModelAndView("/callback");
-    	System.out.println("code는???" + code);
-        String access_Token = kakao.getAccessToken(code);
-        System.out.println("controller access_token는???" + access_Token);    	
-        HashMap<String, Object> userInfo = kakao.getUserInfo(access_Token);
-        System.out.println(userInfo.get("nickname"));
-        System.out.println("login Controller : " + userInfo);
-        
-        //    클라이언트의 이메일이 존재할 때 세션에 해당 이메일과 토큰 등록
-        if (userInfo.get("email") != null) {
-            session.setAttribute("userId", userInfo.get("id"));
-            session.setAttribute("access_Token", access_Token);//로그아웃시 사용
-        }
-        return mv;
-    }
     
     /*
      * @RequestMapping(method = RequestMethod.POST, value = "/loginCheck") public
@@ -380,7 +361,11 @@ public class StudyController {
     }
 
     @RequestMapping("/logout")
-    public String logout() {
+    public String logout(HttpSession session) {
+    	//아래 세줄은 카카오 로그아웃 관련
+    	kakao.kakaoLogout((String)session.getAttribute("access_Token"));
+    	session.removeAttribute("access_Token");
+    	session.removeAttribute("userId");
         return "/logout";
     }
 
@@ -394,6 +379,7 @@ public class StudyController {
         return "/login";
     }
 
+    //일반로그인
     @RequestMapping(method = RequestMethod.POST, value = "/login_ok")
     public void loginOk(HttpSession session, @RequestParam("id") String id, @RequestParam("pwd") String pwd, HttpServletResponse response) throws Exception {
         response.setContentType("text/html; charset= UTF-8");
@@ -401,6 +387,7 @@ public class StudyController {
         if (memberService.loginCheck(id, pwd)) {
             session.setAttribute("memId", id);
             out.println("<script>");
+            //부모창을 원하는 페이지로 이동시킨후 자식창(자기자신)은 닫는다.
             out.println(" window.opener.top.location.href='/'");
             out.println("self.close()");
             out.println("</script>");
@@ -412,6 +399,43 @@ public class StudyController {
         }
     }
 
+    
+    //카카오로그인	
+    @RequestMapping("/main")
+    public void callback(@RequestParam("code") String code, HttpSession session, HttpServletResponse response) throws Exception {
+        response.setContentType("text/html; charset= UTF-8");
+        PrintWriter out = response.getWriter(); 
+        
+       // ModelAndView mv = new ModelAndView("/main");
+    	System.out.println("code는???" + code);
+
+    	String access_Token = kakao.getAccessToken(code);
+        System.out.println("controller access_token는???" + access_Token);    	
+        
+        HashMap<String, Object> userInfo = kakao.getUserInfo(access_Token);
+        System.out.println("1.userInfo 닉네임은??"+userInfo.get("nickname")+"2.userInfo id는??"+userInfo.get("id")+"3.userInfo email은???"+userInfo.get("email"));
+        System.out.println("컨트롤러 아이디는?"+userInfo.get("id"));
+        String memId = (String)userInfo.get("id");
+        String memName = (String)userInfo.get("nickname");
+        String memEmail = (String)userInfo.get("email");
+        //카카오로그인 id가 db에 없으면 저장시키기(가입시키기. ID, 닉네임, 이메일)
+        if(memberService.kakaoDbCheck(memId)==false) {//true(아이디없을경우. 가입시켜야함)
+        	memberService.kakaoRegister(memId, memName, memEmail);
+        	}
+        
+            session.setAttribute("access_Token", access_Token);//로그아웃시 사용
+            session.setAttribute("memId", userInfo.get("id"));
+            out.println("<script>");
+            //부모창을 원하는 페이지로 이동시킨후 자식창(자기자신)은 닫는다.
+            out.println(" window.opener.top.location.href='/'");
+            out.println("self.close()");
+            out.println("</script>");
+            
+        //return mv;
+    }    
+    
+    
+    
     /* 자유게시판 댓글 관련*/
     @RequestMapping("/freeReplyWrite")
     public void freeReplyWrite(FreeBoardReplyDto dto, HttpServletResponse response) throws Exception {

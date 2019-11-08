@@ -26,6 +26,13 @@ public class MemberServiceImpl implements MemberService {
         memberMapper.register(MemberDto);
     }
 
+    //카카오 가입시키기
+    @Override
+    public void kakaoRegister(String memId, String memName, String memEmail) throws Exception {
+        memberMapper.kakaoRegister(memId,memName,memEmail);
+    }
+    
+    
     @Override
     public boolean loginCheck(String memId, String memPwd) throws Exception {
         StudyMemberDto member = memberMapper.loginCheck(memId);
@@ -41,6 +48,19 @@ public class MemberServiceImpl implements MemberService {
         return false;
     }
 
+    //카카오로그인 유저의 id가 db에 저장되어있는지 확인
+    @Override
+    public boolean kakaoDbCheck(String memId) throws Exception {
+    	String ismem = memberMapper.kakaoDbCheck(memId);
+    	if(ismem == null) {
+    		return false;  //db에 저장된 아이디 없음(회원가입시키기)  		
+    	}else {
+    		return true;
+    	}
+
+    }//end of kakaoDbCheck
+     
+    
     @Override
     public List<FreeBoardDto> selectMyPostList(String memId) {
         return null;

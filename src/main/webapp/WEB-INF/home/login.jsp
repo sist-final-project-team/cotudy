@@ -61,7 +61,7 @@
             </tr>
         </table>
     </form>
-           <a href="https://kauth.kakao.com/oauth/authorize?client_id=466c43b6799bd576421ad9edd9c3944c&redirect_uri=http://localhost:9000/callback&response_type=code">
+           <a href="https://kauth.kakao.com/oauth/authorize?client_id=466c43b6799bd576421ad9edd9c3944c&redirect_uri=http://localhost:9000/main&response_type=code">
             <img src="images/kakao_account_login_btn_medium_narrow.png">
         </a>
 </div>

@@ -23,6 +23,8 @@
 
   <!-- Main Stylesheet File -->
   <link href="../resources/css/style.css" rel="stylesheet">
+  
+  
     <script type="text/javascript">
         function login() {
             window.open("/login", "로그인 화면", "top=300, left=300, width=500, height=600, status=no, menubar=no, toolbar=no, resizable=no");
