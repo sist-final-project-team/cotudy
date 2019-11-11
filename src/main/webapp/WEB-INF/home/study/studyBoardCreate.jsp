@@ -29,7 +29,7 @@
             </tr>
             <tr>
                 <th>글내용</th>
-                <td> <textarea rows="8" cols="30" name="studyCont" style="resize: none" required="required"></textarea> </td>
+                <td> <textarea rows="8" cols="60" name="studyCont" style="resize: none" required="required"></textarea> </td>
             </tr>
 
             <tr>
@@ -59,8 +59,8 @@
                             <optgroup label="Languages">
                                 <option value="C++">C++</option>
                                 <option value="C#">C#</option>
-                                <option value="Object">Object C</option>
-                                <option value="c">C</option>
+                                <option value="Java">Java</option>
+                                <option value="C언어">C언어</option>
                             </optgroup>
                             <optgroup label="Scripts">
                                 <option value="JavaScript">JavaScript</option>
