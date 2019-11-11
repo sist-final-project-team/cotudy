@@ -9,12 +9,14 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script>
-	function deleteconfirm()
+	function deleteconfirm(memId)
 	{
+		console.log("삭제폼입성");
 		var freeNum = document.getElementById("freeNum").value;
+		var memId =memId;
 		msg = "정말로 삭제하시겠습니까?";
 		if (confirm(msg)!=0) {
-			location.href = "/freeDelete?freeNum=" + freeNum;
+			location.href = "/freeDelete?freeNum=" + freeNum+ "&memId="+memId;
 			 // Yes click
 		} else {
 			// no click
@@ -123,7 +125,7 @@
 				
 				 <c:if test="${sessionScope.memId eq dto.getMemId()}">
                     <input type="button" value="수정" onclick="location.href='/freeEditForm?freeNum=${dto.getFreeNum()}'">
-		 			<input type="button" value="삭제" onclick="deleteconfirm()">
+		 			<input type="button" value="삭제" onclick="deleteconfirm(${dto.getMemId()})">
                 </c:if>
 					<input type="button" value="전체목록" onclick="location.href='/freeList'">
 				</td>

@@ -284,14 +284,28 @@ public class StudyController {
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/freeDelete")
-    public void freeBoardDelete(@RequestParam("freeNum") int freeNum,HttpServletResponse response) throws Exception{
-        boardService.deleteFreeBoard(freeNum);
-        response.setContentType("text/html; charset=UTF-8");
-        PrintWriter out = response.getWriter();
-        out.println("<script>");
-        out.println("alert('삭제가 완료되었습니다.')");
-        out.println("location.href='/freeList'");
-        out.println("</script>");
+    public void freeBoardDelete(@RequestParam("freeNum") int freeNum, @RequestParam("memId") String memId, HttpServletResponse response,HttpServletRequest request) throws Exception{
+    	String id = (String)request.getSession().getAttribute("memId");
+    	
+
+    	response.setContentType("text/html; charset=UTF-8");
+    	PrintWriter out = response.getWriter();
+    	
+    	if(id==memId) {
+    		boardService.deleteFreeBoard(freeNum);
+    		out.println("<script>");
+    		out.println("alert('삭제가 완료되었습니다.')");
+    		out.println("location.href='/freeList'");
+    		out.println("</script>");
+    		
+    	}else {
+    		out.println("<script>");
+    		out.println("alert('남의 글 삭제하지 마셈.')");
+    		out.println("location.href='/freeList'");
+    		out.println("</script>");	
+    		
+    	}
+    	
     }
 
     /* 로그인 및 회원가입 관련 */
