@@ -153,6 +153,7 @@
                                 $("#idcheck").show();
                                 $("#idcheck").append(warningTxt);
                                 memId.readOnly = true;
+                                console.log("warningText===" + $("#idcheck").text());
                             }
                             else{
                                 var warningTxt = '<span style="color: red; ">아이디는 알파벳과 숫자만 입력 가능합니다.</span>';

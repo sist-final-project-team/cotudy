@@ -54,6 +54,8 @@ public interface BoardMapper {
     void deleteFreeBoardReply(int freeReplyNum) throws Exception;
     void deleteFreeBoardRereply(int freeReplyNum) throws Exception;
     void insertStudyBoard(StudyBoardDto studyBoard) throws Exception;
+    // 북마크 관련
+    List<StudyBoardDto> myBookmark(String memId) throws Exception;
 }
 
 

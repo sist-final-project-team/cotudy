@@ -31,7 +31,7 @@
 		</ul><br><br>
 		
 			<button type="button"  class="btn btn-success btn-lg btn-block" onclick="location.href='/myWrite'">내가 쓴 글</button><br>
-			<button type="button"  class="btn btn-success btn-lg btn-block" onclick="location.href='/bookMark'">북마크</button><br>
+			<button type="button"  class="btn btn-success btn-lg btn-block" onclick="location.href='/myBookMark'">북마크</button><br>
 			<button type="button"  class="btn btn-success btn-lg btn-block" onclick="location.href='/infoEditForm'">회원정보 수정</button><br>
 			<button type="button"  class="btn btn-success btn-lg btn-block" onclick="location.href='/pwdEditForm'">비밀번호 변경</button><br>
 			<button type="button"  class="btn btn-success btn-lg btn-block" onclick="location.href='/out'">회원 탈퇴</button><br>

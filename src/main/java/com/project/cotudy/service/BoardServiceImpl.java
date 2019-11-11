@@ -226,4 +226,9 @@ public class BoardServiceImpl implements BoardService {
 		public void insertStudyBoard(StudyBoardDto studyBoard) throws Exception {
 			boardMapper.insertStudyBoard(studyBoard);
 		}
+
+	@Override
+	public List<StudyBoardDto> myBookmark(String memId) throws Exception {
+		return boardMapper.myBookmark(memId);
 	}
+}

@@ -8,10 +8,10 @@
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="" name="keywords">
     <meta content="" name="description">
-
+    <script src="../../resources/lib/jquery/jquery.min.js"></script>
 </head>
 <body>
-<jsp:include page="header.jsp"></jsp:include>
+<jsp:include page="../header.jsp"></jsp:include>
 
 <div class="container" style="padding-top: 120px;">
     검색 : <input type="text" id="filter"><button type="button" class="btn btn-secondary" onclick="search()"></button>
@@ -38,27 +38,6 @@
         <p>데이터가 없습니다.</p>
     </c:if>
 </div>
-<jsp:include page="footer.jsp"></jsp:include>
-<script src="../../resources/lib/jquery/jquery.min.js"></script>
-<script type="text/javascript">
-    /*
-    $(function() {
-        $('#filter').keyup(function(event) {
-            var val = $(this).val();
-            if (val == "") {
-                $('.card').show();
-            } else {
-                $('.card').hide();
-                $(".card:contains('" + val + "')").show();
-            }
-        });
-    });
-     */
-    var search = function() {
-
-    }
-</script>
-
-
+<jsp:include page="../footer.jsp"></jsp:include>
 </body>
 </html>

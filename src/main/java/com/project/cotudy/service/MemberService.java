@@ -1,6 +1,7 @@
 package com.project.cotudy.service;
 
 
+import com.project.cotudy.model.BookmarkDto;
 import com.project.cotudy.model.FreeBoardDto;
 import com.project.cotudy.model.StudyBoardDto;
 import com.project.cotudy.model.StudyMemberDto;
@@ -22,5 +23,8 @@ public interface MemberService {
     String findPwd(String memId,String memName,String memEmail) throws Exception;
     StudyMemberDto selectMyInfo(String memId) throws Exception;
     List<FreeBoardDto> selectMyFreeBoardList(String memId) throws Exception;
+    boolean checkBookMark(String memId, int studyNum) throws Exception;
+    void insertBookMark(String memId,int studyNum) throws Exception;
+    void deleteBookMark(String memId,int studyNum) throws Exception;
 }
 

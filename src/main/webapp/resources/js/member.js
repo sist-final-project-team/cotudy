@@ -1,5 +1,4 @@
 function mem_check() {
-    var id = $("#memId").val();
     if($.trim($("#memId").val())===""){
         alert("회원아이디를 입력하세요!");
         $("#memId").val("").focus();
@@ -60,14 +59,10 @@ function mem_check() {
         $("#memName").val("").focus();
         return false;
     }
-    
-    if($("#idcheck").val()!=="<span style='color: blue; '>사용 가능한 아이디입니다.</span>"){
-    	alert($("#idcheck".val()))
+    if($.trim($("#idcheck").val())!=="사용 가능한 아이디입니다."){
         alert("중복아이디 확인하세요");
         $("#idcheck_btn").focus();
         return false;
     }
-
-    
-
+    return false;
 }

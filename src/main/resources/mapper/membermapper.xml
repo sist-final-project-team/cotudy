@@ -55,4 +55,13 @@
         WHERE
         mem_id=#{memId}
     </update>
+    <select id="checkBookMark" parameterType="map" resultType="com.project.cotudy.model.BookmarkDto">
+        select * from bookmark where mem_id = #{memId} and study_num = #{studyNum};
+    </select>
+    <delete id="deleteBookMark" parameterType="map">
+        delete from bookmark where mem_id = #{memId} and study_num = #{studyNum};
+    </delete>
+    <insert id="insertBookMark" parameterType="map">
+        insert into bookmark values(#{memId},#{studyNum})
+    </insert>
 </mapper>
