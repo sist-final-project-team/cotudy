@@ -1,5 +1,6 @@
 package com.project.cotudy.mapper;
 
+import com.project.cotudy.model.BookmarkDto;
 import com.project.cotudy.model.FreeBoardDto;
 import com.project.cotudy.model.StudyBoardDto;
 import com.project.cotudy.model.StudyMemberDto;
@@ -27,4 +28,7 @@ public interface MemberMapper {
     String findPwd(String memId,String memName,String memEmail) throws Exception;
 	 StudyMemberDto selectMyInfo(String memId) throws Exception;
     List<FreeBoardDto> selectMyFreeBoardList(String memId) throws Exception; //내가쓴글 불러오기 -최다빈-
+    List<BookmarkDto> checkBookMark(@Param("memId") String memId, @Param("studyNum") int studyNum) throws Exception; // 북마크에 이미 있는지 확인용
+    void insertBookMark(@Param("memId") String memId,@Param("studyNum") int studyNum) throws Exception;  // 북마크 추가
+    void deleteBookMark(@Param("memId") String memId,@Param("studyNum") int studyNum) throws Exception; // 북마크 삭제
 }

@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-
 import com.project.cotudy.model.*;
 import org.apache.commons.io.FileUtils;
 import java.net.URLEncoder;
@@ -62,8 +61,6 @@ public class StudyController {
 
         return "/main";
     }
-
-    ///////.
     @RequestMapping("/event")
     public ModelAndView event() throws IOException {
         ModelAndView mv = new ModelAndView("/event");
@@ -73,17 +70,8 @@ public class StudyController {
         Element elem2 = doc.select("tbody").first();
         System.out.println(elem);
         mv.addObject("doc", elem);
-//        mv.addObject("doc2",elem2);
         return mv;
     }
-    
-    /*
-     * @RequestMapping(method = RequestMethod.POST, value = "/loginCheck") public
-     * String loginCheck(HttpSession session, @RequestParam("id") String
-     * id, @RequestParam("pwd") String pwd) throws Exception { if
-     * (memberService.loginCheck(id, pwd)) { session.setAttribute("login", id); }
-     * else { return "redirect:/login"; } return "/main"; }
-     */
     @RequestMapping("/notice")
     public String notice() {
         return "/notice";
@@ -102,11 +90,6 @@ public class StudyController {
         for(int i=0; i<freeboard.getFileList().size(); i++) {
             freeboard.getFileList().get(i).setFileSize((int)(freeboard.getFileList().get(i).getFileSize()/1024));
         }
-
-        // filedto정보 가져오는 메소드 만들어서 가져온다음에
-        //file dto를 아래처럼 add한 다음
-        //cont 에서 받아서 dto.getstored해서 이름 가져와서
-        //img src로 뽑기
         mv.addObject("replyDto",replyDto);
         mv.addObject("freeboard", freeboard);
         mv.addObject("fileDtolist", fileDtolist);
@@ -116,10 +99,21 @@ public class StudyController {
     }
 
     @RequestMapping("/freeEdit")
-    public String freeBoardEdit(FreeBoardDto freeBoard, MultipartHttpServletRequest multireq) throws Exception{
-        List<MultipartFile> fileList =  multireq.getFiles("files"); //files:write에서 파일첨부의 files
+    public String freeBoardEdit(FreeBoardDto freeBoard, MultipartHttpServletRequest multireq,@RequestParam("put") List<String> put,@RequestParam("fileList1") List<String> file,@RequestParam("filePath") List<String> filepath) throws Exception{
+        List<MultipartFile> fileList =  multireq.getFiles("files");
         boardService.updateFreeBoard(freeBoard, multireq);
-
+        String abc[] = new String[filepath.size()];
+        for(int i=0; i<put.size(); i++){
+            if(!put.get(i).equals("")){
+                int idx = Integer.parseInt(file.get(i));
+                abc[i] = filepath.get(i);
+                if (abc[i].length() > 0) {
+                    File f = new File(abc[i]);
+                    f.delete();
+                }
+                boardService.deleteFreeBoardfile(idx);
+                }
+        }
         return "redirect:/freeCont?freeNum="+freeBoard.getFreeNum();
 
     }
@@ -154,7 +148,6 @@ public class StudyController {
         int endBlock = (((page-1) / block)*block)+block;
         totalRecord =  boardService.getListCount();
 
-        //   List<FreeBoardDto> list = boardService.selectFreeBoardList(page,rowsize);
         List<FreeBoardDto> list = boardService.selectFreeBoardList(page,rowsize);
         allPage = (int)Math.ceil(totalRecord / (double)rowsize);
         if(endBlock > allPage) {
@@ -195,12 +188,6 @@ public class StudyController {
         int endNo = (page * rowsize); //한페이지의 끝 끝
         int startBlock = (((page-1) / block)*block)+1; // 2
         int endBlock = (((page-1) / block)*block)+block; // 6
-//        System.out.println("page==>" + page);
-//        System.out.println("block==>" + block);
-//        System.out.println("endBlock==>" + endBlock);
-//        System.out.println("freeSubject=>"+searchdto.getFreeSubject());
-//        System.out.println("getSearchKeyword=>"+searchdto.getSearchKeyword());
-//        System.out.println("getSearchType=>"+searchdto.getSearchType());
         totalRecord =  boardService.getSearchListCount(searchdto); // '사담 검색' => 16
         allPage = (int)Math.ceil(totalRecord / (double)rowsize); // 2
         if(endBlock > allPage) {
@@ -210,9 +197,7 @@ public class StudyController {
         System.out.println("카운트먼저 실행");
         ModelAndView mv = new ModelAndView("/freeboard/freeBoardSearchList");
         List<FreeBoardDto> list = boardService.selectFreeBoardSearchList(searchdto,page,rowsize);
-//        if(list.size()==0){
-//            list = boardService.selectFreeBoardSearchList(searchdto,page,rowsize);
-//        }
+
         mv.addObject("page1", page);
         mv.addObject("rowsize1", rowsize);
         mv.addObject("block1", block);
@@ -282,6 +267,7 @@ public class StudyController {
   	        out.println("location.href='/freeList'");
   	        out.println("</script>");
     	}
+
     }
     //조아라 수정 : 로그인안하고 글작성 금지end////////////////////////////
 
@@ -482,7 +468,7 @@ public class StudyController {
     /* 스터디 게시판 관련 */
     @RequestMapping("/studyList")
     public ModelAndView studyBoardList() throws Exception {
-        ModelAndView mv = new ModelAndView("/studyList");
+        ModelAndView mv = new ModelAndView("/study/studyBoardList");
         List<StudyBoardDto> studyBoardList = boardService.selectStudyBoardList();
         mv.addObject("studyList", studyBoardList);
 
@@ -491,7 +477,7 @@ public class StudyController {
 
     @RequestMapping("/studyCont")
     public ModelAndView studyBoardCont(@RequestParam("studyNum") int studyNum) throws Exception {
-        ModelAndView mv = new ModelAndView("/studyCont");
+        ModelAndView mv = new ModelAndView("/study/studyBoardCont");
         StudyBoardDto studyBoard = boardService.selectStudyBoardCont(studyNum);
         mv.addObject("studyCont", studyBoard);
 
@@ -499,29 +485,33 @@ public class StudyController {
     }
 
     @RequestMapping("/studyCreate")
-    public String studyBoardCreate() {
+    public void studyBoardCreate(HttpSession session,  HttpServletResponse response) throws Exception {
+        response.setContentType("text/html; charset=UTF-8");
+        PrintWriter out = response.getWriter();
+       if(session.getAttribute("memId")==null) {
+           out.println("<script>");
+           out.println("alert('로그인이 필요합니다')");
+           out.println("window.open('/login', '로그인 화면', 'top=300, left=300, width=500, height=600, status=no, menubar=no, toolbar=no, resizable=no')");
+           out.println("location.href='/'");
+           out.println("</script>");
+       }else{
+           out.println("<script>");
+           out.println("location.href='/studyCreateForm'");
+           out.println("</script>");
+       }
+    }
+    @RequestMapping("/studyCreateForm")
+    public String studyCreateForm(){
         return "/study/studyBoardCreate";
     }
-    
-    @RequestMapping("/studyCreateOk")
-    public String studyBoardCreateOk(StudyBoardDto studyboarddto, MultipartHttpServletRequest multireq) throws Exception{
-    	List<MultipartFile> fileList =  multireq.getFiles("files");
-    	boardService.updateStudyBoard(studyboarddto, multireq);
-    	
-        return "redirect:/studyList";
-    }    
-    
-    
-    
-    /* 마이페이지 관련 */
 
-    @RequestMapping("/bookMark")
-    public String memBookMark() {
-        return "/mypage/memBookMark";
+    @RequestMapping("/studyCreateOk")
+    public String studyCreateOk(StudyBoardDto studyBoard) throws Exception {
+    boardService.insertStudyBoard(studyBoard);
+        return "redirect:/studyList";
     }
 
-
-
+    /* 마이페이지 관련 */
     @RequestMapping("/myWrite")
     public ModelAndView memMyWrite(HttpSession session) throws Exception {
 
@@ -610,5 +600,53 @@ public class StudyController {
         out.println("<script>");
         out.println("location.href='/freeCont?freeNum=" + replyDto.getFreeNum() + "'");
         out.println("</script>");
+    }
+    // 서지훈 추가사항 댓글 수정
+    @RequestMapping("/freeReplyModify")
+    public void modifyReply(FreeBoardReplyDto replyDto,HttpServletResponse response) throws Exception {
+        boardService.modifyFreeBoardReply(replyDto);
+        response.setContentType("text/html; charset=UTF-8");
+        PrintWriter out = response.getWriter();
+        out.println("<script>");
+        out.println("location.href='/freeCont?freeNum=" + replyDto.getFreeNum() + "'");
+        out.println("</script>");
+    }
+    @RequestMapping("/freeReplyDelete")
+    public void freeReplyDelete(@RequestParam("freeReplyNum") int freeReplyNum,@RequestParam("replyStep") int replyStep,HttpServletResponse response,@RequestParam("freeNum") int freeNum) throws Exception{
+        boardService.deleteFreeBoardReply(freeReplyNum);
+        if(replyStep == 0){
+            boardService.deleteFreeBoardRereply(freeReplyNum);
+        }
+        response.setContentType("text/html; charset=UTF-8");
+        PrintWriter out = response.getWriter();
+        out.println("<script>");
+        out.println("location.href='/freeCont?freeNum=" + freeNum + "'");
+        out.println("</script>");
+    }
+
+    // 지훈이 북마크 추가 한다잉?
+    @RequestMapping("/bookmark")
+    @ResponseBody
+    public int bookMark(@RequestParam("id") String memId,@RequestParam("studyNum") int StudyNum) throws Exception {
+        int result = 0;
+        System.out.println("들어와서 실행");
+        if(memberService.checkBookMark(memId,StudyNum)){
+            memberService.deleteBookMark(memId,StudyNum);
+            System.out.println("checkBookMark//"+result);
+        }else{
+            memberService.insertBookMark(memId,StudyNum);
+            result = 1;
+            System.out.println("checkBookMark And Insert//"+result);
+        }
+        System.out.println(result);
+        return result;
+    }
+    @RequestMapping("/myBookMark")
+    public ModelAndView myBookmark(HttpSession session) throws Exception {
+        String memId = (String)session.getAttribute("memId");
+        ModelAndView mv = new ModelAndView("/mypage/memBookMark");
+        List<StudyBoardDto> list =  boardService.myBookmark(memId);
+        mv.addObject("list",list);
+        return mv;
     }
 }

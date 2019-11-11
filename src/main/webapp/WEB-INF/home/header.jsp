@@ -27,7 +27,12 @@
   
     <script type="text/javascript">
         function login() {
-            window.open("/login", "로그인 화면", "top=300, left=300, width=500, height=600, status=no, menubar=no, toolbar=no, resizable=no");
+            var popupX = (window.screen.width / 2) - (500 / 2);
+            // 만들 팝업창 좌우 크기의 1/2 만큼 보정값으로 빼주었음
+            var popupY= (window.screen.height / 2) - (600 / 2);
+            // 만들 팝업창 상하 크기의 1/2 만큼 보정값으로 빼주었음
+
+            window.open("/login", "로그인 화면", 'top='+popupY+', left='+ popupX + ', width=500, height=600, status=no, menubar=no, toolbar=no, resizable=no');
         }
 
     </script>
@@ -65,7 +70,7 @@
             <a class="nav-link" href="/event">EVENT</a>
           </li>
           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-          
+
           <li class="nav-item">
               <% if ((String)session.getAttribute("memId")==null){ %>
             <a class="nav-link" href="javascript:void(0);" onclick="login();">Login</a>

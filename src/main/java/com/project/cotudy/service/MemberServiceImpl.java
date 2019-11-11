@@ -2,10 +2,7 @@ package com.project.cotudy.service;
 
 import com.project.cotudy.mapper.BoardMapper;
 import com.project.cotudy.mapper.MemberMapper;
-import com.project.cotudy.model.BoardFileDto;
-import com.project.cotudy.model.FreeBoardDto;
-import com.project.cotudy.model.StudyBoardDto;
-import com.project.cotudy.model.StudyMemberDto;
+import com.project.cotudy.model.*;
 
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +16,6 @@ public class MemberServiceImpl implements MemberService {
 
    @Autowired
    private MemberMapper memberMapper;
-
 
     @Override
     public void register(StudyMemberDto MemberDto) throws Exception {
@@ -125,5 +121,24 @@ public class MemberServiceImpl implements MemberService {
         System.out.println(memId);
         System.out.println(memId);
         return memberMapper.selectMyFreeBoardList(memId);
+    }
+    // 북마크 추가 부분시작
+    @Override
+    public boolean checkBookMark(String memId, int studyNum) throws Exception {
+        if(memberMapper.checkBookMark(memId,studyNum).isEmpty()){
+            System.out.println(memberMapper.checkBookMark(memId,studyNum));
+            return false;
+        }else{
+            System.out.println("...null값이 아니다"+memberMapper.checkBookMark(memId,studyNum));
+            return true;
+        }
+    }
+    @Override
+    public void insertBookMark(String memId, int studyNum) throws Exception {
+        memberMapper.insertBookMark(memId,studyNum);
+    }
+    @Override
+    public void deleteBookMark(String memId, int studyNum) throws Exception {
+        memberMapper.deleteBookMark(memId,studyNum);
     }
 }

@@ -24,9 +24,9 @@ public interface BoardMapper {
     FreeBoardDto selectFreeBoardCont(int freeNum) throws Exception;
     List<BoardFileDto> selectBoardFileDto(int freeNum) throws Exception;
     List<FreeBoardReplyDto> selectFreeBoardReplyList(int freeNum) throws Exception;
-    void deleteFreeBoardReply(int freeReplyNum) throws Exception;
+
     void deleteFreeBoard(int freeNum) throws Exception;
-    void deleteFreeBoardfile(int freeNum) throws Exception;
+    void deleteFreeBoardfile(int idx) throws Exception;
     void updateFreeBoardHitCount(int freeNum) throws Exception;
     void updateFreeBoard(FreeBoardDto freeBoard) throws Exception;
     void insertFreeBoard(FreeBoardDto freeBoard) throws Exception;
@@ -37,6 +37,7 @@ public interface BoardMapper {
     int getSearchkeyListCount(SearchDto searchDto) throws Exception;
     int getSearchsubkeyListCount(SearchDto searchDto) throws Exception;
     int getSearchsubListCount(SearchDto searchDto) throws Exception;
+    void modifyFreeBoardReply(FreeBoardReplyDto replyDto) throws Exception;
     //dto가아니라 map을써서 param으로 데려옴
     BoardFileDto selectBoardFileInformation(@Param("idx") int idx, @Param("freeNum") int freeNum) throws Exception;
     void writeFreeBoardRereply(FreeBoardReplyDto replyDto) throws Exception;
@@ -49,9 +50,12 @@ public interface BoardMapper {
     void deleteStudyBoard(int studyNum) throws Exception;
     void writeFreeReplyBoard(FreeBoardReplyDto freeReplyBoard) throws Exception;
 //    void updateFreeReplyBoard(FreeBoardReplyDto freeReplyBoard) throws Exception;
-    
-	
-	
+    // 서지훈 댓글 삭제 추가
+    void deleteFreeBoardReply(int freeReplyNum) throws Exception;
+    void deleteFreeBoardRereply(int freeReplyNum) throws Exception;
+    void insertStudyBoard(StudyBoardDto studyBoard) throws Exception;
+    // 북마크 관련
+    List<StudyBoardDto> myBookmark(String memId) throws Exception;
 }
 
 

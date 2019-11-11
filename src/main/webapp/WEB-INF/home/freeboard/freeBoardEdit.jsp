@@ -8,6 +8,17 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+	<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+	<script>
+		function dFile(i){
+			var pId = "pId"+i;
+			var put = "put"+i;
+            document.getElementById(put).value="1";
+			document.getElementById(pId).style.display="none";
+            //document.getElementById(pId).remove();
+
+		}
+	</script>
 </head>
 <body>
 	<jsp:include page="../header.jsp"></jsp:include><br><br><br><br><br><br>
@@ -20,7 +31,9 @@
 			<c:set var="dto" value="${freeboard }"> </c:set>
 			<c:if test="${!empty dto }">
 		<input type="hidden" value="${dto.getFreeNum() }" name="freeNum">
-		<table border="1" width="400" cellspacing="0">
+
+
+		<table border="1" width="600" cellspacing="0">
 				<tr>
 					<th>글번호</th>
 					<td>${dto.getFreeNum() }</td>
@@ -56,41 +69,34 @@
 					<th>작성일</th>
 					<td>${dto.getFreeCreatedDate() }</td>
 				</tr>
+
+				<tr>
+					<td colspan="2" style="color:red" align="center">※파일은 10MB 이하의 jpg, png, gif 파일만 업로드 가능합니다.</td>
+				</tr>
 				<tr>
 					<th>파일첨부</th>
-					
-					
-					
-					<td> <input type="file" id="files" name="files" multiple="multiple" >
- 						<%  
-							List<Integer> delList = new ArrayList<Integer>();
-							delList = null;
-							
-						%> 
-						<c:forEach items="${dto.fileList}" var="list"> 
-							${ list.getOriginalFileName()} 
-							<input type="button" value="X" onclick = "delList.add(${ list.getIdx()} );" name="${ list.getIdx()} " >
-							<%--  <% System.out.println(delList.get(0)); %> --%>
-							
-		<!-- List<Integer> delList = new ArrayList<Integer>();
-		delList.add(4);
-		delList.add(433);
-		delList.add(12);
-		System.out.println(delList.get(0));
-		System.out.println(delList.get(1));
-		System.out.println(delList.get(2)); -->
-							<br>
+					<td> <input type="file" id="files" name="files" multiple="multiple">
+						<input type="hidden" name="put" value="">
+						<input type="hidden" name="fileList1" value="">
+						<input type="hidden" name="filePath" value="">
+						<c:forEach items="${dto.fileList}" var="list">
+							<c:set value="${status+1}" var="status"/>
+							<p id ="pId${status}">
+							${ list.getOriginalFileName()}
+							<input type="hidden" id="put${status}" value="" name="put">
+								<input type="hidden" value="${dto.getFileList().get(status-1).getIdx()}" name="fileList1">
+								<input type="hidden" value="${dto.getFileList().get(status-1).getStoredFilePath()}" name="filePath">
+
+							<input type="button" value="X" onclick = "dFile(${status})">
+							</p>
 					</c:forEach>
-					</td> 
-					
-					
-					
+
+					</td>
 				</tr>	
 				<tr>
             <td colspan="6" align="center">
                 <c:if test="${sessionScope.memId eq dto.getMemId()}">
-                    <input type="submit" value="수정하기">&nbsp;&nbsp;&nbsp;
-                    <input type="reset" value="취소">
+                    <input type="submit" value="수정하기" >&nbsp;&nbsp;&nbsp;
                 </c:if>
                 <input type="button" value="목록" onclick="location.href='/freeList'">
             </td>

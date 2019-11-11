@@ -46,8 +46,8 @@
 				</tr>		
 				<tr>
 					<th>파일첨부</th>
-					<td> <input type="file" id="files" name="files" multiple="multiple"> </td>
-				</tr>	
+					<td> <input type="file" id="files" name="files" multiple="multiple" > </td>
+				</tr>
 				<tr>
 					<td colspan="2" style="color:red" align="center">※파일은 10MB 이하의 jpg, png, gif 파일만 업로드 가능합니다.</td>
 				</tr>											

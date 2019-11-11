@@ -26,6 +26,8 @@ public interface BoardService {
     int getListCount() throws Exception;
     int getSearchListCount(SearchDto searchDto) throws Exception;
     void writeFreeBoardRereply(FreeBoardReplyDto replyDto) throws Exception;
+    void modifyFreeBoardReply(FreeBoardReplyDto replyDto) throws Exception;
+    void deleteFreeBoardfile(int idx) throws Exception;
     
 //    ==================study게시판 관련
     List<StudyBoardDto> selectStudyBoardList() throws Exception;
@@ -33,15 +35,19 @@ public interface BoardService {
     StudyBoardDto selectStudyBoardCont(int studyNum) throws Exception;
     List<StudyBoardReplyDto> selectStudyBoardReplyList(int studyNum) throws Exception;
     void deleteStudyBoardReply(int studyReplyNum) throws Exception;
-    void updateStudyBoard(StudyBoardDto studyBoard, MultipartHttpServletRequest multireq) throws Exception;
+    void updateStudyBoard(StudyBoardDto studyBoard);
     void deleteStudyBoard(int studyNum) throws Exception;
+    void insertStudyBoard(StudyBoardDto studyBoard) throws Exception;
 //    ===================추가된 부분
   
     List<FreeBoardReplyDto> selectFreeBoardReplyList(int freeNum) throws Exception;
     void updateFreeBoardHitCount(int freeNum) throws Exception;
     void updateFreeBoard(FreeBoardDto freeBoard, MultipartHttpServletRequest multireq) throws Exception;
     void deleteFreeBoard(int freeNum) throws Exception;
+    void deleteFreeBoardRereply(int freeReplyNum) throws Exception;
     void writeFreeBoardReply(FreeBoardReplyDto freeReplyBoard) throws Exception;
   //  void updateFreeBoardReply(FreeBoardReplyDto freeReplyBoard) throws Exception;
-    
+    // ======================== 북마크 리스트 가져오기
+  List<StudyBoardDto> myBookmark(String memId) throws Exception;
+
 }

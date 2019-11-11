@@ -2,107 +2,162 @@
 
 <%@ page session="true"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+         pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%request.getAttribute("memId"); %>
 
-<script>
-
-</script>
-
-
 <head>
-  <meta charset="utf-8">
-  <title>EstateAgency Bootstrap Template</title>
-
+    <link rel="stylesheet"
+          href="http://code.jquery.com/ui/1.10.4/themes/redmond/jquery-ui.min.css" />
+    <link href="../resources/css/fSelect.css" rel="stylesheet" type="text/css">
+    <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
 </head>
-
-
 <body>
-
-
 <jsp:include page="../header.jsp"></jsp:include>
-	<div class ="container2" align="center">
-		<hr width="50%" color="purple">
-			<h3>스터디 만들기 폼</h3>
-		<hr width="50%" color="purple">
-																					
-		<form method="post" action="/freeWrite" enctype="multipart/form-data">
-		<input type="hidden" value="<%=(String)session.getAttribute("memId") %>" name="memId">
-			<table border="1" width="600" cellspacing="0">
+<div class ="container2" align="center">
+    <hr width="50%" color="purple">
+    <h3>테이블 글쓰기 폼</h3>
+    <hr width="50%" color="purple">
 
-				<tr>
-					<th>제목 </th>
-					<td> <input name="studyTitle"> </td>
-				</tr>
-				<tr>
-					<th>내용</th>
-					<td> <textarea rows="8" cols="30" name="studyCont" style="resize: none"></textarea> </td>
-				</tr>
-				
-						
-				<tr>
-					<th rowspan="3">상세정보</th>
-					<td> 시작일 <input type="date" name="studyStartDate"> &nbsp;&nbsp;
-							종료일 <input type="date" name="studyEndDate">  </td>
-				</tr>
-				<tr>
-					<td>지역 
-						<select name="studyArea">						
-							<option value="강원도" selected="selected">강원도</option>
-							<option value="경기도">경기도</option>
-							<option value="경상남도">경상남도</option>
-							<option value="경상북도">경상북도</option>
-							<option value="광주광역시">광주광역시</option>
-							<option value="대구광역시">대구광역시</option>
-							<option value="대전광역시">대전광역시</option>
-							<option value="부산광역시">부산광역시</option>
-							<option value="서울특별시">서울특별시</option>
-							<option value="세종특별자치시">세종특별자치시</option>
-							<option value="울산광역시">울산광역시</option>
-							<option value="인천광역시">인천광역시</option>
-							<option value="전라남도">전라남도</option>
-							<option value="전라북도">전라북도</option>
-							<option value="제주특별자치도">제주특별자치도</option>
-							<option value="충청남도">충청남도</option>
-							<option value="충청북도">충청북도</option>
-						</select>
-					</td>
-				</tr>
-				<tr>
- 					<td> 키워드 
-						  <input type='checkbox' name='studykeyword' value='Java' />Java
-						  <input type='checkbox' name='studykeyword' value='C' />C
-						  <input type='checkbox' name='studykeyword' value='Ruby' />Ruby
-						  <input type='checkbox' name='studykeyword' value='Python' />Python
-						  <input type='checkbox' name='studykeyword' value='Nodejs' />Nodejs
-						  <input type='checkbox' name='studykeyword' value='PHP' />PHP
-							<h6 style="color:red" align="center">※1~3개의 키워드를 선택해 주세요.</h6>
-					</td> 
-		
-				</tr>
-				<tr>
-					<th>오픈채팅 링크 </th>
-					<td> <textarea rows="4" cols="30" name="freeCont" style="resize: none"></textarea>  </td>
-				</tr>										
-				<tr>
-					<th>파일첨부</th>
-					<td> <input type="file" id="files" name="files" multiple="multiple"> </td>
-				</tr>	
-				<tr>
-					<td colspan="2" style="color:red" align="center">※파일은 10MB 이하의 jpg, png, gif 파일만 업로드 가능합니다.</td>
-				</tr>											
-				<tr>
-					<td colspan="2" align="center">
-						<input type="submit" value="글쓰기">&nbsp;&nbsp;&nbsp;
-						<input type="reset" value="다시작성">
-					</td>
-				</tr>
-			</table>
-		</form>
-	</div>
+    <form method="post" action="/studyCreateOk"  >
+        <input type="hidden" value="<%=(String)session.getAttribute("memId") %>" name="memId">
+        <table border="1" width="600" cellspacing="0">
+
+            <tr>
+                <th>글제목 </th>
+                <td> <input id="studyTitle" name="studyTitle" required="required"> </td>
+            </tr>
+            <tr>
+                <th>글내용</th>
+                <td> <textarea rows="8" cols="60" name="studyCont" style="resize: none" required="required"></textarea> </td>
+            </tr>
+
+            <tr>
+                <th>날짜선택</th>
+                <td> <input type="text" class="date1" name="studyStartDate" placeholder="시작날짜 선택" autocomplete="off" required="required" readonly>
+                    <input type="text" class="date2"  name="studyEndDate" placeholder="종료날짜 선택" autocomplete="off" required="required" readonly></td>
+            </tr>
+            <tr>
+                <th>지역</th>
+                <td>
+                <select name="studyArea" required="required" >
+                    <option value="">지역선택</option>
+                    <option value="강남">강남</option>
+                    <option value="신촌">신촌</option>
+                    <option value="홍대">홍대</option>
+                    <option value="부평">부평</option>
+                    <option value="수원">수원</option>
+                    <option value="제주">제주</option>
+                </select>
+                </td>
+            </tr>
+
+            <tr>
+                <th>키워드</th>
+                <td>
+                        <select required="required"   class="demo" multiple="multiple" name="studyKeyword" >
+                            <optgroup label="Languages">
+                                <option value="C++">C++</option>
+                                <option value="C#">C#</option>
+                                <option value="Java">Java</option>
+                                <option value="C언어">C언어</option>
+                            </optgroup>
+                            <optgroup label="Scripts">
+                                <option value="JavaScript">JavaScript</option>
+                                <option value="PHP">PHP</option>
+                                <option value="ASP">ASP</option>
+                                <option value="JSP">JSP</option>
+                            </optgroup>
+                        </select>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2" align="center">
+                    <input type="submit" value="글쓰기">&nbsp;&nbsp;&nbsp;
+                    <input type="reset" value="다시작성">
+                </td>
+            </tr>
+        </table>
+    </form>
+
+
+        <script src="../resources/js/fSelect.js"></script>
+
+        <script>
+            $(function() {
+                $('.demo').fSelect();
+            });
+        </script>
+
+</div>
+
+<script src="http://code.jquery.com/ui/1.10.4/jquery-ui.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/i18n/jquery-ui-i18n.min.js"></script>
+<script>
+    $(function() {
+        $.datepicker.setDefaults($.datepicker.regional['ko']);
+        $('.date1').datepicker({
+            minDate: 0,
+            onClose:function (selectedDate) {
+                $('.date2').datepicker("option","minDate",selectedDate);
+            }
+        });
+        $('.date2').datepicker({
+        });
+    });
+</script>
+<script type="text/javascript">
+    jQuery.fn.trilemma = function(options) {
+        var options = options || {};
+        var cbfs = this; // establish checkbox container
+        var cbs = this.find('input:checkbox');
+        var maxnum = options.max ? options.max : 2;
+
+
+        cbs.each(function () {
+            $(this).bind('click', function () {
+                    if ($(this).is(':checked')) {
+                        if (cbs.filter(':checked').length == maxnum) {
+                            cbs.not(':checked').each(function () {
+                                $(this).attr('disabled', 'true');
+                                if (options.disablelabels) {
+                                    var thisid = $(this).attr('id');
+                                    $('label[for="' + thisid + '"]').addClass('disabled');
+                                }
+
+                            });
+                        }
+                    } else {
+                        cbs.removeAttr('disabled');
+                        if (options.disablelabels) {
+                            cbfs.find('label.disabled').removeClass('disabled');
+                        }
+                    }
+                }
+            );
+        });
+        return this;
+
+    };
+
+
+    $(function(){
+        jQuery('.hondas').trilemma({max:3,disablelabels:true});//max3=3개체크하면 나머지는 비활성
+    });
+</script>
+<script type="text/javascript">
+    $(document).ready(function() {
+        var last_valid_selection = null;
+        $('#userRequest_activity').change(function(event) {
+            if ($(this).val().length > 3) {
+                $(this).val(last_valid_selection);
+            } else {
+                last_valid_selection = $(this).val();
+            }
+        });
+    });
+</script>
 </body>
 
-<body>
 
 
