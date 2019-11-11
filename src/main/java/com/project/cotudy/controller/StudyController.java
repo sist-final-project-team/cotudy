@@ -261,15 +261,26 @@ public class StudyController {
     }
 
     @RequestMapping("/freeWrite")
-    public String freeBoardWrite(FreeBoardDto freeboard, MultipartHttpServletRequest multireq) throws Exception {
-        List<MultipartFile> fileList =  multireq.getFiles("files"); //files:write에서 파일첨부의 files
-        //System.out.println("fileList는1??"+fileList.get(0));
-        //org.springframework.web.multipart.commons.CommonsMultipartFile@49c3ccb4 찍힘
+    public void freeBoardWrite(FreeBoardDto freeboard, MultipartHttpServletRequest multireq, HttpServletResponse response) throws Exception {
+    	 response.setContentType("text/html; charset=UTF-8");
+	        PrintWriter out = response.getWriter();
+	        
+    	if(freeboard.getMemId().equals("null")) {	       
+	        out.println("<script>");
+	        out.println("alert('로그인 후 글작성 해주세요.')");
+	        out.println("location.href='/freeList'");
+	        out.println("</script>");
+    	}else {
+    		  List<MultipartFile> fileList =  multireq.getFiles("files"); //files:write에서 파일첨부의 files
+              //System.out.println("fileList는1??"+fileList.get(0));
+              //org.springframework.web.multipart.commons.CommonsMultipartFile@49c3ccb4 찍힘
 
-        boardService.insertFreeBoard(freeboard, multireq);
-
-
-        return "redirect:/freeList";
+            boardService.insertFreeBoard(freeboard, multireq);
+            out.println("<script>");
+  	        out.println("alert('글작성 완료.')");
+  	        out.println("location.href='/freeList'");
+  	        out.println("</script>");
+    	}
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/freeDelete")
