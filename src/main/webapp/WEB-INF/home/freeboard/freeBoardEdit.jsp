@@ -13,7 +13,7 @@
 		function dFile(i){
 			var pId = "pId"+i;
 			var put = "put"+i;
-			document.getElementById(put).value="1";
+            document.getElementById(put).value="1";
 			document.getElementById(pId).style.display="none";
             //document.getElementById(pId).remove();
 
@@ -78,12 +78,15 @@
 					<td> <input type="file" id="files" name="files" multiple="multiple">
 						<input type="hidden" name="put" value="">
 						<input type="hidden" name="fileList1" value="">
+						<input type="hidden" name="filePath" value="">
 						<c:forEach items="${dto.fileList}" var="list">
 							<c:set value="${status+1}" var="status"/>
 							<p id ="pId${status}">
 							${ list.getOriginalFileName()}
 							<input type="hidden" id="put${status}" value="" name="put">
 								<input type="hidden" value="${dto.getFileList().get(status-1).getIdx()}" name="fileList1">
+								<input type="hidden" value="${dto.getFileList().get(status-1).getStoredFilePath()}" name="filePath">
+
 							<input type="button" value="X" onclick = "dFile(${status})">
 							</p>
 					</c:forEach>

@@ -6,5 +6,4 @@ import lombok.Data;
 public class BookmarkDto {
     private String memId;
     private int studyNum;
-    private String studyStatus;
 }
