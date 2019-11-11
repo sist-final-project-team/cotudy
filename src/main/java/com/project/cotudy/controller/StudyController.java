@@ -259,7 +259,8 @@ public class StudyController {
     public String freeBoardWriteForm() throws Exception {
         return "/freeboard/freeBoardWrite";
     }
-
+    
+    //조아라 수정 : 로그인안하고 글작성 금지start////////////////////////////
     @RequestMapping("/freeWrite")
     public void freeBoardWrite(FreeBoardDto freeboard, MultipartHttpServletRequest multireq, HttpServletResponse response) throws Exception {
     	 response.setContentType("text/html; charset=UTF-8");
@@ -282,7 +283,10 @@ public class StudyController {
   	        out.println("</script>");
     	}
     }
+    //조아라 수정 : 로그인안하고 글작성 금지end////////////////////////////
 
+    
+    //조아라 수정 : 남의 글 삭제 금지start////////////////////////////
     @RequestMapping(method = RequestMethod.GET, value = "/freeDelete")
     public void freeBoardDelete(@RequestParam("freeNum") int freeNum, @RequestParam("memId") String memId, HttpServletResponse response,HttpServletRequest request) throws Exception{
     	String id = (String)request.getSession().getAttribute("memId");
@@ -307,6 +311,7 @@ public class StudyController {
     	}
     	
     }
+    //조아라 수정 : 남의 글 삭제 금지end////////////////////////////
 
     /* 로그인 및 회원가입 관련 */
     @RequestMapping("findid_ok")
