@@ -476,7 +476,7 @@
         <div class="col-md-4">
           <div class="card-box-d">
             <div class="card-img-d">
-              <img src="../resources/img/agent-1.jpg" alt="" class="img-d img-fluid">
+
             </div>
             <div class="card-overlay card-overlay-hover">
               <div class="card-header-d">
@@ -535,7 +535,7 @@
         <div class="col-md-4">
           <div class="card-box-d">
             <div class="card-img-d">
-              <img src="../resources/img/agent-5.jpg" alt="" class="img-d img-fluid">
+
             </div>
             <div class="card-overlay card-overlay-hover">
               <div class="card-header-d">

@@ -500,6 +500,53 @@ public class StudyController {
            out.println("</script>");
        }
     }
+
+    @RequestMapping("/studySearch")
+    public ModelAndView studyBoardSearch(@RequestParam(value="areas", required=false) String[] areas, @RequestParam(value="keywords", required=false) String[] keywords) throws Exception {
+        ModelAndView mv = new ModelAndView("/study/studyBoardList");
+
+        // 전체 스터디 리스트 호출
+        List<StudyBoardDto> studyBoardList = boardService.selectStudyBoardList();
+
+        List<StudyBoardDto> searchStudyBoardList = new ArrayList<>();
+
+        // 검색 조건이 하나도 들어오지 않았을 경우에는 전체 리스트 출력
+        if (areas == null && keywords == null) {
+            mv.addObject("studyList", studyBoardList);
+            return mv;
+        }
+
+        if (studyBoardList != null) {
+            for (StudyBoardDto studyBoard : studyBoardList) {
+                boolean addFlag = false;
+                if (areas != null) {
+                    for (String area : areas) {
+                        if (studyBoard.getStudyArea().equals(area)) {
+                            addFlag = true;
+                            break;
+                        }
+                    }
+                }
+                if (keywords != null) {
+                    String[] studyBoardKeywords = studyBoard.getStudyKeyword().split(",");
+                    for (String keyword : keywords) {
+                        for (String studyBoardKeyword : studyBoardKeywords) {
+                            if (studyBoardKeyword.equals(keyword)) {
+                                addFlag = true;
+                                break;
+                            }
+                        }
+                    }
+                }
+                if (addFlag) {
+                    searchStudyBoardList.add(studyBoard);
+                }
+            }
+        }
+        mv.addObject("studyList", searchStudyBoardList);
+        return mv;
+    }
+
     @RequestMapping("/studyCreateForm")
     public String studyCreateForm(){
         return "/study/studyBoardCreate";
