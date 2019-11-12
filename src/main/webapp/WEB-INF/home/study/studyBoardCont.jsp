@@ -60,7 +60,7 @@
 
             내용 : ${studyBoard.getStudyCont()}<br>
             지역 : ${studyBoard.getStudyArea()}<br>
-            <input type="button" id="bookMark" onclick="checkBookMark()" value="북마크">
+            <input type="button" id="bookMark" onclick="checkBookMark()" value="북마크" >
         </div>
     </c:if>
     <c:if test="${empty studyBoard}">

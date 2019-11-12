@@ -60,6 +60,7 @@ function mem_check() {
         return false;
     }
     if($.trim($("#idcheck").val())!=="사용 가능한 아이디입니다."){
+        console.log($.trim($("#idcheck").text().val()));
         alert("중복아이디 확인하세요");
         $("#idcheck_btn").focus();
         return false;

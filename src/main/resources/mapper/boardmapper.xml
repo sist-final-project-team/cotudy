@@ -249,6 +249,6 @@ where
 	</insert>
     <!-- 즐겨찾기한 북마크 리스트 가져오기 -->
     <select id="myBookmark" parameterType="String" resultType="com.project.cotudy.model.StudyBoardDto">
-       select sb.* from study_board as sb join bookmark as bm ON bm.study_num where bm.mem_id="davin325" and sb.study_status = 'N'
+       select sb.* from study_board as sb join bookmark as bm ON bm.study_num where bm.mem_id=#{memId} and sb.study_status = 'N'
            </select>
 </mapper>
