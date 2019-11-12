@@ -39,28 +39,52 @@
 </head>
 <body>
 <jsp:include page="../header.jsp"></jsp:include>
-
 <div class="container" style="padding-top: 120px;">
-
 </div>
 <div class="container">
     <c:set var="studyBoard" value="${studyCont}"></c:set>
     <c:if test="${!empty studyBoard}">
+        <input type="hidden" name="studyNum" value="${studyBoard.getStudyNum()}" id="studyNum">
         <div align="center">
-            <table border="1">
+            <table col="2" cellpadding="50" border="0">
                 <tr>
-                    <input type="hidden" name="studyNum" value="${studyBoard.getStudyNum()}" id="studyNum">
-                    <td><h1>${studyBoard.getStudyTitle()}</h1></td>
+                    <td colspan="2">
+                        <p align="center" style="color: #533f03">${studyBoard.getStudyArea()}</p>
+                        <p align="center">주제: <b>${studyBoard.getStudyKeyword()}</b></p>
+                        <h1 align="center" style="padding-left: 200px;
+                            padding-right: 200px;"
+                        ><b>${studyBoard.getStudyTitle()}</b></h1>
+                        <hr>
+                    </td>
+                </tr>
+                <tr>
+                    <th style="vertical-align: top; padding-left:10px;padding-right:10px" ><h4>스터디 소개</h4></th>
+                    <td><textarea  readonly cols="100"  placeholder="Type, paste, cut text here...">${studyBoard.getStudyCont()}</textarea></td>
 
                 </tr>
                 <tr>
-                    <td> <textarea  readonly  rows="28" cols="100" name="freeCont" style="resize: none">${studyBoard.getStudyCont()}</textarea></td>
+                    <td colspan="2"> <hr></td>
+                </tr>
+                <tr>
+                    <th style="vertical-align: top; padding-left:10px;padding-right:10px" ><h4>상세 정보</h4></th>
+                    <td>
+                        <ul>
+                            <li>지역 : ${studyBoard.getStudyArea()}</li>
+                            <li>주제 : ${studyBoard.getStudyKeyword()}</li>
+                            <li>시작일 : ${studyBoard.getStudyStartDate()}</li>
+                            <li>종료일 : ${studyBoard.getStudyEndDate()}</li>
+                        </ul>
+                    </td>
                 </tr>
             </table>
+<<<<<<< HEAD
 
             내용 : ${studyBoard.getStudyCont()}<br>
             지역 : ${studyBoard.getStudyArea()}<br>
             <input type="button" id="bookMark" onclick="checkBookMark()" value="북마크" >
+=======
+            <input type="button" id="bookMark" onclick="checkBookMark()" value="북마크">
+>>>>>>> 4dda91b67be3d6aa1ad2ca39eb31bb3cc9a01fca
         </div>
     </c:if>
     <c:if test="${empty studyBoard}">
@@ -68,5 +92,15 @@
     </c:if>
 </div>
 <jsp:include page="../footer.jsp"></jsp:include>
+
+<!--textarea 스크롤 자동 늘리기 -->
+<script>
+    $('textarea').each(function () {
+        this.setAttribute('style', 'height:' + (this.scrollHeight) + 'px;overflow-y:hidden;'+'border : none;'+'resize:none;');
+    }).on('input', function () {
+        this.style.height = 'auto';
+        this.style.height = (this.scrollHeight) + 'px';
+    });
+</script>
 </body>
 </html>

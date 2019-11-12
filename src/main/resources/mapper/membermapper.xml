@@ -10,11 +10,23 @@
     <insert id="register" parameterType="com.project.cotudy.model.StudyMemberDto">
         insert into study_member values (#{memId},#{memPwd},#{memName},#{memEmail},#{memArea},default );
     </insert>
+    
+    <insert id="kakaoRegister" parameterType="map">
+    INSERT INTO study_member (mem_id, mem_name, mem_email,mem_pwd)
+	VALUES (#{memId}, #{memName},#{memEmail},'zkzkdhfhrmdlsqlqjs');
+    </insert>
+        
     <select id="loginCheck" parameterType="String" resultType="com.project.cotudy.model.StudyMemberDto">
 
             select * from study_member where mem_id = #{memId}
 
     </select>
+    <select id="kakaoDbCheck" parameterType="String" resultType="String">
+
+            select mem_id from study_member where mem_id = #{memId}
+
+    </select>
+    
     <select id="findId" parameterType="map" resultType="String">
         select mem_id from study_member where mem_name=#{memName} and mem_email = #{memEmail};
     </select>

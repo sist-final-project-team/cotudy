@@ -219,6 +219,7 @@ where
 	<insert id="writeFreeBoardRereply" parameterType="com.project.cotudy.model.FreeBoardReplyDto">
 		insert into free_board_reply (free_num,reply_cont,mem_id,reply_step,reply_indent,reply_created_date) values (#{freeNum},#{replyCont},#{memId}, #{freeReplyNum}, (#{replyIndent}+1),now());
 	</insert>
+
 	<!-- 스터디 전체 목록 -->
 	<select id="selectStudyBoardList" resultType="com.project.cotudy.model.StudyBoardDto">
 <![CDATA[
@@ -243,12 +244,16 @@ where
 	<!--스터디 추가-->
 	<insert id="insertStudyBoard" parameterType="com.project.cotudy.model.StudyBoardDto" useGeneratedKeys="true" keyProperty="studyNum">
 		<![CDATA[
-		insert into study_board (mem_id,study_title,study_cont,study_start_date,study_end_date,study_area,study_keyword1,study_keyword2,study_keyword3,study_status)
-		values(#{memId},#{studyTitle},#{studyCont},#{studyStartDate},#{studyEndDate},#{studyArea},#{studyKeyword1},#{studyKeyword2},#{studyKeyword3},'N')
+		insert into study_board (mem_id,study_title,study_cont,study_start_date,study_end_date,study_area,study_keyword,study_status)
+		values(#{memId},#{studyTitle},#{studyCont},#{studyStartDate},#{studyEndDate},#{studyArea},#{studyKeyword},'N')
 		]]>
 	</insert>
     <!-- 즐겨찾기한 북마크 리스트 가져오기 -->
     <select id="myBookmark" parameterType="String" resultType="com.project.cotudy.model.StudyBoardDto">
+<<<<<<< HEAD
        select sb.* from study_board as sb join bookmark as bm ON bm.study_num where bm.mem_id=#{memId} and sb.study_status = 'N'
+=======
+      select sb.* from study_board as sb join bookmark as bm ON bm.study_num where bm.mem_id=#{memId} and sb.study_num = bm.study_num and sb.study_status = 'N'
+>>>>>>> 4dda91b67be3d6aa1ad2ca39eb31bb3cc9a01fca
            </select>
 </mapper>

@@ -207,6 +207,7 @@ public class BoardServiceImpl implements BoardService {
 		boardMapper.writeFreeBoardRereply(replyDto);
 	}
 
+
 	@Override
 	public void modifyFreeBoardReply(FreeBoardReplyDto replyDto) throws Exception {
 		boardMapper.modifyFreeBoardReply(replyDto);

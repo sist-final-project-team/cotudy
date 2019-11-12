@@ -35,7 +35,7 @@ public interface BoardService {
     StudyBoardDto selectStudyBoardCont(int studyNum) throws Exception;
     List<StudyBoardReplyDto> selectStudyBoardReplyList(int studyNum) throws Exception;
     void deleteStudyBoardReply(int studyReplyNum) throws Exception;
-    void updateStudyBoard(StudyBoardDto studyBoard) throws Exception;
+    void updateStudyBoard(StudyBoardDto studyBoard);
     void deleteStudyBoard(int studyNum) throws Exception;
     void insertStudyBoard(StudyBoardDto studyBoard) throws Exception;
 //    ===================추가된 부분
@@ -49,4 +49,5 @@ public interface BoardService {
   //  void updateFreeBoardReply(FreeBoardReplyDto freeReplyBoard) throws Exception;
     // ======================== 북마크 리스트 가져오기
   List<StudyBoardDto> myBookmark(String memId) throws Exception;
+
 }

@@ -7,10 +7,10 @@
 <%request.getAttribute("memId"); %>
 
 <head>
-    <meta charset="utf-8">
-    <title>EstateAgency Bootstrap Template</title>
     <link rel="stylesheet"
           href="http://code.jquery.com/ui/1.10.4/themes/redmond/jquery-ui.min.css" />
+    <link href="../resources/css/fSelect.css" rel="stylesheet" type="text/css">
+    <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
 </head>
 <body>
 <jsp:include page="../header.jsp"></jsp:include>
@@ -19,28 +19,28 @@
     <h3>테이블 글쓰기 폼</h3>
     <hr width="50%" color="purple">
 
-    <form method="post" action="/studyCreateOk" >
+    <form method="post" action="/studyCreateOk"  >
         <input type="hidden" value="<%=(String)session.getAttribute("memId") %>" name="memId">
         <table border="1" width="600" cellspacing="0">
 
             <tr>
                 <th>글제목 </th>
-                <td> <input name="studyTitle"> </td>
+                <td> <input id="studyTitle" name="studyTitle" required="required"> </td>
             </tr>
             <tr>
                 <th>글내용</th>
-                <td> <textarea rows="8" cols="30" name="studyCont" style="resize: none"></textarea> </td>
+                <td> <textarea rows="8" cols="60" name="studyCont" style="resize: none" required="required"></textarea> </td>
             </tr>
 
             <tr>
                 <th>날짜선택</th>
-                <td> <input type="text" class="date1" name="studyStartDate" placeholder="시작날짜 선택" autocomplete="off">
-                    <input type="text" class="date2"  name="studyEndDate" placeholder="종료날짜 선택" autocomplete="off"></td>
+                <td> <input type="text" class="date1" name="studyStartDate" placeholder="시작날짜 선택" autocomplete="off" required="required" readonly>
+                    <input type="text" class="date2"  name="studyEndDate" placeholder="종료날짜 선택" autocomplete="off" required="required" readonly></td>
             </tr>
-
-            <tr><th>지역</th>
+            <tr>
+                <th>지역</th>
                 <td>
-                <select name="studyArea">
+                <select name="studyArea" required="required" >
                     <option value="">지역선택</option>
                     <option value="강남">강남</option>
                     <option value="신촌">신촌</option>
@@ -48,12 +48,27 @@
                     <option value="부평">부평</option>
                     <option value="수원">수원</option>
                     <option value="제주">제주</option>
-                </select></td>
+                </select>
+                </td>
             </tr>
+
             <tr>
                 <th>키워드</th>
-                <td> <input name="studyKeyword1" size="10">
-                <input type="button" onclick="button1_click()" value="키워드 추가">
+                <td>
+                        <select required="required"   class="demo" multiple="multiple" name="studyKeyword" >
+                            <optgroup label="Languages">
+                                <option value="C++">C++</option>
+                                <option value="C#">C#</option>
+                                <option value="Java">Java</option>
+                                <option value="C언어">C언어</option>
+                            </optgroup>
+                            <optgroup label="Scripts">
+                                <option value="JavaScript">JavaScript</option>
+                                <option value="PHP">PHP</option>
+                                <option value="ASP">ASP</option>
+                                <option value="JSP">JSP</option>
+                            </optgroup>
+                        </select>
                 </td>
             </tr>
             <tr>
@@ -64,8 +79,18 @@
             </tr>
         </table>
     </form>
+
+
+        <script src="../resources/js/fSelect.js"></script>
+
+        <script>
+            $(function() {
+                $('.demo').fSelect();
+            });
+        </script>
+
 </div>
-<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+
 <script src="http://code.jquery.com/ui/1.10.4/jquery-ui.min.js"></script>
 <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/i18n/jquery-ui-i18n.min.js"></script>
 <script>
@@ -81,13 +106,58 @@
         });
     });
 </script>
-<script>
-    function button1_click() {
-        alert("키워드 추가 어떻게해요");
-    }
+<script type="text/javascript">
+    jQuery.fn.trilemma = function(options) {
+        var options = options || {};
+        var cbfs = this; // establish checkbox container
+        var cbs = this.find('input:checkbox');
+        var maxnum = options.max ? options.max : 2;
+
+
+        cbs.each(function () {
+            $(this).bind('click', function () {
+                    if ($(this).is(':checked')) {
+                        if (cbs.filter(':checked').length == maxnum) {
+                            cbs.not(':checked').each(function () {
+                                $(this).attr('disabled', 'true');
+                                if (options.disablelabels) {
+                                    var thisid = $(this).attr('id');
+                                    $('label[for="' + thisid + '"]').addClass('disabled');
+                                }
+
+                            });
+                        }
+                    } else {
+                        cbs.removeAttr('disabled');
+                        if (options.disablelabels) {
+                            cbfs.find('label.disabled').removeClass('disabled');
+                        }
+                    }
+                }
+            );
+        });
+        return this;
+
+    };
+
+
+    $(function(){
+        jQuery('.hondas').trilemma({max:3,disablelabels:true});//max3=3개체크하면 나머지는 비활성
+    });
+</script>
+<script type="text/javascript">
+    $(document).ready(function() {
+        var last_valid_selection = null;
+        $('#userRequest_activity').change(function(event) {
+            if ($(this).val().length > 3) {
+                $(this).val(last_valid_selection);
+            } else {
+                last_valid_selection = $(this).val();
+            }
+        });
+    });
 </script>
 </body>
 
-<body>
 
 

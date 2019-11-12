@@ -23,7 +23,7 @@
 						<div class="card-body">
 							<h5 class="card-title">${studyBoard.getStudyTitle()}</h5>
 							<p class="card-text">장소 : ${studyBoard.getStudyArea()}<br>키워드
-								: ${studyBoard.getStudyKeyword1()} , ${studyBoard.getStudyKeyword2()}, ${studyBoard.getStudyKeyword3()}</p>
+								: ${studyBoard.getStudyKeyword()}</p>
 							<a href="/studyCont?studyNum=${studyBoard.getStudyNum()}" class="btn btn-primary">자세히 보기</a>
 						</div>
 					</div>

@@ -12,6 +12,8 @@ import java.util.List;
 public interface MemberService {
     void register(StudyMemberDto MemberDto) throws Exception;    //회원가입
     boolean loginCheck(String memId, String memPwd) throws Exception;   //로그인 체크
+    boolean kakaoDbCheck(String memId) throws Exception;   //카카오로그인 유저의 id가 db에 저장되어있는지 확인
+    void kakaoRegister(String memId, String memName, String memEmail) throws Exception;//카카오정보 db에 저장시키기
     List<FreeBoardDto> selectMyPostList(String memId);      // 내가 쓴 자유게시판 글 보기
     List<StudyBoardDto> selectMyStudyList(String memId);    // 내가 만든 스터디 보기
     void updateMember(StudyMemberDto memberDto) throws Exception;    //회원 정보 수정
