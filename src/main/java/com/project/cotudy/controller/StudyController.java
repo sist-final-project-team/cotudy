@@ -379,9 +379,12 @@ public class StudyController {
     @RequestMapping("/logout")
     public String logout(HttpSession session) {
     	//아래 세줄은 카카오 로그아웃 관련
-    	kakao.kakaoLogout((String)session.getAttribute("access_Token"));
-    	session.removeAttribute("access_Token");
-    	session.removeAttribute("userId");
+    	if((String)session.getAttribute("access_Token")!=null) {
+    		kakao.kakaoLogout((String)session.getAttribute("access_Token"));
+    		session.removeAttribute("access_Token");
+    		session.removeAttribute("userId");
+    		
+    	}
         return "/logout";
     }
 
