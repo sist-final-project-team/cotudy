@@ -232,4 +232,10 @@ public class BoardServiceImpl implements BoardService {
 	public List<StudyBoardDto> myBookmark(String memId) throws Exception {
 		return boardMapper.myBookmark(memId);
 	}
+
+	@Override
+	public int contBookmark(int studyNum, String memId) throws Exception {
+		int check = boardMapper.contBookmark(studyNum, memId);
+		return check;
+	}
 }

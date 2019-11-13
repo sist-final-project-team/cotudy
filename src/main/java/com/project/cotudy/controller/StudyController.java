@@ -476,10 +476,15 @@ public class StudyController {
     }
 
     @RequestMapping("/studyCont")
-    public ModelAndView studyBoardCont(@RequestParam("studyNum") int studyNum) throws Exception {
+    public ModelAndView studyBoardCont(@RequestParam("studyNum") int studyNum, HttpSession session) throws Exception {
+        String memId=(String)session.getAttribute("memId");
         ModelAndView mv = new ModelAndView("/study/studyBoardCont");
+       int check= boardService.contBookmark(studyNum,memId);
+
+       // System.out.println(studyNum+"   " +memId);
         StudyBoardDto studyBoard = boardService.selectStudyBoardCont(studyNum);
         mv.addObject("studyCont", studyBoard);
+        mv.addObject("contBookmark",check);
 
         return mv;
     }

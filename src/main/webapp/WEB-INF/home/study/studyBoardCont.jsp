@@ -9,6 +9,7 @@
     <meta content="" name="keywords">
     <meta content="" name="description">
     <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+    <c:set var="contBookmark" value="${contBookmark}"></c:set>
     <script>
         function checkBookMark() {
             var id = "<%=(String)session.getAttribute("memId")%>";
@@ -22,9 +23,14 @@
                     success : function (res) {
                         console.log(res);
                         if(res === 1){
-                            document.getElementById("bookMark").style.backgroundColor = 'aqua'; // 즐찾했을떄 색상
+                            $("#bookMark").removeClass("btn btn-outline-info");
+                            $("#bookMark").addClass("btn btn-success");
+
+
                         }else{
-                            document.getElementById("bookMark").style.backgroundColor = '#FFFFFF'; // 기본색상
+                            $("#bookMark").removeClass("btn btn-success");
+                            $("#bookMark").addClass("btn btn-outline-info");
+                            // document.getElementById("bookMark").style.backgroundColor = '#FFFFFF'; // 기본색상
                         }
                     },
                     error : function () {
@@ -43,6 +49,9 @@
 </div>
 <div class="container">
     <c:set var="studyBoard" value="${studyCont}"></c:set>
+
+
+
     <c:if test="${!empty studyBoard}">
         <input type="hidden" name="studyNum" value="${studyBoard.getStudyNum()}" id="studyNum">
         <div align="center">
@@ -77,13 +86,23 @@
                     </td>
                 </tr>
             </table>
-            <input type="button" id="bookMark" onclick="checkBookMark()" value="북마크">
+
+            <c:if test="${contBookmark eq 1}">
+                <input type="button" class="btn btn-success" id="bookMark" onclick="checkBookMark()" value="북마크">
+            </c:if>
+            <c:if test="${contBookmark eq 0}">
+                <input type="button" class="btn btn-outline-info" id="bookMark" onclick="checkBookMark()" value="북마크">
+            </c:if>
+
+
         </div>
     </c:if>
     <c:if test="${empty studyBoard}">
         <p>데이터가 없습니다.</p>
     </c:if>
 </div>
+
+
 <jsp:include page="../footer.jsp"></jsp:include>
 
 <!--textarea 스크롤 자동 늘리기 -->

@@ -252,4 +252,9 @@ where
     <select id="myBookmark" parameterType="String" resultType="com.project.cotudy.model.StudyBoardDto">
       select sb.* from study_board as sb join bookmark as bm ON bm.study_num where bm.mem_id=#{memId} and sb.study_num = bm.study_num and sb.study_status = 'N'
            </select>
+
+	<!--북마크 새로고침 체크 -->
+	<select id="contBookmark" parameterType="com.project.cotudy.model.BookmarkDto" resultType="Integer">
+		select count(*) from bookmark where mem_id=#{memId} AND study_num=${studyNum};
+	</select>
 </mapper>
