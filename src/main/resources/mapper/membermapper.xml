@@ -2,13 +2,14 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.project.cotudy.mapper.MemberMapper">
+
     <select id="checkMemberId" resultType="com.project.cotudy.model.StudyMemberDto" parameterType="String">
 
         select * from study_member where mem_id=#{memId};
 
     </select>
     <insert id="register" parameterType="com.project.cotudy.model.StudyMemberDto">
-        insert into study_member values (#{memId},#{memPwd},#{memName},#{memEmail},#{memArea},default );
+        insert into study_member values (#{memId},#{memPwd},#{memName},#{memEmail},#{memArea},default,#{memSalt} );
     </insert>
     
     <insert id="kakaoRegister" parameterType="map">
@@ -76,4 +77,9 @@
     <insert id="insertBookMark" parameterType="map">
         insert into bookmark values(#{memId},#{studyNum})
     </insert>
+        <select id="getSaltById" parameterType="String" resultType="String">
+
+            select mem_salt from study_member where mem_id = #{memId}
+
+    </select>
 </mapper>

@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+
+import com.project.cotudy.common.SHA256Util;
 import com.project.cotudy.model.*;
 import org.apache.commons.io.FileUtils;
 import java.net.URLEncoder;
@@ -367,6 +369,15 @@ public class StudyController {
 
     @RequestMapping("/join_ok")
     public String joinOk(StudyMemberDto memberDto) throws Exception {
+    	//비밀번호 암호화(SHA-256)start -조아라
+    	String salt = SHA256Util.generateSalt();
+    	memberDto.setMemSalt(salt);
+    	
+    	String pwd = memberDto.getMemPwd();
+    	pwd = SHA256Util.getEncrypt(pwd, salt);
+    	memberDto.setMemPwd(pwd);
+    	//암호화해서 dto에 담기 끝
+    	
         memberService.register(memberDto);
         return "/main";
     }
@@ -403,6 +414,13 @@ public class StudyController {
     public void loginOk(HttpSession session, @RequestParam("id") String id, @RequestParam("pwd") String pwd, HttpServletResponse response) throws Exception {
         response.setContentType("text/html; charset= UTF-8");
         PrintWriter out = response.getWriter();
+        //암호화 관련
+        //해당 id의 salt값 가져오기
+        String salt = memberService.getSaltById(id);
+        //로그인시 받은 비번 암호화
+        pwd = SHA256Util.getEncrypt(pwd, salt); 
+        
+        
         if (memberService.loginCheck(id, pwd)) {
             session.setAttribute("memId", id);
             out.println("<script>");

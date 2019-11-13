@@ -141,4 +141,10 @@ public class MemberServiceImpl implements MemberService {
     public void deleteBookMark(String memId, int studyNum) throws Exception {
         memberMapper.deleteBookMark(memId,studyNum);
     }
+    
+    //id로 salt값 가져오기
+	@Override
+	public String getSaltById(String id) throws Exception {
+		return memberMapper.getSaltById(id);
+	}
 }

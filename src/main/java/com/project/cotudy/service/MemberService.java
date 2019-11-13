@@ -28,5 +28,6 @@ public interface MemberService {
     boolean checkBookMark(String memId, int studyNum) throws Exception;
     void insertBookMark(String memId,int studyNum) throws Exception;
     void deleteBookMark(String memId,int studyNum) throws Exception;
+	String getSaltById(String id) throws Exception;
 }
 

@@ -31,4 +31,5 @@ public interface MemberMapper {
     List<BookmarkDto> checkBookMark(@Param("memId") String memId, @Param("studyNum") int studyNum) throws Exception; // 북마크에 이미 있는지 확인용
     void insertBookMark(@Param("memId") String memId,@Param("studyNum") int studyNum) throws Exception;  // 북마크 추가
     void deleteBookMark(@Param("memId") String memId,@Param("studyNum") int studyNum) throws Exception; // 북마크 삭제
+	String getSaltById(String id) throws Exception;//로그인시 입력한 id로 salt가져오기
 }
