@@ -161,7 +161,7 @@
 				
 				 <c:if test="${sessionScope.memId eq dto.getMemId()}">
                     <input type="button" value="수정" onclick="location.href='/freeEditForm?freeNum=${dto.getFreeNum()}'">
-		 			<input type="button" value="삭제" onclick="deleteconfirm(${dto.getMemId()})">
+		 			<input type="button" value="삭제" onclick="deleteconfirm('${dto.getMemId()}')">
                 </c:if>
 					<input type="button" value="전체목록" onclick="location.href='/freeList'">
 				</td>

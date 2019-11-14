@@ -110,9 +110,14 @@ public class KakaoAPI {
             JsonObject properties = element.getAsJsonObject().get("properties").getAsJsonObject();
             JsonObject kakao_account = element.getAsJsonObject().get("kakao_account").getAsJsonObject();
             String id = element.getAsJsonObject().get("id").getAsString();
-            
+            String email = "";
             String nickname = properties.getAsJsonObject().get("nickname").getAsString();
-            String email = kakao_account.getAsJsonObject().get("email").getAsString();
+            //사용자가 이메일 수집 체크(허용)했는지 체크안했는지(비허용) 확인하기
+            String emailcheck = kakao_account.getAsJsonObject().get("email_needs_agreement").getAsString();
+			
+			  if(emailcheck.equals("false")) { //이메일 수집 허용함
+				  email = kakao_account.getAsJsonObject().get("email").getAsString(); 
+				  } 
             
             userInfo.put("nickname", nickname);
             userInfo.put("email", email);

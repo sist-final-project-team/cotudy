@@ -411,7 +411,7 @@ public class StudyController {
     	if((String)session.getAttribute("access_Token")!=null) {
     		kakao.kakaoLogout((String)session.getAttribute("access_Token"));
     		session.removeAttribute("access_Token");
-    		session.removeAttribute("userId");
+    		//session.removeAttribute("userId");
     		
     	}
         return "/logout";
