@@ -72,6 +72,10 @@
                 </td>
             </tr>
             <tr>
+                <th>카카오 오픈채팅 주소</th>
+                <td><input type="text" name="studyOpenchat"> </td>
+            </tr>
+            <tr>
                 <td colspan="2" align="center">
                     <input type="submit" value="글쓰기">&nbsp;&nbsp;&nbsp;
                     <input type="reset" value="다시작성">

@@ -69,7 +69,9 @@
                 </tr>
                 <tr>
                     <th style="vertical-align: top; padding-left:10px;padding-right:10px" ><h4>스터디 소개</h4></th>
-                    <td><textarea  readonly cols="100"  placeholder="Type, paste, cut text here...">${studyBoard.getStudyCont()}</textarea></td>
+<%--                    <td><textarea  readonly cols="100"  placeholder="Type, paste, cut text here...">${studyBoard.getStudyCont()}</textarea></td>--%>
+                 <td style="white-space:pre;">${studyBoard.getStudyCont()}</td>
+<%--                    <td><pre>${studyBoard.getStudyCont()}</pre></td>--%>
 
                 </tr>
                 <tr>
@@ -83,6 +85,7 @@
                             <li>주제 : ${studyBoard.getStudyKeyword()}</li>
                             <li>시작일 : ${studyBoard.getStudyStartDate()}</li>
                             <li>종료일 : ${studyBoard.getStudyEndDate()}</li>
+                            <li>카카오 오픈챗 : <a href="${studyBoard.getStudyOpenchat()}">${studyBoard.getStudyOpenchat()}</a></li>
                         </ul>
                     </td>
                 </tr>
@@ -91,7 +94,7 @@
             <c:set var="memId" value="${studyBoard.getMemId()}"></c:set>
             <c:if test="${sessionScope.memId eq memId}">
                 <input type="hidden" id="studyNum" value="${studyBoard.getStudyNum()}">
-                <input type="button" class="btn btn-warning" id="studyEdit"  value="글 수정">
+                <input type="button" class="btn btn-warning" id="studyEdit"  value="글 수정" onclick = "location.href = '/studyEditForm?studyNum=${studyBoard.getStudyNum()}'">
                 <input type="button" class="btn btn-danger" id="studyEdit" onclick="deleteConfirm(${memId})" value="글 삭제">
             </c:if>
             <c:if test="${contBookmark eq 1}">
@@ -102,7 +105,7 @@
             </c:if>
         </div>
     </c:if>
-    <c:if test="${empty studyBoard}">
+    <c:if test="${empty studyBoard}">s
         <p>데이터가 없습니다.</p>
     </c:if>
 </div>
