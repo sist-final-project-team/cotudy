@@ -257,4 +257,9 @@ where
 	<select id="contBookmark" parameterType="com.project.cotudy.model.BookmarkDto" resultType="Integer">
 		select count(*) from bookmark where mem_id=#{memId} AND study_num=${studyNum};
 	</select>
+
+	<!--스터디 게시판 글 삭제 -->
+	<update id="deleteStudyBoard" parameterType="Integer">
+		UPDATE  study_board SET study_status='Y' where study_num=#{studyNum};
+	</update>
 </mapper>

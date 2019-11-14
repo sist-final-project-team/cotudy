@@ -38,6 +38,7 @@ public interface BoardService {
     void updateStudyBoard(StudyBoardDto studyBoard);
     void deleteStudyBoard(int studyNum) throws Exception;
     void insertStudyBoard(StudyBoardDto studyBoard) throws Exception;
+
 //    ===================추가된 부분
   
     List<FreeBoardReplyDto> selectFreeBoardReplyList(int freeNum) throws Exception;
@@ -52,5 +53,6 @@ public interface BoardService {
 
   //=====북마크 확인용-최다빈 추가-
     int contBookmark(int studyNum, String memId) throws Exception;
+
 
 }

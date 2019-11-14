@@ -1,5 +1,6 @@
 <%@ page import="com.project.cotudy.model.StudyBoardDto" %>
 <%@ page import="java.util.List" %>
+<%@ page session="true" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
@@ -87,21 +88,24 @@
                 </tr>
             </table>
 
+            <c:set var="memId" value="${studyBoard.getMemId()}"></c:set>
+            <c:if test="${sessionScope.memId eq memId}">
+                <input type="hidden" id="studyNum" value="${studyBoard.getStudyNum()}">
+                <input type="button" class="btn btn-warning" id="studyEdit"  value="글 수정">
+                <input type="button" class="btn btn-danger" id="studyEdit" onclick="deleteConfirm(${memId})" value="글 삭제">
+            </c:if>
             <c:if test="${contBookmark eq 1}">
                 <input type="button" class="btn btn-success" id="bookMark" onclick="checkBookMark()" value="북마크">
             </c:if>
             <c:if test="${contBookmark eq 0}">
                 <input type="button" class="btn btn-outline-info" id="bookMark" onclick="checkBookMark()" value="북마크">
             </c:if>
-
-
         </div>
     </c:if>
     <c:if test="${empty studyBoard}">
         <p>데이터가 없습니다.</p>
     </c:if>
 </div>
-
 
 <jsp:include page="../footer.jsp"></jsp:include>
 
@@ -113,6 +117,21 @@
         this.style.height = 'auto';
         this.style.height = (this.scrollHeight) + 'px';
     });
+</script>
+<!--삭제 스크립트 -->
+<script>
+    function deleteConfirm(memId) {
+        console.log("삭제폼입성");
+        var studyNum = document.getElementById("studyNum").value;
+        var memId = memId;
+        msg = "정말로 삭제하시겠습니까?";
+        if (confirm(msg) != 0) {
+            location.href = "/studyDelete?studyNum=" + studyNum + "&memId=" + memId;
+            // Yes click
+        } else {
+            // no click
+        }
+    }
 </script>
 </body>
 </html>

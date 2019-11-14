@@ -483,6 +483,7 @@ public class StudyController {
 
        // System.out.println(studyNum+"   " +memId);
         StudyBoardDto studyBoard = boardService.selectStudyBoardCont(studyNum);
+
         mv.addObject("studyCont", studyBoard);
         mv.addObject("contBookmark",check);
 
@@ -700,5 +701,31 @@ public class StudyController {
         List<StudyBoardDto> list =  boardService.myBookmark(memId);
         mv.addObject("list",list);
         return mv;
+    }
+
+
+    @RequestMapping(method = RequestMethod.GET, value = "/studyDelete")
+    public void studyBoardDelete(@RequestParam("studyNum") int studyNum, @RequestParam("memId") String memId, HttpServletResponse response,HttpServletRequest request) throws Exception{
+        String id = (String)request.getSession().getAttribute("memId");
+
+
+        response.setContentType("text/html; charset=UTF-8");
+        PrintWriter out = response.getWriter();
+
+        if(id.equals(memId)) {
+            boardService.deleteStudyBoard(studyNum);
+            out.println("<script>");
+            out.println("alert('삭제가 완료되었습니다.')");
+            out.println("location.href='/studyList'");
+            out.println("</script>");
+
+        }else {
+            out.println("<script>");
+            out.println("alert('남의 글 삭제하지 마셈.')");
+            out.println("location.href='/studyList'");
+            out.println("</script>");
+
+        }
+
     }
 }
