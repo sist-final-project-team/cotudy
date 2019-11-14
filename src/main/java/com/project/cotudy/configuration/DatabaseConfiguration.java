@@ -11,8 +11,13 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.jdbc.datasource.DataSourceTransactionManager;
+import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
+
 import javax.sql.DataSource;
 
+@EnableTransactionManagement
 @Configuration
 @PropertySource("classpath:/application.properties")
 public class DatabaseConfiguration {
@@ -25,7 +30,7 @@ public class DatabaseConfiguration {
     public HikariConfig hikariConfig(){
         return new HikariConfig();
     }
-
+    
 
     @Bean
     public DataSource dataSource() throws Exception {
@@ -53,5 +58,11 @@ public class DatabaseConfiguration {
     @Bean
     public SqlSessionTemplate sqlSessionTemplate(SqlSessionFactory sqlSessionFactory) {
         return new SqlSessionTemplate(sqlSessionFactory);
+    }
+    
+    //트랜잭션 매니저 등록. 이후에 원하는 곳에 @Transactional 붙이면 됨 (인터페이스, 클래스, 메소드에 사용가능)
+    @Bean
+    public PlatformTransactionManager transactionManager() throws Exception{
+    	return new DataSourceTransactionManager(dataSource());
     }
 }

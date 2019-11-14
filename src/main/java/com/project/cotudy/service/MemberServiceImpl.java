@@ -7,10 +7,12 @@ import com.project.cotudy.model.*;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.io.PrintWriter;
 import java.util.List;
 
+@Transactional
 @Service
 public class MemberServiceImpl implements MemberService {
 
