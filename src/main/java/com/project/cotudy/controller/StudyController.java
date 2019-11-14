@@ -558,6 +558,7 @@ public class StudyController {
         return "/study/studyBoardCreate";
     }
 
+
     @RequestMapping("/studyCreateOk")
     public String studyCreateOk(StudyBoardDto studyBoard) throws Exception {
     boardService.insertStudyBoard(studyBoard);
@@ -724,8 +725,22 @@ public class StudyController {
             out.println("alert('남의 글 삭제하지 마셈.')");
             out.println("location.href='/studyList'");
             out.println("</script>");
-
         }
+    }
+    @RequestMapping("/studyEdit")
+    public String studyBoardEdit(StudyBoardDto studyBoard) throws Exception{
+        //List<MultipartFile> fileList =  multireq.getFiles("files");
+        boardService.updateStudyBoard(studyBoard);
 
+        return "redirect:/studyCont?studyNum="+studyBoard.getStudyNum();
+    }
+    @RequestMapping("/studyEditForm")
+    public ModelAndView studyBoardEditForm(@RequestParam("studyNum") int studyNum) throws Exception{
+        ModelAndView mv = new ModelAndView("/study/studyBoardEdit");
+        StudyBoardDto studyBoard = boardService.selectStudyBoardCont(studyNum);	//글내용 가져오기
+
+        mv.addObject("studyBoard", studyBoard);
+
+        return mv;
     }
 }

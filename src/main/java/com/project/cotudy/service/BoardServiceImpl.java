@@ -190,7 +190,9 @@ public class BoardServiceImpl implements BoardService {
 	@Override
 	public void deleteStudyBoardReply(int studyReplyNum) { }
 	@Override
-	public void updateStudyBoard(StudyBoardDto studyBoard) { }
+	public void updateStudyBoard(StudyBoardDto studyBoard) throws Exception{
+		boardMapper.updateStudyBoard(studyBoard);
+	}
 	@Override
 	public void deleteStudyBoard(int studyNum) throws Exception {
 		boardMapper.deleteStudyBoard(studyNum);

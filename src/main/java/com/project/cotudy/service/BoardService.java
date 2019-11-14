@@ -35,7 +35,7 @@ public interface BoardService {
     StudyBoardDto selectStudyBoardCont(int studyNum) throws Exception;
     List<StudyBoardReplyDto> selectStudyBoardReplyList(int studyNum) throws Exception;
     void deleteStudyBoardReply(int studyReplyNum) throws Exception;
-    void updateStudyBoard(StudyBoardDto studyBoard);
+    void updateStudyBoard(StudyBoardDto studyBoard) throws Exception;
     void deleteStudyBoard(int studyNum) throws Exception;
     void insertStudyBoard(StudyBoardDto studyBoard) throws Exception;
 

@@ -244,8 +244,8 @@ where
 	<!--스터디 추가-->
 	<insert id="insertStudyBoard" parameterType="com.project.cotudy.model.StudyBoardDto" useGeneratedKeys="true" keyProperty="studyNum">
 		<![CDATA[
-		insert into study_board (mem_id,study_title,study_cont,study_start_date,study_end_date,study_area,study_keyword,study_status)
-		values(#{memId},#{studyTitle},#{studyCont},#{studyStartDate},#{studyEndDate},#{studyArea},#{studyKeyword},'N')
+		insert into study_board (mem_id,study_title,study_cont,study_start_date,study_end_date,study_area,study_keyword,study_status,study_openchat)
+		values(#{memId},#{studyTitle},#{studyCont},#{studyStartDate},#{studyEndDate},#{studyArea},#{studyKeyword},'N',#{studyOpenchat})
 		]]>
 	</insert>
     <!-- 즐겨찾기한 북마크 리스트 가져오기 -->
@@ -262,4 +262,10 @@ where
 	<update id="deleteStudyBoard" parameterType="Integer">
 		UPDATE  study_board SET study_status='Y' where study_num=#{studyNum};
 	</update>
+
+	<!--스터디 게시판 글 수정 -->
+	<update id="updateStudyBoard" parameterType="com.project.cotudy.model.StudyBoardDto">
+		UPDATE study_board SET study_title=#{studyTitle}, study_cont=#{studyCont}, study_start_date=#{studyStartDate}, study_end_date=#{studyEndDate},study_area=#{studyArea},study_keyword=#{studyKeyword},study_openchat=#{studyOpenchat} where study_num=#{studyNum};
+	</update>
+
 </mapper>
