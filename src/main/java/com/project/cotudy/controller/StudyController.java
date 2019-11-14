@@ -282,8 +282,7 @@ public class StudyController {
 
     	response.setContentType("text/html; charset=UTF-8");
     	PrintWriter out = response.getWriter();
-    	
-    	if(id==memId) {
+    	if(id.equals(memId)) {
     		boardService.deleteFreeBoard(freeNum);
     		out.println("<script>");
     		out.println("alert('삭제가 완료되었습니다.')");
