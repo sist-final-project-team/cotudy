@@ -342,15 +342,21 @@ public class StudyController {
         //비번 가져와서
         String pwd = memberService.findPwd(memId, memName, memEmail);
         
-        
+    	//id로 salt 가져오기(암호화, 로그인종류(카카오or일반) 구분위해)
+    	String salt = memberService.getSaltById(id);
+    	System.out.println("salt는??????????????????????????????????????"+salt);
+    	if(salt==null) {//카카오로그인
+            out.println("<script>");
+            out.println("alert('카카오 ID는 비밀번호 찾기가 불가능합니다.')");
+            out.println("location.href='/findPwd'");
+            out.println("</script>");
+    	}else {//일반로그인
+    		
         if (pwd != null) {//정보에 맞는 비번 있으면
         	//난수발생시켜서 새로운 비번으로 db에 저장한 후 사용자에게 난수 메일로 알려주기
         	//난수발생시키기
         	int intpwd = (int) (Math.random() * 1000000) + 1;
         	String newpwd = Integer.toString(intpwd);
-        	
-        	//id로 salt 가져오기(암호화위해)
-        	String salt = memberService.getSaltById(id);
         	
         	//암호화
         	String newpwdsha = SHA256Util.getEncrypt(newpwd, salt);         	
@@ -373,6 +379,7 @@ public class StudyController {
             out.println("location.href='/findPwd'");
             out.println("</script>");
         }
+    }
     }
 
     @RequestMapping("/check")      // id중복 확인해서 ajax data값으로 넘기기 위한 jsp
