@@ -147,4 +147,10 @@ public class MemberServiceImpl implements MemberService {
 	public String getSaltById(String id) throws Exception {
 		return memberMapper.getSaltById(id);
 	}
+
+	//비밀번호 찾기시 새로 초기화시킨 난수 비번 저장시키기
+	@Override
+	public void insertNewPwd(String memId, String memPwd) throws Exception {
+		memberMapper.insertNewPwd(memId, memPwd);		
+	}
 }

@@ -29,5 +29,6 @@ public interface MemberService {
     void insertBookMark(String memId,int studyNum) throws Exception;
     void deleteBookMark(String memId,int studyNum) throws Exception;
 	String getSaltById(String id) throws Exception;
+	void insertNewPwd( String memId, String memPwd) throws Exception;//비번찾기시 새로운비번 저장시키기
 }
 

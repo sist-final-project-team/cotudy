@@ -31,7 +31,7 @@
     <select id="findId" parameterType="map" resultType="String">
         select mem_id from study_member where mem_name=#{memName} and mem_email = #{memEmail};
     </select>
-    <select id="findPwd" parameterType="String" resultType="String">
+    <select id="findPwd" parameterType="map" resultType="String">
         select mem_pwd from study_member where mem_name=#{memName} and mem_email = #{memEmail} and mem_id=#{memId};
     </select>
     
@@ -77,9 +77,12 @@
     <insert id="insertBookMark" parameterType="map">
         insert into bookmark values(#{memId},#{studyNum})
     </insert>
-        <select id="getSaltById" parameterType="String" resultType="String">
+    <select id="getSaltById" parameterType="String" resultType="String">
 
             select mem_salt from study_member where mem_id = #{memId}
 
     </select>
+    <update id="insertNewPwd" parameterType="map">
+        update study_member set mem_pwd = #{memPwd} where mem_id = #{memId};
+    </update>
 </mapper>

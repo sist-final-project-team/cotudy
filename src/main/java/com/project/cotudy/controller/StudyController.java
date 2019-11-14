@@ -334,22 +334,39 @@ public class StudyController {
 
     @RequestMapping("findPwd_ok")
     public void findPw(@RequestParam("memId") String memId, @RequestParam("memName") String memName, @RequestParam("memEmail") String memEmail, HttpServletResponse response) throws Exception {
-        response.setContentType("text/html; charset= UTF-8");
+    	response.setContentType("text/html; charset= UTF-8");
         PrintWriter out = response.getWriter();
         String id = memId;
         String e_mail = memEmail;
+        //비번 가져와서
         String pwd = memberService.findPwd(memId, memName, memEmail);
-        if (pwd != null) {
-
-            email.setContent("비밀번호는 " + pwd + " 입니다.");
-            email.setReceiver(e_mail);
-            email.setSubject(id + "님 비밀번호 찾기 메일입니다.");
+        
+        
+        if (pwd != null) {//정보에 맞는 비번 있으면
+        	//난수발생시켜서 새로운 비번으로 db에 저장한 후 사용자에게 난수 메일로 알려주기
+        	//난수발생시키기
+        	int intpwd = (int) (Math.random() * 1000000) + 1;
+        	String newpwd = Integer.toString(intpwd);
+        	
+        	//id로 salt 가져오기(암호화위해)
+        	String salt = memberService.getSaltById(id);
+        	
+        	//암호화
+        	String newpwdsha = SHA256Util.getEncrypt(newpwd, salt);         	
+        	//db에 저장하고
+        	memberService.insertNewPwd(memId ,newpwdsha);
+        	
+        	//난수 이메일로 보내주기
+        	email.setReceiver(e_mail);
+        	email.setSubject(id + "님 코터디 비밀번호 찾기 메일입니다.");
+            email.setContent("비밀번호가 " + newpwd + "로 초기화 되었습니다. 로그인 후 마이페이지에서 비밀번호를 변경해 주세요.");
             emailSender.SendEmail(email);
             out.println("<script>");
-            out.println("alert('메일을 보냈습니다 확인하세요')");
+            out.println("alert('메일을 보냈습니다. 확인하세요')");
             out.println("self.close()");
             out.println("</script>");
         } else {
+        	System.out.println("PWD null이네...");
             out.println("<script>");
             out.println("alert('정보가 잘못되었습니다.')");
             out.println("location.href='/findPwd'");
@@ -417,7 +434,7 @@ public class StudyController {
         //암호화 관련
         //해당 id의 salt값 가져오기
         String salt = memberService.getSaltById(id);
-        //로그인시 받은 비번 암호화
+        //로그인시 받은 비번 암호화(하면 db랑 같아짐)
         pwd = SHA256Util.getEncrypt(pwd, salt); 
         
         
@@ -630,14 +647,27 @@ public class StudyController {
     @RequestMapping("/pwdEdit") public void mempwdEdit(HttpServletRequest request, HttpServletResponse response,
                                                        @RequestParam("nowpwd") String nowpwd, @RequestParam("editpwd") String editpwd ) throws Exception{
         String memId = (String) request.getSession().getAttribute("memId");
+        //회원정보 가져오기
         StudyMemberDto meminfodto = memberService.selectMyInfo(memId);
+        
+        //nowpwd 비밀번호 암호화
+        //해당 id의 salt값 가져오기
+        String salt = memberService.getSaltById(meminfodto.getMemId());
+        //로그인시 받은 비번 암호화(하면 db랑 같아짐)
+        String shapwd = SHA256Util.getEncrypt(nowpwd, salt);
+        
+
+        
+        
         response.setContentType("text/html; charset=UTF-8");
         PrintWriter out = response.getWriter();
 
-        if(meminfodto.getMemPwd().equals(nowpwd)) { //비밀번호 제대로 입력
-
-            //System.out.println("아이디 비밀번호는?????"+memId+editpwd);
-            memberService.updateMemberpwd(memId, editpwd );
+        //nowpwd이랑 db비번이랑 비교
+        if(meminfodto.getMemPwd().equals(shapwd)) { //비밀번호 제대로 입력
+            //editpwd 암호화
+            String epwd = SHA256Util.getEncrypt(editpwd, salt);
+            //db에 넣기
+            memberService.updateMemberpwd(memId, epwd );
             out.println("<script>");
             out.println("alert('비밀번호 변경이 완료되었습니다.')");
             out.println("location.href='/myPage'");
