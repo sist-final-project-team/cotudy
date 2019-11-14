@@ -85,4 +85,8 @@
     <update id="insertNewPwd" parameterType="map">
         update study_member set mem_pwd = #{memPwd} where mem_id = #{memId};
     </update>
+
+    <update id="changeStatus" parameterType="String">
+        update study_member set mem_status = 'O' where mem_id = #{memId};
+    </update>
 </mapper>

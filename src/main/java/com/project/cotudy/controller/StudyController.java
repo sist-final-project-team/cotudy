@@ -472,9 +472,16 @@ public class StudyController {
         String memId = (String)userInfo.get("id");
         String memName = (String)userInfo.get("nickname");
         String memEmail = (String)userInfo.get("email");
+        
         //카카오로그인 id가 db에 없으면 저장시키기(가입시키기. ID, 닉네임, 이메일)
         if(memberService.kakaoDbCheck(memId)==false) {//true(아이디없을경우. 가입시켜야함)
         	memberService.kakaoRegister(memId, memName, memEmail);
+        	}
+
+        //이전에 탈퇴했다가 로그인하는사람일경우(status x일 경우) o로 바꿔주기
+        StudyMemberDto meminfodto = memberService.selectMyInfo(memId); //회원정보 가져오기
+        if(meminfodto.getMemStatus().equals("X")) {
+        	memberService.changeStatus(memId);
         	}
         
             session.setAttribute("access_Token", access_Token);//로그아웃시 사용
@@ -680,13 +687,22 @@ public class StudyController {
         }
 
     }
-
+    
+    //회원탈퇴
     @RequestMapping("/memOutOk")
     public String memOutOk(HttpSession session) throws Exception {
         String memId = (String)session.getAttribute("memId");
         memberService.deleteMember(memId);
         //세션 해제 하고 메인으로 넘겨야함
         session.invalidate();
+        //카카오 세션해제
+    	if((String)session.getAttribute("access_Token")!=null) {
+    		kakao.kakaoLogout((String)session.getAttribute("access_Token"));
+    		session.removeAttribute("access_Token");
+    		session.removeAttribute("userId");
+    		
+    	}        
+        
         return "/main";
     }
     // 서지훈 추가사항 대댓글 달기

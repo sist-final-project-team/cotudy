@@ -33,4 +33,5 @@ public interface MemberMapper {
     void deleteBookMark(@Param("memId") String memId,@Param("studyNum") int studyNum) throws Exception; // 북마크 삭제
 	String getSaltById(String id) throws Exception;//로그인시 입력한 id로 salt가져오기
 	void insertNewPwd(@Param("memId") String memId, @Param("memPwd")String memPwd);//비번찾기시 새로운비번 초기화시켜서 저장시키기
+	void changeStatus(String memId) throws Exception;
 }

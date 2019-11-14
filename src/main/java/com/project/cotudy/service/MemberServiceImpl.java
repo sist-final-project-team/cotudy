@@ -153,4 +153,11 @@ public class MemberServiceImpl implements MemberService {
 	public void insertNewPwd(String memId, String memPwd) throws Exception {
 		memberMapper.insertNewPwd(memId, memPwd);		
 	}
+	
+	//카카오 탈퇴후 재가입하는사람 status O로 바꾸기
+	@Override
+	public void changeStatus(String memId) throws Exception {
+		memberMapper.changeStatus(memId);
+		
+	}
 }
