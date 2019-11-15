@@ -8,7 +8,7 @@
 
     </select>
     <insert id="register" parameterType="com.project.cotudy.model.StudyMemberDto">
-        insert into study_member values (#{memId},#{memPwd},#{memName},#{memEmail},#{memArea},default );
+        insert into study_member values (#{memId},#{memPwd},#{memName},#{memEmail},#{memArea},default,default);
     </insert>
     
     <insert id="kakaoRegister" parameterType="map">
