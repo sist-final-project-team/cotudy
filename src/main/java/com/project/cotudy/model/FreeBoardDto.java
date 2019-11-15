@@ -16,6 +16,7 @@ public class FreeBoardDto {
     private String freeDeleted;
     private String freeSubject;
 	private List<BoardFileDto> fileList;
+	private int freeReplyCnt;
 	//	int idx; int freeNum; String originalFileName; String storedFilePath; long fileSize;
 
 }
