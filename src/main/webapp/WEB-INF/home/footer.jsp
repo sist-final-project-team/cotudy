@@ -7,7 +7,6 @@
     <title>test</title>
 </head>
 <body>
-<
 <footer>
     <div class="container">
         <div class="row">

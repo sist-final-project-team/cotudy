@@ -478,10 +478,16 @@ public class StudyController {
     }
 
     @RequestMapping("/studyCont")
-    public ModelAndView studyBoardCont(@RequestParam("studyNum") int studyNum) throws Exception {
+    public ModelAndView studyBoardCont(@RequestParam("studyNum") int studyNum, HttpSession session) throws Exception {
+        String memId=(String)session.getAttribute("memId");
         ModelAndView mv = new ModelAndView("/study/studyBoardCont");
+       int check= boardService.contBookmark(studyNum,memId);
+
+       // System.out.println(studyNum+"   " +memId);
         StudyBoardDto studyBoard = boardService.selectStudyBoardCont(studyNum);
+
         mv.addObject("studyCont", studyBoard);
+        mv.addObject("contBookmark",check);
 
         return mv;
     }
@@ -553,6 +559,7 @@ public class StudyController {
     public String studyCreateForm(){
         return "/study/studyBoardCreate";
     }
+
 
     @RequestMapping("/studyCreateOk")
     public String studyCreateOk(StudyBoardDto studyBoard) throws Exception {
@@ -698,6 +705,48 @@ public class StudyController {
         mv.addObject("list",list);
         return mv;
     }
+
+
+
+    @RequestMapping(method = RequestMethod.GET, value = "/studyDelete")
+    public void studyBoardDelete(@RequestParam("studyNum") int studyNum, @RequestParam("memId") String memId, HttpServletResponse response,HttpServletRequest request) throws Exception{
+        String id = (String)request.getSession().getAttribute("memId");
+
+
+        response.setContentType("text/html; charset=UTF-8");
+        PrintWriter out = response.getWriter();
+
+        if(id.equals(memId)) {
+            boardService.deleteStudyBoard(studyNum);
+            out.println("<script>");
+            out.println("alert('삭제가 완료되었습니다.')");
+            out.println("location.href='/studyList'");
+            out.println("</script>");
+
+        }else {
+            out.println("<script>");
+            out.println("alert('남의 글 삭제하지 마셈.')");
+            out.println("location.href='/studyList'");
+            out.println("</script>");
+        }
+    }
+    @RequestMapping("/studyEdit")
+    public String studyBoardEdit(StudyBoardDto studyBoard) throws Exception{
+        //List<MultipartFile> fileList =  multireq.getFiles("files");
+        boardService.updateStudyBoard(studyBoard);
+
+        return "redirect:/studyCont?studyNum="+studyBoard.getStudyNum();
+    }
+    @RequestMapping("/studyEditForm")
+    public ModelAndView studyBoardEditForm(@RequestParam("studyNum") int studyNum) throws Exception {
+        ModelAndView mv = new ModelAndView("/study/studyBoardEdit");
+        StudyBoardDto studyBoard = boardService.selectStudyBoardCont(studyNum);    //글내용 가져오기
+
+        mv.addObject("studyBoard", studyBoard);
+
+        return mv;
+    }
+
     // 서지훈 스터디게시판 댓글 달기
     @RequestMapping("/studyCmt")
     @ResponseBody
@@ -715,3 +764,4 @@ public class StudyController {
         return entity;
     }
 }
+
