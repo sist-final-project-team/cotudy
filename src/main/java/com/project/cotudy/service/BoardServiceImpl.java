@@ -20,7 +20,6 @@ import java.util.Map;
 @Service
 public class BoardServiceImpl implements BoardService {
 
-
 	@Autowired
 	private FileUtils fileUtils;
 
@@ -184,8 +183,8 @@ public class BoardServiceImpl implements BoardService {
 		return boardMapper.selectStudyBoardCont(studyNum);
 	}
 	@Override
-	public List<StudyBoardReplyDto> selectStudyBoardReplyList(int studyNum) {
-		return null;
+	public List<StudyBoardReplyDto> selectStudyBoardReplyList(int studyNum) throws Exception {
+		return boardMapper.selectStudyBoardReplyList(studyNum);
 	}
 	@Override
 	public void deleteStudyBoardReply(int studyReplyNum) { }
@@ -239,8 +238,14 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	@Override
+
 	public int contBookmark(int studyNum, String memId) throws Exception {
-		int check = boardMapper.contBookmark(studyNum, memId);
-		return check;
+        int check = boardMapper.contBookmark(studyNum, memId);
+        return check;
+    }
+
+    @Override
+	public void insertStudyBoardReply(StudyBoardReplyDto studyBoardReplyDto) throws Exception {
+		boardMapper.insertStudyBoardReply(studyBoardReplyDto);
 	}
 }

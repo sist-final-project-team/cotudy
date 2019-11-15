@@ -56,9 +56,10 @@ public interface BoardMapper {
     void insertStudyBoard(StudyBoardDto studyBoard) throws Exception;
     // 북마크 관련
     List<StudyBoardDto> myBookmark(String memId) throws Exception;
-
     //북마크 체크 최다빈추가
     int contBookmark(int studyNum, String memId) throws Exception;
+    // 스터디보드 댓글
+    void insertStudyBoardReply(StudyBoardReplyDto studyBoardReplyDto) throws Exception;
 }
 
 

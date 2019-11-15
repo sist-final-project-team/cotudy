@@ -54,5 +54,6 @@ public interface BoardService {
   //=====북마크 확인용-최다빈 추가-
     int contBookmark(int studyNum, String memId) throws Exception;
 
-
+    // studyboard 댓글달기
+    void insertStudyBoardReply(StudyBoardReplyDto studyBoardReplyDto) throws Exception;
 }

@@ -18,6 +18,8 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -281,7 +283,7 @@ public class StudyController {
     	response.setContentType("text/html; charset=UTF-8");
     	PrintWriter out = response.getWriter();
     	
-    	if(id==memId) {
+    	if(id.equals(memId)) {
     		boardService.deleteFreeBoard(freeNum);
     		out.println("<script>");
     		out.println("alert('삭제가 완료되었습니다.')");
@@ -705,6 +707,7 @@ public class StudyController {
     }
 
 
+
     @RequestMapping(method = RequestMethod.GET, value = "/studyDelete")
     public void studyBoardDelete(@RequestParam("studyNum") int studyNum, @RequestParam("memId") String memId, HttpServletResponse response,HttpServletRequest request) throws Exception{
         String id = (String)request.getSession().getAttribute("memId");
@@ -735,12 +738,30 @@ public class StudyController {
         return "redirect:/studyCont?studyNum="+studyBoard.getStudyNum();
     }
     @RequestMapping("/studyEditForm")
-    public ModelAndView studyBoardEditForm(@RequestParam("studyNum") int studyNum) throws Exception{
+    public ModelAndView studyBoardEditForm(@RequestParam("studyNum") int studyNum) throws Exception {
         ModelAndView mv = new ModelAndView("/study/studyBoardEdit");
-        StudyBoardDto studyBoard = boardService.selectStudyBoardCont(studyNum);	//글내용 가져오기
+        StudyBoardDto studyBoard = boardService.selectStudyBoardCont(studyNum);    //글내용 가져오기
 
         mv.addObject("studyBoard", studyBoard);
 
         return mv;
     }
+
+    // 서지훈 스터디게시판 댓글 달기
+    @RequestMapping("/studyCmt")
+    @ResponseBody
+    public String studyComment(StudyBoardReplyDto studyBoardReplyDto) throws Exception{
+        System.out.println(studyBoardReplyDto.toString());
+        boardService.insertStudyBoardReply(studyBoardReplyDto);
+        return "success";
+    }
+    @RequestMapping("/studyReplyList")
+    @ResponseBody
+    public ResponseEntity<List<StudyBoardReplyDto>> studyReplyList(@RequestParam("studyNum") int studyNum) throws Exception {
+
+       ResponseEntity<List<StudyBoardReplyDto>> entity = null;
+       entity = new ResponseEntity<>(boardService.selectStudyBoardReplyList(studyNum), HttpStatus.OK);
+        return entity;
+    }
 }
+
