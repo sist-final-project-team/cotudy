@@ -115,6 +115,7 @@
                     $("#idcheck").text('');
                     $("#idcheck").show();
                     $("#idcheck").append(warningTxt);
+
                     $("#memId").val('').focus();
                     return false;
                 };
@@ -184,7 +185,7 @@
         </div>
         <div class="form-group">
             <label>아이디</label>
-            <input type="text" class="form-control" name="memId" id="memId" placeholder="알파벳, 숫자만 사용 가능"required="required">
+            <input type="text" class="form-control" name="memId" id="memId" placeholder="알파벳, 숫자만 사용 가능" required="required">
 
             <input  style="alignment :right" type="button" value="중복체크" id="idcheck_btn">
             <span id="idcheck"></span>
