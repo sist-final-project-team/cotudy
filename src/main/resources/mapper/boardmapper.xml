@@ -4,8 +4,8 @@
 <mapper namespace="com.project.cotudy.mapper.BoardMapper">
 	<select id="selectFreeBoardList" parameterType="map" resultType="com.project.cotudy.model.FreeBoardDto">
 		<![CDATA[
-			select	a.* from (select p.*, @rownum := @rownum+1 as rownum from (select * from free_board where free_deleted = 'N' order by free_num desc) p) a where
-				(@rownum:=0)=0 and free_deleted = 'N' and rownum between #{startNo} and #{endNo}
+			SELECT a.*,ifnull(b.cnt,0) as free_reply_cnt FROM (select p.*, @rownum := @rownum+1 as rownum from (select * from free_board where free_deleted = 'N' order by free_num desc) p) a
+LEFT JOIN (SELECT free_num, count(free_num) as cnt FROM free_board_reply GROUP BY free_num) b on a.free_num = b.free_num where (@rownum:=0)=0 and free_deleted = 'N' and rownum between #{startNo} and #{endNo};
 		]]>
 	</select>
 	<select id="getListCount" resultType="int">
@@ -223,7 +223,7 @@ where
 	<!-- 스터디 전체 목록 -->
 	<select id="selectStudyBoardList" resultType="com.project.cotudy.model.StudyBoardDto">
 <![CDATA[
-           select * from study_board where study_status='N'
+           select * from study_board where study_status='N' order by study_num desc
        ]]>
    </select>
 	<!-- 스터디 세부 내용 -->
@@ -252,4 +252,12 @@ where
     <select id="myBookmark" parameterType="String" resultType="com.project.cotudy.model.StudyBoardDto">
       select sb.* from study_board as sb join bookmark as bm ON bm.study_num where bm.mem_id=#{memId} and sb.study_num = bm.study_num and sb.study_status = 'N'
            </select>
+
+    <insert id="insertStudyBoardReply" parameterType="com.project.cotudy.model.StudyBoardReplyDto">
+        insert into study_board_reply (study_num,study_reply_cont,mem_id,study_reply_step,study_reply_indent,study_reply_created_time) values (#{studyNum},#{studyReplyCont},#{memId}, default, 1,now());
+    </insert>
+	<select id="selectStudyBoardReplyList" parameterType="int" resultType="com.project.cotudy.model.StudyBoardReplyDto">
+		select * from study_board_reply where study_num = #{studyNum} order by if(isnull(study_reply_step),study_reply_num,study_reply_step),study_reply_indent ;
+	</select>
+
 </mapper>

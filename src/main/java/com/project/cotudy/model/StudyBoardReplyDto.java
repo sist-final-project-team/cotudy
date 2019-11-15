@@ -10,4 +10,5 @@ public class StudyBoardReplyDto {
     private String studyReplyCont;
     private int studyReplyStep;
     private int studyReplyIndent;
+    private String studyReplyCreatedTime;
 }

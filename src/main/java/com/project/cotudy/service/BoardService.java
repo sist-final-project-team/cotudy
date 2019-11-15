@@ -49,5 +49,6 @@ public interface BoardService {
   //  void updateFreeBoardReply(FreeBoardReplyDto freeReplyBoard) throws Exception;
     // ======================== 북마크 리스트 가져오기
   List<StudyBoardDto> myBookmark(String memId) throws Exception;
-
+// studyboard 댓글달기
+void insertStudyBoardReply(StudyBoardReplyDto studyBoardReplyDto) throws Exception;
 }
