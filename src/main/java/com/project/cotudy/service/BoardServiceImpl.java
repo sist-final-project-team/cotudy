@@ -123,54 +123,59 @@ System.out.println("getFreeSubject????????????"+searchdto.getFreeSubject());
 System.out.println("getSearchKeyword????????????"+searchdto.getSearchKeyword());
 System.out.println("getSearchType???????????"+searchdto.getSearchType());
 
-		if(searchdto.getSearchKeyword() != null){ //1-1.키워드 넣음
-			System.out.println("1-1.키워드 넣음");
-			if(searchdto.getFreeSubject()!=null) {
+		if(searchdto.getSearchKeyword() == null || searchdto.getSearchKeyword().equals("")){ //1-1.키워드 안넣음
+			System.out.println("1-1.키워드 안넣음");			
+			if(searchdto.getFreeSubject().equals("전체보기")) { //1-1-1.말머리선택x ->전체글보기
+				list = boardMapper.selectFreeBoardList(startNo,endNo); }
+			else { //1-1-2.only 말머리
+				list = boardMapper.selectFreeBoardSubSearchList(searchdto,startNo,endNo); } 
+			
+		}else {//1-2.키워드 넣음  
+			System.out.println("1-2.키워드 넣음");			
+			if(searchdto.getFreeSubject()!=null) { //이거 왜있는거?
 				if (searchdto.getFreeSubject().equals("전체보기")) { //1-1-1.only 키워드
-					System.out.println("1-1-1.only 키워드");
+					System.out.println("1-2-1.only 키워드");
 					list = boardMapper.selectFreeBoardKeySearchList(searchdto, startNo, endNo);
 				} else { //1-1-2.말머리 + 키워드
-					System.out.println("1-1-2.말머리 + 키워드");
+					System.out.println("1-2-2.말머리 + 키워드");
 					System.out.println(searchdto.getSearchKeyword());
 					list = boardMapper.selectFreeBoardSubKeySearchList(searchdto, startNo, endNo);
 				}
 			}
-		}else {//1-2.키워드 x System.out.println("키워드x");
-			if(searchdto.getFreeSubject().equals("전체보기")) { //1-2-1.말머리선택x ->전체글보기
-				list = boardMapper.selectFreeBoardList(startNo,endNo); }
-			else { //1-2-2.only 말머리
-				list = boardMapper.selectFreeBoardSubSearchList(searchdto,startNo,endNo); } }
+			}
 		return list; }
 
 	@Override
 	public int getSearchListCount(SearchDto searchDto) throws Exception {
 		int result = 0;
-		if(searchDto.getSearchKeyword() != null){ //1-1.키워드 넣음
-			System.out.println("1-1.키워드 넣음 카운트");
-			if(searchDto.getFreeSubject()!=null){
-				if(searchDto.getFreeSubject().equals("전체보기")) { //1-1-1.only 키워드
-					System.out.println("1-1-1.only 키워드 카운트");
-					System.out.println(searchDto.getSearchKeyword());
-					System.out.println(searchDto.getSearchType());
-					result =boardMapper.getSearchkeyListCount(searchDto);
-					System.out.println("result======>"+result);
-				}else { //1-1-2.말머리 + 키워드
-					System.out.println("1-1-2.말머리 + 키워드 카운트");
-					result = boardMapper.getSearchsubkeyListCount(searchDto);
-				}
-			}
-		}else {//1-2.키워드 x System.out.println("키워드x");
-			if(searchDto.getFreeSubject().equals("전체보기")) { //1-2-1.말머리선택x ->전체글보기
-				System.out.println("1-2-1 말머리 선택x 전체글보기 카운트");
+		if(searchDto.getSearchKeyword() == null || searchDto.getSearchKeyword().equals("")){ //1-1.키워드 안넣음
+			if(searchDto.getFreeSubject().equals("전체보기")) { //1-1-1.말머리선택x ->전체글보기
+				System.out.println("1-1-1 말머리 선택x 전체글보기 카운트");
 				result = boardMapper.getListCount(); }
-			else { //1-2-2.only 말머리
-				System.out.println("1-2-2 말머리 보기 카운트");
+			else { //1-1-2.only 말머리
+				System.out.println("1-1-2 말머리 보기 카운트");
 				result = boardMapper.getSearchsubListCount(searchDto);
 			}
+		}else {
+		 //1-2.키워드 넣음
+		if(searchDto.getFreeSubject()!=null){
+			System.out.println("1-2.키워드 넣음 카운트");
+			if(searchDto.getFreeSubject().equals("전체보기")) { //1-2-1.only 키워드
+				System.out.println("1-2-1.only 키워드 카운트");
+				System.out.println(searchDto.getSearchKeyword());
+				System.out.println(searchDto.getSearchType());
+				result =boardMapper.getSearchkeyListCount(searchDto);
+				System.out.println("result======>"+result);
+			}else { //1-2-2.말머리 + 키워드
+				System.out.println("1-2-2.말머리 + 키워드 카운트");
+				result = boardMapper.getSearchsubkeyListCount(searchDto);
+			}
 		}
+	
 		System.out.println("result=>"+result);
-		return result;
 	}
+		return result;
+		}
 
 	@Override
 	public BoardFileDto selectBoardFileInformation(int idx, int freeNum) throws Exception {
