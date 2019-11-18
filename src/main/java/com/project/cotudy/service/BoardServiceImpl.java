@@ -156,6 +156,7 @@ System.out.println("getSearchType???????????"+searchdto.getSearchType());
 				System.out.println("1-1-2 말머리 보기 카운트");
 				result = boardMapper.getSearchsubListCount(searchDto);
 			}
+			
 		}else {
 		 //1-2.키워드 넣음
 		if(searchDto.getFreeSubject()!=null){
