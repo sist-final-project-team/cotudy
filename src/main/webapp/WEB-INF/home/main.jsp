@@ -33,10 +33,12 @@
                <div class="col-lg-8">
                  <div class="intro-body">
                    <h1 class="intro-title mb-4">
-                     	아직도 <span class="color-b">혼자서 </span> 
-                     <br> 공부하시나요?</h1>
+<%--                     	아직도 <span class="color-b" style="text-shadow: 3px 3px 15px black;">혼자</span>--%>
+<%--                     <br> 공부하시나요?</h1>--%>
+                   CO- <span class="color-b" style="text-shadow: 3px 3px 15px black;">함께</span>
+                     <br> STUDY- 공부해요</h1>
                    <p class="intro-subtitle intro-price">
-                     <a href="#"><span class="price-a">같이 공부 시작하기</span></a>
+                     <a href="/studyList"><span class="price-a">같이 공부 시작하기</span></a>
                    </p>
                  </div>
                </div>
@@ -53,13 +55,13 @@
              <div class="row">
                <div class="col-lg-8">
                  <div class="intro-body">
-                   <p class="intro-title-top">Doral, Florida
-                     <br> 78345</p>
+<%--                   <p class="intro-title-top">Doral, Florida--%>
+<%--                     <br> 78345</p>--%>
                    <h1 class="intro-title mb-4">
-                     <span class="color-b">204 </span> Rino
-                     <br> Venda Road Five</h1>
+                                          	아직도 <span class="color-b" style="text-shadow: 3px 3px 15px black;">혼자</span>
+                                          <br> 공부하시나요?</h1>
                    <p class="intro-subtitle intro-price">
-                     <a href="#"><span class="price-a">rent | $ 12.000</span></a>
+                     <a href="/studyList"><span class="price-a">같이 공부 시작하기</span></a>
                    </p>
                  </div>
                </div>
@@ -76,13 +78,13 @@
              <div class="row">
                <div class="col-lg-8">
                  <div class="intro-body">
-                   <p class="intro-title-top">Doral, Florida
-                     <br> 78345</p>
+<%--                   <p class="intro-title-top">Doral, Florida--%>
+<%--                     <br> 78345</p>--%>
                    <h1 class="intro-title mb-4">
-                     <span class="color-b">204 </span> Alira
-                     <br> Roan Road One</h1>
+                     <span class="color-b" style="text-shadow: 3px 3px 15px black;">코딩</span>
+                     <br> 이젠 어렵지 않아요</h1>
                    <p class="intro-subtitle intro-price">
-                     <a href="#"><span class="price-a">rent | $ 12.000</span></a>
+                     <a href="/studyList"><span class="price-a">같이 공부 시작하기</span></a>
                    </p>
                  </div>
                </div>
@@ -102,7 +104,7 @@
         <div class="col-md-12">
           <div class="title-wrap d-flex justify-content-between">
             <div class="title-box">
-              <h2 class="title-a">Our Services</h2>
+              <h2 class="title-a">사이트 소개</h2>
             </div>
           </div>
         </div>
