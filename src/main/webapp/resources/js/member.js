@@ -59,10 +59,14 @@ function mem_check() {
         $("#memName").val("").focus();
         return false;
     }
-    if($.trim($("#idcheck").text().val())!=="사용 가능한 아이디입니다."){
+
+
+    if($.trim($("#idcheck").text())!=="사용 가능한 아이디입니다."){
+        console.log("!");
+        console.log($.trim($("#idcheck").text()));
+        console.log("!");
         alert("중복아이디 확인하세요");
         $("#idcheck_btn").focus();
         return false;
     }
-    return false;
 }

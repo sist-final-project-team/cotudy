@@ -48,7 +48,9 @@
                     <tr>
                         <td>${freeboardDto.getFreeNum()}</td>
                         <td>${freeboardDto.getFreeSubject()}</td>
-                        <td><a href="/freeCont?freeNum=${freeboardDto.getFreeNum()}&page=${page}"> ${freeboardDto.getFreeTitle()}</a></td>
+                        <td><a href="/freeCont?freeNum=${freeboardDto.getFreeNum()}&page=${page}"> ${freeboardDto.getFreeTitle()}<c:if test="${freeboardDto.getFreeReplyCnt() >0}">
+                            (${freeboardDto.getFreeReplyCnt()})
+                            </c:if> </a></td>
                         <td>${freeboardDto.getMemId()}</td>
                         <td>${freeboardDto.getFreeCreatedDate()}</td>
                         <td>${freeboardDto.getFreeHit()}</td>

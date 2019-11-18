@@ -14,5 +14,6 @@ public class StudyBoardDto {
     private String studyArea;
     private String studyKeyword;
     private String studyStatus;
+    private String studyOpenchat;
 
 }

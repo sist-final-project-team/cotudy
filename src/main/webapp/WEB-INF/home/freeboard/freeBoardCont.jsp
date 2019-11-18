@@ -10,12 +10,38 @@
 <title>Insert title here</title>
 	<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
 <script>
+	function cont_check() {
 
+				if ($.trim($("#replyCont1").val()) === "") {
+					alert('댓글을 입력하세요');
+					$("#replyCont1").focus();
+					return false;
+				}
+
+	}
+	function cont_check2() {
+		if ($.trim($("#replyCont2").val()) === "") {
+			alert('댓글을 입력하세요');
+			$("#replyCont2").focus();
+			return false;
+
+		}
+	}
+	function cont_check3(i) {
+		console.log("3");
+		console.log($.trim($("#replyCont3"+i).val()));
+		if ($.trim($("#replyCont3"+i).val()) === ""||$.trim($("#replyCont3"+i).val()) ==="☞") {
+			alert('댓글을 입력하세요');
+			$("#replyCont3"+i).focus();
+			return false;
+
+		}
+	}
 	function deleteconfirm(memId)
 	{
 		console.log("삭제폼입성");
 		var freeNum = document.getElementById("freeNum").value;
-		var memId =memId;
+		var memId = memId;
 		msg = "정말로 삭제하시겠습니까?";
 		if (confirm(msg)!=0) {
 			location.href = "/freeDelete?freeNum=" + freeNum+ "&memId="+memId;
@@ -129,7 +155,6 @@
 					<td>${dto.getFreeCreatedDate() }</td>
 					</c:if>
 				</tr>
-
 				<tr>
 					<th>첨부파일</th>
 					<td>
@@ -143,11 +168,7 @@
 					</c:forEach>
 							</td>
 				</tr>
-				
 			</c:if>
-			
-			
-			
 			<c:if test="${empty dto}">
 				<tr>
 					<td colspan="2" align="center">
@@ -155,10 +176,8 @@
 					</td>
 				</tr>
 			</c:if>
-			
 			<tr>
 				<td colspan="2" align="center">
-				
 				 <c:if test="${sessionScope.memId eq dto.getMemId()}">
                     <input type="button" value="수정" onclick="location.href='/freeEditForm?freeNum=${dto.getFreeNum()}'">
 		 			<input type="button" value="삭제" onclick="deleteconfirm('${dto.getMemId()}')">
@@ -166,9 +185,7 @@
 					<input type="button" value="전체목록" onclick="location.href='/freeList'">
 				</td>
 			</tr>
-			
 		</table>
-		
     <table class="board_reply">
         <tr>
             	<th colspan="3">댓글 목록</th>
@@ -199,14 +216,14 @@
 					   </c:if>
 				   </td>
 				</tr>
-				<form method="post"  action="<%=request.getContextPath()%>/reReply">
+				<form method="post"  action="<%=request.getContextPath()%>/reReply" onsubmit="return cont_check2();" id="2">
 					<% if ((String)session.getAttribute("memId")==null){ %>
 					<tr id = "reply${index}" style="display:none">
 						<td colspan="2"><textarea cols="70" rows="5" style="resize: none" readonly>로그인 후 작성이 가능합니다.</textarea></td>
 					</tr>
 					<%} else{ %>
 					<tr id = "reply${index}" style="display:none">
-						<td colspan="2"><textarea cols="70" rows="5" style="resize: none" name="replyCont"></textarea></td>
+						<td colspan="2"><textarea cols="70" rows="5" style="resize: none" name="replyCont" id="replyCont2"></textarea></td>
 						<td><input type="submit" value="댓글달기"></td>
 					</tr>
 					<% } %>
@@ -216,9 +233,9 @@
 						<input type="hidden" name="replyStep" id="replyStep${index}" value="${reply.getReplyStep()}">
 						<input type="hidden" name="replyIndent" value="${reply.getReplyIndent()}">
 				</form>
-				<form method="post" action="<%=request.getContextPath()%>/freeReplyModify">
+				<form method="post" action="<%=request.getContextPath()%>/freeReplyModify" onsubmit="return cont_check3(${index});" id="3">
 					<tr id = "modify${index}" style="display:none">
-						<td colspan="2"><textarea cols="70" rows="5" style="resize: none" name="replyCont">${reply.getReplyCont()}</textarea></td>
+						<td colspan="2"><textarea cols="70" rows="5" style="resize: none" name="replyCont" id="replyCont3${index}" >${reply.getReplyCont()}</textarea></td>
 						<input type="hidden" name="freeReplyNum" id="freeReplyNum${index}" value="${reply.getFreeReplyNum()}">
 						<input type="hidden" name="freeNum" value="${reply.getFreeNum()}">
 						<td><input type="submit" value="수정하기"></td>
@@ -227,7 +244,7 @@
             </c:forEach>
         </c:if>
     </table>
-		 <form method="post" action="<%=request.getContextPath()%>/freeReplyWrite">
+		 <form method="post" action="<%=request.getContextPath()%>/freeReplyWrite" onsubmit="return cont_check();" id="1">
     <table class="board_reply">
         <% if ((String)session.getAttribute("memId")==null){ %>
         <tr>
@@ -238,17 +255,13 @@
 		   <c:set var="freeNum" value="${freeNum}"/>
 		   <input type="hidden" name="memId" value="${sessionScope.memId}">
 		   <input type="hidden" name="freeNum" value="${freeNum}">
-           <td><textarea cols="70" rows="5" style="resize: none" name="replyCont"></textarea></td>
+           <td><textarea cols="70" rows="5" style="resize: none" name="replyCont" id="replyCont1"></textarea></td>
            <td><input type="submit" value="댓글달기"></td>
        </tr>
         <% } %>
     </table>
     </form>
-
-
-	
 	</div>
-	
 </body>
 </html>
 

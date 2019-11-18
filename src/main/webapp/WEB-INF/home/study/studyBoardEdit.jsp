@@ -16,68 +16,70 @@
 <jsp:include page="../header.jsp"></jsp:include>
 <div class ="container2" align="center">
     <hr width="50%" color="purple">
-    <h3>테이블 글쓰기 폼</h3>
+    <h3>스터디 수정</h3>
     <hr width="50%" color="purple">
 
-    <form method="post" action="/studyCreateOk"  >
+    <form method="post" action="/studyEdit"  >
         <input type="hidden" value="<%=(String)session.getAttribute("memId") %>" name="memId">
         <table border="1" width="600" cellspacing="0">
-
+<c:set var="studyBoard" value="${studyBoard}"></c:set>
+        <input type="hidden" value="${studyBoard.getStudyNum()}" name="studyNum">
             <tr>
                 <th>글제목 </th>
-                <td> <input id="studyTitle" name="studyTitle" required="required"> </td>
+                <td> <input id="studyTitle" name="studyTitle" required="required" value="${studyBoard.getStudyTitle()}"> </td>
             </tr>
             <tr>
                 <th>글내용</th>
-                <td> <textarea rows="8" cols="60" name="studyCont" style="resize: none" required="required"></textarea> </td>
+                <td> <textarea rows="8" cols="60" name="studyCont" style="resize: none" required="required">${studyBoard.getStudyCont()}</textarea> </td>
             </tr>
 
             <tr>
                 <th>날짜선택</th>
-                <td> <input type="text" class="date1" name="studyStartDate" placeholder="시작날짜 선택" autocomplete="off" required="required" readonly>
-                    <input type="text" class="date2"  name="studyEndDate" placeholder="종료날짜 선택" autocomplete="off" required="required" readonly></td>
+                <td> <input type="text" class="date1" name="studyStartDate" placeholder="시작날짜 선택" autocomplete="off" required="required" readonly value="${studyBoard.getStudyStartDate()}">
+                    <input type="text" class="date2"  name="studyEndDate" placeholder="종료날짜 선택" autocomplete="off" required="required" readonly value="${studyBoard.getStudyEndDate()}"> </td>
             </tr>
             <tr>
                 <th>지역</th>
                 <td>
-                <select name="studyArea" required="required" >
-                    <option value="">지역선택</option>
-                    <option value="강남">강남</option>
-                    <option value="신촌">신촌</option>
-                    <option value="홍대">홍대</option>
-                    <option value="부평">부평</option>
-                    <option value="수원">수원</option>
-                    <option value="제주">제주</option>
-                </select>
+                    <select name="studyArea" required="required" value="${studyBoard.getStudyArea()}>
+                        <option value="">지역선택</option>
+                        <option value="강남">강남</option>
+                        <option value="신촌">신촌</option>
+                        <option value="홍대">홍대</option>
+                        <option value="부평">부평</option>
+                        <option value="수원">수원</option>
+                        <option value="제주">제주</option>
+                    </select>
                 </td>
             </tr>
 
             <tr>
                 <th>키워드</th>
                 <td>
-                        <select required="required"   class="demo" multiple="multiple" name="studyKeyword" >
-                            <optgroup label="Languages">
-                                <option value="C++">C++</option>
-                                <option value="C#">C#</option>
-                                <option value="Java">Java</option>
-                                <option value="C언어">C언어</option>
-                            </optgroup>
-                            <optgroup label="Scripts">
-                                <option value="JavaScript">JavaScript</option>
-                                <option value="PHP">PHP</option>
-                                <option value="ASP">ASP</option>
-                                <option value="JSP">JSP</option>
-                            </optgroup>
-                        </select>
+                    <select required="required"   class="demo" multiple="multiple" name="studyKeyword" >
+                        <optgroup label="Languages">
+                            <option value="C++">C++</option>
+                            <option value="C#">C#</option>
+                            <option value="Java">Java</option>
+                            <option value="C언어">C언어</option>
+                        </optgroup>
+                        <optgroup label="Scripts">
+                            <option value="JavaScript">JavaScript</option>
+                            <option value="PHP">PHP</option>
+                            <option value="ASP">ASP</option>
+                            <option value="JSP">JSP</option>
+                        </optgroup>
+                    </select>
                 </td>
             </tr>
             <tr>
+
                 <th>카카오 오픈채팅 주소</th>
-                <td><input type="text" name="studyOpenchat"> </td>
+                <td><input type="text" name="studyOpenchat" value="${studyBoard.getStudyOpenchat()}"> </td>
             </tr>
             <tr>
                 <td colspan="2" align="center">
-                    <input type="submit" value="글쓰기">&nbsp;&nbsp;&nbsp;
+                    <input type="submit" value="수정하기">&nbsp;&nbsp;&nbsp;
                     <input type="reset" value="다시작성">
                 </td>
             </tr>
@@ -85,13 +87,13 @@
     </form>
 
 
-        <script src="../resources/js/fSelect.js"></script>
+    <script src="../resources/js/fSelect.js"></script>
 
-        <script>
-            $(function() {
-                $('.demo').fSelect();
-            });
-        </script>
+    <script>
+        $(function() {
+            $('.demo').fSelect();
+        });
+    </script>
 
 </div>
 

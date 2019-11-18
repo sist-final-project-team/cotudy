@@ -22,7 +22,6 @@ import java.util.Map;
 @Service
 public class BoardServiceImpl implements BoardService {
 
-
 	@Autowired
 	private FileUtils fileUtils;
 
@@ -195,15 +194,20 @@ System.out.println("getSearchType???????????"+searchdto.getSearchType());
 		return boardMapper.selectStudyBoardCont(studyNum);
 	}
 	@Override
-	public List<StudyBoardReplyDto> selectStudyBoardReplyList(int studyNum) {
-		return null;
+	public List<StudyBoardReplyDto> selectStudyBoardReplyList(int studyNum) throws Exception {
+		return boardMapper.selectStudyBoardReplyList(studyNum);
 	}
 	@Override
 	public void deleteStudyBoardReply(int studyReplyNum) { }
 	@Override
-	public void updateStudyBoard(StudyBoardDto studyBoard) { }
+	public void updateStudyBoard(StudyBoardDto studyBoard) throws Exception{
+		boardMapper.updateStudyBoard(studyBoard);
+	}
 	@Override
-	public void deleteStudyBoard(int studyNum) { }
+	public void deleteStudyBoard(int studyNum) throws Exception {
+		boardMapper.deleteStudyBoard(studyNum);
+	}
+
 
 
 
@@ -242,5 +246,17 @@ System.out.println("getSearchType???????????"+searchdto.getSearchType());
 	@Override
 	public List<StudyBoardDto> myBookmark(String memId) throws Exception {
 		return boardMapper.myBookmark(memId);
+	}
+
+	@Override
+
+	public int contBookmark(int studyNum, String memId) throws Exception {
+        int check = boardMapper.contBookmark(studyNum, memId);
+        return check;
+    }
+
+    @Override
+	public void insertStudyBoardReply(StudyBoardReplyDto studyBoardReplyDto) throws Exception {
+		boardMapper.insertStudyBoardReply(studyBoardReplyDto);
 	}
 }

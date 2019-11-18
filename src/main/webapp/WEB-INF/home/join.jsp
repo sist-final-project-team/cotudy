@@ -115,6 +115,7 @@
                     $("#idcheck").text('');
                     $("#idcheck").show();
                     $("#idcheck").append(warningTxt);
+
                     $("#memId").val('').focus();
                     return false;
                 };
@@ -184,7 +185,7 @@
         </div>
         <div class="form-group">
             <label>아이디</label>
-            <input type="text" class="form-control" name="memId" id="memId" placeholder="알파벳, 숫자만 사용 가능"required="required">
+            <input type="text" class="form-control" name="memId" id="memId" placeholder="알파벳, 숫자만 사용 가능" required="required">
 
             <input  style="alignment :right" type="button" value="중복체크" id="idcheck_btn">
             <span id="idcheck"></span>
@@ -212,14 +213,24 @@
             <input type="text" class="form-control" name="memArea" placeholder="○○시○○구" id="memArea" required="required">
         </div>
 
-        <div class="form-group">
-            <label class="checkbox-inline"><input type="checkbox" required="required"> I accept the <a href="#">Terms of Use</a> &amp; <a href="#">Privacy Policy</a></label>
-        </div>
+
         <div class="form-group">
             <button type="submit" class="btn btn-primary btn-block btn-lg">Sign Up</button>
         </div>
     </form>
-    <div class="text-center small">Already have an account? <a href="#">Login here</a></div>
+    <div class="text-center small">Already have an account? <a href="#" onclick="login()">Login here</a></div>
 </div>
+
+<script type="text/javascript">
+    function login() {
+        var popupX = (window.screen.width / 2) - (500 / 2);
+        // 만들 팝업창 좌우 크기의 1/2 만큼 보정값으로 빼주었음
+        var popupY= (window.screen.height / 2) - (600 / 2);
+        // 만들 팝업창 상하 크기의 1/2 만큼 보정값으로 빼주었음
+        self.close();
+        window.open("/login", "로그인 화면", 'top='+popupY+', left='+ popupX + ', width=500, height=600, status=no, menubar=no, toolbar=no, resizable=no');
+    }
+
+</script>
 </body>
 </html>
