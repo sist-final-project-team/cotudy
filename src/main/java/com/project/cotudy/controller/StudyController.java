@@ -178,6 +178,7 @@ public class StudyController {
 
     @RequestMapping("/freeSearchList")
     public ModelAndView freeSearch(SearchDto searchdto,HttpServletRequest request) throws Exception {
+    	System.out.println("주제잘들어왔나???????"+searchdto.getFreeSubject());
         int rowsize = 10; //한번에 보여주는 글 갯수
         int block = 4; // 보여주는 페이지수 [1][2][3]
         int totalRecord = 0; // 총 글갯수

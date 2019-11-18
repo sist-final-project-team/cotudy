@@ -119,6 +119,9 @@ public class BoardServiceImpl implements BoardService {
 		int startNo = ((page-1)*rowsize)+1;
 		int endNo = (page * rowsize);
 		List<FreeBoardDto> list = null;
+System.out.println("getFreeSubject????????????"+searchdto.getFreeSubject());
+System.out.println("getSearchKeyword????????????"+searchdto.getSearchKeyword());
+System.out.println("getSearchType???????????"+searchdto.getSearchType());
 
 		if(searchdto.getSearchKeyword() != null){ //1-1.키워드 넣음
 			System.out.println("1-1.키워드 넣음");
@@ -161,7 +164,7 @@ public class BoardServiceImpl implements BoardService {
 				System.out.println("1-2-1 말머리 선택x 전체글보기 카운트");
 				result = boardMapper.getListCount(); }
 			else { //1-2-2.only 말머리
-				System.out.println("1-2-1 말머리 보기 카운트");
+				System.out.println("1-2-2 말머리 보기 카운트");
 				result = boardMapper.getSearchsubListCount(searchDto);
 			}
 		}
