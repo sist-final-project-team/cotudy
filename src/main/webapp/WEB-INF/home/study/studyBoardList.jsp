@@ -62,9 +62,9 @@
                 <label class="custom-control-label" for="python">python</label>
             </div>
             <div class="custom-control custom-checkbox">
-                <input type="checkbox" class="custom-control-input" name="keywords" id="c#"
-                       value="c#">
-                <label class="custom-control-label" for="c#">C#</label>
+                <input type="checkbox" class="custom-control-input" name="keywords" id="C#"
+                       value="C#">
+                <label class="custom-control-label" for="C#">C#</label>
             </div>
             <div class="custom-control custom-checkbox">
                 <input type="checkbox" class="custom-control-input" name="keywords" id="JavaScript"
