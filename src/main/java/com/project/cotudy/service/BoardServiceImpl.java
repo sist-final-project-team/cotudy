@@ -32,11 +32,9 @@ public class BoardServiceImpl implements BoardService {
 	public List<FreeBoardDto> selectFreeBoardList(int page,int rowsize) throws Exception {
 		int startNo = ((page-1)*rowsize)+1;
 		int endNo = (page * rowsize);
-
 		List<FreeBoardDto> list = boardMapper.selectFreeBoardList(startNo,endNo);
-		if(list.size()==0){
-			list = boardMapper.selectFreeBoardList(startNo,endNo);
-		}
+		
+		  if(list.size()==0){ list = boardMapper.selectFreeBoardList(startNo,endNo); }
 		return list;
 	}
 

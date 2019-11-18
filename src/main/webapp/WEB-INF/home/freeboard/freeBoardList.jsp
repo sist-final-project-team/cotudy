@@ -1,10 +1,12 @@
 
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <!DOCTYPE html>
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+   
     <title>코터디-자유게시판</title>
     <script type="text/javascript">
         function writeOk() {
@@ -32,8 +34,9 @@
 
 <div class="btn-group" role="group" aria-label="Basic example">
   <button type="button" class="btn btn-secondary" onclick="location.href='/freeList' " >전체보기</button>
+  <button type="button" class="btn btn-secondary" value="자유" onclick="location.href='/freeSearchList?freeSubject=<%="자유"%>'" >자유</button>
   <button type="button" class="btn btn-secondary" value="질문" onclick="location.href='/freeSearchList?freeSubject=<%="질문"%>'" >질문</button>
-  <button type="button" class="btn btn-secondary" value="사담" onclick="location.href='/freeSearchList?freeSubject=<%="사담"%>'" >사담</button>
+  <button type="button" class="btn btn-secondary" value="정보" onclick="location.href='/freeSearchList?freeSubject=<%="정보"%>'" >정보</button>
   <button type="button" class="btn btn-secondary" value="기타" onclick="location.href='/freeSearchList?freeSubject=<%="기타"%>'" >기타</button>
 </div>
 
@@ -99,8 +102,9 @@
             <%--<input type="hidden" name="page" value="${page}">--%>
 			<select name="freeSubject"  >
 				<option value="전체보기" selected>전체보기</option>
+				<option value="자유">자유</option>
 				<option value="질문">질문</option>
-				<option value="사담">사담</option>
+				<option value="정보">정보</option>
 				<option value="기타">기타</option>
 			</select>
 			<select name="searchType">

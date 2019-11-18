@@ -30,8 +30,9 @@
 					<td>
 						<select name="freeSubject">
 							<option value="기타" selected>주제선택</option>
+							<option value="자유">자유</option>
 							<option value="질문">질문</option>
-							<option value="사담">사담</option>
+							<option value="정보">정보</option>
 							<option value="기타">기타</option>
 						</select>
 					</td>

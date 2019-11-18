@@ -153,14 +153,14 @@ public class StudyController {
         int startBlock = (((page-1) / block)*block)+1;
         int endBlock = (((page-1) / block)*block)+block;
         totalRecord =  boardService.getListCount();
-
         List<FreeBoardDto> list = boardService.selectFreeBoardList(page,rowsize);
+        if(list.size()==0) {
+        	 list = boardService.selectFreeBoardList(page,rowsize);
+        }
         allPage = (int)Math.ceil(totalRecord / (double)rowsize);
         if(endBlock > allPage) {
             endBlock = allPage;
         }
-        System.out.println(page + " " + rowsize);
-        System.out.println(list.size());
         ModelAndView mv = new ModelAndView("/freeboard/freeBoardList");
 
         mv.addObject("page", page);
