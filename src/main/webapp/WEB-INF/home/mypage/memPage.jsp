@@ -26,7 +26,6 @@
   			<li class="list-group-item">
   				이름 : ${meminfodto.getMemName()}<br>
   				이메일 : ${meminfodto.getMemEmail()}<br>
-  				거주지 : ${meminfodto.getMemArea()}
   			</li>
 		</ul><br><br>
 		
