@@ -128,6 +128,14 @@
                         <h1 align="center" style="padding-left: 200px;
                             padding-right: 200px;"
                         ><b>${studyBoard.getStudyTitle()}</b></h1>
+                        <div align="left"  style="float: left; width: 30%;">
+                              <span style="display: inline-block"><img src="https://img.icons8.com/material-sharp/24/000000/user.png">${studyBoard.getMemId()}
+                        </div>
+<div align="right">
+
+
+                       <img src="https://img.icons8.com/metro/26/000000/date-to.png">  ${studyBoard.getStudyCreated()}</p></span>
+</div>
                         <hr>
                     </td>
                 </tr>
@@ -159,7 +167,7 @@
             <c:if test="${sessionScope.memId eq memId}">
                 <input type="hidden" id="studyNum" value="${studyBoard.getStudyNum()}">
                 <input type="button" class="btn btn-warning" id="studyEdit"  value="글 수정" onclick = "location.href = '/studyEditForm?studyNum=${studyBoard.getStudyNum()}'">
-                <input type="button" class="btn btn-danger" id="studyEdit" onclick="deleteConfirm(${memId})" value="글 삭제">
+                <input type="button" class="btn btn-danger" id="studyEdit" onclick="deleteConfirm('${memId}')" value="글 삭제">
             </c:if>
             <c:if test="${contBookmark eq 1}">
                 <input type="button" class="btn btn-success" id="bookMark" onclick="checkBookMark()" value="북마크">

@@ -32,6 +32,7 @@ public class BoardServiceImpl implements BoardService {
 		int endNo = (page * rowsize);
 
 		List<FreeBoardDto> list = boardMapper.selectFreeBoardList(startNo,endNo);
+		System.out.println(list.size());
 		if(list.size()==0){
 			list = boardMapper.selectFreeBoardList(startNo,endNo);
 		}

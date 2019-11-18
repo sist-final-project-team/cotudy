@@ -57,14 +57,13 @@ public class MemberServiceImpl implements MemberService {
     }//end of kakaoDbCheck
      
     
-    @Override
-    public List<FreeBoardDto> selectMyPostList(String memId) {
-        return null;
-    }
+
 
     @Override
-    public List<StudyBoardDto> selectMyStudyList(String memId) {
-        return null;
+    public List<StudyBoardDto> selectMyStudyList(String memId) throws Exception {
+
+        List<StudyBoardDto> studyList = memberMapper.selectMyStudyList(memId);
+        return studyList;
     }
 
     @Override
