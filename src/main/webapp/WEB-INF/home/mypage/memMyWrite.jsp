@@ -73,29 +73,7 @@
                                         종료날짜:${endDate-18217}
                                         시작날짜:${strDate-18217}
                                         현재날짜:${todayDate}
-
                                     </p>
-
-<%--                                    <c:if test="${todayDate < strDate-18217}">--%>
-<%--                                        <h3>이거는 0퍼센트</h3>--%>
-<%--                                        <div class="progress">--%>
-<%--                                            <div class="progress-bar" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">0%</div>--%>
-<%--                                        </div>--%>
-<%--                                    </c:if>--%>
-<%--                                    <c:if test="${todayDate >= endDate-18217}">--%>
-<%--                                        <h3>이거는 100퍼센트</h3>--%>
-<%--                                    <div class="progress">--%>
-<%--                                        <div class="progress-bar" role="progressbar" style="width: 100%;" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">100%</div>--%>
-<%--                                    </div>--%>
-<%--                                    </c:if>--%>
-<%--                                    <c:if test="${!(todayDate >= endDate-18217)||(todayDate < strDate-18217)}">--%>
-<%--                                        <h3>  ${todayDate-strDate+18217}/${endDate-strDate}*100</h3>--%>
-<%--                                        <div class="progress">--%>
-
-<%--                                            <div class="progress-bar" role="progressbar" style="width: 100%;" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"> ${todayDate-strDate+18217}/${endDate-strDate}*100%</div>--%>
-<%--                                        </div>--%>
-<%--                                    </c:if>--%>
-
                                     <c:choose>
                                         <c:when test="${todayDate < strDate-18217}">
                                     <div class="progress">
@@ -117,7 +95,6 @@
                                     <br>
                                     <a href="/studyCont?studyNum=${studyList.getStudyNum()}" class="btn btn-primary">자세히
                                         보기</a>
-
                                 </div>
                             </div>
                         </div>
