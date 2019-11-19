@@ -8,6 +8,7 @@
 </head>
 <body>
 <footer>
+    <b>cotudy325@gmail.com</b> <br><br>
     <div class="container">
         <div class="row">
             <div class="col-md-12">

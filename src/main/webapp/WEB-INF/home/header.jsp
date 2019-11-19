@@ -61,10 +61,10 @@
             <a class="nav-link" href="/studyCreate">스터디 만들기</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="/freeList">통합게시판</a>
+            <a class="nav-link" href="/freeList">커뮤니티</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="/notice">공지사항</a>
+            <a class="nav-link" href="/notice">FAQ</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="/event">EVENT</a>

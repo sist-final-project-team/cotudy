@@ -60,18 +60,13 @@
                 <div class="panel-heading p-3 mb-3" role="tab" id="heading0">
                     <h3 class="panel-title">
                         <a class="collapsed" role="button" title="" data-toggle="collapse" data-parent="#accordion" href="#collapse0" aria-expanded="true" aria-controls="collapse0">
-                            코터디가 무엇인가요?
+                            아이디찾기, 비밀번호찾기는 어디서 하나요?
                         </a>
                     </h3>
                 </div>
                 <div id="collapse0" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading0">
                     <div class="panel-body px-3 mb-4">
-                        <p> 코터디가 무엇인가요?</p>
-                        <ul>
-                            <li> 코터디가 무엇인가요?</li>
-                            <li> 코터디가 무엇인가요?</li>
-                            <li> 코터디가 무엇인가요?</li>
-                            <li> 코터디가 무엇인가요?</li>
+                        화면 우측 상단에 있는 Login버튼을 누르시면 아이디찾기, 비밀번호찾기 버튼이 있습니다
                         </ul>
                     </div>
                 </div>
@@ -81,13 +76,13 @@
                 <div class="panel-heading p-3 mb-3" role="tab" id="heading1">
                     <h3 class="panel-title">
                         <a class="collapsed" role="button" title="" data-toggle="collapse" data-parent="#accordion" href="#collapse1" aria-expanded="true" aria-controls="collapse1">
-                            서지훈은 보세요
+                            서비스 이용중 문의는 어디에 하나요?
                         </a>
                     </h3>
                 </div>
                 <div id="collapse1" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading1">
                     <div class="panel-body px-3 mb-4">
-                        <p>끄지셈</p>
+                        <p>cotudy325@gmail.com로 문의해주세요</p>
                     </div>
                 </div>
             </div>
@@ -96,18 +91,18 @@
                 <div class="panel-heading p-3 mb-3" role="tab" id="heading2">
                     <h3 class="panel-title">
                         <a class="collapsed" role="button" title="" data-toggle="collapse" data-parent="#accordion" href="#collapse2" aria-expanded="true" aria-controls="collapse2">
-                            안녕하세요
+                            회원탈퇴시 제가 쓴 게시물이 삭제가 되나요?
                         </a>
                     </h3>
                 </div>
                 <div id="collapse2" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading2">
                     <div class="panel-body px-3 mb-4">
-                        <p>안녕히가세요</p>
+                        <p> 삭제되지 않습니다. <br> 탈퇴시 같은 아이디로 재가입이 불가하오니 본인이 작성하신 게시물을 삭제하시고 탈퇴해 주시기 바랍니다.</p>
                     </div>
                 </div>
             </div>
             ​
-            <div class="panel panel-default">
+<%--            <div class="panel panel-default">
                 <div class="panel-heading p-3 mb-3" role="tab" id="heading3">
                     <h3 class="panel-title">
                         <a class="collapsed" role="button" title="" data-toggle="collapse" data-parent="#accordion" href="#collapse3" aria-expanded="true" aria-controls="collapse3">
@@ -121,7 +116,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div>--%>
         ​
     </div>
 </section>
