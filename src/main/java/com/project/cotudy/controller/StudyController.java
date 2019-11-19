@@ -311,12 +311,12 @@ public class StudyController {
     public void findId_ok(@RequestParam("memName") String memName, @RequestParam("memEmail") String memEmail, HttpServletResponse response) throws Exception {
         response.setContentType("text/html; charset= UTF-8");
         PrintWriter out = response.getWriter();
-        String id = memberService.findId(memName, memEmail);
+        List<String> id = memberService.findId(memName, memEmail);
         if (id != null) {
             out.println("<script>");
-            out.println("alert('회원님의 아이디는" + id + "입니다')");
+            out.println("alert('회원님의 아이디는" + id.toString() + "입니다')");
             out.println("window.open(\"/login\", \"로그인 화면\", \"top=300, left=300, width=500, height=600, status=no, menubar=no, toolbar=no, resizable=no\");");
-            out.println("self.close()");
+           /* out.println("self.close()");*/
             out.println("</script>");
         } else {
             out.println("<script>");
@@ -839,6 +839,35 @@ public class StudyController {
        ResponseEntity<List<StudyBoardReplyDto>> entity = null;
        entity = new ResponseEntity<>(boardService.selectStudyBoardReplyList(studyNum), HttpStatus.OK);
         return entity;
+    }
+    @RequestMapping(value = "/studyReplyDelete")
+    public void studyReplyDelete(@RequestParam("studyReplyNum") String studyReplyNum1, @RequestParam("studyNum") String studyNum1,@RequestParam("studyReplyStep") String studyReplyStep1, HttpServletResponse response) throws Exception {
+        int studyNum = Integer.parseInt(studyNum1);
+        int studyReplyNum = Integer.parseInt(studyReplyNum1);
+        int studyReplyStep = Integer.parseInt(studyReplyStep1);
+        System.out.println(studyReplyNum);
+        boardService.deleteStudyBoardReply(studyReplyNum);
+        if(studyReplyStep==0){
+            System.out.println("하위항목 삭제");
+            boardService.deleteStudyBoardReReply(studyReplyNum);
+        }
+        response.setContentType("text/html; charset=UTF-8");
+        PrintWriter out = response.getWriter();
+        out.println("<script>");
+        out.println("location.href='/studyCont?studyNum=" + studyNum + "'");
+        out.println("</script>");
+    }
+    @RequestMapping(method = RequestMethod.POST, value = "/studyReplyModify")
+    @ResponseBody
+    public void studyReplyModify(@RequestParam("studyReplyNum") int studyReplyNum, @RequestParam("studyReplyCont") String studyReplyCont) throws Exception {
+        boardService.updateStudyBoardReply(studyReplyNum,studyReplyCont);
+    }
+    @RequestMapping("/studyReCmt")
+    @ResponseBody
+    public String studyReComment(StudyBoardReplyDto studyBoardReplyDto) throws Exception{
+        System.out.println(studyBoardReplyDto.toString());
+        boardService.insertStudyBoardReReply(studyBoardReplyDto);
+        return "success";
     }
 }
 

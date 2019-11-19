@@ -35,8 +35,7 @@ public class BoardServiceImpl implements BoardService {
 
 		List<FreeBoardDto> list = boardMapper.selectFreeBoardList(startNo,endNo);
 		if(list.size()==0){
-			list = boardMapper.selectFreeBoardList(startNo,endNo);
-		}
+			list = boardMapper.selectFreeBoardList(startNo,endNo);		}
 		return list;
 	}
 
@@ -198,7 +197,9 @@ System.out.println("getSearchType???????????"+searchdto.getSearchType());
 		return boardMapper.selectStudyBoardReplyList(studyNum);
 	}
 	@Override
-	public void deleteStudyBoardReply(int studyReplyNum) { }
+	public void deleteStudyBoardReply(int studyReplyNum) throws Exception {
+	    boardMapper.deleteStudyBoardReply(studyReplyNum);
+    }
 	@Override
 	public void updateStudyBoard(StudyBoardDto studyBoard) throws Exception{
 		boardMapper.updateStudyBoard(studyBoard);
@@ -207,11 +208,6 @@ System.out.println("getSearchType???????????"+searchdto.getSearchType());
 	public void deleteStudyBoard(int studyNum) throws Exception {
 		boardMapper.deleteStudyBoard(studyNum);
 	}
-
-
-
-
-
 	@Override
 	public void writeFreeBoardReply(FreeBoardReplyDto freeReplyBoard) throws Exception {
 		boardMapper.writeFreeReplyBoard(freeReplyBoard);
@@ -258,5 +254,20 @@ System.out.println("getSearchType???????????"+searchdto.getSearchType());
     @Override
 	public void insertStudyBoardReply(StudyBoardReplyDto studyBoardReplyDto) throws Exception {
 		boardMapper.insertStudyBoardReply(studyBoardReplyDto);
+	}
+
+    @Override
+    public void updateStudyBoardReply(int studyReplyNum, String studyReplyCont) throws Exception {
+        boardMapper.updateStudyBoardReply(studyReplyNum,studyReplyCont);
+    }
+
+	@Override
+	public void insertStudyBoardReReply(StudyBoardReplyDto studyBoardReplyDto) throws Exception {
+		boardMapper.insertStudyBoardReReply(studyBoardReplyDto);
+	}
+
+	@Override
+	public void deleteStudyBoardReReply(int studyReplyNum) throws Exception {
+		boardMapper.deleteStudyBoardReReply(studyReplyNum);
 	}
 }

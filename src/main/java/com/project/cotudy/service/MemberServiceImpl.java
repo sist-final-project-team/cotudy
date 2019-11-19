@@ -103,7 +103,7 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
-    public String findId(String memName, String memEmail) throws Exception {
+    public List<String> findId(String memName, String memEmail) throws Exception {
         return memberMapper.findId(memName,memEmail);
     }
 
