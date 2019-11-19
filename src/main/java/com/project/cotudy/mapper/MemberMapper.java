@@ -24,7 +24,7 @@ public interface MemberMapper {
     void deleteMember(String memId) throws Exception;    //회원 탈퇴
     void bookmark(String memId, int studyNum) throws Exception;  //북마크 등록
     StudyMemberDto checkMemberId(String memId) throws Exception;
-    String findId(@Param("memName") String memName, @Param("memEmail") String memEmail) throws Exception;
+    List<String> findId(@Param("memName") String memName, @Param("memEmail") String memEmail) throws Exception;
     String findPwd(String memId,String memName,String memEmail) throws Exception;
 	 StudyMemberDto selectMyInfo(String memId) throws Exception;
     List<FreeBoardDto> selectMyFreeBoardList(String memId) throws Exception; //내가쓴글 불러오기 -최다빈-

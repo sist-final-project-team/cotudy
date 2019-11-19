@@ -56,4 +56,7 @@ public interface BoardService {
 
     // studyboard 댓글달기
     void insertStudyBoardReply(StudyBoardReplyDto studyBoardReplyDto) throws Exception;
+    void updateStudyBoardReply(int studyReplyNum,String studyReplyCont) throws Exception;
+    void insertStudyBoardReReply(StudyBoardReplyDto studyBoardReplyDto) throws Exception;
+    void deleteStudyBoardReReply(int studyReplyNum) throws Exception;
 }

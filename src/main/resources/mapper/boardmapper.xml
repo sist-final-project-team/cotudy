@@ -275,4 +275,19 @@ where
 	<select id="selectStudyBoardReplyList" parameterType="int" resultType="com.project.cotudy.model.StudyBoardReplyDto">
 		select * from study_board_reply where study_num = #{studyNum} order by if(isnull(study_reply_step),study_reply_num,study_reply_step),study_reply_indent ;
 	</select>
+
+	<delete id="deleteStudyBoardReply" parameterType="int">
+		delete from study_board_reply where study_reply_num = #{studyReplyNum}
+	</delete>
+
+    <update id="updateStudyBoardReply" parameterType="map">
+        update study_board_reply set study_reply_cont=#{studyReplyCont},study_reply_created_time = now() where study_reply_num=#{studyReplyNum}
+    </update>
+
+	<insert id="insertStudyBoardReReply" parameterType="com.project.cotudy.model.StudyBoardReplyDto">
+		insert into study_board_reply (study_num,study_reply_cont,mem_id,study_reply_step,study_reply_indent,study_reply_created_time) values (#{studyNum},#{studyReplyCont},#{memId}, #{studyReplyNum}, (#{studyReplyIndent}+1),now());
+	</insert>
+	<delete id="deleteStudyBoardReReply" parameterType="int">
+		delete from study_board_reply where study_reply_step = #{studyReplyNum}
+	</delete>
 </mapper>

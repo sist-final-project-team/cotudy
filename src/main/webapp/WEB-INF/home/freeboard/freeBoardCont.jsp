@@ -80,8 +80,7 @@
         var watch2 = "replyStep"+i;
 		var freeReplyNum = document.getElementById(watch).value;
 		var freeNum = document.getElementById("freeNum").value;
-		var replyStep = document.getElementById(watch2
-		).value;
+		var replyStep = document.getElementById(watch2).value;
 		msg = "정말로 삭제하시겠습니까?";
 		if (confirm(msg)!=0) {
 			location.href = "/freeReplyDelete?freeReplyNum=" + freeReplyNum+"&replyStep="+replyStep+"&freeNum="+freeNum;
