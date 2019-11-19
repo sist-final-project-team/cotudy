@@ -19,7 +19,7 @@
     <h3>테이블 글쓰기 폼</h3>
     <hr width="50%" color="purple">
 
-    <form method="post" action="/studyCreateOk"  >
+    <form method="post" action="/studyCreateOk"  onsubmit="return checkForm()" name="studyForm">
         <input type="hidden" value="<%=(String)session.getAttribute("memId") %>" name="memId">
         <table border="1" width="600" cellspacing="0">
 
@@ -34,8 +34,8 @@
 
             <tr>
                 <th>날짜선택</th>
-                <td> <input type="text" class="date1" name="studyStartDate" placeholder="시작날짜 선택" autocomplete="off" required="required" readonly>
-                    <input type="text" class="date2"  name="studyEndDate" placeholder="종료날짜 선택" autocomplete="off" required="required" readonly></td>
+                <td > <input type="text" class="date1" id ="studyStartDate" name="studyStartDate" placeholder="시작날짜 선택" autocomplete="off" required="required" readonly>
+                    <input type="text" class="date2"  id="studyEndDate" name="studyEndDate" placeholder="종료날짜 선택" autocomplete="off" required="required" readonly></td>
             </tr>
             <tr>
                 <th>지역</th>
@@ -55,20 +55,20 @@
             <tr>
                 <th>키워드</th>
                 <td>
-                        <select required="required"   class="demo" multiple="multiple" name="studyKeyword" >
-                            <optgroup label="Languages">
-                                <option value="C++">C++</option>
-                                <option value="C#">C#</option>
-                                <option value="Java">Java</option>
-                                <option value="C언어">C언어</option>
-                            </optgroup>
-                            <optgroup label="Scripts">
-                                <option value="JavaScript">JavaScript</option>
-                                <option value="PHP">PHP</option>
-                                <option value="ASP">ASP</option>
-                                <option value="JSP">JSP</option>
-                            </optgroup>
-                        </select>
+                    <select  class="demo" multiple="multiple" name="studyKeyword" >
+                        <optgroup label="Languages">
+                            <option value="C++">C++</option>
+                            <option value="C#">C#</option>
+                            <option value="Java">Java</option>
+                            <option value="C언어">C언어</option>
+                        </optgroup>
+                        <optgroup label="Scripts">
+                            <option value="JavaScript">JavaScript</option>
+                            <option value="PHP">PHP</option>
+                            <option value="ASP">ASP</option>
+                            <option value="JSP">JSP</option>
+                        </optgroup>
+                    </select>
                 </td>
             </tr>
             <tr>
@@ -77,7 +77,7 @@
             </tr>
             <tr>
                 <td colspan="2" align="center">
-                    <input type="submit" value="글쓰기">&nbsp;&nbsp;&nbsp;
+                    <input type="submit" value="글쓰기" onclick="percent()">&nbsp;&nbsp;&nbsp;
                     <input type="reset" value="다시작성">
                 </td>
             </tr>
@@ -141,10 +141,7 @@
             );
         });
         return this;
-
     };
-
-
     $(function(){
         jQuery('.hondas').trilemma({max:3,disablelabels:true});//max3=3개체크하면 나머지는 비활성
     });
@@ -161,6 +158,21 @@
         });
     });
 </script>
+<!-- FORM 유효성체크-->
+<script>
+    function checkForm() {
+        var theForm = document.studyForm;
+
+        if(theForm.studyStartDate.value===''||theForm.studyEndDate.value===''){
+            window.alert("날짜를 선택해 주세요");
+            return false;
+        } else if(theForm.studyKeyword.value===''){
+            window.alert("키워드를 선택해 주세요");
+            return false;
+        }
+        return true;
+    }
+
 </body>
 
 

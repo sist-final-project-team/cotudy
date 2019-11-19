@@ -2,10 +2,11 @@ package com.project.cotudy.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
-
 import com.project.cotudy.common.SHA256Util;
 import com.project.cotudy.model.*;
 import org.apache.commons.io.FileUtils;
@@ -34,7 +35,6 @@ import org.springframework.web.servlet.ModelAndView;
 import com.project.cotudy.service.Email;
 import com.project.cotudy.service.EmailSender;
 import com.project.cotudy.service.KakaoAPI;
-
 import org.springframework.web.bind.annotation.*;
 import java.io.PrintWriter;
 
@@ -44,7 +44,7 @@ public class StudyController {
 
     @Autowired
     private KakaoAPI kakao;
-    
+
     @Autowired
     private MemberService memberService;
 
@@ -67,6 +67,7 @@ public class StudyController {
 
         return "/main";
     }
+
     @RequestMapping("/event")
     public ModelAndView event() throws IOException {
         ModelAndView mv = new ModelAndView("/event");
@@ -78,6 +79,7 @@ public class StudyController {
         mv.addObject("doc", elem);
         return mv;
     }
+
     @RequestMapping("/notice")
     public String notice() {
         return "/notice";
@@ -87,30 +89,30 @@ public class StudyController {
     public ModelAndView freeBoardCont(@RequestParam("freeNum") int freeNum) throws Exception {
         ModelAndView mv = new ModelAndView("/freeboard/freeBoardCont");
         List<FreeBoardReplyDto> replyDto = boardService.selectFreeBoardReplyList(freeNum);
-        boardService.updateFreeBoardHitCount(freeNum);	//조회수증가
-        FreeBoardDto freeboard = boardService.selectFreeBoardCont(freeNum);	//글내용가져오기
+        boardService.updateFreeBoardHitCount(freeNum);    //조회수증가
+        FreeBoardDto freeboard = boardService.selectFreeBoardCont(freeNum);    //글내용가져오기
         List<BoardFileDto> fileDtolist = boardService.selectBoardFileDto(freeNum);//첨부파일가져오기
         // System.out.println("파일경로는~?"+fileDtolist.get(0).getStoredFilePath());
-        int filecount = fileDtolist.size() -1;
-        System.out.println("파일개수 -1은 ??"+filecount);
-        for(int i=0; i<freeboard.getFileList().size(); i++) {
-            freeboard.getFileList().get(i).setFileSize((int)(freeboard.getFileList().get(i).getFileSize()/1024));
+        int filecount = fileDtolist.size() - 1;
+        System.out.println("파일개수 -1은 ??" + filecount);
+        for (int i = 0; i < freeboard.getFileList().size(); i++) {
+            freeboard.getFileList().get(i).setFileSize((int) (freeboard.getFileList().get(i).getFileSize() / 1024));
         }
-        mv.addObject("replyDto",replyDto);
+        mv.addObject("replyDto", replyDto);
         mv.addObject("freeboard", freeboard);
         mv.addObject("fileDtolist", fileDtolist);
-        mv.addObject("filecount",filecount );
-        mv.addObject("freeNum",freeboard.getFreeNum());
+        mv.addObject("filecount", filecount);
+        mv.addObject("freeNum", freeboard.getFreeNum());
         return mv;
     }
 
     @RequestMapping("/freeEdit")
-    public String freeBoardEdit(FreeBoardDto freeBoard, MultipartHttpServletRequest multireq,@RequestParam("put") List<String> put,@RequestParam("fileList1") List<String> file,@RequestParam("filePath") List<String> filepath) throws Exception{
-        List<MultipartFile> fileList =  multireq.getFiles("files");
+    public String freeBoardEdit(FreeBoardDto freeBoard, MultipartHttpServletRequest multireq, @RequestParam("put") List<String> put, @RequestParam("fileList1") List<String> file, @RequestParam("filePath") List<String> filepath) throws Exception {
+        List<MultipartFile> fileList = multireq.getFiles("files");
         boardService.updateFreeBoard(freeBoard, multireq);
         String abc[] = new String[filepath.size()];
-        for(int i=0; i<put.size(); i++){
-            if(!put.get(i).equals("")){
+        for (int i = 0; i < put.size(); i++) {
+            if (!put.get(i).equals("")) {
                 int idx = Integer.parseInt(file.get(i));
                 abc[i] = filepath.get(i);
                 if (abc[i].length() > 0) {
@@ -118,17 +120,17 @@ public class StudyController {
                     f.delete();
                 }
                 boardService.deleteFreeBoardfile(idx);
-                }
+            }
         }
-        return "redirect:/freeCont?freeNum="+freeBoard.getFreeNum();
+        return "redirect:/freeCont?freeNum=" + freeBoard.getFreeNum();
 
     }
 
 
     @RequestMapping("/freeEditForm")
-    public ModelAndView freeBoardEditForm(@RequestParam("freeNum") int freeNum) throws Exception{
+    public ModelAndView freeBoardEditForm(@RequestParam("freeNum") int freeNum) throws Exception {
         ModelAndView mv = new ModelAndView("/freeboard/freeBoardEdit");
-        FreeBoardDto freeboard = boardService.selectFreeBoardCont(freeNum);	//글내용 가져오기
+        FreeBoardDto freeboard = boardService.selectFreeBoardCont(freeNum);    //글내용 가져오기
 
         mv.addObject("freeboard", freeboard);
 
@@ -143,12 +145,12 @@ public class StudyController {
         int totalRecord = 0;
         int allPage = 0;
         int page = 0;
-        if(request.getParameter("page")!=null){
+        if (request.getParameter("page") != null) {
             page = Integer.parseInt(request.getParameter("page"));
-        }else{
+        } else {
             page = 1;
         }
-        int startNo = (page * rowsize)- (rowsize-1);
+        int startNo = (page * rowsize) - (rowsize - 1);
         int endNo = (page * rowsize);
         int startBlock = (((page-1) / block)*block)+1;
         int endBlock = (((page-1) / block)*block)+block;
@@ -179,31 +181,30 @@ public class StudyController {
 
 
     @RequestMapping("/freeSearchList")
-    public ModelAndView freeSearch(SearchDto searchdto,HttpServletRequest request) throws Exception {
-    	System.out.println("주제잘들어왔나???????"+searchdto.getFreeSubject());
+    public ModelAndView freeSearch(SearchDto searchdto, HttpServletRequest request) throws Exception {
         int rowsize = 10; //한번에 보여주는 글 갯수
         int block = 4; // 보여주는 페이지수 [1][2][3]
         int totalRecord = 0; // 총 글갯수
         int allPage = 0; // 총 페이지
         int page = 0; // 현재 페이지
-        if(request.getParameter("page")!=null){
+        if (request.getParameter("page") != null) {
             page = Integer.parseInt(request.getParameter("page"));
-        }else{
+        } else {
             page = 1;
         }
-        int startNo = (page * rowsize)- (rowsize-1); //한페이지의첫글
+        int startNo = (page * rowsize) - (rowsize - 1); //한페이지의첫글
         int endNo = (page * rowsize); //한페이지의 끝 끝
-        int startBlock = (((page-1) / block)*block)+1; // 2
-        int endBlock = (((page-1) / block)*block)+block; // 6
-        totalRecord =  boardService.getSearchListCount(searchdto); // '사담 검색' => 16
-        allPage = (int)Math.ceil(totalRecord / (double)rowsize); // 2
-        if(endBlock > allPage) {
+        int startBlock = (((page - 1) / block) * block) + 1; // 2
+        int endBlock = (((page - 1) / block) * block) + block; // 6
+        totalRecord = boardService.getSearchListCount(searchdto); // '사담 검색' => 16
+        allPage = (int) Math.ceil(totalRecord / (double) rowsize); // 2
+        if (endBlock > allPage) {
             endBlock = allPage;
         }
         System.out.println("totalRecord =>" + totalRecord);
         System.out.println("카운트먼저 실행");
         ModelAndView mv = new ModelAndView("/freeboard/freeBoardSearchList");
-        List<FreeBoardDto> list = boardService.selectFreeBoardSearchList(searchdto,page,rowsize);
+        List<FreeBoardDto> list = boardService.selectFreeBoardSearchList(searchdto, page, rowsize);
 
         mv.addObject("page1", page);
         mv.addObject("rowsize1", rowsize);
@@ -219,13 +220,14 @@ public class StudyController {
         mv.addObject("searchKeyword", searchdto.getSearchKeyword());
         mv.addObject("list1", list);
 
-        return mv; }
+        return mv;
+    }
 
     @RequestMapping("downloadBoardFile")
-    public void downloadBoardFile(@RequestParam int idx, @RequestParam int freeNum, HttpServletResponse response) throws Exception{
+    public void downloadBoardFile(@RequestParam int idx, @RequestParam int freeNum, HttpServletResponse response) throws Exception {
         //선택된 파일의 정보를 DB에서 조회
         BoardFileDto boardFile = boardService.selectBoardFileInformation(idx, freeNum);
-        if(ObjectUtils.isEmpty(boardFile) == false) {
+        if (ObjectUtils.isEmpty(boardFile) == false) {
             String fileName = boardFile.getOriginalFileName();
 
             //위에서 조회된 파일을 읽어온 후 byte[]형태로 변환
@@ -235,7 +237,7 @@ public class StudyController {
             //response의 헤더에 컨텐츠 타입, 크기, 형태 등을 설정
             response.setContentType("application/octet-stream");
             response.setContentLength(files.length);
-            response.setHeader("Content-Disposition", "attachment; fileName=\"" + URLEncoder.encode(fileName,"UTF-8")+"\";");
+            response.setHeader("Content-Disposition", "attachment; fileName=\"" + URLEncoder.encode(fileName, "UTF-8") + "\";");
             response.setHeader("Content-Transfer-Encoding", "binary");
 
             //위의 files를 response에 작성
@@ -251,34 +253,34 @@ public class StudyController {
     public String freeBoardWriteForm() throws Exception {
         return "/freeboard/freeBoardWrite";
     }
-    
+
     //조아라 수정 : 로그인안하고 글작성 금지start////////////////////////////
     @RequestMapping("/freeWrite")
     public void freeBoardWrite(FreeBoardDto freeboard, MultipartHttpServletRequest multireq, HttpServletResponse response) throws Exception {
-    	 response.setContentType("text/html; charset=UTF-8");
-	        PrintWriter out = response.getWriter();
-	        
-    	if(freeboard.getMemId().equals("null")) {	       
-	        out.println("<script>");
-	        out.println("alert('로그인 후 글작성 해주세요.')");
-	        out.println("location.href='/freeList'");
-	        out.println("</script>");
-    	}else {
-    		  List<MultipartFile> fileList =  multireq.getFiles("files"); //files:write에서 파일첨부의 files
-              //System.out.println("fileList는1??"+fileList.get(0));
-              //org.springframework.web.multipart.commons.CommonsMultipartFile@49c3ccb4 찍힘
+        response.setContentType("text/html; charset=UTF-8");
+        PrintWriter out = response.getWriter();
+
+        if (freeboard.getMemId().equals("null")) {
+            out.println("<script>");
+            out.println("alert('로그인 후 글작성 해주세요.')");
+            out.println("location.href='/freeList'");
+            out.println("</script>");
+        } else {
+            List<MultipartFile> fileList = multireq.getFiles("files"); //files:write에서 파일첨부의 files
+            //System.out.println("fileList는1??"+fileList.get(0));
+            //org.springframework.web.multipart.commons.CommonsMultipartFile@49c3ccb4 찍힘
 
             boardService.insertFreeBoard(freeboard, multireq);
             out.println("<script>");
-  	        out.println("alert('글작성 완료.')");
-  	        out.println("location.href='/freeList'");
-  	        out.println("</script>");
-    	}
+            out.println("alert('글작성 완료.')");
+            out.println("location.href='/freeList'");
+            out.println("</script>");
+        }
 
     }
     //조아라 수정 : 로그인안하고 글작성 금지end////////////////////////////
 
-    
+
     //조아라 수정 : 남의 글 삭제 금지start////////////////////////////
     @RequestMapping(method = RequestMethod.GET, value = "/freeDelete")
     public void freeBoardDelete(@RequestParam("freeNum") int freeNum, @RequestParam("memId") String memId, HttpServletResponse response,HttpServletRequest request) throws Exception{
@@ -294,15 +296,12 @@ public class StudyController {
     		out.println("alert('삭제가 완료되었습니다.')");
     		out.println("location.href='/freeList'");
     		out.println("</script>");
-    		
     	}else {
     		out.println("<script>");
     		out.println("alert('남의 글 삭제하지 마셈.')");
     		out.println("location.href='/freeList'");
-    		out.println("</script>");	
-    		
+    		out.println("</script>");
     	}
-    	
     }
     //조아라 수정 : 남의 글 삭제 금지end////////////////////////////
 
@@ -314,11 +313,9 @@ public class StudyController {
         List<String> id = memberService.findId(memName, memEmail);
         if (id != null) {
             out.println("<script>");
-            
             out.println("alert('회원님의 아이디는" + id.toString() + "입니다')");
-            
             out.println("window.open(\"/login\", \"로그인 화면\", \"top=300, left=300, width=500, height=600, status=no, menubar=no, toolbar=no, resizable=no\");");
-            out.println("self.close()");
+           /* out.println("self.close()");*/
             out.println("</script>");
         } else {
             out.println("<script>");
@@ -467,20 +464,21 @@ public class StudyController {
         }
     }
 
-    
+
     //카카오로그인	
     @RequestMapping("/main")
     public void callback(@RequestParam("code") String code, HttpSession session, HttpServletResponse response) throws Exception {
         response.setContentType("text/html; charset= UTF-8");
-        PrintWriter out = response.getWriter(); 
-        
-       // ModelAndView mv = new ModelAndView("/main");
-    	System.out.println("code는???" + code);
+        PrintWriter out = response.getWriter();
 
-    	String access_Token = kakao.getAccessToken(code);
-        System.out.println("controller access_token는???" + access_Token);    	
-        
+        // ModelAndView mv = new ModelAndView("/main");
+        System.out.println("code는???" + code);
+
+        String access_Token = kakao.getAccessToken(code);
+        System.out.println("controller access_token는???" + access_Token);
+
         HashMap<String, Object> userInfo = kakao.getUserInfo(access_Token);
+
         System.out.println("1.userInfo 닉네임은??"+userInfo.get("nickname")+"2.userInfo id는??"+userInfo.get("id")+"3.userInfo email은???"+userInfo.get("email"));
         System.out.println("컨트롤러 아이디는?"+userInfo.get("id"));
         String memId = (String)userInfo.get("id");
@@ -505,12 +503,9 @@ public class StudyController {
             out.println(" window.opener.top.location.href='/'");
             out.println("self.close()");
             out.println("</script>");
-            
-        //return mv;
-    }    
-    
-    
-    
+    }
+
+
     /* 자유게시판 댓글 관련*/
     @RequestMapping("/freeReplyWrite")
     public void freeReplyWrite(FreeBoardReplyDto dto, HttpServletResponse response) throws Exception {
@@ -536,38 +531,38 @@ public class StudyController {
 
     @RequestMapping("/studyCont")
     public ModelAndView studyBoardCont(@RequestParam("studyNum") int studyNum, HttpSession session) throws Exception {
-        String memId=(String)session.getAttribute("memId");
+        String memId = (String) session.getAttribute("memId");
         ModelAndView mv = new ModelAndView("/study/studyBoardCont");
-       int check= boardService.contBookmark(studyNum,memId);
+        int check = boardService.contBookmark(studyNum, memId);
 
-       // System.out.println(studyNum+"   " +memId);
+        // System.out.println(studyNum+"   " +memId);
         StudyBoardDto studyBoard = boardService.selectStudyBoardCont(studyNum);
 
         mv.addObject("studyCont", studyBoard);
-        mv.addObject("contBookmark",check);
+        mv.addObject("contBookmark", check);
 
         return mv;
     }
 
     @RequestMapping("/studyCreate")
-    public void studyBoardCreate(HttpSession session,  HttpServletResponse response) throws Exception {
+    public void studyBoardCreate(HttpSession session, HttpServletResponse response) throws Exception {
         response.setContentType("text/html; charset=UTF-8");
         PrintWriter out = response.getWriter();
-       if(session.getAttribute("memId")==null) {
-           out.println("<script>");
-           out.println("alert('로그인이 필요합니다')");
-           out.println("window.open('/login', '로그인 화면', 'top=300, left=300, width=500, height=600, status=no, menubar=no, toolbar=no, resizable=no')");
-           out.println("location.href='/'");
-           out.println("</script>");
-       }else{
-           out.println("<script>");
-           out.println("location.href='/studyCreateForm'");
-           out.println("</script>");
-       }
+        if (session.getAttribute("memId") == null) {
+            out.println("<script>");
+            out.println("alert('로그인이 필요합니다')");
+            out.println("window.open('/login', '로그인 화면', 'top=300, left=300, width=500, height=600, status=no, menubar=no, toolbar=no, resizable=no')");
+            out.println("location.href='/'");
+            out.println("</script>");
+        } else {
+            out.println("<script>");
+            out.println("location.href='/studyCreateForm'");
+            out.println("</script>");
+        }
     }
 
     @RequestMapping("/studySearch")
-    public ModelAndView studyBoardSearch(@RequestParam(value="areas", required=false) String[] areas, @RequestParam(value="keywords", required=false) String[] keywords) throws Exception {
+    public ModelAndView studyBoardSearch(@RequestParam(value = "areas", required = false) String[] areas, @RequestParam(value = "keywords", required = false) String[] keywords) throws Exception {
         ModelAndView mv = new ModelAndView("/study/studyBoardList");
 
         // 전체 스터디 리스트 호출
@@ -613,31 +608,34 @@ public class StudyController {
     }
 
     @RequestMapping("/studyCreateForm")
-    public String studyCreateForm(){
+    public String studyCreateForm() {
         return "/study/studyBoardCreate";
     }
 
 
     @RequestMapping("/studyCreateOk")
     public String studyCreateOk(StudyBoardDto studyBoard) throws Exception {
-    boardService.insertStudyBoard(studyBoard);
+        boardService.insertStudyBoard(studyBoard);
         return "redirect:/studyList";
     }
 
     /* 마이페이지 관련 */
     @RequestMapping("/myWrite")
     public ModelAndView memMyWrite(HttpSession session) throws Exception {
-
         ModelAndView mv = new ModelAndView("/mypage/memMyWrite");
-        String memId = (String)session.getAttribute("memId");
-        List<FreeBoardDto> list = memberService.selectMyFreeBoardList(memId);
-        mv.addObject("list", list);
+        String memId = (String) session.getAttribute("memId");
+        List<FreeBoardDto> freeList = memberService.selectMyFreeBoardList(memId);
+        List<StudyBoardDto> studyList = memberService.selectMyStudyList(memId);
+        mv.addObject("freeList", freeList);
+        mv.addObject("studyList", studyList);
         return mv;
     }
+
     @RequestMapping("/out")
     public String memOut() {
         return "/mypage/memOut";
     }
+
     @RequestMapping("/myPage")
     public ModelAndView memPage(HttpServletRequest request) throws Exception {
         ModelAndView mv = new ModelAndView("/mypage/memPage");
@@ -660,7 +658,8 @@ public class StudyController {
         return mv;
     }
 
-    @RequestMapping("/infoEdit") public String memInfoEdit(StudyMemberDto memberDto) throws Exception{
+    @RequestMapping("/infoEdit")
+    public String memInfoEdit(StudyMemberDto memberDto) throws Exception {
         memberService.updateMember(memberDto);
         return "redirect:/myPage";
 
@@ -672,8 +671,9 @@ public class StudyController {
         return mv;
     }
 
-    @RequestMapping("/pwdEdit") public void mempwdEdit(HttpServletRequest request, HttpServletResponse response,
-                                                       @RequestParam("nowpwd") String nowpwd, @RequestParam("editpwd") String editpwd ) throws Exception{
+    @RequestMapping("/pwdEdit")
+    public void mempwdEdit(HttpServletRequest request, HttpServletResponse response,
+                           @RequestParam("nowpwd") String nowpwd, @RequestParam("editpwd") String editpwd) throws Exception {
         String memId = (String) request.getSession().getAttribute("memId");
         //회원정보 가져오기
         StudyMemberDto meminfodto = memberService.selectMyInfo(memId);
@@ -683,10 +683,6 @@ public class StudyController {
         String salt = memberService.getSaltById(meminfodto.getMemId());
         //로그인시 받은 비번 암호화(하면 db랑 같아짐)
         String shapwd = SHA256Util.getEncrypt(nowpwd, salt);
-        
-
-        
-        
         response.setContentType("text/html; charset=UTF-8");
         PrintWriter out = response.getWriter();
 
@@ -700,7 +696,7 @@ public class StudyController {
             out.println("alert('비밀번호 변경이 완료되었습니다.')");
             out.println("location.href='/myPage'");
             out.println("</script>");
-        }else { //비번 틀림
+        } else { //비번 틀림
             out.println("<script>");
             out.println("alert('비밀번호를 잘못 입력하셨습니다.')");
             out.println("history.back()");
@@ -712,7 +708,7 @@ public class StudyController {
     //회원탈퇴
     @RequestMapping("/memOutOk")
     public String memOutOk(HttpSession session) throws Exception {
-        String memId = (String)session.getAttribute("memId");
+        String memId = (String) session.getAttribute("memId");
         memberService.deleteMember(memId);
         //세션 해제 하고 메인으로 넘겨야함
         session.invalidate();
@@ -726,9 +722,10 @@ public class StudyController {
         
         return "/main";
     }
+
     // 서지훈 추가사항 대댓글 달기
     @RequestMapping("/reReply")
-    public void addRereply(FreeBoardReplyDto replyDto,HttpServletResponse response) throws Exception {
+    public void addRereply(FreeBoardReplyDto replyDto, HttpServletResponse response) throws Exception {
         boardService.writeFreeBoardRereply(replyDto);
         response.setContentType("text/html; charset=UTF-8");
         PrintWriter out = response.getWriter();
@@ -736,9 +733,10 @@ public class StudyController {
         out.println("location.href='/freeCont?freeNum=" + replyDto.getFreeNum() + "'");
         out.println("</script>");
     }
+
     // 서지훈 추가사항 댓글 수정
     @RequestMapping("/freeReplyModify")
-    public void modifyReply(FreeBoardReplyDto replyDto,HttpServletResponse response) throws Exception {
+    public void modifyReply(FreeBoardReplyDto replyDto, HttpServletResponse response) throws Exception {
         boardService.modifyFreeBoardReply(replyDto);
         response.setContentType("text/html; charset=UTF-8");
         PrintWriter out = response.getWriter();
@@ -746,10 +744,11 @@ public class StudyController {
         out.println("location.href='/freeCont?freeNum=" + replyDto.getFreeNum() + "'");
         out.println("</script>");
     }
+
     @RequestMapping("/freeReplyDelete")
-    public void freeReplyDelete(@RequestParam("freeReplyNum") int freeReplyNum,@RequestParam("replyStep") int replyStep,HttpServletResponse response,@RequestParam("freeNum") int freeNum) throws Exception{
+    public void freeReplyDelete(@RequestParam("freeReplyNum") int freeReplyNum, @RequestParam("replyStep") int replyStep, HttpServletResponse response, @RequestParam("freeNum") int freeNum) throws Exception {
         boardService.deleteFreeBoardReply(freeReplyNum);
-        if(replyStep == 0){
+        if (replyStep == 0) {
             boardService.deleteFreeBoardRereply(freeReplyNum);
         }
         response.setContentType("text/html; charset=UTF-8");
@@ -762,60 +761,62 @@ public class StudyController {
     // 지훈이 북마크 추가 한다잉?
     @RequestMapping("/bookmark")
     @ResponseBody
-    public int bookMark(@RequestParam("id") String memId,@RequestParam("studyNum") int StudyNum) throws Exception {
+    public int bookMark(@RequestParam("id") String memId, @RequestParam("studyNum") int StudyNum) throws Exception {
         int result = 0;
         System.out.println("들어와서 실행");
-        if(memberService.checkBookMark(memId,StudyNum)){
-            memberService.deleteBookMark(memId,StudyNum);
-            System.out.println("checkBookMark//"+result);
-        }else{
-            memberService.insertBookMark(memId,StudyNum);
+        if (memberService.checkBookMark(memId, StudyNum)) {
+            memberService.deleteBookMark(memId, StudyNum);
+            System.out.println("checkBookMark//" + result);
+        } else {
+            memberService.insertBookMark(memId, StudyNum);
             result = 1;
-            System.out.println("checkBookMark And Insert//"+result);
+            System.out.println("checkBookMark And Insert//" + result);
         }
         System.out.println(result);
         return result;
     }
+
     @RequestMapping("/myBookMark")
     public ModelAndView myBookmark(HttpSession session) throws Exception {
-        String memId = (String)session.getAttribute("memId");
+        String memId = (String) session.getAttribute("memId");
         ModelAndView mv = new ModelAndView("/mypage/memBookMark");
-        List<StudyBoardDto> list =  boardService.myBookmark(memId);
-        mv.addObject("list",list);
+        List<StudyBoardDto> list = boardService.myBookmark(memId);
+        mv.addObject("list", list);
         return mv;
     }
 
 
-
     @RequestMapping(method = RequestMethod.GET, value = "/studyDelete")
-    public void studyBoardDelete(@RequestParam("studyNum") int studyNum, @RequestParam("memId") String memId, HttpServletResponse response,HttpServletRequest request) throws Exception{
-        String id = (String)request.getSession().getAttribute("memId");
+    public void studyBoardDelete(@RequestParam("studyNum") int studyNum, @RequestParam("memId") String memId, HttpServletResponse response, HttpServletRequest request) throws Exception {
+        String id = (String) request.getSession().getAttribute("memId");
 
 
         response.setContentType("text/html; charset=UTF-8");
         PrintWriter out = response.getWriter();
 
-        if(id.equals(memId)) {
+        if (id.equals(memId)) {
             boardService.deleteStudyBoard(studyNum);
             out.println("<script>");
             out.println("alert('삭제가 완료되었습니다.')");
             out.println("location.href='/studyList'");
             out.println("</script>");
 
-        }else {
+        } else {
             out.println("<script>");
             out.println("alert('남의 글 삭제하지 마셈.')");
             out.println("location.href='/studyList'");
             out.println("</script>");
         }
     }
+
     @RequestMapping("/studyEdit")
-    public String studyBoardEdit(StudyBoardDto studyBoard) throws Exception{
+    public String studyBoardEdit(StudyBoardDto studyBoard) throws Exception {
         //List<MultipartFile> fileList =  multireq.getFiles("files");
         boardService.updateStudyBoard(studyBoard);
 
-        return "redirect:/studyCont?studyNum="+studyBoard.getStudyNum();
+        return "redirect:/studyCont?studyNum=" + studyBoard.getStudyNum();
     }
+
     @RequestMapping("/studyEditForm")
     public ModelAndView studyBoardEditForm(@RequestParam("studyNum") int studyNum) throws Exception {
         ModelAndView mv = new ModelAndView("/study/studyBoardEdit");
@@ -829,18 +830,48 @@ public class StudyController {
     // 서지훈 스터디게시판 댓글 달기
     @RequestMapping("/studyCmt")
     @ResponseBody
-    public String studyComment(StudyBoardReplyDto studyBoardReplyDto) throws Exception{
+    public String studyComment(StudyBoardReplyDto studyBoardReplyDto) throws Exception {
         System.out.println(studyBoardReplyDto.toString());
         boardService.insertStudyBoardReply(studyBoardReplyDto);
         return "success";
     }
+
     @RequestMapping("/studyReplyList")
     @ResponseBody
     public ResponseEntity<List<StudyBoardReplyDto>> studyReplyList(@RequestParam("studyNum") int studyNum) throws Exception {
 
-       ResponseEntity<List<StudyBoardReplyDto>> entity = null;
-       entity = new ResponseEntity<>(boardService.selectStudyBoardReplyList(studyNum), HttpStatus.OK);
+        ResponseEntity<List<StudyBoardReplyDto>> entity = null;
+        entity = new ResponseEntity<>(boardService.selectStudyBoardReplyList(studyNum), HttpStatus.OK);
         return entity;
+    }
+    @RequestMapping(value = "/studyReplyDelete")
+    public void studyReplyDelete(@RequestParam("studyReplyNum") String studyReplyNum1, @RequestParam("studyNum") String studyNum1,@RequestParam("studyReplyStep") String studyReplyStep1, HttpServletResponse response) throws Exception {
+        int studyNum = Integer.parseInt(studyNum1);
+        int studyReplyNum = Integer.parseInt(studyReplyNum1);
+        int studyReplyStep = Integer.parseInt(studyReplyStep1);
+        System.out.println(studyReplyNum);
+        boardService.deleteStudyBoardReply(studyReplyNum);
+        if(studyReplyStep==0){
+            System.out.println("하위항목 삭제");
+            boardService.deleteStudyBoardReReply(studyReplyNum);
+        }
+        response.setContentType("text/html; charset=UTF-8");
+        PrintWriter out = response.getWriter();
+        out.println("<script>");
+        out.println("location.href='/studyCont?studyNum=" + studyNum + "'");
+        out.println("</script>");
+    }
+    @RequestMapping(method = RequestMethod.POST, value = "/studyReplyModify")
+    @ResponseBody
+    public void studyReplyModify(@RequestParam("studyReplyNum") int studyReplyNum, @RequestParam("studyReplyCont") String studyReplyCont) throws Exception {
+        boardService.updateStudyBoardReply(studyReplyNum,studyReplyCont);
+    }
+    @RequestMapping("/studyReCmt")
+    @ResponseBody
+    public String studyReComment(StudyBoardReplyDto studyBoardReplyDto) throws Exception{
+        System.out.println(studyBoardReplyDto.toString());
+        boardService.insertStudyBoardReReply(studyBoardReplyDto);
+        return "success";
     }
 }
 

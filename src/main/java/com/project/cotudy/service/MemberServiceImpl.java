@@ -59,14 +59,13 @@ public class MemberServiceImpl implements MemberService {
     }//end of kakaoDbCheck
      
     
-    @Override
-    public List<FreeBoardDto> selectMyPostList(String memId) {
-        return null;
-    }
+
 
     @Override
-    public List<StudyBoardDto> selectMyStudyList(String memId) {
-        return null;
+    public List<StudyBoardDto> selectMyStudyList(String memId) throws Exception {
+
+        List<StudyBoardDto> studyList = memberMapper.selectMyStudyList(memId);
+        return studyList;
     }
 
     @Override
@@ -153,13 +152,13 @@ public class MemberServiceImpl implements MemberService {
 	//비밀번호 찾기시 새로 초기화시킨 난수 비번 저장시키기
 	@Override
 	public void insertNewPwd(String memId, String memPwd) throws Exception {
-		memberMapper.insertNewPwd(memId, memPwd);		
+		memberMapper.insertNewPwd(memId, memPwd);
 	}
-	
+
 	//카카오 탈퇴후 재가입하는사람 status O로 바꾸기
 	@Override
 	public void changeStatus(String memId) throws Exception {
 		memberMapper.changeStatus(memId);
-		
+
 	}
 }

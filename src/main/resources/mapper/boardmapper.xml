@@ -244,8 +244,8 @@ where
 	<!--스터디 추가-->
 	<insert id="insertStudyBoard" parameterType="com.project.cotudy.model.StudyBoardDto" useGeneratedKeys="true" keyProperty="studyNum">
 		<![CDATA[
-		insert into study_board (mem_id,study_title,study_cont,study_start_date,study_end_date,study_area,study_keyword,study_status,study_openchat)
-		values(#{memId},#{studyTitle},#{studyCont},#{studyStartDate},#{studyEndDate},#{studyArea},#{studyKeyword},'N',#{studyOpenchat})
+		insert into study_board (mem_id,study_title,study_cont,study_start_date,study_end_date,study_area,study_keyword,study_status,study_openchat,study_created)
+		values(#{memId},#{studyTitle},#{studyCont},#{studyStartDate},#{studyEndDate},#{studyArea},#{studyKeyword},'N',#{studyOpenchat},now())
 		]]>
 	</insert>
     <!-- 즐겨찾기한 북마크 리스트 가져오기 -->
@@ -275,4 +275,19 @@ where
 	<select id="selectStudyBoardReplyList" parameterType="int" resultType="com.project.cotudy.model.StudyBoardReplyDto">
 		select * from study_board_reply where study_num = #{studyNum} order by if(isnull(study_reply_step),study_reply_num,study_reply_step),study_reply_indent ;
 	</select>
+
+	<delete id="deleteStudyBoardReply" parameterType="int">
+		delete from study_board_reply where study_reply_num = #{studyReplyNum}
+	</delete>
+
+    <update id="updateStudyBoardReply" parameterType="map">
+        update study_board_reply set study_reply_cont=#{studyReplyCont},study_reply_created_time = now() where study_reply_num=#{studyReplyNum}
+    </update>
+
+	<insert id="insertStudyBoardReReply" parameterType="com.project.cotudy.model.StudyBoardReplyDto">
+		insert into study_board_reply (study_num,study_reply_cont,mem_id,study_reply_step,study_reply_indent,study_reply_created_time) values (#{studyNum},#{studyReplyCont},#{memId}, #{studyReplyNum}, (#{studyReplyIndent}+1),now());
+	</insert>
+	<delete id="deleteStudyBoardReReply" parameterType="int">
+		delete from study_board_reply where study_reply_step = #{studyReplyNum}
+	</delete>
 </mapper>

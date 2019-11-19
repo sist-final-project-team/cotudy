@@ -60,6 +60,9 @@ public interface BoardMapper {
     int contBookmark(@Param("studyNum") int studyNum,@Param("memId") String memId) throws Exception;
     // 스터디보드 댓글
     void insertStudyBoardReply(StudyBoardReplyDto studyBoardReplyDto) throws Exception;
+    void updateStudyBoardReply(@Param("studyReplyNum") int studyReplyNum,@Param("studyReplyCont") String studyReplyCont) throws Exception;
+    void insertStudyBoardReReply(StudyBoardReplyDto studyBoardReplyDto) throws Exception;
+    void deleteStudyBoardReReply(int studyReplyNum) throws Exception;
 }
 
 

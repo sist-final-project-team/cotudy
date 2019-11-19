@@ -11,12 +11,12 @@
     <insert id="register" parameterType="com.project.cotudy.model.StudyMemberDto">
         insert into study_member values (#{memId},#{memPwd},#{memName},#{memEmail},default,#{memSalt} );
     </insert>
-    
+
     <insert id="kakaoRegister" parameterType="map">
     INSERT INTO study_member (mem_id, mem_name, mem_email,mem_pwd)
 	VALUES (#{memId}, #{memName},#{memEmail},'zkzkdhfhrmdlsqlqjs');
     </insert>
-        
+
     <select id="loginCheck" parameterType="String" resultType="com.project.cotudy.model.StudyMemberDto">
 
             select * from study_member where mem_id = #{memId}
@@ -27,38 +27,38 @@
             select mem_id from study_member where mem_id = #{memId}
 
     </select>
-    
+
     <select id="findId" parameterType="map" resultType="String">
         select mem_id from study_member where mem_name=#{memName} and mem_email = #{memEmail};
     </select>
     <select id="findPwd" parameterType="map" resultType="String">
         select mem_pwd from study_member where mem_name=#{memName} and mem_email = #{memEmail} and mem_id=#{memId};
     </select>
-    
+
     <select id="selectMyInfo" parameterType="String" resultType="com.project.cotudy.model.StudyMemberDto">
     	select * from study_member where mem_id=#{memId}
     </select>
-    
+
     <select id="selectMyFreeBoardList" parameterType="String" resultType="com.project.cotudy.model.FreeBoardDto">
         select * from free_board where mem_id=#{memId} AND  free_deleted='N' order by free_num desc
     </select>
 
     <update id="updateMember" parameterType="com.project.cotudy.model.StudyMemberDto">
 		<![CDATA[
-			UPDATE study_member SET 
+			UPDATE study_member SET
 				mem_name = #{memName},
 				mem_email = #{memEmail},
 				mem_area = #{memArea}
-			WHERE 
+			WHERE
 				mem_id = #{memId}
 		]]>
 	</update>
-	
+
     <update id="updateMemberpwd" parameterType="map">
 		<![CDATA[
-			UPDATE study_member SET 
+			UPDATE study_member SET
 				mem_pwd = #{editpwd}
-			WHERE 
+			WHERE
 				mem_id = #{memId}
 		]]>
 	</update>
@@ -77,6 +77,11 @@
     <insert id="insertBookMark" parameterType="map">
         insert into bookmark values(#{memId},#{studyNum})
     </insert>
+
+    <select id="selectMyStudyList" parameterType="String" resultType="com.project.cotudy.model.StudyBoardDto">
+        select * from study_board where mem_id=#{memId} and study_status='N'
+    </select>
+
     <select id="getSaltById" parameterType="String" resultType="String">
 
             select mem_salt from study_member where mem_id = #{memId}
@@ -89,4 +94,5 @@
     <update id="changeStatus" parameterType="String">
         update study_member set mem_status = 'O' where mem_id = #{memId};
     </update>
+
 </mapper>

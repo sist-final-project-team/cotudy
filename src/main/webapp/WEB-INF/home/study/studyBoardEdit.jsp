@@ -19,7 +19,7 @@
     <h3>스터디 수정</h3>
     <hr width="50%" color="purple">
 
-    <form method="post" action="/studyEdit"  >
+    <form method="post" action="/studyEdit" name="studyEditForm" onsubmit="return checkForm()">
         <input type="hidden" value="<%=(String)session.getAttribute("memId") %>" name="memId">
         <table border="1" width="600" cellspacing="0">
 <c:set var="studyBoard" value="${studyBoard}"></c:set>
@@ -35,8 +35,8 @@
 
             <tr>
                 <th>날짜선택</th>
-                <td> <input type="text" class="date1" name="studyStartDate" placeholder="시작날짜 선택" autocomplete="off" required="required" readonly value="${studyBoard.getStudyStartDate()}">
-                    <input type="text" class="date2"  name="studyEndDate" placeholder="종료날짜 선택" autocomplete="off" required="required" readonly value="${studyBoard.getStudyEndDate()}"> </td>
+                <td> <input type="text" class="date1" name="studyStartDate" id="studyStartDate"  placeholder="시작날짜 선택" autocomplete="off" required="required" readonly value="${studyBoard.getStudyStartDate()}">
+                    <input type="text" class="date2"  name="studyEndDate" id="studyEndDate" placeholder="종료날짜 선택" autocomplete="off" required="required" readonly value="${studyBoard.getStudyEndDate()}"> </td>
             </tr>
             <tr>
                 <th>지역</th>
@@ -56,7 +56,7 @@
             <tr>
                 <th>키워드</th>
                 <td>
-                    <select required="required"   class="demo" multiple="multiple" name="studyKeyword" >
+                    <select class="demo" multiple="multiple" name="studyKeyword" >
                         <optgroup label="Languages">
                             <option value="C++">C++</option>
                             <option value="C#">C#</option>
@@ -162,6 +162,22 @@
             }
         });
     });
+</script>
+<!-- FORM 유효성체크-->
+<script>
+    function checkForm() {
+        var theForm = document.studyEditForm;
+
+        if(theForm.studyStartDate.value===''||theForm.studyEndDate.value===''){
+            window.alert("날짜를 선택해 주세요");
+            return false;
+        } else if(theForm.studyKeyword.value===''){
+            window.alert("키워드를 선택해 주세요");
+            return false;
+        }
+        console.log("dsdssdsds");
+        return true;
+    }
 </script>
 </body>
 

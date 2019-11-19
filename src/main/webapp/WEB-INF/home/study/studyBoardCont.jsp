@@ -13,7 +13,11 @@
     <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
     <c:set var="contBookmark" value="${contBookmark}"></c:set>
     <script>
-        function checkBookMark() {
+        var studyReplyNum;
+        var studyReplyStep;
+        var studyReplyCont;
+        var studyReplyIndent;
+    function checkBookMark() {
             var id = "<%=(String)session.getAttribute("memId")%>";
             console.log(id);
             var studyNum = document.getElementById("studyNum").value;
@@ -44,9 +48,9 @@
             }
         }
         function cont_check() {
-            if ($.trim($("#studyReplyCont1").val()) === "") {
+            if ($.trim($("#studyReplyConta").val()) === "") {
                 alert('댓글을 입력하세요');
-                $("#studyReplyCont1").focus();
+                $("#studyReplyConta").focus();
                 return false;
             }
             $.ajax({
@@ -56,7 +60,7 @@
                 success: function (data) {
                     if(data==="success"){
                         getCommentList();
-                        $("#studyReplyCont1").val("");
+                        $("#studyReplyConta").val("");
                         alert("댓글입력완료");
                     }
                 },
@@ -65,6 +69,7 @@
                 }
             })
         }
+
         function getCommentList(){
             var studyNum = document.getElementById("studyNum").value;
             console.log("studyNum->"+studyNum);
@@ -84,17 +89,43 @@
                         " </tr>";
                     var id = "<%=(String)session.getAttribute("memId")%>";
                     if(data.length>0){
-                        for(i=0;i<data.length;i++){
+                        for(var i=0;i<data.length;i++){
                             html += "<tr><td>"+data[i].memId+"</td>";
-                            html += "<td>"+data[i].studyReplyCont+"</td>";
+                            if(data[i].studyReplyStep!==0){
+                                html += "<td>☞"+data[i].studyReplyCont+"</td>";
+                            }else{
+                                html += "<td><a href='#none' onclick='show("+i+")'>"+data[i].studyReplyCont+"</a></td>";
+                            }
                             html += "<td>"+data[i].studyReplyCreatedTime;
                             if(id===data[i].memId){
-                                html += "<input type='button' value='수정'>";
-                                html += "<input type='submit' value='삭제' >"
+
+                                 studyReplyNum = data[i].studyReplyNum;
+                                 studyReplyStep = data[i].studyReplyStep;
+                                 studyReplyIndent = data[i].studyReplyIndent;
+                                html += "<input type='button' value='수정' onclick='replyModify("+i+")'>";
+                                html += "<input type='button' value='삭제' onclick='replyDeleteconfirm("+i+")'>";
+
                             }
-                            html += "</td></tr>"
+                            html += "</td></tr>";
+                            html += "<tr id='modify"+i+"' style='display: none'>";
+                            html += "<td colspan='2'><textarea cols='70' rows='5' style='resize: none' name='studyReplyCont' id='modifyCont"+i+"'>"+data[i].studyReplyCont+"</textarea></td>";
+                            html += "<input type='hidden' name='studyReplyNum' id='studyReplyNum"+i+"' value='"+studyReplyNum+"'>";
+                            html += "<td><input type='button' value='수정하기' onclick='replyModifyOk("+i+")'></td>";
+                            html += "</tr>";
+                            if(id!=="null"){
+                                html += "<form method='post' id='reReplyOk'>";
+                                html += "<tr id='show"+i+"' style='display: none'>";
+                                html += "<input type='hidden' name='studyReplyStep' value='"+studyReplyStep+"' id='studyReplyStep"+i+"'>";
+                                html += "<input type='hidden' name='studyReplyIndent' value='"+studyReplyIndent+"' id='studyReplyIndent"+i+"'>";
+                                html += "<input type='hidden' name='studyReplyNum' value='"+studyReplyNum+"' id='studyReplyNum"+i+"'>";
+                                html += "<input type='hidden' name='memId' id='memId' value='"+id+"'>";
+                                html += "<td colspan='2'><textarea cols='70' rows='5' style='resize: none' name='studyReplyCont' id='reReplyCont"+i+"'></textarea></td>";
+                                html += "<td><input type='button' value='댓글달기' onclick='reReplyOk("+i+")'></td>";
+                                html += "</tr>";
+                            }
                         }
                         $("#commentList").html(html);
+
                     }else{
                     }
                     },
@@ -106,6 +137,79 @@
         $(function(){
             getCommentList();
         });
+        function replyDeleteconfirm(i) {
+            var studyNum = document.getElementById("studyNum").value;
+            studyReplyNum = document.getElementById("studyReplyNum"+i).value;
+            studyReplyStep = document.getElementById("studyReplyStep"+i).value;
+            msg = "정말로 삭제하시겠습니까?";
+            if (confirm(msg)!=0) {
+                location.href = "/studyReplyDelete?studyReplyNum=" + studyReplyNum+"&studyReplyStep="+studyReplyStep+"&studyNum="+studyNum;
+                // Yes click
+            } else {
+                // no click
+            }
+        }
+        function replyModifyOk(i) {
+            var studyReplyNum = document.getElementById("studyReplyNum"+i).value;
+            studyReplyCont = $("#modifyCont"+i).val();
+            console.log("studyReplyCont =>"+studyReplyCont);
+            $.ajax({
+                type: "post",
+                url: "/studyReplyModify", // 파일 주소와 경로
+                data:{"studyReplyNum":studyReplyNum,"studyReplyCont":studyReplyCont},
+                success: function () {
+                    getCommentList();
+                },
+                error:function () {
+                    alert("error");
+                }
+            });
+        }
+        function replyModify(i) {
+            var show = "modify"+i;
+            if(document.getElementById(show).style.display==="none"){
+                document.getElementById(show).style.display="";
+            }else{
+                document.getElementById(show).style.display="none";
+            }
+        }
+        function show(i){
+            var show = "show"+i;
+            if(document.getElementById(show).style.display==="none"){
+                document.getElementById(show).style.display="";
+            }else{
+                document.getElementById(show).style.display="none";
+            }
+        }
+        function reReplyOk(i){
+            memId = "<%=(String)session.getAttribute("memId")%>";
+            studyNum = document.getElementById("studyNum").value;;
+            studyReplyNum = document.getElementById("studyReplyNum"+i).value;
+            studyReplyCont = $("#reReplyCont"+i).val();
+            studyReplyStep =document.getElementById("studyReplyStep"+i).value;
+            studyReplyIndent =document.getElementById("studyReplyIndent"+i).value;
+            if ($.trim($("#reReplyCont"+i).val()) === "") {
+                alert('댓글을 입력하세요');
+                $("#studyReplyCont"+i).focus();
+                return false;
+            }
+            $.ajax({
+                type: "post",
+                url: "/studyReCmt", // 파일 주소와 경로
+                data: {"studyNum":studyNum,"memId":memId,"studyReplyNum":studyReplyNum,
+                    "studyReplyCont":studyReplyCont,"studyReplyStep":studyReplyStep,"studyReplyIndent":studyReplyIndent},
+                success: function (data) {
+                    if(data==="success"){
+                        getCommentList();
+                        $("#studyReplyCont"+i).val("");
+                        alert("댓글입력완료");
+                    }
+                },
+                error:function () {
+                    alert("error");
+                }
+            })
+        }
     </script>
 </head>
 <body>
@@ -114,8 +218,6 @@
 </div>
 <div class="container">
     <c:set var="studyBoard" value="${studyCont}"></c:set>
-
-
 
     <c:if test="${!empty studyBoard}">
         <input type="hidden" name="studyNum" value="${studyBoard.getStudyNum()}" id="studyNum">
@@ -128,6 +230,14 @@
                         <h1 align="center" style="padding-left: 200px;
                             padding-right: 200px;"
                         ><b>${studyBoard.getStudyTitle()}</b></h1>
+                        <div align="left"  style="float: left; width: 30%;">
+                              <span style="display: inline-block"><img src="https://img.icons8.com/material-sharp/24/000000/user.png">${studyBoard.getMemId()}
+                        </div>
+<div align="right">
+
+
+                       <img src="https://img.icons8.com/metro/26/000000/date-to.png">  ${studyBoard.getStudyCreated()}</p></span>
+</div>
                         <hr>
                     </td>
                 </tr>
@@ -159,7 +269,7 @@
             <c:if test="${sessionScope.memId eq memId}">
                 <input type="hidden" id="studyNum" value="${studyBoard.getStudyNum()}">
                 <input type="button" class="btn btn-warning" id="studyEdit"  value="글 수정" onclick = "location.href = '/studyEditForm?studyNum=${studyBoard.getStudyNum()}'">
-                <input type="button" class="btn btn-danger" id="studyEdit" onclick="deleteConfirm(${memId})" value="글 삭제">
+                <input type="button" class="btn btn-danger" id="studyEdit" onclick="deleteConfirm('${memId}')" value="글 삭제">
             </c:if>
             <c:if test="${contBookmark eq 1}">
                 <input type="button" class="btn btn-success" id="bookMark" onclick="checkBookMark()" value="북마크">
@@ -182,8 +292,8 @@
                     <tr>
                         <input type="hidden" name="memId" value="${sessionScope.memId}">
                         <input type="hidden" name="studyNum" value="${studyBoard.getStudyNum()}">
-                        <td><textarea cols="70" rows="5" style="resize: none" name="studyReplyCont" id="studyReplyCont1"></textarea></td>
-                        <td><input type="button" value="댓글달기" onclick="return cont_check();"></td>
+                        <td><textarea cols="70" rows="5" style="resize: none" name="studyReplyCont" id="studyReplyConta"></textarea></td>
+                        <td><input type="button" value="댓글달기" onclick="return cont_check()"></td>
                     </tr>
                     <% } %>
                 </table>
