@@ -47,8 +47,7 @@
 		<![CDATA[
 			UPDATE study_member SET
 				mem_name = #{memName},
-				mem_email = #{memEmail},
-				mem_area = #{memArea}
+				mem_email = #{memEmail}
 			WHERE
 				mem_id = #{memId}
 		]]>
