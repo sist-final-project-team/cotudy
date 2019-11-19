@@ -4,8 +4,9 @@
 <mapper namespace="com.project.cotudy.mapper.BoardMapper">
 	<select id="selectFreeBoardList" parameterType="map" resultType="com.project.cotudy.model.FreeBoardDto">
 		<![CDATA[
-			SELECT a.*,ifnull(b.cnt,0) as free_reply_cnt FROM (select p.*, @rownum := @rownum+1 as rownum from (select * from free_board where free_deleted = 'N' order by free_num desc) p) a
-LEFT JOIN (SELECT free_num, count(free_num) as cnt FROM free_board_reply GROUP BY free_num) b on a.free_num = b.free_num where (@rownum:=0)=0 and free_deleted = 'N' and rownum between #{startNo} and #{endNo};
+SELECT a.* ,ifnull(b.cnt,0) as free_reply_cnt FROM (select p.*, @rownum := @rownum+1 as rownum from (select * from free_board where free_deleted = 'N' and (@rownum:=0)=0 order by free_num desc ) p) a
+LEFT JOIN (SELECT free_num, count(free_num) as cnt FROM free_board_reply GROUP BY free_num) b on a.free_num = b.free_num where free_deleted = 'N' and #{startNo}<=rownum and rownum <=#{endNo};
+
 		]]>
 	</select>
 	<select id="getListCount" resultType="int">

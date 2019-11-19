@@ -1,45 +1,35 @@
 package com.project.cotudy.controller;
 
-import java.io.File;
-import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.HashMap;
-import java.util.List;
 import com.project.cotudy.common.SHA256Util;
 import com.project.cotudy.model.*;
+import com.project.cotudy.service.*;
 import org.apache.commons.io.FileUtils;
-import java.net.URLEncoder;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import com.project.cotudy.service.BoardService;
-import com.project.cotudy.service.MemberService;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.ObjectUtils;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
-import com.project.cotudy.service.Email;
-import com.project.cotudy.service.EmailSender;
-import com.project.cotudy.service.KakaoAPI;
-import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import java.io.File;
+import java.io.IOException;
 import java.io.PrintWriter;
+import java.net.URLEncoder;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 @Controller
-@Transactional
+
 public class StudyController {
 
     @Autowired
@@ -75,7 +65,6 @@ public class StudyController {
         Document doc = Jsoup.connect(URL).get();
         Element elem = doc;
         Element elem2 = doc.select("tbody").first();
-        System.out.println(elem);
         mv.addObject("doc", elem);
         return mv;
     }
@@ -154,15 +143,15 @@ public class StudyController {
         int endNo = (page * rowsize);
         int startBlock = (((page - 1) / block) * block) + 1;
         int endBlock = (((page - 1) / block) * block) + block;
-        totalRecord = boardService.getListCount();
 
         List<FreeBoardDto> list = boardService.selectFreeBoardList(page, rowsize);
+        totalRecord = boardService.getListCount();
+
         allPage = (int) Math.ceil(totalRecord / (double) rowsize);
         if (endBlock > allPage) {
             endBlock = allPage;
         }
-        System.out.println(page + " " + rowsize);
-        System.out.println(list.size());
+
         ModelAndView mv = new ModelAndView("/freeboard/freeBoardList");
 
         mv.addObject("page", page);

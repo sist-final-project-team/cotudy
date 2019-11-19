@@ -2,21 +2,14 @@ package com.project.cotudy.service;
 
 import com.project.cotudy.common.FileUtils;
 import com.project.cotudy.mapper.BoardMapper;
-import com.project.cotudy.model.BoardFileDto;
-import com.project.cotudy.model.FreeBoardDto;
-import com.project.cotudy.model.FreeBoardReplyDto;
-import com.project.cotudy.model.SearchDto;
-import com.project.cotudy.model.StudyBoardDto;
-import com.project.cotudy.model.StudyBoardReplyDto;
-import org.springframework.util.CollectionUtils;
+import com.project.cotudy.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.CollectionUtils;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Transactional
 @Service
@@ -32,11 +25,7 @@ public class BoardServiceImpl implements BoardService {
 	public List<FreeBoardDto> selectFreeBoardList(int page,int rowsize) throws Exception {
 		int startNo = ((page-1)*rowsize)+1;
 		int endNo = (page * rowsize);
-
 		List<FreeBoardDto> list = boardMapper.selectFreeBoardList(startNo,endNo);
-		System.out.println(list.size());
-		if(list.size()==0){
-			list = boardMapper.selectFreeBoardList(startNo,endNo);		}
 		return list;
 	}
 
@@ -79,7 +68,6 @@ public class BoardServiceImpl implements BoardService {
 		boardMapper.insertFreeBoard(freeboard);
 		//업로드된 파일을 서버에 저장하고 파일정보를 가져옴
 		List<BoardFileDto> list = fileUtils.parseFileInfo(freeboard.getFreeNum(), multireq);
-		//System.out.println("list stored는2>??"+list.get(1).getStoredFilePath());
 		//파일정보를 맵에 저장
 		if(CollectionUtils.isEmpty(list) == false){
 			boardMapper.insertBoardFileList(list);
@@ -118,26 +106,18 @@ public class BoardServiceImpl implements BoardService {
 		int startNo = ((page-1)*rowsize)+1;
 		int endNo = (page * rowsize);
 		List<FreeBoardDto> list = null;
-System.out.println("getFreeSubject????????????"+searchdto.getFreeSubject());
-System.out.println("getSearchKeyword????????????"+searchdto.getSearchKeyword());
-System.out.println("getSearchType???????????"+searchdto.getSearchType());
 
 		if(searchdto.getSearchKeyword() == null || searchdto.getSearchKeyword().equals("")){ //1-1.키워드 안넣음
-			System.out.println("1-1.키워드 안넣음");			
 			if(searchdto.getFreeSubject().equals("전체보기")) { //1-1-1.말머리선택x ->전체글보기
 				list = boardMapper.selectFreeBoardList(startNo,endNo); }
 			else { //1-1-2.only 말머리
 				list = boardMapper.selectFreeBoardSubSearchList(searchdto,startNo,endNo); } 
 			
-		}else {//1-2.키워드 넣음  
-			System.out.println("1-2.키워드 넣음");			
+		}else {//1-2.키워드 넣음
 			if(searchdto.getFreeSubject()!=null) { //이거 왜있는거?
 				if (searchdto.getFreeSubject().equals("전체보기")) { //1-1-1.only 키워드
-					System.out.println("1-2-1.only 키워드");
 					list = boardMapper.selectFreeBoardKeySearchList(searchdto, startNo, endNo);
 				} else { //1-1-2.말머리 + 키워드
-					System.out.println("1-2-2.말머리 + 키워드");
-					System.out.println(searchdto.getSearchKeyword());
 					list = boardMapper.selectFreeBoardSubKeySearchList(searchdto, startNo, endNo);
 				}
 			}
@@ -149,30 +129,20 @@ System.out.println("getSearchType???????????"+searchdto.getSearchType());
 		int result = 0;
 		if(searchDto.getSearchKeyword() == null || searchDto.getSearchKeyword().equals("")){ //1-1.키워드 안넣음
 			if(searchDto.getFreeSubject().equals("전체보기")) { //1-1-1.말머리선택x ->전체글보기
-				System.out.println("1-1-1 말머리 선택x 전체글보기 카운트");
 				result = boardMapper.getListCount(); }
 			else { //1-1-2.only 말머리
-				System.out.println("1-1-2 말머리 보기 카운트");
 				result = boardMapper.getSearchsubListCount(searchDto);
 			}
 			
 		}else {
 		 //1-2.키워드 넣음
 		if(searchDto.getFreeSubject()!=null){
-			System.out.println("1-2.키워드 넣음 카운트");
 			if(searchDto.getFreeSubject().equals("전체보기")) { //1-2-1.only 키워드
-				System.out.println("1-2-1.only 키워드 카운트");
-				System.out.println(searchDto.getSearchKeyword());
-				System.out.println(searchDto.getSearchType());
 				result =boardMapper.getSearchkeyListCount(searchDto);
-				System.out.println("result======>"+result);
 			}else { //1-2-2.말머리 + 키워드
-				System.out.println("1-2-2.말머리 + 키워드 카운트");
 				result = boardMapper.getSearchsubkeyListCount(searchDto);
 			}
 		}
-	
-		System.out.println("result=>"+result);
 	}
 		return result;
 		}

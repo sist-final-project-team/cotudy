@@ -97,7 +97,6 @@ public class MemberServiceImpl implements MemberService {
         }else if(dto==null){
             result=0;
         }
-        System.out.println(result+"111");
         return result;
     }
 
@@ -118,19 +117,15 @@ public class MemberServiceImpl implements MemberService {
 	}
     @Override
     public List<FreeBoardDto> selectMyFreeBoardList(String memId) throws Exception {
-        System.out.println(memId);
-        System.out.println(memId);
-        System.out.println(memId);
+
         return memberMapper.selectMyFreeBoardList(memId);
     }
     // 북마크 추가 부분시작
     @Override
     public boolean checkBookMark(String memId, int studyNum) throws Exception {
         if(memberMapper.checkBookMark(memId,studyNum).isEmpty()){
-            System.out.println(memberMapper.checkBookMark(memId,studyNum));
             return false;
         }else{
-            System.out.println("...null값이 아니다"+memberMapper.checkBookMark(memId,studyNum));
             return true;
         }
     }

@@ -110,11 +110,9 @@
 			</select> 
 			<input type="text" name="searchKeyword"> 
 			<input type="submit" value="검색" class="btn btn-outline-secondary">
-                <input align="right" type="button" value="글 작성" onclick="writeOk()"class="btn btn-success">
-
+                <input align="right" type="button" value="글 작성" onclick="writeOk()" class="btn btn-success">
 		</form>
     </div>
-
 </div>
 
 </body>
