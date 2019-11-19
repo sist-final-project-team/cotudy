@@ -7,10 +7,12 @@ import com.project.cotudy.model.*;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.io.PrintWriter;
 import java.util.List;
 
+@Transactional
 @Service
 public class MemberServiceImpl implements MemberService {
 
@@ -100,7 +102,7 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
-    public String findId(String memName, String memEmail) throws Exception {
+    public List<String> findId(String memName, String memEmail) throws Exception {
         return memberMapper.findId(memName,memEmail);
     }
 
@@ -140,4 +142,23 @@ public class MemberServiceImpl implements MemberService {
     public void deleteBookMark(String memId, int studyNum) throws Exception {
         memberMapper.deleteBookMark(memId,studyNum);
     }
+    
+    //id로 salt값 가져오기
+	@Override
+	public String getSaltById(String id) throws Exception {
+		return memberMapper.getSaltById(id);
+	}
+
+	//비밀번호 찾기시 새로 초기화시킨 난수 비번 저장시키기
+	@Override
+	public void insertNewPwd(String memId, String memPwd) throws Exception {
+		memberMapper.insertNewPwd(memId, memPwd);
+	}
+
+	//카카오 탈퇴후 재가입하는사람 status O로 바꾸기
+	@Override
+	public void changeStatus(String memId) throws Exception {
+		memberMapper.changeStatus(memId);
+
+	}
 }

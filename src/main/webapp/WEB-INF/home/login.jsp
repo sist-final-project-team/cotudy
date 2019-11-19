@@ -70,16 +70,18 @@
         <div class="form-group">
             <button type="submit" class="btn btn-primary btn-block">로그인</button>
         </div>
+        
+
+           <a href="https://kauth.kakao.com/oauth/authorize?client_id=466c43b6799bd576421ad9edd9c3944c&redirect_uri=http://localhost:9000/main&response_type=code">
+            <img src="images/kakao_account_login_btn_medium_wide.png">
+        </a>
+        
         <div class="clearfix">
 
             <a href="/findPwd" class="pull-right">비밀번호 찾기</a>
             <a href="/findid" class="pull-left">아이디 찾기</a>
         </div>
     </form>
-
-           <a href="https://kauth.kakao.com/oauth/authorize?client_id=466c43b6799bd576421ad9edd9c3944c&redirect_uri=http://localhost:9000/main&response_type=code">
-            <img src="images/kakao_account_login_btn_medium_narrow.png">
-        </a>
 
     <p class="text-center"><a href="javascript:void(0);" onclick="join();">회원가입</a></p>
 

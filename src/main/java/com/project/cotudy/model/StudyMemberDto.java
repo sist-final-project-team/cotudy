@@ -9,5 +9,6 @@ public class StudyMemberDto {
     private String memEmail;
     private String memArea;
     private String memStatus;
+    private String memSalt;
 
 }

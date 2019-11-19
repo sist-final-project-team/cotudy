@@ -23,9 +23,21 @@
 <body>
 <jsp:include page="../header.jsp"></jsp:include>
 <div class="container2">
+
+
     <hr width="50%" color="blue">
     <h3>자유 게시판 목록</h3>
     <hr width="50%" color="blue">
+    
+    
+<div class="btn-group" role="group" aria-label="Basic example">
+  <button type="button" class="btn btn-secondary" onclick="location.href='/freeList' " >전체보기</button>
+  <button type="button" class="btn btn-secondary" value="질문" onclick="location.href='/freeSearchList?freeSubject=<%="질문"%>'" >질문</button>
+  <button type="button" class="btn btn-secondary" value="사담" onclick="location.href='/freeSearchList?freeSubject=<%="사담"%>'" >사담</button>
+  <button type="button" class="btn btn-secondary" value="기타" onclick="location.href='/freeSearchList?freeSubject=<%="기타"%>'" >기타</button>
+</div>
+
+
     <table class="board_list">
         <tr>
             <th>글 번호</th>

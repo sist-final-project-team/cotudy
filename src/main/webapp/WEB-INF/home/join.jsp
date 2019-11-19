@@ -208,10 +208,6 @@
             <label>이메일</label>
             <input type="email" class="form-control" name="memEmail" placeholder="exam@cotudy.com" id="memEmail" required="required">
         </div>
-        <div class="form-group">
-            <label>거주지</label>
-            <input type="text" class="form-control" name="memArea" placeholder="○○시○○구" id="memArea" required="required">
-        </div>
 
 
         <div class="form-group">

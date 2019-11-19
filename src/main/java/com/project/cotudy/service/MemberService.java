@@ -20,12 +20,15 @@ public interface MemberService {
     void deleteMember(String memId) throws Exception;    //회원 탈퇴
     void bookmark(String memId, int studyNum);  //북마크 등록
     int checkMemberId(String memId) throws Exception;
-    String findId(String memName,String memEmail) throws Exception;
+    List<String> findId(String memName,String memEmail) throws Exception;
     String findPwd(String memId,String memName,String memEmail) throws Exception;
-    StudyMemberDto selectMyInfo(String memId) throws Exception;
+    StudyMemberDto selectMyInfo(String memId) throws Exception;//아이디로 내 정보 가져오기
     List<FreeBoardDto> selectMyFreeBoardList(String memId) throws Exception;
     boolean checkBookMark(String memId, int studyNum) throws Exception;
     void insertBookMark(String memId,int studyNum) throws Exception;
     void deleteBookMark(String memId,int studyNum) throws Exception;
+	String getSaltById(String id) throws Exception;
+	void insertNewPwd( String memId, String memPwd) throws Exception;//비번찾기시 새로운비번 저장시키기
+	void changeStatus(String memId) throws Exception;
 }
 

@@ -7,15 +7,13 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
-
+import com.project.cotudy.common.SHA256Util;
 import com.project.cotudy.model.*;
 import org.apache.commons.io.FileUtils;
-
 import java.net.URLEncoder;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
 import com.project.cotudy.service.BoardService;
 import com.project.cotudy.service.MemberService;
 import org.jsoup.Jsoup;
@@ -26,6 +24,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -36,12 +35,11 @@ import org.springframework.web.servlet.ModelAndView;
 import com.project.cotudy.service.Email;
 import com.project.cotudy.service.EmailSender;
 import com.project.cotudy.service.KakaoAPI;
-
 import org.springframework.web.bind.annotation.*;
-
 import java.io.PrintWriter;
 
 @Controller
+@Transactional
 public class StudyController {
 
     @Autowired
@@ -285,28 +283,25 @@ public class StudyController {
 
     //조아라 수정 : 남의 글 삭제 금지start////////////////////////////
     @RequestMapping(method = RequestMethod.GET, value = "/freeDelete")
-    public void freeBoardDelete(@RequestParam("freeNum") int freeNum, @RequestParam("memId") String memId, HttpServletResponse response, HttpServletRequest request) throws Exception {
-        String id = (String) request.getSession().getAttribute("memId");
+    public void freeBoardDelete(@RequestParam("freeNum") int freeNum, @RequestParam("memId") String memId, HttpServletResponse response,HttpServletRequest request) throws Exception{
+    	String id = (String)request.getSession().getAttribute("memId");
+    	
 
+    	response.setContentType("text/html; charset=UTF-8");
+    	PrintWriter out = response.getWriter();
 
-        response.setContentType("text/html; charset=UTF-8");
-        PrintWriter out = response.getWriter();
-
-        if (id.equals(memId)) {
-            boardService.deleteFreeBoard(freeNum);
-            out.println("<script>");
-            out.println("alert('삭제가 완료되었습니다.')");
-            out.println("location.href='/freeList'");
-            out.println("</script>");
-
-        } else {
-            out.println("<script>");
-            out.println("alert('남의 글 삭제하지 마셈.')");
-            out.println("location.href='/freeList'");
-            out.println("</script>");
-
-        }
-
+    	if(id.equals(memId)) {
+    		boardService.deleteFreeBoard(freeNum);
+    		out.println("<script>");
+    		out.println("alert('삭제가 완료되었습니다.')");
+    		out.println("location.href='/freeList'");
+    		out.println("</script>");
+    	}else {
+    		out.println("<script>");
+    		out.println("alert('남의 글 삭제하지 마셈.')");
+    		out.println("location.href='/freeList'");
+    		out.println("</script>");
+    	}
     }
     //조아라 수정 : 남의 글 삭제 금지end////////////////////////////
 
@@ -315,12 +310,12 @@ public class StudyController {
     public void findId_ok(@RequestParam("memName") String memName, @RequestParam("memEmail") String memEmail, HttpServletResponse response) throws Exception {
         response.setContentType("text/html; charset= UTF-8");
         PrintWriter out = response.getWriter();
-        String id = memberService.findId(memName, memEmail);
+        List<String> id = memberService.findId(memName, memEmail);
         if (id != null) {
             out.println("<script>");
-            out.println("alert('회원님의 아이디는" + id + "입니다')");
+            out.println("alert('회원님의 아이디는" + id.toString() + "입니다')");
             out.println("window.open(\"/login\", \"로그인 화면\", \"top=300, left=300, width=500, height=600, status=no, menubar=no, toolbar=no, resizable=no\");");
-            out.println("self.close()");
+           /* out.println("self.close()");*/
             out.println("</script>");
         } else {
             out.println("<script>");
@@ -343,27 +338,51 @@ public class StudyController {
 
     @RequestMapping("findPwd_ok")
     public void findPw(@RequestParam("memId") String memId, @RequestParam("memName") String memName, @RequestParam("memEmail") String memEmail, HttpServletResponse response) throws Exception {
-        response.setContentType("text/html; charset= UTF-8");
+    	response.setContentType("text/html; charset= UTF-8");
         PrintWriter out = response.getWriter();
         String id = memId;
         String e_mail = memEmail;
+        //비번 가져와서
         String pwd = memberService.findPwd(memId, memName, memEmail);
-        if (pwd != null) {
-
-            email.setContent("비밀번호는 " + pwd + " 입니다.");
-            email.setReceiver(e_mail);
-            email.setSubject(id + "님 비밀번호 찾기 메일입니다.");
+        
+    	//id로 salt 가져오기(암호화, 로그인종류(카카오or일반) 구분위해)
+    	String salt = memberService.getSaltById(id);
+    	System.out.println("salt는??????????????????????????????????????"+salt);
+    	if(salt==null) {//카카오로그인
+            out.println("<script>");
+            out.println("alert('카카오 ID는 비밀번호 찾기가 불가능합니다.')");
+            out.println("location.href='/findPwd'");
+            out.println("</script>");
+    	}else {//일반로그인
+    		
+        if (pwd != null) {//정보에 맞는 비번 있으면
+        	//난수발생시켜서 새로운 비번으로 db에 저장한 후 사용자에게 난수 메일로 알려주기
+        	//난수발생시키기
+        	int intpwd = (int) (Math.random() * 1000000) + 1;
+        	String newpwd = Integer.toString(intpwd);
+        	
+        	//암호화
+        	String newpwdsha = SHA256Util.getEncrypt(newpwd, salt);         	
+        	//db에 저장하고
+        	memberService.insertNewPwd(memId ,newpwdsha);
+        	
+        	//난수 이메일로 보내주기
+        	email.setReceiver(e_mail);
+        	email.setSubject(id + "님 코터디 비밀번호 찾기 메일입니다.");
+            email.setContent("비밀번호가 " + newpwd + "로 초기화 되었습니다. 로그인 후 마이페이지에서 비밀번호를 변경해 주세요.");
             emailSender.SendEmail(email);
             out.println("<script>");
-            out.println("alert('메일을 보냈습니다 확인하세요')");
+            out.println("alert('메일을 보냈습니다. 확인하세요')");
             out.println("self.close()");
             out.println("</script>");
         } else {
+        	System.out.println("PWD null이네...");
             out.println("<script>");
             out.println("alert('정보가 잘못되었습니다.')");
             out.println("location.href='/findPwd'");
             out.println("</script>");
         }
+    }
     }
 
     @RequestMapping("/check")      // id중복 확인해서 ajax data값으로 넘기기 위한 jsp
@@ -378,6 +397,15 @@ public class StudyController {
 
     @RequestMapping("/join_ok")
     public String joinOk(StudyMemberDto memberDto) throws Exception {
+    	//비밀번호 암호화(SHA-256)start -조아라
+    	String salt = SHA256Util.generateSalt();
+    	memberDto.setMemSalt(salt);
+    	
+    	String pwd = memberDto.getMemPwd();
+    	pwd = SHA256Util.getEncrypt(pwd, salt);
+    	memberDto.setMemPwd(pwd);
+    	//암호화해서 dto에 담기 끝
+    	
         memberService.register(memberDto);
         return "/main";
     }
@@ -389,10 +417,13 @@ public class StudyController {
 
     @RequestMapping("/logout")
     public String logout(HttpSession session) {
-        //아래 세줄은 카카오 로그아웃 관련
-        kakao.kakaoLogout((String) session.getAttribute("access_Token"));
-        session.removeAttribute("access_Token");
-        session.removeAttribute("userId");
+    	//아래 세줄은 카카오 로그아웃 관련
+    	if((String)session.getAttribute("access_Token")!=null) {
+    		kakao.kakaoLogout((String)session.getAttribute("access_Token"));
+    		session.removeAttribute("access_Token");
+    		//session.removeAttribute("userId");
+    		
+    	}
         return "/logout";
     }
 
@@ -411,6 +442,13 @@ public class StudyController {
     public void loginOk(HttpSession session, @RequestParam("id") String id, @RequestParam("pwd") String pwd, HttpServletResponse response) throws Exception {
         response.setContentType("text/html; charset= UTF-8");
         PrintWriter out = response.getWriter();
+        //암호화 관련
+        //해당 id의 salt값 가져오기
+        String salt = memberService.getSaltById(id);
+        //로그인시 받은 비번 암호화(하면 db랑 같아짐)
+        pwd = SHA256Util.getEncrypt(pwd, salt); 
+        
+        
         if (memberService.loginCheck(id, pwd)) {
             session.setAttribute("memId", id);
             out.println("<script>");
@@ -440,25 +478,31 @@ public class StudyController {
         System.out.println("controller access_token는???" + access_Token);
 
         HashMap<String, Object> userInfo = kakao.getUserInfo(access_Token);
-        System.out.println("1.userInfo 닉네임은??" + userInfo.get("nickname") + "2.userInfo id는??" + userInfo.get("id") + "3.userInfo email은???" + userInfo.get("email"));
-        System.out.println("컨트롤러 아이디는?" + userInfo.get("id"));
-        String memId = (String) userInfo.get("id");
-        String memName = (String) userInfo.get("nickname");
-        String memEmail = (String) userInfo.get("email");
+
+        System.out.println("1.userInfo 닉네임은??"+userInfo.get("nickname")+"2.userInfo id는??"+userInfo.get("id")+"3.userInfo email은???"+userInfo.get("email"));
+        System.out.println("컨트롤러 아이디는?"+userInfo.get("id"));
+        String memId = (String)userInfo.get("id");
+        String memName = (String)userInfo.get("nickname");
+        String memEmail = (String)userInfo.get("email");
+        
         //카카오로그인 id가 db에 없으면 저장시키기(가입시키기. ID, 닉네임, 이메일)
-        if (memberService.kakaoDbCheck(memId) == false) {//true(아이디없을경우. 가입시켜야함)
-            memberService.kakaoRegister(memId, memName, memEmail);
-        }
+        if(memberService.kakaoDbCheck(memId)==false) {//true(아이디없을경우. 가입시켜야함)
+        	memberService.kakaoRegister(memId, memName, memEmail);
+        	}
 
-        session.setAttribute("access_Token", access_Token);//로그아웃시 사용
-        session.setAttribute("memId", userInfo.get("id"));
-        out.println("<script>");
-        //부모창을 원하는 페이지로 이동시킨후 자식창(자기자신)은 닫는다.
-        out.println(" window.opener.top.location.href='/'");
-        out.println("self.close()");
-        out.println("</script>");
-
-        //return mv;
+        //이전에 탈퇴했다가 로그인하는사람일경우(status x일 경우) o로 바꿔주기
+        StudyMemberDto meminfodto = memberService.selectMyInfo(memId); //회원정보 가져오기
+        if(meminfodto.getMemStatus().equals("X")) {
+        	memberService.changeStatus(memId);
+        	}
+        
+            session.setAttribute("access_Token", access_Token);//로그아웃시 사용
+            session.setAttribute("memId", userInfo.get("id"));
+            out.println("<script>");
+            //부모창을 원하는 페이지로 이동시킨후 자식창(자기자신)은 닫는다.
+            out.println(" window.opener.top.location.href='/'");
+            out.println("self.close()");
+            out.println("</script>");
     }
 
 
@@ -631,14 +675,23 @@ public class StudyController {
     public void mempwdEdit(HttpServletRequest request, HttpServletResponse response,
                            @RequestParam("nowpwd") String nowpwd, @RequestParam("editpwd") String editpwd) throws Exception {
         String memId = (String) request.getSession().getAttribute("memId");
+        //회원정보 가져오기
         StudyMemberDto meminfodto = memberService.selectMyInfo(memId);
+        
+        //nowpwd 비밀번호 암호화
+        //해당 id의 salt값 가져오기
+        String salt = memberService.getSaltById(meminfodto.getMemId());
+        //로그인시 받은 비번 암호화(하면 db랑 같아짐)
+        String shapwd = SHA256Util.getEncrypt(nowpwd, salt);
         response.setContentType("text/html; charset=UTF-8");
         PrintWriter out = response.getWriter();
 
-        if (meminfodto.getMemPwd().equals(nowpwd)) { //비밀번호 제대로 입력
-
-            //System.out.println("아이디 비밀번호는?????"+memId+editpwd);
-            memberService.updateMemberpwd(memId, editpwd);
+        //nowpwd이랑 db비번이랑 비교
+        if(meminfodto.getMemPwd().equals(shapwd)) { //비밀번호 제대로 입력
+            //editpwd 암호화
+            String epwd = SHA256Util.getEncrypt(editpwd, salt);
+            //db에 넣기
+            memberService.updateMemberpwd(memId, epwd );
             out.println("<script>");
             out.println("alert('비밀번호 변경이 완료되었습니다.')");
             out.println("location.href='/myPage'");
@@ -651,13 +704,22 @@ public class StudyController {
         }
 
     }
-
+    
+    //회원탈퇴
     @RequestMapping("/memOutOk")
     public String memOutOk(HttpSession session) throws Exception {
         String memId = (String) session.getAttribute("memId");
         memberService.deleteMember(memId);
         //세션 해제 하고 메인으로 넘겨야함
         session.invalidate();
+        //카카오 세션해제
+    	if((String)session.getAttribute("access_Token")!=null) {
+    		kakao.kakaoLogout((String)session.getAttribute("access_Token"));
+    		session.removeAttribute("access_Token");
+    		session.removeAttribute("userId");
+    		
+    	}        
+        
         return "/main";
     }
 
@@ -781,6 +843,35 @@ public class StudyController {
         ResponseEntity<List<StudyBoardReplyDto>> entity = null;
         entity = new ResponseEntity<>(boardService.selectStudyBoardReplyList(studyNum), HttpStatus.OK);
         return entity;
+    }
+    @RequestMapping(value = "/studyReplyDelete")
+    public void studyReplyDelete(@RequestParam("studyReplyNum") String studyReplyNum1, @RequestParam("studyNum") String studyNum1,@RequestParam("studyReplyStep") String studyReplyStep1, HttpServletResponse response) throws Exception {
+        int studyNum = Integer.parseInt(studyNum1);
+        int studyReplyNum = Integer.parseInt(studyReplyNum1);
+        int studyReplyStep = Integer.parseInt(studyReplyStep1);
+        System.out.println(studyReplyNum);
+        boardService.deleteStudyBoardReply(studyReplyNum);
+        if(studyReplyStep==0){
+            System.out.println("하위항목 삭제");
+            boardService.deleteStudyBoardReReply(studyReplyNum);
+        }
+        response.setContentType("text/html; charset=UTF-8");
+        PrintWriter out = response.getWriter();
+        out.println("<script>");
+        out.println("location.href='/studyCont?studyNum=" + studyNum + "'");
+        out.println("</script>");
+    }
+    @RequestMapping(method = RequestMethod.POST, value = "/studyReplyModify")
+    @ResponseBody
+    public void studyReplyModify(@RequestParam("studyReplyNum") int studyReplyNum, @RequestParam("studyReplyCont") String studyReplyCont) throws Exception {
+        boardService.updateStudyBoardReply(studyReplyNum,studyReplyCont);
+    }
+    @RequestMapping("/studyReCmt")
+    @ResponseBody
+    public String studyReComment(StudyBoardReplyDto studyBoardReplyDto) throws Exception{
+        System.out.println(studyBoardReplyDto.toString());
+        boardService.insertStudyBoardReReply(studyBoardReplyDto);
+        return "success";
     }
 }
 

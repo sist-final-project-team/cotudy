@@ -41,12 +41,6 @@
 					<td><input name="memEmail" value="${meminfodto.getMemEmail()}">
 					</td>
 				</tr>
-		
-				<tr>
-					<th>거주지</th>
-					<td><input name="memArea" value="${meminfodto.getMemArea()}">
-					</td>
-				</tr>
 						
 				<tr>
             <td colspan="6" align="center">

@@ -2,13 +2,14 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.project.cotudy.mapper.MemberMapper">
+
     <select id="checkMemberId" resultType="com.project.cotudy.model.StudyMemberDto" parameterType="String">
 
         select * from study_member where mem_id=#{memId};
 
     </select>
     <insert id="register" parameterType="com.project.cotudy.model.StudyMemberDto">
-        insert into study_member values (#{memId},#{memPwd},#{memName},#{memEmail},#{memArea},default,default);
+        insert into study_member values (#{memId},#{memPwd},#{memName},#{memEmail},#{memArea},default,#{memSalt} );
     </insert>
 
     <insert id="kakaoRegister" parameterType="map">
@@ -30,7 +31,7 @@
     <select id="findId" parameterType="map" resultType="String">
         select mem_id from study_member where mem_name=#{memName} and mem_email = #{memEmail};
     </select>
-    <select id="findPwd" parameterType="String" resultType="String">
+    <select id="findPwd" parameterType="map" resultType="String">
         select mem_pwd from study_member where mem_name=#{memName} and mem_email = #{memEmail} and mem_id=#{memId};
     </select>
 
@@ -80,4 +81,18 @@
     <select id="selectMyStudyList" parameterType="String" resultType="com.project.cotudy.model.StudyBoardDto">
         select * from study_board where mem_id=#{memId} and study_status='N'
     </select>
+
+    <select id="getSaltById" parameterType="String" resultType="String">
+
+            select mem_salt from study_member where mem_id = #{memId}
+
+    </select>
+    <update id="insertNewPwd" parameterType="map">
+        update study_member set mem_pwd = #{memPwd} where mem_id = #{memId};
+    </update>
+
+    <update id="changeStatus" parameterType="String">
+        update study_member set mem_status = 'O' where mem_id = #{memId};
+    </update>
+
 </mapper>
