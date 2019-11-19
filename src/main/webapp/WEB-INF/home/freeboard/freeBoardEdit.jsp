@@ -42,8 +42,9 @@
 					<th>주제</th>
 					<td>
 						<select name="freeSubject">
+							<option value="자유"  <c:if test=" ${dto.getFreeSubject()=='질문' }">selected</c:if> >자유</option>
 							<option value="질문"  <c:if test=" ${dto.getFreeSubject()=='질문' }">selected</c:if> >질문</option>
-							<option value="사담"  <c:if test="${dto.getFreeSubject()=='사담'}">selected</c:if> >사담</option>
+							<option value="정보"  <c:if test="${dto.getFreeSubject()=='사담'}">selected</c:if> >정보</option>
 							<option value="기타"  <c:if test="${dto.getFreeSubject()=='기타' }">selected</c:if> >기타</option>
 						</select>
 					</td>

@@ -38,11 +38,6 @@ function mem_check() {
         return false;
     }   
     
-    if($.trim($("#memArea").val())===""){
-        alert("거주지를 입력하세요!");
-        $("#memArea").val("").focus();
-        return false;
-    }
     if($.trim($("#memEmail").val())===""){
         alert("이메일을 입력하세요!");
         $("#memEmail").val("").focus();

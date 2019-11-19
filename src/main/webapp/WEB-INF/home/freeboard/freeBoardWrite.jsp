@@ -30,19 +30,20 @@
 					<td>
 						<select name="freeSubject">
 							<option value="기타" selected>주제선택</option>
+							<option value="자유">자유</option>
 							<option value="질문">질문</option>
-							<option value="사담">사담</option>
+							<option value="정보">정보</option>
 							<option value="기타">기타</option>
 						</select>
 					</td>
 				</tr>
 				<tr>
 					<th>글제목 </th>
-					<td> <input name="freeTitle"> </td>
+					<td> <input name="freeTitle"  required="required"> </td>
 				</tr>
 				<tr>
 					<th>글내용</th>
-					<td> <textarea rows="8" cols="30" name="freeCont" style="resize: none"></textarea> </td>
+					<td> <textarea rows="8" cols="30" name="freeCont" style="resize: none"  required="required"></textarea> </td>
 				</tr>		
 				<tr>
 					<th>파일첨부</th>
