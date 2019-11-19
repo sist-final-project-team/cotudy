@@ -311,10 +311,12 @@ public class StudyController {
     public void findId_ok(@RequestParam("memName") String memName, @RequestParam("memEmail") String memEmail, HttpServletResponse response) throws Exception {
         response.setContentType("text/html; charset= UTF-8");
         PrintWriter out = response.getWriter();
-        String id = memberService.findId(memName, memEmail);
+        List<String> id = memberService.findId(memName, memEmail);
         if (id != null) {
             out.println("<script>");
-            out.println("alert('회원님의 아이디는" + id + "입니다')");
+            
+            out.println("alert('회원님의 아이디는" + id.toString() + "입니다')");
+            
             out.println("window.open(\"/login\", \"로그인 화면\", \"top=300, left=300, width=500, height=600, status=no, menubar=no, toolbar=no, resizable=no\");");
             out.println("self.close()");
             out.println("</script>");
