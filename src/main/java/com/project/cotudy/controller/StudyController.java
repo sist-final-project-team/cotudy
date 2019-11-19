@@ -2,7 +2,9 @@ package com.project.cotudy.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 
@@ -576,7 +578,6 @@ public class StudyController {
     /* 마이페이지 관련 */
     @RequestMapping("/myWrite")
     public ModelAndView memMyWrite(HttpSession session) throws Exception {
-
         ModelAndView mv = new ModelAndView("/mypage/memMyWrite");
         String memId = (String) session.getAttribute("memId");
         List<FreeBoardDto> freeList = memberService.selectMyFreeBoardList(memId);

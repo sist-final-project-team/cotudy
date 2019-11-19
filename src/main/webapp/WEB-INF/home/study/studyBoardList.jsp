@@ -84,10 +84,10 @@
                 <fmt:parseNumber value="${strPlanDate.time / (1000*60*60*24)}" integerOnly="true" var="strDate"></fmt:parseNumber>
                 <fmt:parseDate value="${studyBoard.getStudyEndDate() }" var="endPlanDate" pattern="yyyy-MM-dd"/>
                 <fmt:parseNumber value="${endPlanDate.time / (1000*60*60*24)}" integerOnly="true" var="endDate"></fmt:parseNumber>
-                <fmt:parseDate value="${now}" var="today" pattern="yyyy-MM-dd " />
-                <fmt:parseNumber value="${today.time / (1000*60*60*24)}" integerOnly="true" var="todayDate"></fmt:parseNumber>
-                <c:set var="dateCal" value="${(todayDate-strDate+18217)/(endDate-strDate)*100}"></c:set>
-
+                <jsp:useBean id="now1" class="java.util.Date" />
+                <fmt:formatDate value="${now1}" pattern="yyyy-MM-dd" var="today" />
+                <fmt:parseNumber value="${now1.time / (1000*60*60*24)-1}" integerOnly="true" var="todayDate"></fmt:parseNumber>
+                <c:set var="dateCal" value="${(todayDate-strDate+1)/(endDate-strDate+1)*100}"></c:set>
 
                 <div class="col-sm-4" style="margin-bottom: 50px;">
                     <div class="card">
@@ -97,12 +97,12 @@
                             <p class="card-text">장소 : ${studyBoard.getStudyArea()}<br>키워드
                                 : ${studyBoard.getStudyKeyword()}</p>
                             <c:choose>
-                                <c:when test="${todayDate < strDate-18217}">
+                                <c:when test="${todayDate < strDate}">
                                     <div class="progress">
                                         <div class="progress-bar" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">0%</div>
                                     </div>
                                 </c:when>
-                                <c:when test="${todayDate >= endDate-18217}">
+                                <c:when test="${todayDate >= endDate}">
                                     <div class="progress">
                                         <div class="progress-bar" role="progressbar" style="width: 100%;" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">100%</div>
                                     </div>
