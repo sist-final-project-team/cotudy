@@ -15,9 +15,9 @@
 <jsp:include page="../header.jsp"></jsp:include>
 <br><br><br><br><br><br><br>
 
-<div align="center">
+<div align="center" class="container">
     <h2>통합게시판</h2>
-    <table border="1">
+    <table border="1" class="board_list">
         <tr>
             <th>글번호</th>
             <th>주제</th>

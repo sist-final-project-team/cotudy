@@ -20,6 +20,7 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -434,10 +435,11 @@ public class StudyController {
         //암호화 관련
         //해당 id의 salt값 가져오기
         String salt = memberService.getSaltById(id);
-        //로그인시 받은 비번 암호화(하면 db랑 같아짐)
-        pwd = SHA256Util.getEncrypt(pwd, salt); 
-        
-        
+        if(salt!=null){
+            //로그인시 받은 비번 암호화(하면 db랑 같아짐)
+            pwd = SHA256Util.getEncrypt(pwd, salt);
+        }
+
         if (memberService.loginCheck(id, pwd)) {
             session.setAttribute("memId", id);
             out.println("<script>");
@@ -540,7 +542,7 @@ public class StudyController {
         if (session.getAttribute("memId") == null) {
             out.println("<script>");
             out.println("alert('로그인이 필요합니다')");
-            out.println("window.open('/login', '로그인 화면', 'top=300, left=300, width=500, height=600, status=no, menubar=no, toolbar=no, resizable=no')");
+            out.println("window.open('/login', '로그인 화면', 'top=300, left=700, width=500, height=600, status=no, menubar=no, toolbar=no, resizable=no')");
             out.println("location.href='/'");
             out.println("</script>");
         } else {
