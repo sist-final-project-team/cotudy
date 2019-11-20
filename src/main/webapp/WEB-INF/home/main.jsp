@@ -56,8 +56,8 @@
 <%--                   <p class="intro-title-top">Doral, Florida--%>
 <%--                     <br> 78345</p>--%>
                    <h1 class="intro-title mb-4">
-                                          	아직도 <span class="color-b" style="text-shadow: 3px 3px 15px black;">혼자</span>
-                                          <br> 공부하시나요?</h1>
+                  CO- <span class="color-b" style="text-shadow: 3px 3px 15px black;">함께</span>
+                    <br> STUDY- 공부해요</h1>
                    <p class="intro-subtitle intro-price">
                      <a href="/studyList"><span class="price-a">같이 공부 시작하기</span></a>
                    </p>
@@ -102,7 +102,7 @@
         <div class="col-md-12">
           <div class="title-wrap d-flex justify-content-between">
             <div class="title-box">
-              <h2 class="title-a">사이트 소개</h2>
+             <!--  <h2 class="title-a">사이트 소개</h2> -->
             </div>
           </div>
         </div>
@@ -112,72 +112,49 @@
           <div class="card-box-c foo">
             <div class="card-header-c d-flex">
               <div class="card-box-ico">
-                <span class="fa fa-gamepad"></span>
-              </div>
-              <div class="card-title-c align-self-center">
-                <h2 class="title-c">Lifestyle</h2>
+                <img src="https://img.icons8.com/ios/64/000000/conference-call.png">
               </div>
             </div>
-            <div class="card-body-c">
-              <p class="content-c">
-                Sed porttitor lectus nibh. Cras ultricies ligula sed magna dictum porta. Praesent sapien massa,
-                convallis a pellentesque
-                nec, egestas non nisi.
+                <h2 class="title-c">함께하는 스터디</h2>
+              <p>
+                	혼자 하는 프로그래밍 공부.. <br>
+                	물어볼 사람도 없고 막막하셨죠?<br>
+                	이젠 COTUDY를 통해 <br>
+                	같이 공부할  친구들을구해보세요!
               </p>
-            </div>
-            <div class="card-footer-c">
-              <a href="#" class="link-c link-icon">Read more
-                <span class="ion-ios-arrow-forward"></span>
-              </a>
-            </div>
           </div>
         </div>
         <div class="col-md-4">
           <div class="card-box-c foo">
             <div class="card-header-c d-flex">
               <div class="card-box-ico">
-                <span class="fa fa-usd"></span>
-              </div>
-              <div class="card-title-c align-self-center">
-                <h2 class="title-c">Loans</h2>
+				<img src="https://img.icons8.com/ios/60/000000/programming.png">
               </div>
             </div>
-            <div class="card-body-c">
-              <p class="content-c">
-                Nulla porttitor accumsan tincidunt. Curabitur aliquet quam id dui posuere blandit. Mauris blandit
-                aliquet elit, eget tincidunt
-                nibh pulvinar a.
+            <h3 class="title-c">&nbsp; IT 스터디 전용</h3>
+               <p>
+               		이제 더 이상 IT 스터디를 찾기 위해 <br>
+               		어렵게 검색하며 고생하지 마세요!<br>
+               		COTUDY는 IT계열만을 위한 사이트입니다.<br>
+               		다양한 키워드로 손쉽게 스터디를 찾으세요!<br>
+
               </p>
-            </div>
-            <div class="card-footer-c">
-              <a href="#" class="link-c link-icon">Read more
-                <span class="ion-ios-arrow-forward"></span>
-              </a>
-            </div>
           </div>
         </div>
         <div class="col-md-4">
           <div class="card-box-c foo">
             <div class="card-header-c d-flex">
               <div class="card-box-ico">
-                <span class="fa fa-home"></span>
-              </div>
-              <div class="card-title-c align-self-center">
-                <h2 class="title-c">Sell</h2>
+				<img src="https://img.icons8.com/ios-glyphs/58/000000/content.png">
               </div>
             </div>
-            <div class="card-body-c">
-              <p class="content-c">
-                Sed porttitor lectus nibh. Cras ultricies ligula sed magna dictum porta. Praesent sapien massa,
-                convallis a pellentesque
-                nec, egestas non nisi.
+                <h2 class="title-c">&nbsp;&nbsp;&nbsp;&nbsp;다양한 메뉴</h2>
+              <p>
+                	스터디 찾기 외에도 <br>
+                	질문도 하고 정보도 얻을 수 있는 커뮤니티,<br>
+                	개발 관련 일정 정보를 볼 수 있는 EVENT<br>
+                	메뉴가 준비되어 있습니다.
               </p>
-            </div>
-            <div class="card-footer-c">
-              <a href="#" class="link-c link-icon">Read more
-                <span class="ion-ios-arrow-forward"></span>
-              </a>
-            </div>
           </div>
         </div>
       </div>
