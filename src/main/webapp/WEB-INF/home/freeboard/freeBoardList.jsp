@@ -7,7 +7,7 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
    
-    <title>코터디-자유게시판</title>
+    <title>COTUDY_COMMUNITY</title>
     <script type="text/javascript">
         function writeOk() {
             var id = "<%=(String)session.getAttribute("memId")%>";
@@ -27,10 +27,7 @@
 <body>
 <jsp:include page="../header.jsp"></jsp:include>
 <div class="container2">	<!--container2 : 탑마진 내려놓음 -->
-    <hr width="50%" color="blue">
-        <h3>자유 게시판 목록</h3>
-    <hr width="50%" color="blue">
-              
+<br><br>           
 
 <div class="btn-group" role="group" aria-label="Basic example">
   <button type="button" class="btn btn-secondary" onclick="location.href='/freeList' " >전체보기</button>
@@ -39,7 +36,6 @@
   <button type="button" class="btn btn-secondary" value="정보" onclick="location.href='/freeSearchList?freeSubject=<%="정보"%>'" >정보</button>
   <button type="button" class="btn btn-secondary" value="기타" onclick="location.href='/freeSearchList?freeSubject=<%="기타"%>'" >기타</button>
 </div>
-
         
         <table class="board_list">
             <tr>

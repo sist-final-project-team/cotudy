@@ -6,7 +6,7 @@
 <%@ page session="true"%>
 <html>
 <head>
-    <title>코터디</title>
+    <title>COTUDY_FIND_STUDY</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="" name="keywords">
     <meta content="" name="description">

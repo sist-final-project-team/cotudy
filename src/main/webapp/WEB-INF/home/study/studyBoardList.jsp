@@ -5,7 +5,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <html>
 <head>
-    <title>코터디</title>
+    <title>COTUDY_FIND_STUDY</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="" name="keywords">
     <meta content="" name="description">
@@ -91,7 +91,7 @@
 
                 <div class="col-sm-4" style="margin-bottom: 50px;">
                     <div class="card">
-                        <img src="../resources/img/slide-3.jpg" height="180" width="180" class="card-img-top">
+                        <img src="../resources/img/slide-4.jpg" height="180" width="180" class="card-img-top">
                         <div class="card-body">
                             <h5 class="card-title">${studyBoard.getStudyTitle()}</h5>
                             <p class="card-text">장소 : ${studyBoard.getStudyArea()}<br>키워드

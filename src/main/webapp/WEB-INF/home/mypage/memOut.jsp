@@ -6,7 +6,7 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>탈퇴</title>
+    <title>COTUDY_MYPAGE</title>
 </head>
 
 <body>

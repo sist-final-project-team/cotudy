@@ -4,7 +4,7 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>코터디-자유게시판</title>
+    <title>COTUDY_COMMUNITY</title>
     <script type="text/javascript">
         function writeOk() {
             var id = "<%=(String)session.getAttribute("memId")%>";

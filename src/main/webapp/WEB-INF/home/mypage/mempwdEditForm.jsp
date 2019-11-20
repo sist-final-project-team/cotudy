@@ -8,7 +8,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 	<%String memId = (String)session.getAttribute("memId"); %>
-<title>코터디-비밀번호변경</title>
+    <title>COTUDY_MYPAGE</title>
 </head>
 
 <body>
