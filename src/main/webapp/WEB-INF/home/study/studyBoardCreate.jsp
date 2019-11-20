@@ -7,6 +7,7 @@
 <%request.getAttribute("memId"); %>
 
 <head>
+    <title>COTUDY_CREATE_STUDY</title>
     <link rel="stylesheet"
           href="http://code.jquery.com/ui/1.10.4/themes/redmond/jquery-ui.min.css" />
     <link href="../resources/css/fSelect.css" rel="stylesheet" type="text/css">

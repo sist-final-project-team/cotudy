@@ -2,7 +2,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>코터디</title>
+    <title>COTUDY</title>
     <script type="text/javascript">
         function goMain() {
 

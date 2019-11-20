@@ -8,7 +8,7 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>코터디-내가쓴글</title>
+    <title>COTUDY_MYPAGE</title>
 </head>
 
 <body>

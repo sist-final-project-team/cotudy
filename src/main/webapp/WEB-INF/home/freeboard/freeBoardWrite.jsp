@@ -8,8 +8,7 @@
 
 <head>
   <meta charset="utf-8">
-  <title>EstateAgency Bootstrap Template</title>
-
+    <title>COTUDY_COMMUNITY</title>
 </head>
 
 

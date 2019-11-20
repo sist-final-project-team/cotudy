@@ -6,7 +6,7 @@
 %>
 <html>
 <head>
-    <title>Insert title here</title>
+    <title>COTUDY</title>
 </head>
 <body>
 <script>

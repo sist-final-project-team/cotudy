@@ -5,7 +5,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>dd</title>
+<title>COTUDY_EVENT</title>
 </head>
 <body>
 
