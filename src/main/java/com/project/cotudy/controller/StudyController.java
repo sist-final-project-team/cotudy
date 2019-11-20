@@ -20,6 +20,7 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -76,6 +77,7 @@ public class StudyController {
 
     @RequestMapping("/freeCont")
     public ModelAndView freeBoardCont(@RequestParam("freeNum") int freeNum) throws Exception {
+
         ModelAndView mv = new ModelAndView("/freeboard/freeBoardCont");
         List<FreeBoardReplyDto> replyDto = boardService.selectFreeBoardReplyList(freeNum);
         boardService.updateFreeBoardHitCount(freeNum);    //조회수증가
@@ -251,7 +253,7 @@ public class StudyController {
 
         if (freeboard.getMemId().equals("null")) {
             out.println("<script>");
-            out.println("alert('로그인 후 이용 가능합니다.')");
+            out.println("alert('로그인 후 글작성 해주세요.')");
             out.println("location.href='/freeList'");
             out.println("</script>");
         } else {
@@ -261,7 +263,7 @@ public class StudyController {
 
             boardService.insertFreeBoard(freeboard, multireq);
             out.println("<script>");
-            out.println("alert('글 작성이 완료되었습니다.')");
+            out.println("alert('글작성 완료.')");
             out.println("location.href='/freeList'");
             out.println("</script>");
         }
@@ -287,7 +289,7 @@ public class StudyController {
     		out.println("</script>");
     	}else {
     		out.println("<script>");
-    		out.println("alert('본인의 게시물만 삭제할 수 있습니다.')");
+    		out.println("alert('남의 글 삭제하지 마셈.')");
     		out.println("location.href='/freeList'");
     		out.println("</script>");
     	}
@@ -361,7 +363,7 @@ public class StudyController {
             email.setContent("비밀번호가 " + newpwd + "로 초기화 되었습니다. 로그인 후 마이페이지에서 비밀번호를 변경해 주세요.");
             emailSender.SendEmail(email);
             out.println("<script>");
-            out.println("alert('이메일 전송이 완료되었습니다.')");
+            out.println("alert('메일을 보냈습니다. 확인하세요')");
             out.println("self.close()");
             out.println("</script>");
         } else {
@@ -434,10 +436,11 @@ public class StudyController {
         //암호화 관련
         //해당 id의 salt값 가져오기
         String salt = memberService.getSaltById(id);
-        //로그인시 받은 비번 암호화(하면 db랑 같아짐)
-        pwd = SHA256Util.getEncrypt(pwd, salt); 
-        
-        
+        if(salt!=null){
+            //로그인시 받은 비번 암호화(하면 db랑 같아짐)
+            pwd = SHA256Util.getEncrypt(pwd, salt);
+        }
+
         if (memberService.loginCheck(id, pwd)) {
             session.setAttribute("memId", id);
             out.println("<script>");
@@ -539,8 +542,8 @@ public class StudyController {
         PrintWriter out = response.getWriter();
         if (session.getAttribute("memId") == null) {
             out.println("<script>");
-            out.println("alert('로그인 후 이용 가능합니다.')");
-            out.println("window.open('/login', '로그인 화면', 'top=300, left=300, width=500, height=600, status=no, menubar=no, toolbar=no, resizable=no')");
+            out.println("alert('로그인이 필요합니다')");
+            out.println("window.open('/login', '로그인 화면', 'top=300, left=700, width=500, height=600, status=no, menubar=no, toolbar=no, resizable=no')");
             out.println("location.href='/'");
             out.println("</script>");
         } else {
@@ -598,7 +601,7 @@ public class StudyController {
 
     @RequestMapping("/studyCreateForm")
     public String studyCreateForm() {
-        return "/study/studyBoardCreate";
+       return "/study/studyBoardCreate";
     }
 
 
@@ -792,7 +795,7 @@ public class StudyController {
 
         } else {
             out.println("<script>");
-            out.println("alert('본인의 게시물만 삭제할 수 있습니다.')");
+            out.println("alert('남의 글 삭제하지 마셈.')");
             out.println("location.href='/studyList'");
             out.println("</script>");
         }

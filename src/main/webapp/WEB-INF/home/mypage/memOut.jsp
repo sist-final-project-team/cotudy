@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page session="true"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -16,7 +17,7 @@
     <h1>탈퇴 안내</h1>
     회원탈퇴를 신청하기 전에 안내 사항을 꼭 확인해주세요.<br>
 
-    사용하고 계신 아이디(davin325)는 탈퇴할 경우 재사용 및 복구가 불가능합니다.<br>
+    사용하고 계신 아이디(${sessionScope.memId})는 탈퇴할 경우 재사용 및 복구가 불가능합니다.<br>
     탈퇴한 아이디는 본인과 타인 모두 재사용 및 복구가 불가하오니 신중하게 선택하시기 바랍니다.<br></h1>
     <p>탈퇴 후에도 게시판형 서비스에 등록한 게시물은 그대로 남아 있습니다.
 
