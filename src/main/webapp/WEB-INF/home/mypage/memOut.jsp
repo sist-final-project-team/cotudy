@@ -39,7 +39,7 @@
     function memOutCheck() {
         var chk = memOutCheck1.checked;
         if (!chk) {
-            alert("동의합니다에 체크 해주세요");
+            alert("동의합니다에 체크 해주세요.");
             return false;
         }
     }

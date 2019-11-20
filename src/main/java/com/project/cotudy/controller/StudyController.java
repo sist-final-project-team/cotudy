@@ -251,7 +251,7 @@ public class StudyController {
 
         if (freeboard.getMemId().equals("null")) {
             out.println("<script>");
-            out.println("alert('로그인 후 글작성 해주세요.')");
+            out.println("alert('로그인 후 이용 가능합니다.')");
             out.println("location.href='/freeList'");
             out.println("</script>");
         } else {
@@ -261,7 +261,7 @@ public class StudyController {
 
             boardService.insertFreeBoard(freeboard, multireq);
             out.println("<script>");
-            out.println("alert('글작성 완료.')");
+            out.println("alert('글 작성이 완료되었습니다.')");
             out.println("location.href='/freeList'");
             out.println("</script>");
         }
@@ -287,7 +287,7 @@ public class StudyController {
     		out.println("</script>");
     	}else {
     		out.println("<script>");
-    		out.println("alert('남의 글 삭제하지 마셈.')");
+    		out.println("alert('본인의 게시물만 삭제할 수 있습니다.')");
     		out.println("location.href='/freeList'");
     		out.println("</script>");
     	}
@@ -361,7 +361,7 @@ public class StudyController {
             email.setContent("비밀번호가 " + newpwd + "로 초기화 되었습니다. 로그인 후 마이페이지에서 비밀번호를 변경해 주세요.");
             emailSender.SendEmail(email);
             out.println("<script>");
-            out.println("alert('메일을 보냈습니다. 확인하세요')");
+            out.println("alert('이메일 전송이 완료되었습니다.')");
             out.println("self.close()");
             out.println("</script>");
         } else {
@@ -539,7 +539,7 @@ public class StudyController {
         PrintWriter out = response.getWriter();
         if (session.getAttribute("memId") == null) {
             out.println("<script>");
-            out.println("alert('로그인이 필요합니다')");
+            out.println("alert('로그인 후 이용 가능합니다.')");
             out.println("window.open('/login', '로그인 화면', 'top=300, left=300, width=500, height=600, status=no, menubar=no, toolbar=no, resizable=no')");
             out.println("location.href='/'");
             out.println("</script>");
@@ -792,7 +792,7 @@ public class StudyController {
 
         } else {
             out.println("<script>");
-            out.println("alert('남의 글 삭제하지 마셈.')");
+            out.println("alert('본인의 게시물만 삭제할 수 있습니다.')");
             out.println("location.href='/studyList'");
             out.println("</script>");
         }

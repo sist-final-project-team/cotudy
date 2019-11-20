@@ -59,8 +59,8 @@ function mem_check() {
     if($.trim($("#idcheck").text())!=="사용 가능한 아이디입니다."){
         console.log("!");
         console.log($.trim($("#idcheck").text()));
-        console.log("!");
-        alert("중복아이디 확인하세요");
+        console.log("!");1
+        alert("중복체크를 진행해주세요.");
         $("#idcheck_btn").focus();
         return false;
     }
