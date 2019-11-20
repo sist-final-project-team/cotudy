@@ -54,8 +54,8 @@
 				</tr>											
 				<tr>
 					<td colspan="2" align="center">
-						<input type="submit" value="글쓰기">&nbsp;&nbsp;&nbsp;
-						<input type="reset" value="다시작성">
+						<input type="submit" class="btn btn-success" value="글쓰기">&nbsp;&nbsp;&nbsp;
+						<input type="reset" class="btn btn-dark" value="다시작성">
 					</td>
 				</tr>
 			</table>

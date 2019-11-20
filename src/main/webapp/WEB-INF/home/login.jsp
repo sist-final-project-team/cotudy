@@ -68,13 +68,15 @@
             <input type="password" name = "pwd" id="pwd" class="form-control" placeholder="비밀번호" required="required">
         </div>
         <div class="form-group">
-            <button type="submit" class="btn btn-primary btn-block">로그인</button>
+            <button type="submit" class="btn btn-primary btn-block" style="width: 279px; height: 49px">로그인</button>
+            <br>
+            <a href="https://kauth.kakao.com/oauth/authorize?client_id=466c43b6799bd576421ad9edd9c3944c&redirect_uri=http://localhost:9000/main&response_type=code">
+                <img style="width: 279px; height: 49px" src="images/kakao_account_login_btn_medium_wide.png"> </a>
         </div>
         
 
-           <a href="https://kauth.kakao.com/oauth/authorize?client_id=466c43b6799bd576421ad9edd9c3944c&redirect_uri=http://localhost:9000/main&response_type=code">
-            <img src="images/kakao_account_login_btn_medium_wide.png">
-        </a>
+
+
         
         <div class="clearfix">
 

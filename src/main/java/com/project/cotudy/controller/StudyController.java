@@ -76,6 +76,7 @@ public class StudyController {
 
     @RequestMapping("/freeCont")
     public ModelAndView freeBoardCont(@RequestParam("freeNum") int freeNum) throws Exception {
+
         ModelAndView mv = new ModelAndView("/freeboard/freeBoardCont");
         List<FreeBoardReplyDto> replyDto = boardService.selectFreeBoardReplyList(freeNum);
         boardService.updateFreeBoardHitCount(freeNum);    //조회수증가
@@ -598,7 +599,7 @@ public class StudyController {
 
     @RequestMapping("/studyCreateForm")
     public String studyCreateForm() {
-        return "/study/studyBoardCreate";
+       return "/study/studyBoardCreate";
     }
 
 
