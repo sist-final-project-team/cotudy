@@ -45,20 +45,25 @@
                 <label class="custom-control-label" for="incheon">인천</label>
             </div>
             <div class="custom-control custom-checkbox">
-                <input type="checkbox" class="custom-control-input" name="areas" id="gangwon"
-                       value="강원도">
-                <label class="custom-control-label" for="gangwon">강원도</label>
-            </div>
-            <div class="custom-control custom-checkbox">
                 <input type="checkbox" class="custom-control-input" name="areas" id="gyenggi"
                        value="경기도">
                 <label class="custom-control-label" for="gyenggi">경기도</label>
+            </div>
+            <div class="custom-control custom-checkbox">
+                <input type="checkbox" class="custom-control-input" name="areas" id="gangwon"
+                       value="강원도">
+                <label class="custom-control-label" for="gangwon">강원도</label>
             </div>
             <div class="custom-control custom-checkbox">
                 <input type="checkbox" class="custom-control-input" name="areas" id="chungcheong"
                        value="충청도">
                 <label class="custom-control-label" for="chungcheong">충청도</label>
             </div>
+            <div class="custom-control custom-checkbox">
+                <input type="checkbox" class="custom-control-input" name="areas" id="gyeongsang"
+                       value="경상도">
+                <label class="custom-control-label" for="gyeongsang">경상도</label>
+            </div>            
             <div class="custom-control custom-checkbox">
                 <input type="checkbox" class="custom-control-input" name="areas" id="jeonla"
                        value="전라도">
@@ -100,15 +105,30 @@
                 <label class="custom-control-label" for="JavaScript">JavaScript</label>
             </div>
             <div class="custom-control custom-checkbox">
-                <input type="checkbox" class="custom-control-input" name="keywords" id="nodeJS"
-                       value="노드JS">
-                <label class="custom-control-label" for="nodeJS">노드JS</label>
+                <input type="checkbox" class="custom-control-input" name="keywords" id="html"
+                       value="html">
+                <label class="custom-control-label" for="html">html</label>
             </div>
+            <div class="custom-control custom-checkbox">
+                <input type="checkbox" class="custom-control-input" name="keywords" id="css"
+                       value="css">
+                <label class="custom-control-label" for="css">css</label>
+            </div>  
+            <div class="custom-control custom-checkbox">
+                <input type="checkbox" class="custom-control-input" name="keywords" id="django"
+                       value="django">
+                <label class="custom-control-label" for="django">django</label>
+            </div>        
             <div class="custom-control custom-checkbox">
                 <input type="checkbox" class="custom-control-input" name="keywords" id="React"
                        value="React">
                 <label class="custom-control-label" for="React">React</label>
             </div>
+            <div class="custom-control custom-checkbox">
+                <input type="checkbox" class="custom-control-input" name="keywords" id="else"
+                       value="else">
+                <label class="custom-control-label" for="else">기타</label>
+            </div>            
         </div>
         <input type="submit" class="btn btn-primary" value="찾기">
     </form>

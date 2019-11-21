@@ -44,12 +44,15 @@
                 <td>
                     <select name="studyArea" required="required" value="${studyBoard.getStudyArea()}>
                         <option value="">지역선택</option>
-                        <option value="강남">강남</option>
-                        <option value="신촌">신촌</option>
-                        <option value="홍대">홍대</option>
-                        <option value="부평">부평</option>
-                        <option value="수원">수원</option>
-                        <option value="제주">제주</option>
+             	       <option value="서울">서울</option>
+                	    <option value="인천">인천</option>
+                    	<option value="경기도">경기도</option>
+    	                <option value="강원도">강원도</option>
+        	            <option value="충청도">충청도</option>
+            	        <option value="경상도">경상도</option>
+                	    <option value="전라도">전라도</option>
+                    	<option value="제주도">제주도</option>
+          		        <option value="기타">기타</option>
                     </select>
                 </td>
             </tr>
@@ -57,19 +60,16 @@
             <tr>
                 <th>키워드</th>
                 <td>
-                    <select class="demo" multiple="multiple" name="studyKeyword" >
-                        <optgroup label="Languages">
-                            <option value="C++">C++</option>
-                            <option value="C#">C#</option>
+                    <select  class="demo" multiple="multiple" name="studyKeyword" >
                             <option value="Java">Java</option>
-                            <option value="C언어">C언어</option>
-                        </optgroup>
-                        <optgroup label="Scripts">
+                            <option value="python">python</option>
+                            <option value="C#">C#</option>
                             <option value="JavaScript">JavaScript</option>
-                            <option value="PHP">PHP</option>
-                            <option value="ASP">ASP</option>
-                            <option value="JSP">JSP</option>
-                        </optgroup>
+                            <option value="html">html</option>
+                            <option value="css">css</option>
+                            <option value="django">django</option>
+                            <option value="React">React</option>
+                            <option value="else">기타</option>
                     </select>
                 </td>
             </tr>

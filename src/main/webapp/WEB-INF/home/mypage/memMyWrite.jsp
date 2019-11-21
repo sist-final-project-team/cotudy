@@ -140,8 +140,6 @@
         var dateObj = new Date(dateArray[0], Number(dateArray[1])-1, dateArray[2]);
         var betweenDay = (today - dateObj)/1000/60/60/24;
         <c:forEach items="${studyList}" var="studyList">
-<%--        <c:if test="${studyList.getStudyEndDate()-studyList.getStudyStartDate()}>0">--%>
-        console.log("에베베벱베베베베베벱");
 
 
         </c:forEach>

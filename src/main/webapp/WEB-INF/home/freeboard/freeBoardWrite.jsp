@@ -17,9 +17,6 @@
 
 <jsp:include page="../header.jsp"></jsp:include>
 	<div class ="container2" align="center">
-		<hr width="50%" color="purple">
-			<h3>테이블 글쓰기 폼</h3>
-		<hr width="50%" color="purple">
 																					
 		<form method="post" action="/freeWrite" enctype="multipart/form-data">
 		<input type="hidden" value="<%=(String)session.getAttribute("memId") %>" name="memId">

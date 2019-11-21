@@ -10,7 +10,7 @@
 </head>
 <body>
 <script>
-    alert("로그아웃 되었습니다.");
+    alert("로그아웃이 완료되었습니다.");
     location.href="/";
 </script>
 </body>
