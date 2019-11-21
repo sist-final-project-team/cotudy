@@ -262,7 +262,7 @@ public class StudyController {
 
             boardService.insertFreeBoard(freeboard, multireq);
             out.println("<script>");
-            out.println("alert('글작성 완료.')");
+            out.println("alert('글작성이 완료되었습니다.')");
             out.println("location.href='/freeList'");
             out.println("</script>");
         }
@@ -288,7 +288,7 @@ public class StudyController {
             out.println("</script>");
         } else {
             out.println("<script>");
-            out.println("alert('남의 글 삭제하지 마셈.')");
+            out.println("alert('본인의 글만 삭제가 가능합니다.')");
             out.println("location.href='/freeList'");
             out.println("</script>");
         }
@@ -796,7 +796,7 @@ public class StudyController {
 
         } else {
             out.println("<script>");
-            out.println("alert('남의 글 삭제하지 마셈.')");
+            out.println("alert('본인의 글만 삭제가 가능합니다.')");
             out.println("location.href='/studyList'");
             out.println("</script>");
         }
