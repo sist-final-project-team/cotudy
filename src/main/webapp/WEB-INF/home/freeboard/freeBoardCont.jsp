@@ -117,9 +117,8 @@
 				</tr>
 				<tr>
 					<th>글내용</th>
-                    <td colspan="5">${dto.getFreeCont()}
-                    	<br>
-                    	<c:if test="${ filecount >= 0}">
+                    <td colspan="5" style="white-space:pre;">${dto.getFreeCont()}
+                    	 <c:if test="${ filecount >= 0}">
                     	<c:forEach var="i" begin="0" end="${filecount }">
 							<c:set var="status" value="${status+1}"/>
                     	 <img alt="" width="400" height="300"
