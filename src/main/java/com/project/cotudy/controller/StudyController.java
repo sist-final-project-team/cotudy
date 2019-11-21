@@ -702,15 +702,15 @@ public class StudyController {
     public String memOutOk(HttpSession session) throws Exception {
         String memId = (String) session.getAttribute("memId");
         memberService.deleteMember(memId);
+        if((String)session.getAttribute("access_Token")!=null) {
+            kakao.kakaoLogout((String)session.getAttribute("access_Token"));
+            session.removeAttribute("access_Token");
+            session.removeAttribute("userId");
+        }
         //세션 해제 하고 메인으로 넘겨야함
         session.invalidate();
         //카카오 세션해제
-    	if((String)session.getAttribute("access_Token")!=null) {
-    		kakao.kakaoLogout((String)session.getAttribute("access_Token"));
-    		session.removeAttribute("access_Token");
-    		session.removeAttribute("userId");
-    		
-    	}        
+
         
         return "/main";
     }
