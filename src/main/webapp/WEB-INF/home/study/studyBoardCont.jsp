@@ -92,9 +92,9 @@
                         for(var i=0;i<data.length;i++){
                             html += "<tr><td>"+data[i].memId+"</td>";
                             if(data[i].studyReplyStep!==0){
-                                html += "<td>☞"+data[i].studyReplyCont+"</td>";
+                                html += "<td  style='text-align: left'>☞"+data[i].studyReplyCont+"</td>";
                             }else{
-                                html += "<td><a href='#none' onclick='show("+i+")'>"+data[i].studyReplyCont+"</a></td>";
+                                html += "<td style='text-align: left'><a href='#none' onclick='show("+i+")'>"+data[i].studyReplyCont+"</a></td>";
                             }
                             html += "<td>"+data[i].studyReplyCreatedTime;
                             if(id===data[i].memId){
@@ -108,7 +108,7 @@
                             }
                             html += "</td></tr>";
                             html += "<tr id='modify"+i+"' style='display: none'>";
-                            html += "<td colspan='2'><textarea cols='70' rows='5' style='resize: none' name='studyReplyCont' id='modifyCont"+i+"'>"+data[i].studyReplyCont+"</textarea></td>";
+                            html += "<td colspan='2'><textarea cols='70' rows='5' style='text-align: left resize: none' name='studyReplyCont' id='modifyCont"+i+"'>"+data[i].studyReplyCont+"</textarea></td>";
                             html += "<input type='hidden' name='studyReplyNum' id='studyReplyNum"+i+"' value='"+studyReplyNum+"'>";
                             html += "<td><input type='button' value='수정하기' onclick='replyModifyOk("+i+")'></td>";
                             html += "</tr>";
@@ -228,15 +228,14 @@
                         <p align="center" style="color: #533f03">${studyBoard.getStudyArea()}</p>
                         <p align="center">주제: <b>${studyBoard.getStudyKeyword()}</b></p>
                         <h1 align="center" style="padding-left: 200px;
-                            padding-right: 200px;"
-                        ><b>${studyBoard.getStudyTitle()}</b></h1>
+                            padding-right: 200px;"><b>${studyBoard.getStudyTitle()}</b></h1>
                         <div align="left"  style="float: left; width: 30%;">
-                              <span style="display: inline-block"><img src="https://img.icons8.com/material-sharp/24/000000/user.png">${studyBoard.getMemId()}
+                            <span style="display: inline-block"><img src="https://img.icons8.com/material-sharp/24/000000/user.png">${studyBoard.getMemId()}</span>
                         </div>
 <div align="right">
 
 
-                       <img src="https://img.icons8.com/metro/26/000000/date-to.png">  ${studyBoard.getStudyCreated()}</p></span>
+    <p><span><img src="https://img.icons8.com/metro/26/000000/date-to.png">  ${studyBoard.getStudyCreated()}</span></p>
 </div>
                         <hr>
                     </td>
