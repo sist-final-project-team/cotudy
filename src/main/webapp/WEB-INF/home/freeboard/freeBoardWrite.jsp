@@ -39,7 +39,7 @@
 				</tr>
 				<tr>
 					<th>글내용</th>
-					<td> <textarea rows="8" cols="30" name="freeCont" style="resize: none"  required="required"></textarea> </td>
+					<td><textarea rows="8" cols="30" name="freeCont" style="resize: none"  required="required"></textarea> </td>
 				</tr>		
 				<tr>
 					<th>파일첨부</th>
