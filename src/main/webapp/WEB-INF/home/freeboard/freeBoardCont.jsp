@@ -98,9 +98,6 @@
 	<% String memId = (String)session.getAttribute("memId"); %>
 			<c:set var="memId" value="<%=memId %>"></c:set>
 	<div align="center" class="container2">
-		<hr width="50%" color="purple">
-			<h3>BOARD 게시판 게시글 상세 내역</h3>
-		<hr width="50%" color="purple">
 		
 		<table class="board_list">
 	
@@ -111,24 +108,16 @@
 				<input type="hidden" value="${dto.getFreeNum() }" id="freeNum">
 	
 				<tr>
-					<th>글번호</th>
-					<td>${dto.getFreeNum() }</td>
-				</tr>
-				<tr>
 					<th>주제</th>
 					<td>${dto.getFreeSubject()}</td>
-				</tr>
-				<tr>
+					<th>글제목</th>
+					<td>${dto.getFreeTitle() }</td>					
 					<th>작성자</th>
 					<td>${dto.getMemId() }</td>
 				</tr>
 				<tr>
-					<th>글제목</th>
-					<td>${dto.getFreeTitle() }</td>
-				</tr>
-				<tr>
 					<th>글내용</th>
-                    <td>${dto.getFreeCont()}
+                    <td colspan="5">${dto.getFreeCont()}
                     	<br>
                     	<c:if test="${ filecount >= 0}">
                     	<c:forEach var="i" begin="0" end="${filecount }">
@@ -139,12 +128,10 @@
                     	</c:forEach>
                     	</c:if>
                     </td> 
-				</tr>			
-				<tr>
+				</tr>	
+				<tr>		
 					<th>조회수</th>
 					<td>${dto.getFreeHit() }</td>
-				</tr>
-				<tr>
 					<c:if test="${!empty dto.getFreeUpdatedDate()}">
 					<th>작성일/수정일</th>
 					<td>${dto.getFreeCreatedDate() }/${dto.getFreeUpdatedDate() }</td>
@@ -153,8 +140,6 @@
 					<th>작성일</th>
 					<td>${dto.getFreeCreatedDate() }</td>
 					</c:if>
-				</tr>
-				<tr>
 					<th>첨부파일</th>
 					<td>
 					<c:forEach items="${dto.fileList}" var="list">
@@ -176,7 +161,7 @@
 				</tr>
 			</c:if>
 			<tr>
-				<td colspan="2" align="center">
+				<td colspan="8" align="center">
 				 <c:if test="${sessionScope.memId eq dto.getMemId()}">
                     <input type="button" value="수정" onclick="location.href='/freeEditForm?freeNum=${dto.getFreeNum()}'">
 		 			<input type="button" value="삭제" onclick="deleteconfirm('${dto.getMemId()}')">
