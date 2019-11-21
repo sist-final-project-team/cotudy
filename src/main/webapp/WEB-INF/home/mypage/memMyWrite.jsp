@@ -89,23 +89,23 @@
                                     <c:choose>
                                         <c:when test="${todayDate < strDate}">
                                     <div class="progress">
-                                        <div class="progress-bar" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">0%</div>
+                                        <div class="progress-bar progress-bar progress-bar-striped progress-bar-animated " role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">0%</div>
                                     </div>
                                         </c:when>
                                         <c:when test="${todayDate >= endDate}">
                                     <div class="progress">
-                                        <div class="progress-bar" role="progressbar" style="width: 100%;" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">100%</div>
+                                        <div class="progress-bar progress-bar progress-bar-striped progress-bar-animated " role="progressbar" style="width: 100%;" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">100%</div>
                                     </div>
                                         </c:when>
                                         <c:otherwise>
                                     <div class="progress">
-                                        <div class="progress-bar" role="progressbar" style="width: <fmt:formatNumber value="${dateCal+(1-(dateCal%1))%1}" type="number" />%;" aria-valuenow="<fmt:formatNumber value="${dateCal+(1-(dateCal%1))%1}" type="number" />" aria-valuemin="0" aria-valuemax="100"> <fmt:formatNumber value="${dateCal+(1-(dateCal%1))%1}" type="number" />%</div>
+                                        <div class="progress-bar progress-bar progress-bar-striped progress-bar-animated " role="progressbar" style="width: <fmt:formatNumber value="${dateCal+(1-(dateCal%1))%1}" type="number" />%;" aria-valuenow="<fmt:formatNumber value="${dateCal+(1-(dateCal%1))%1}" type="number" />" aria-valuemin="0" aria-valuemax="100"> <fmt:formatNumber value="${dateCal+(1-(dateCal%1))%1}" type="number" />%</div>
                                     </div>
                                         </c:otherwise>
 
                                     </c:choose>
                                     <br>
-                                    <a href="/studyCont?studyNum=${studyList.getStudyNum()}" class="btn btn-primary">자세히
+                                    <a href="/studyCont?studyNum=${studyList.getStudyNum()}" class="btn btn-success">자세히
                                         보기</a>
                                 </div>
                             </div>
@@ -140,8 +140,6 @@
         var dateObj = new Date(dateArray[0], Number(dateArray[1])-1, dateArray[2]);
         var betweenDay = (today - dateObj)/1000/60/60/24;
         <c:forEach items="${studyList}" var="studyList">
-<%--        <c:if test="${studyList.getStudyEndDate()-studyList.getStudyStartDate()}>0">--%>
-        console.log("에베베벱베베베베베벱");
 
 
         </c:forEach>

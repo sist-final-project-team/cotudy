@@ -44,7 +44,7 @@
                     }
                 });
             }else{
-                alert("로그인 먼저 하세요");
+                alert("로그인 후 이용 가능합니다.");
             }
         }
         function cont_check() {
@@ -61,7 +61,7 @@
                     if(data==="success"){
                         getCommentList();
                         $("#studyReplyConta").val("");
-                        alert("댓글입력완료");
+                        alert("댓글 입력이 완료되었습니다.");
                     }
                 },
                 error:function () {
@@ -202,7 +202,7 @@
                     if(data==="success"){
                         getCommentList();
                         $("#studyReplyCont"+i).val("");
-                        alert("댓글입력완료");
+                        alert("댓글 입력이 완료되었습니다.");
                     }
                 },
                 error:function () {

@@ -35,27 +35,27 @@
 						<img src="../resources/img/slide-3.jpg" height="180" width="180" class="card-img-top">
 						<div class="card-body">
 							<h5 class="card-title">${studyBoard.getStudyTitle()}</h5>
-							<p class="card-text">장소 : ${studyBoard.getStudyArea()}<br>키워드
+							<p class="card-text">지역 : ${studyBoard.getStudyArea()}<br>키워드
 								: ${studyBoard.getStudyKeyword()}</p>
                             <c:choose>
                                 <c:when test="${todayDate < strDate}">
                                     <div class="progress">
-                                        <div class="progress-bar" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">0%</div>
+                                        <div class="progress-bar progress-bar progress-bar-striped progress-bar-animated " role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">0%</div>
                                     </div>
                                 </c:when>
                                 <c:when test="${todayDate >= endDate}">
                                     <div class="progress">
-                                        <div class="progress-bar" role="progressbar" style="width: 100%;" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">100%</div>
+                                        <div class="progress-bar progress-bar progress-bar-striped progress-bar-animated " role="progressbar" style="width: 100%;" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">100%</div>
                                     </div>
                                 </c:when>
                                 <c:otherwise>
                                     <div class="progress">
-                                        <div class="progress-bar" role="progressbar" style="width: <fmt:formatNumber value="${dateCal+(1-(dateCal%1))%1}" type="number" />%;" aria-valuenow="<fmt:formatNumber value="${dateCal+(1-(dateCal%1))%1}" type="number" />" aria-valuemin="0" aria-valuemax="100"> <fmt:formatNumber value="${dateCal+(1-(dateCal%1))%1}" type="number" />%</div>
+                                        <div class="progress-bar progress-bar progress-bar-striped progress-bar-animated " role="progressbar" style="width: <fmt:formatNumber value="${dateCal+(1-(dateCal%1))%1}" type="number" />%;" aria-valuenow="<fmt:formatNumber value="${dateCal+(1-(dateCal%1))%1}" type="number" />" aria-valuemin="0" aria-valuemax="100"> <fmt:formatNumber value="${dateCal+(1-(dateCal%1))%1}" type="number" />%</div>
                                     </div>
                                 </c:otherwise>
                             </c:choose>
                             <br>
-							<a href="/studyCont?studyNum=${studyBoard.getStudyNum()}" class="btn btn-primary">자세히 보기</a>
+							<a href="/studyCont?studyNum=${studyBoard.getStudyNum()}" class="btn btn-success">자세히 보기</a>
 						</div>
 					</div>
 				</div>
