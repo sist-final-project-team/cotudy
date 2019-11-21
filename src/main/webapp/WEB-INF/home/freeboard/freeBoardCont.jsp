@@ -19,10 +19,10 @@
 				}
 
 	}
-	function cont_check2() {
-		if ($.trim($("#replyCont2").val()) === "") {
+	function cont_check2(i) {
+		if ($.trim($("#replyCont2"+i).val()) === "") {
 			alert('댓글을 입력하세요');
-			$("#replyCont2").focus();
+			$("#replyCont2"+i).focus();
 			return false;
 
 		}
@@ -188,10 +188,10 @@
                <tr>
 				   <td>${reply.getMemId()}</td>
 				   <c:if test="${step != 0}">
-				   <td>☞${reply.getReplyCont()}</td>
+				   <td style="text-align: left">☞${reply.getReplyCont()}</td>
 				   </c:if>
 				   <c:if test="${step == 0}">
-					   <td><a href = "#none" onclick="show(${index})">${reply.getReplyCont()}</a></td>
+					   <td style="text-align: left"><a href = "#none" onclick="show(${index})">${reply.getReplyCont()}</a></td>
 				   </c:if>
 				   <td>${reply.getReplyCreatedDate()}
 					   <c:if test="${sessionScope.memId eq reply.getMemId()}">
@@ -200,14 +200,14 @@
 					   </c:if>
 				   </td>
 				</tr>
-				<form method="post"  action="<%=request.getContextPath()%>/reReply" onsubmit="return cont_check2();" id="2">
+				<form method="post"  action="<%=request.getContextPath()%>/reReply" onsubmit="return cont_check2(${index});" id="2">
 					<% if ((String)session.getAttribute("memId")==null){ %>
 					<tr id = "reply${index}" style="display:none">
 						<td colspan="2"><textarea cols="70" rows="5" style="resize: none" readonly>로그인 후 작성이 가능합니다.</textarea></td>
 					</tr>
 					<%} else{ %>
 					<tr id = "reply${index}" style="display:none">
-						<td colspan="2"><textarea cols="70" rows="5" style="resize: none" name="replyCont" id="replyCont2"></textarea></td>
+						<td colspan="2"><textarea cols="70" rows="5" style="resize: none" name="replyCont" id="replyCont2${index}"></textarea></td>
 						<td><input type="submit" value="댓글달기"></td>
 					</tr>
 					<% } %>
