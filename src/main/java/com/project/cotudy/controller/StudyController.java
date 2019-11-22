@@ -301,11 +301,11 @@ public class StudyController {
         response.setContentType("text/html; charset= UTF-8");
         PrintWriter out = response.getWriter();
         List<String> id = memberService.findId(memName, memEmail);
-        if (id != null) {
+        System.out.println("ID:"+id);
+        if (id.size()>0) {
             out.println("<script>");
             out.println("alert('회원님의 아이디는" + id.toString() + "입니다')");
             out.println("window.open(\"/login\", \"로그인 화면\", \"top=300, left=300, width=500, height=600, status=no, menubar=no, toolbar=no, resizable=no\");");
-            /* out.println("self.close()");*/
             out.println("</script>");
         } else {
             out.println("<script>");
