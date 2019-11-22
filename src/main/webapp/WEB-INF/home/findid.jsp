@@ -19,19 +19,24 @@
         <table border="1" width="300" cellspacing="0">
             <tr>
                 <th>이름</th>
-                <td><input name = "memName" id="memName"></td>
+                <td><input name = "memName" id="memName" required></td>
             </tr>
             <tr>
                 <th>이메일</th>
-                <td><input name = "memEmail" id="memEmail"></td>
+                <td><input name = "memEmail" id="memEmail" required></td>
             </tr>
             <tr>
                 <td colspan="2" align="center">
                     <input type="submit" value="아이디찾기">&nbsp;
-                    <input type="button" value="비밀번호찾기" onclick="pwd_find()">
+                    <input type="button" value="취소" onclick="goMain()">
             </tr>
         </table>
     </form>
 </div>
+<script type="text/javascript">
+    function goMain() {
+        self.close();
+    }
+</script>
 </body>
 </html>

@@ -20,15 +20,15 @@
         <table border="1" width="300" cellspacing="0">
             <tr>
                 <th>아이디</th>
-                <td><input name="memId" id="memId"></td>
+                <td><input name="memId" id="memId" required></td>
             </tr>
             <tr>
                 <th>이름</th>
-                <td><input name = "memName" id="memName"></td>
+                <td><input name = "memName" id="memName" required></td>
             </tr>
             <tr>
                 <th>이메일</th>
-                <td><input name = "memEmail" id="memEmail"></td>
+                <td><input name = "memEmail" id="memEmail" required></td>
             </tr>
             <tr>
                 <td colspan="2" align="center">
