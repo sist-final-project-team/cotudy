@@ -76,7 +76,7 @@
                 <div class="panel-heading p-3 mb-3" role="tab" id="heading1">
                     <h3 class="panel-title">
                         <a class="collapsed" role="button" title="" data-toggle="collapse" data-parent="#accordion" href="#collapse1" aria-expanded="true" aria-controls="collapse1">
-                            서비스 이용중 문의는 어디에 하나요?
+                            서비스 이용 중 문의는 어디에 하나요?
                         </a>
                     </h3>
                 </div>
