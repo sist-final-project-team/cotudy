@@ -16,13 +16,12 @@
 <br><br><br><br><br><br><br>
 
 <div align="center" class="container">
-    <h2>통합게시판</h2>
+    <h2>커뮤니티</h2>
     <table border="1" class="board_list">
         <tr>
             <th>글번호</th>
             <th>주제</th>
             <th>제목</th>
-            <th>아이디</th>
             <th>작성일자</th>
         </tr>
         <c:set var="free" value="${freeList}"/>
@@ -33,7 +32,6 @@
                     <td>${freeboardDto.getFreeSubject()}</td>
                     <td><a href="/freeCont?freeNum=${freeboardDto.getFreeNum()}"> <b>${freeboardDto.getFreeTitle()}</b></a>
                     </td>
-                    <td>${freeboardDto.getMemId()}</td>
                     <td>${freeboardDto.getFreeCreatedDate()}</td>
                 </tr>
             </c:forEach>
