@@ -56,7 +56,7 @@
                             <div class="form-group">
                                 <div class="input-group">
                                     <span class="input-group-addon"><i class="glyphicon glyphicon-envelope color-blue"></i></span>
-                                    <input id="forgetAnswer" name="memEmail" placeholder="이메일을 입력하세요" class="form-control"  type="text" required>
+                                    <input id="forgetAnswer" name="memEmail" placeholder="이메일을 입력하세요" class="form-control"  type="email" required>
                                 </div>
                             </div>
                             <div class="form-group">
