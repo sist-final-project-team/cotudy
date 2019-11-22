@@ -29,10 +29,10 @@
     </select>
 
     <select id="findId" parameterType="map" resultType="String">
-        select mem_id from study_member where mem_name=#{memName} and mem_email = #{memEmail};
+        select mem_id from study_member where mem_name=#{memName} and mem_email = #{memEmail} where mem_status = 'o';
     </select>
     <select id="findPwd" parameterType="map" resultType="String">
-        select mem_pwd from study_member where mem_name=#{memName} and mem_email = #{memEmail} and mem_id=#{memId};
+        select mem_pwd from study_member where mem_name=#{memName} and mem_email = #{memEmail} and mem_id=#{memId} where mem_status = 'o';
     </select>
 
     <select id="selectMyInfo" parameterType="String" resultType="com.project.cotudy.model.StudyMemberDto">
