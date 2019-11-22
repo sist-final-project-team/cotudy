@@ -260,7 +260,7 @@
 					<ul>
 						<!-- 예외발생 당시의 호출스택(Call Stack)에 있었던 메서드의 정보와 예외 메시지를 화면에 출력 -->
 						<c:forEach items="${exception.getStackTrace()}" var="stack">
-							<li>${stack.toString()}</li>
+							${stack.toString()}
 						</c:forEach>
 					</ul>
 				</div>

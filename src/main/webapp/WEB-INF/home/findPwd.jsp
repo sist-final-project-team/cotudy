@@ -2,12 +2,6 @@
 <html>
 <head>
     <title>COTUDY</title>
-    <script type="text/javascript">
-        function goMain() {
-
-            self.close();
-        }
-    </script>
 </head>
 <body>
 <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
@@ -61,7 +55,7 @@
                             </div>
                             <div class="form-group">
                                 <input name="btnForget" class="btn btn-lg btn-primary btn-block btnForget" value="비밀번호찾기" type="submit">
-
+                                <input name="btnForget" class="btn btn-lg btn-primary btn-block btnForget" value="아이디 찾기로 이동" type="button" onclick="id_find()">
                                 <%--                    <input type="button" value="취소" onclick="goMain()">--%>
                             </div>
 
@@ -72,5 +66,15 @@
         </div>
     </div>
 </div>
+<script type="text/javascript">
+    function id_find() {
+        var popupX = (window.screen.width / 2) - (500 / 2);
+        // 만들 팝업창 좌우 크기의 1/2 만큼 보정값으로 빼주었음
+        var popupY= (window.screen.height / 2) - (600 / 2);
+        // 만들 팝업창 상하 크기의 1/2 만큼 보정값으로 빼주었음
+
+        window.open("/findid", "로그인 화면", 'top='+popupY+', left='+ popupX + ', width=500, height=600, status=no, menubar=no, toolbar=no, resizable=no');
+    }
+</script>
 </body>
 </html>
