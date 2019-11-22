@@ -635,10 +635,8 @@ public class StudyController {
     public ModelAndView memPage(HttpServletRequest request) throws Exception {
         ModelAndView mv = new ModelAndView("/mypage/memPage");
         String memId = (String) request.getSession().getAttribute("memId");
-        //System.out.println("아이디는?????"+memId);
         StudyMemberDto meminfodto = memberService.selectMyInfo(memId); //회원정보 가져오기
         mv.addObject("meminfodto", meminfodto);
-
         return mv;
     }
 
