@@ -118,15 +118,15 @@
 				<tr>
 					<th>글내용</th>
                     <td colspan="5" style="white-space:pre;">${dto.getFreeCont()}
-                    	 <c:if test="${ filecount >= 0}">
+<c:if test="${ filecount >= 0}"><!-- 탭하지말기(cont에 공백생김) -->
                     	<c:forEach var="i" begin="0" end="${filecount }">
 							<c:set var="status" value="${status+1}"/>
-                    	 <img alt="" width="400" height="300"
-                           src="${fileDtolist.get(i).getStoredFilePath().substring(15) }">
+<img alt="" width="400" height="300"
+                           src="${fileDtolist.get(i).getStoredFilePath().substring(15) }"><!-- 탭하지말기(cont에 공백생김) -->
                            <br>
                     	</c:forEach>
                     	</c:if>
-                    </td> 
+</td> <!-- 탭하지말기(cont에 공백생김) -->
 				</tr>	
 				<tr>		
 					<th>조회수</th>
