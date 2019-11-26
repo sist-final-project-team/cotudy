@@ -27,7 +27,7 @@ public class FileUtils {
 		//파일이 업로드 될 폴더 생성 ex)20191025
 		DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyyMMdd"); 
     	ZonedDateTime current = ZonedDateTime.now();
-    	String path = "/home/ubuntu/cotudy/resources/fileimages/"+current.format(format);
+    	String path = "/home/ubuntu/cotudy/resources/fileimages/";
     	File file = new File(path);
 		if(file.exists() == false){
 			file.mkdirs();
@@ -62,7 +62,7 @@ public class FileUtils {
 					}
 					
 					//서버에 저장될 파일 이름 생성
-					newFileName = Long.toString(System.nanoTime()) + originalFileExtension;
+					newFileName = current.format(format) + Long.toString(System.nanoTime()) + originalFileExtension;
 					//DB에 저장할 파일 정보를 fileDto에 저장
 					BoardFileDto boardFile = new BoardFileDto();
 					boardFile.setFreeNum(freeNum);
