@@ -1,6 +1,6 @@
 # cotudy
  ### IT계열 전용 스터디 모집 사이트
- ### http://www.a
+ ### http://www.ab
  ---
 ### 개발환경
 

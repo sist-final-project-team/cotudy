@@ -122,7 +122,7 @@
                     	<c:forEach var="i" begin="0" end="${filecount }">
 							<c:set var="status" value="${status+1}"/>
                     	 <img alt="" width="400" height="300"
-                           src="${fileDtolist.get(i).getStoredFilePath().substring(15) }">
+                           src="${fileDtolist.get(i).getStoredFilePath().substring("/home/ubuntu/cotudy".length()) }">
                            <br>
                     	</c:forEach>
                     	</c:if>
