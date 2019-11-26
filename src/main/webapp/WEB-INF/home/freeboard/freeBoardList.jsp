@@ -45,14 +45,14 @@
             <c:if test="${!empty list}">
                 <c:forEach items="${list}" var="freeboardDto">
                     <tr>
-                        <td>${freeboardDto.getFreeNum()}</td>
-                        <td>${freeboardDto.getFreeSubject()}</td>
-                        <td><a href="/freeCont?freeNum=${freeboardDto.getFreeNum()}&page=${page}"> ${freeboardDto.getFreeTitle()}<c:if test="${freeboardDto.getFreeReplyCnt() >0}">
+                        <td><c:out value="${freeboardDto.getFreeNum()}"/></td>
+                        <td><c:out value="${freeboardDto.getFreeSubject()}"/></td>
+                        <td><a href="/freeCont?freeNum=${freeboardDto.getFreeNum()}&page=${page}"> <c:out value="${freeboardDto.getFreeTitle()}"/><c:if test="${freeboardDto.getFreeReplyCnt() >0}">
                             (${freeboardDto.getFreeReplyCnt()})
                             </c:if> </a></td>
-                        <td>${freeboardDto.getMemId()}</td>
-                        <td>${freeboardDto.getFreeCreatedDate()}</td>
-                        <td>${freeboardDto.getFreeHit()}</td>
+                        <td><c:out value="${freeboardDto.getMemId()}"/></td>
+                        <td><c:out value="${freeboardDto.getFreeCreatedDate()}"/></td>
+                        <td><c:out value="${freeboardDto.getFreeHit()}"/></td>
                     </tr>
                 </c:forEach>
             </c:if>

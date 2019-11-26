@@ -225,25 +225,24 @@
             <table col="2" cellpadding="50" border="0">
                 <tr>
                     <td colspan="2">
-                        <p align="center" style="color: #533f03">${studyBoard.getStudyArea()}</p>
-                        <p align="center">주제: <b>${studyBoard.getStudyKeyword()}</b></p>
+                        <p align="center" style="color: #533f03"><c:out value="${studyBoard.getStudyArea()}"/></p>
+                        <p align="center">주제: <b><c:out value="${studyBoard.getStudyKeyword()}"/></b></p>
                         <h1 align="center" style="padding-left: 200px;
-                            padding-right: 200px;"><b>${studyBoard.getStudyTitle()}</b></h1>
+                            padding-right: 200px;"><b><c:out value="${studyBoard.studyTitle}"/></b></h1>
                         <div align="left"  style="float: left; width: 30%;">
-                            <span style="display: inline-block"><img src="https://img.icons8.com/material-sharp/24/000000/user.png">${studyBoard.getMemId()}</span>
+                            <span style="display: inline-block"><img src="https://img.icons8.com/material-sharp/24/000000/user.png"><c:out value="${studyBoard.getMemId()}"/></span>
                         </div>
-<div align="right">
 
+                        <div align="right">
+                            <p><span><img src="https://img.icons8.com/metro/26/000000/date-to.png">${studyBoard.getStudyCreated()}</span></p>
+                            <hr>
+                        </div>
 
-    <p><span><img src="https://img.icons8.com/metro/26/000000/date-to.png">  ${studyBoard.getStudyCreated()}</span></p>
-</div>
-                        <hr>
-                    </td>
                 </tr>
                 <tr>
                     <th style="vertical-align: top; padding-left:10px;padding-right:10px" ><h4>스터디 소개</h4></th>
 <%--                    <td><textarea  readonly cols="100"  placeholder="Type, paste, cut text here...">${studyBoard.getStudyCont()}</textarea></td>--%>
-                 <td style="white-space:pre;">${studyBoard.getStudyCont()}</td>
+                    <td style="white-space:pre;"><c:out value="${studyBoard.studyCont}"/> </td>
 <%--                    <td><pre>${studyBoard.getStudyCont()}</pre></td>--%>
 
                 </tr>
@@ -254,11 +253,11 @@
                     <th style="vertical-align: top; padding-left:10px;padding-right:10px" ><h4>상세 정보</h4></th>
                     <td>
                         <ul>
-                            <li>지역 : ${studyBoard.getStudyArea()}</li>
-                            <li>주제 : ${studyBoard.getStudyKeyword()}</li>
-                            <li>시작일 : ${studyBoard.getStudyStartDate()}</li>
-                            <li>종료일 : ${studyBoard.getStudyEndDate()}</li>
-                            <li>카카오 오픈챗 : <a href="${studyBoard.getStudyOpenchat()}">${studyBoard.getStudyOpenchat()}</a></li>
+                            <li>지역 : <c:out value="${studyBoard.getStudyArea()}"/></li>
+                            <li>주제 : <c:out value="${studyBoard.getStudyKeyword()}"/></li>
+                            <li>시작일 : <c:out value="${studyBoard.getStudyStartDate()}"/></li>
+                            <li>종료일 : <c:out value="${studyBoard.getStudyEndDate()}"/></li>
+                            <li>카카오 오픈챗 : <a href="<c:out value="${studyBoard.getStudyOpenchat()}"/>"><c:out value="${studyBoard.getStudyOpenchat()}"/></a></li>
                         </ul>
                     </td>
                 </tr>

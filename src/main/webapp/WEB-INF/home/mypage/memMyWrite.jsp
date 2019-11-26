@@ -30,10 +30,10 @@
             <c:forEach items="${free}" var="freeboardDto">
                 <tr>
                     <td>${freeboardDto.getFreeNum()}</td>
-                    <td>${freeboardDto.getFreeSubject()}</td>
-                    <td><a href="/freeCont?freeNum=${freeboardDto.getFreeNum()}"> <b>${freeboardDto.getFreeTitle()}</b></a>
+                    <td><c:out value="${freeboardDto.getFreeSubject()}"/></td>
+                    <td><a href="/freeCont?freeNum=${freeboardDto.getFreeNum()}"> <b><c:out value="${freeboardDto.getFreeTitle()}"/></b></a>
                     </td>
-                    <td>${freeboardDto.getMemId()}</td>
+                    <td><c:out value="${freeboardDto.getMemId()}"/></td>
                     <td>${freeboardDto.getFreeCreatedDate()}</td>
                 </tr>
             </c:forEach>
@@ -76,9 +76,9 @@
                             <div class="card">
                                 <img src="../resources/img/slide-3.jpg" height="180" width="180" class="card-img-top">
                                 <div class="card-body">
-                                    <h5 class="card-title">${studyList.getStudyTitle()}</h5>
-                                    <p class="card-text">장소 : ${studyList.getStudyArea()}<br>키워드
-                                        : ${studyList.getStudyKeyword()}<br>
+                                    <h5 class="card-title"><c:out value="${studyList.getStudyTitle()}"/></h5>
+                                    <p class="card-text">장소 : <c:out value="${studyList.getStudyArea()}"/><br>키워드
+                                        : <c:out value="${studyList.getStudyKeyword()}"/><br>
 <%--                                        일수:${endDate - strDate }; <br>--%>
 <%--                                        종료날짜:${endDate}<br>--%>
 <%--                                        시작날짜:${strDate}<br>--%>

@@ -24,9 +24,9 @@
 		<ul class="list-group">
   			<li class="list-group-item" style="font-weight:bold;" ><%=memId %></li>
   			<li class="list-group-item">
-  				이름 : ${meminfodto.getMemName()}<br>
-  				이메일 : ${meminfodto.getMemEmail()}<br>
-  				${meminfodto.getMemSalt()}
+  				이름 : <c:out value="${meminfodto.getMemName()}"/><br>
+  				이메일 : <c:out value="${meminfodto.getMemEmail()}"/><br>
+
   			</li>
 		</ul><br><br>
 		

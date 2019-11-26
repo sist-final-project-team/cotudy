@@ -109,15 +109,15 @@
 	
 				<tr>
 					<th>주제</th>
-					<td>${dto.getFreeSubject()}</td>
+					<td><c:out value="${dto.getFreeSubject()}"/></td>
 					<th>글제목</th>
-					<td>${dto.getFreeTitle() }</td>					
+					<td><c:out value="${dto.getFreeTitle() }"/></td>
 					<th>작성자</th>
-					<td>${dto.getMemId() }</td>
+					<td><c:out value="${dto.getMemId() }"/></td>
 				</tr>
 				<tr>
 					<th>글내용</th>
-                    <td colspan="5" style="white-space:pre;">${dto.getFreeCont()}
+                    <td colspan="5" style="white-space:pre;"><c:out value="${dto.getFreeCont()}"/>
                     	 <c:if test="${ filecount >= 0}">
                     	<c:forEach var="i" begin="0" end="${filecount }">
 							<c:set var="status" value="${status+1}"/>
@@ -185,12 +185,12 @@
 				<c:set var="index" value="${index+1}"/>
 				<c:set var="step" value="${reply.getReplyStep()}"/>
                <tr>
-				   <td>${reply.getMemId()}</td>
+				   <td><c:out value="${reply.getMemId()}"/></td>
 				   <c:if test="${step != 0}">
-				   <td style="text-align: left">☞${reply.getReplyCont()}</td>
+				   <td style="text-align: left">☞<c:out value="${reply.getReplyCont()}"/></td>
 				   </c:if>
 				   <c:if test="${step == 0}">
-					   <td style="text-align: left"><a href = "#none" onclick="show(${index})">${reply.getReplyCont()}</a></td>
+					   <td style="text-align: left"><a href = "#none" onclick="show(${index})"><c:out value="${reply.getReplyCont()}"/></a></td>
 				   </c:if>
 				   <td>${reply.getReplyCreatedDate()}
 					   <c:if test="${sessionScope.memId eq reply.getMemId()}">
@@ -218,7 +218,7 @@
 				</form>
 				<form method="post" action="<%=request.getContextPath()%>/freeReplyModify" onsubmit="return cont_check3(${index});" id="3">
 					<tr id = "modify${index}" style="display:none">
-						<td colspan="2"><textarea cols="70" rows="5" style="resize: none" name="replyCont" id="replyCont3${index}" >${reply.getReplyCont()}</textarea></td>
+						<td colspan="2"><textarea cols="70" rows="5" style="resize: none" name="replyCont" id="replyCont3${index}" ><c:out value="${reply.getReplyCont()}"/></textarea></td>
 						<input type="hidden" name="freeReplyNum" id="freeReplyNum${index}" value="${reply.getFreeReplyNum()}">
 						<input type="hidden" name="freeNum" value="${reply.getFreeNum()}">
 						<td><input type="submit" value="수정하기"></td>

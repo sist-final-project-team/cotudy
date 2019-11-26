@@ -34,9 +34,9 @@
 					<div class="card">
 						<img src="../resources/img/slide-3.jpg" height="180" width="180" class="card-img-top">
 						<div class="card-body">
-							<h5 class="card-title">${studyBoard.getStudyTitle()}</h5>
-							<p class="card-text">지역 : ${studyBoard.getStudyArea()}<br>키워드
-								: ${studyBoard.getStudyKeyword()}</p>
+							<h5 class="card-title"><c:out value="${studyBoard.getStudyTitle()}"/></h5>
+							<p class="card-text">지역 : <c:out value="${studyBoard.getStudyArea()}"/><br>키워드
+								: <c:out value="${studyBoard.getStudyKeyword()}"/></p>
                             <c:choose>
                                 <c:when test="${todayDate < strDate}">
                                     <div class="progress">
