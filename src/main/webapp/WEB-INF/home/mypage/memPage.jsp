@@ -24,15 +24,20 @@
 		<ul class="list-group">
   			<li class="list-group-item" style="font-weight:bold;" ><%=memId %></li>
   			<li class="list-group-item">
-  				이름 : ${meminfodto.getMemName()}<br>
-  				이메일 : ${meminfodto.getMemEmail()}<br>
+  				이름 : <c:out value="${meminfodto.getMemName()}"/><br>
+  				이메일 : <c:out value="${meminfodto.getMemEmail()}"/><br>
+
   			</li>
 		</ul><br><br>
 		
 			<button type="button"  class="btn btn-success btn-lg btn-block" onclick="location.href='/myWrite'">내가 쓴 글</button><br>
 			<button type="button"  class="btn btn-success btn-lg btn-block" onclick="location.href='/myBookMark'">북마크</button><br>
+
+			<c:if test= "${ !empty meminfodto.getMemSalt()}">
 			<button type="button"  class="btn btn-success btn-lg btn-block" onclick="location.href='/infoEditForm'">회원정보 수정</button><br>
 			<button type="button"  class="btn btn-success btn-lg btn-block" onclick="location.href='/pwdEditForm'">비밀번호 변경</button><br>
+			</c:if>
+			
 			<button type="button"  class="btn btn-success btn-lg btn-block" onclick="location.href='/out'">회원 탈퇴</button><br>
 		
 		</div>

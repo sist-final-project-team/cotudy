@@ -78,7 +78,7 @@
     </insert>
 
     <select id="selectMyStudyList" parameterType="String" resultType="com.project.cotudy.model.StudyBoardDto">
-        select * from study_board where mem_id=#{memId} and study_status='N'
+        select * from study_board where mem_id=#{memId} and study_status='N' order by study_num desc
     </select>
 
     <select id="getSaltById" parameterType="String" resultType="String">
