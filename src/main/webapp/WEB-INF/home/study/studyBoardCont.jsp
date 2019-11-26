@@ -78,7 +78,7 @@
                 url: "/studyReplyList", // 파일 주소와 경로
                 data: {"studyNum":studyNum},
                 success: function (data) {
-                    console.log(data);
+
                     var html = "  <tr>\n" +
                         "<th colspan=\"3\">댓글 목록</th>\n" +
                         "</tr>\n" +
@@ -90,6 +90,7 @@
                     var id = "<%=(String)session.getAttribute("memId")%>";
                     if(data.length>0){
                         for(var i=0;i<data.length;i++){
+                            data[i].studyReplyCont = data[i].studyReplyCont.replace(/(<([^>]+)>)/ig,"");
                             html += "<tr><td>"+data[i].memId+"</td>";
                             if(data[i].studyReplyStep!==0){
                                 html += "<td  style='text-align: left'>☞"+data[i].studyReplyCont+"</td>";
@@ -104,11 +105,11 @@
                                  studyReplyIndent = data[i].studyReplyIndent;
                                 html += "<input type='button' value='수정' onclick='replyModify("+i+")'>";
                                 html += "<input type='button' value='삭제' onclick='replyDeleteconfirm("+i+")'>";
-
                             }
+
                             html += "</td></tr>";
                             html += "<tr id='modify"+i+"' style='display: none'>";
-                            html += "<td colspan='2'><textarea cols='70' rows='5' style='text-align: left resize: none' name='studyReplyCont' id='modifyCont"+i+"'>"+data[i].studyReplyCont+"</textarea></td>";
+                            html += "<td colspan='2'><textarea cols='70' rows='5' style='text-align: left resize: none' name='studyReplyCont' id='modifyCont"+i+"'> "+data[i].studyReplyCont+"</textarea></td>";
                             html += "<input type='hidden' name='studyReplyNum' id='studyReplyNum"+i+"' value='"+studyReplyNum+"'>";
                             html += "<td><input type='button' value='수정하기' onclick='replyModifyOk("+i+")'></td>";
                             html += "</tr>";
