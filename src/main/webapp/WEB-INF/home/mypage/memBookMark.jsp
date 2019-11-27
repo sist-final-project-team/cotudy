@@ -15,7 +15,7 @@
 <jsp:include page="../header.jsp"></jsp:include>
 	<br><br><br><br><br><br><br>
 <div class="container">
-
+<h1 align="center">북마크</h1>
 	<c:if test="${!empty list}">
 		<div class="row">
 			<c:forEach var="studyBoard" items="${list}">

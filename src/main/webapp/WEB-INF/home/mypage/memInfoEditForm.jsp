@@ -17,14 +17,14 @@
 	<br><br><br><br><br><br><br>
 		
 	<div align="center">
-		<hr width="50%" color="purple">
-			<h3>회원정보 수정</h3>
-		<hr width="50%" color="purple">
+
 		
 		<form method="post" action="/infoEdit" >
 			<input type="hidden" name="memId" value="<%=memId%>">
 		 
 		<table border="1" width="400" cellspacing="0">
+			<img src="https://img.icons8.com/wired/64/000000/edit-user-female.png">
+			<h1>회원정보 변경</h1>
 				<tr>
 					<th>ID</th>
 					<td><%=memId %></td>
@@ -44,13 +44,13 @@
 						
 				<tr>
             <td colspan="6" align="center">
-                    <input type="submit" value="수정하기">&nbsp;&nbsp;&nbsp;
-                <input type="button" value="뒤로가기" onclick="location.href='/myPage'">
+                    <input type="submit" value="수정하기" class="btn btn-success">&nbsp;&nbsp;&nbsp;
+                <input type="button" value="뒤로가기" onclick="location.href='/myPage'" class="btn btn-dark">
             </td>
         </tr>
 				</table>
 		</form>
-	</div>		
-
+	</div>
+	<jsp:include page="../footer.jsp"></jsp:include>
 </body>
 </html>

@@ -20,7 +20,8 @@
 		
 	<form method="post" action="/pwdEdit" >
 		<table border="1" width="400" cellspacing="0">
-	
+			<img src="https://img.icons8.com/wired/64/000000/re-enter-pincode.png">
+			<h1>비밀번호 변경</h1>
 				<tr>
 					<th>현재 비밀번호</th>
 					<td><input name="nowpwd" type="password">
@@ -35,13 +36,13 @@
 						
 				<tr>
             <td colspan="6" align="center">
-                    <input type="submit" value="변경하기">&nbsp;&nbsp;&nbsp;
-                <input type="button" value="뒤로가기" onclick="location.href='/myPage'">
+                    <input type="submit" value="변경하기"class="btn btn-success">&nbsp;&nbsp;&nbsp;
+                <input type="button" value="뒤로가기" onclick="location.href='/myPage'"class="btn btn-dark">
             </td>
         </tr>
 				</table>
 		</form>
-	</div>		
-
+	</div>
+	<jsp:include page="../footer.jsp"></jsp:include>
 </body>
 </html>
