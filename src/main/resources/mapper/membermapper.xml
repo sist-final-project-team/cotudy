@@ -14,7 +14,7 @@
 
     <insert id="kakaoRegister" parameterType="map">
     INSERT INTO study_member (mem_id, mem_name, mem_email,mem_pwd)
-	VALUES (#{memId}, #{memName},#{memEmail},'zkzkdhfhrmdlsqlqjs');
+	VALUES (#{memId}, #{memName},#{memEmail},#{memPwd});
     </insert>
 
     <select id="loginCheck" parameterType="String" resultType="com.project.cotudy.model.StudyMemberDto">

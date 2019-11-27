@@ -27,7 +27,8 @@ public class MemberServiceImpl implements MemberService {
     //카카오 가입시키기
     @Override
     public void kakaoRegister(String memId, String memName, String memEmail) throws Exception {
-        memberMapper.kakaoRegister(memId,memName,memEmail);
+    	String memPwd = Double.toString((Math.random() * 1000000) + 1); 
+        memberMapper.kakaoRegister(memId,memName,memEmail,memPwd);
     }
     
     
