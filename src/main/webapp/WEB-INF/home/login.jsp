@@ -70,7 +70,7 @@
         <div class="form-group">
             <button type="submit" class="btn btn-primary btn-block" style="width: 279px; height: 49px">로그인</button>
             <br>
-            <a href="https://kauth.kakao.com/oauth/authorize?client_id=466c43b6799bd576421ad9edd9c3944c&redirect_uri=http://localhost:9000/main&response_type=code">
+            <a href="https://kauth.kakao.com/oauth/authorize?client_id=b5403f20bcc35ced05caf41f3b74b6da&redirect_uri=http://54.180.48.102:9000/&response_type=code">
                 <img style="width: 279px; height: 49px" src="images/kakao_account_login_btn_medium_wide.png"> </a>
         </div>
         

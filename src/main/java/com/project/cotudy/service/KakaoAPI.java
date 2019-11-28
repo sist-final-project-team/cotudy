@@ -36,8 +36,8 @@ public class KakaoAPI {
             BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(conn.getOutputStream()));
             StringBuilder sb = new StringBuilder();
             sb.append("grant_type=authorization_code");
-            sb.append("&client_id=466c43b6799bd576421ad9edd9c3944c");
-            sb.append("&redirect_uri=http://localhost:9000/main");
+            sb.append("&client_id=b5403f20bcc35ced05caf41f3b74b6da");
+            sb.append("&redirect_uri=http://54.180.48.102:9000/");
             sb.append("&code=" + authorize_code);
             bw.write(sb.toString());
             bw.flush();
