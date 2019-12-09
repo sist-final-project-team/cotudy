@@ -42,7 +42,7 @@
             <tr>
                 <th>지역</th>
                 <td>
-                    <select name="studyArea" required="required" value="${studyBoard.getStudyArea()}>
+                    <select name="studyArea" required="required" value="${studyBoard.getStudyArea()}">
                         <option value="">지역선택</option>
              	       <option value="서울">서울</option>
                 	    <option value="인천">인천</option>

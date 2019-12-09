@@ -483,7 +483,7 @@ public class StudyController {
 
         //이전에 탈퇴했다가 로그인하는사람일경우(status x일 경우) o로 바꿔주기
         StudyMemberDto meminfodto = memberService.selectMyInfo(memId); //회원정보 가져오기
-        if (meminfodto.getMemStatus().equals("X")) {
+        if (meminfodto.getMemStatus().equals("x")) {
             memberService.changeStatus(memId);
         }
 

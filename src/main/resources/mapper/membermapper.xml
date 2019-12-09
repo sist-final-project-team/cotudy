@@ -19,7 +19,7 @@
 
     <select id="loginCheck" parameterType="String" resultType="com.project.cotudy.model.StudyMemberDto">
 
-            select * from study_member where mem_id = #{memId} AND mem_status='O'
+            select * from study_member where mem_id = #{memId} AND mem_status= default;
 
     </select>
     <select id="kakaoDbCheck" parameterType="String" resultType="String">
@@ -40,7 +40,7 @@
     </select>
 
     <select id="selectMyFreeBoardList" parameterType="String" resultType="com.project.cotudy.model.FreeBoardDto">
-        select * from free_board where mem_id=#{memId} AND  free_deleted='N' order by free_num desc
+        select * from free_board where mem_id=#{memId} AND  free_deleted='N' order by free_num desc;
     </select>
 
     <update id="updateMember" parameterType="com.project.cotudy.model.StudyMemberDto">
@@ -63,7 +63,7 @@
 	</update>
     <update id="deleteMember" parameterType="String">
         UPDATE study_member SET
-        mem_status = 'X'
+        mem_status = 'x'
         WHERE
         mem_id=#{memId}
     </update>
@@ -91,7 +91,7 @@
     </update>
 
     <update id="changeStatus" parameterType="String">
-        update study_member set mem_status = 'O' where mem_id = #{memId};
+        update study_member set mem_status = 'o' where mem_id = #{memId};
     </update>
 
 </mapper>
