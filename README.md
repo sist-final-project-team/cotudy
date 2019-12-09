@@ -1,7 +1,9 @@
 # cotudy
  ### IT계열 전용 스터디 모집 사이트
- ### http://www.ab
+ ### http://54.180.48.102:9000/
  ---
+ ![cotudymain2](https://user-images.githubusercontent.com/54975983/70296628-9d9b8a00-182e-11ea-99f3-a7986d8ddf41.png)
+---
 ### 개발환경
 
 Framework : SpringBoot, MyBatis
