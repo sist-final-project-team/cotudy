@@ -19,7 +19,7 @@
 
     <select id="loginCheck" parameterType="String" resultType="com.project.cotudy.model.StudyMemberDto">
 
-            select * from study_member where mem_id = #{memId} AND mem_status= default;
+            select * from study_member where mem_id = #{memId} AND mem_status= 'o';
 
     </select>
     <select id="kakaoDbCheck" parameterType="String" resultType="String">
